@@ -1,4 +1,5 @@
 // theme.js
+// This is the default theme btw, we can change this later...
 
 import { createTheme } from '@mui/material/styles';
 
