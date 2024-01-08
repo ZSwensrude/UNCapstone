@@ -8,13 +8,18 @@ import { Route, Link, Routes, BrowserRouter } from 'react-router-dom';
 
 // import the main pages we need
 import Home from '../pages/Home.js';
+import Dias from '../pages/Dias.js';
+import Delegate from '../pages/Delegate.js';
 
 function Main() {
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Routes>
+          {/* To add a new page, import the page element, create a new <Route/>, then add the path and element */}
           <Route exact path='/' element={<Home />} />
+          <Route exact path='/dias' element={<Dias />} />
+          <Route exact path='/delegate' element={<Delegate />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

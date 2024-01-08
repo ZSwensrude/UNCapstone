@@ -2,13 +2,13 @@ import { Typography } from "@mui/material";
 import React from "react";
 
 
-const Home = () => {
+const Dias = () => {
   return (
     <div >
-      <Typography variant="h1">Home</Typography>
+      <Typography variant="h1">Dias</Typography>
     </div>
   );
 }
 
 
-export default Home;
+export default Dias;
