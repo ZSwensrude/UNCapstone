@@ -1,5 +1,5 @@
 // theme.js
-// This is the default theme btw, we can change this later...
+// This is mostly the default theme btw, we can change this later...
 
 import { createTheme } from '@mui/material/styles';
 
@@ -19,13 +19,17 @@ const theme = createTheme({
     // Add more typography customizations as needed
   },
   palette: {
+    mode: 'light',
     primary: {
-      main: '#1976d2', // Blue color for primary elements
+      main: '#009edb', // Blue color for primary elements
     },
     secondary: {
-      main: '#f50057', // Pink color for secondary elements
+      main: '#800000', // Pink color for secondary elements
     },
     // Add more palette customizations as needed
+    background: {
+      default: '#f0f0f0'
+    },
   },
   // Add more customizations like spacing, breakpoints, etc.
 });
