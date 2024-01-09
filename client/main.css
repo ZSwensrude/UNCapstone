@@ -2,3 +2,10 @@ body {
   padding: 10px;
   font-family: sans-serif;
 }
+
+
+.default {
+  position: absolute;
+  left: 50%;
+  right: 50%;
+}
