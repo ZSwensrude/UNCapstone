@@ -1,31 +1,35 @@
 import { Meteor } from 'meteor/meteor';
 import { LinksCollection } from '/imports/api/links';
 
-async function insertLink({ title, url }) {
-  await LinksCollection.insertAsync({ title, url, createdAt: new Date() });
+async function insertLink({ country, vote, motion }) {
+  await LinksCollection.insertAsync({ country, vote, motion, createdAt: new Date() });
 }
 
 Meteor.startup(async () => {
   // If the Links collection is empty, add some data.
   if (await LinksCollection.find().countAsync() === 0) {
     await insertLink({
-      title: 'Do the Tutorial',
-      url: 'https://react-tutorial.meteor.com/simple-todos/01-creating-app.html',
+      country: 'USA',
+      vote: 'Yes',
+      motion: 'Motion A',
     });
 
     await insertLink({
-      title: 'Follow the Guide',
-      url: 'https://guide.meteor.com',
+      country: 'Canada',
+      vote: 'No',
+      motion: 'Motion B',
     });
 
     await insertLink({
-      title: 'Read the Docs',
-      url: 'https://docs.meteor.com',
+      country: 'UK',
+      vote: 'Abstain',
+      motion: 'Motion C',
     });
 
     await insertLink({
-      title: 'Discussions',
-      url: 'https://forums.meteor.com',
+      country: 'Australia',
+      vote: 'Yes',
+      motion: 'Motion D',
     });
   }
 

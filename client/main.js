@@ -34,6 +34,7 @@ function Main() {
 }
 
 Meteor.startup(() => {
+  Meteor.subscribe("links");
   const container = document.getElementById('react-target');
   const root = createRoot(container);
   root.render(<Main />);
