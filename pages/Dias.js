@@ -6,6 +6,7 @@ const Dias = () => {
   return (
     <div >
       <Typography variant="h1">Dias</Typography>
+      <h1>DIAS PAGE</h1>
     </div>
   );
 }

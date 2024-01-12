@@ -20,7 +20,6 @@ function Main() {
     <ThemeProvider theme={theme}>
       <div className='default'>
         <BrowserRouter>
-          <Navbar />
           <Routes>
             {/* To add a new page, import the page element, create a new <Route/>, then add the path and element */}
             <Route exact path='/' element={<Home />} />
@@ -33,6 +32,7 @@ function Main() {
   );
 }
 
+// <Navbar />
 Meteor.startup(() => {
   const container = document.getElementById('react-target');
   const root = createRoot(container);
