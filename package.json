@@ -25,5 +25,8 @@
       "server": "server/main.js"
     },
     "testModule": "tests/main.js"
+  },
+  "devDependencies": {
+    "file-loader": "^6.2.0"
   }
 }

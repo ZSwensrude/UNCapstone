@@ -5,8 +5,8 @@ import React from "react";
 const Dias = () => {
   return (
     <div >
-      <Typography variant="h1">Dias</Typography>
-      <h1>DIAS PAGE</h1>
+      <Typography variant="h3">Dias</Typography>
+
     </div>
   );
 }

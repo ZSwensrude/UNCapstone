@@ -5,10 +5,11 @@ import LockIcon from '@mui/icons-material/Lock';
 import PublicIcon from '@mui/icons-material/Public';
 import InfoIcon from '@mui/icons-material/Info';
 import GavelIcon from '@mui/icons-material/Gavel';
-import UNLogo from './pictures'
+//import UNLogo from './pictures/Unlogo.jpg';
 import { Link } from 'react-router-dom';
 const countries = ['Country','Canada', 'Brazil', 'UK', 'USA'];
-import Dias from '../pages/Dias.js';
+//import Dias from '../pages/Dias.js';
+
 
 // Placeholder home screen
 const Home = () => {
@@ -16,7 +17,7 @@ const Home = () => {
     <div className="all">
 
         <div className= "top">
-            <h2>Welcome to Project Pitbull</h2>
+            <h2>Welcome to United Nations</h2>
         </div>
 
         <div className="logins">
@@ -68,7 +69,9 @@ const Home = () => {
                 </div>
 
                 <div className="submitButton">
+                <Link to={'/delegate'}>
                     <button type="submit">Login</button>
+                </Link>
                     </div>
                 </div>
         </div>
