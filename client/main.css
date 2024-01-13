@@ -8,3 +8,9 @@ body {
   position: absolute;
 
 }
+
+.conferenceTest form{
+display: flex;
+flex-direction: column;
+
+}
