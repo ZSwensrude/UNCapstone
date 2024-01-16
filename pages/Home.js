@@ -7,7 +7,6 @@ import InfoIcon from '@mui/icons-material/Info';
 import GavelIcon from '@mui/icons-material/Gavel';
 //import UNLogo from './pictures/Unlogo.jpg';
 import { Link } from 'react-router-dom';
-const countries = ['Country','Canada', 'Brazil', 'UK', 'USA'];
 //import Dias from '../pages/Dias.js';
 
 
