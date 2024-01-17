@@ -9,6 +9,10 @@ body {
   display: flexbox;
 }
 
+.logo {
+  display: flexbox;
+}
+
 .topnav {
   background-color:#009edb;
 
@@ -97,4 +101,5 @@ button {
   border-color: #00DB89;
   width: 90px;
 }
+
 
