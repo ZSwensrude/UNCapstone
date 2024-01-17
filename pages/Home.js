@@ -1,215 +1,105 @@
 import { Typography } from "@mui/material";
-import React, { useState, useEffect } from 'react';
-import { useTracker } from 'meteor/react-meteor-data';
-import { insertConference, conferenceCollection } from '/imports/api/conference';
+import React from "react";
+import './HomeIndex.css';
+import LockIcon from '@mui/icons-material/Lock';
+import PublicIcon from '@mui/icons-material/Public';
+import InfoIcon from '@mui/icons-material/Info';
+import GavelIcon from '@mui/icons-material/Gavel';
+//import UNLogo from '/images/Unlogo.jpg';
+import { Link } from 'react-router-dom';
+//import Dias from '../pages/Dias.js';
 
-const ConferenceContainer = () => {
-  const conferences = useTracker(() => {
-    Meteor.subscribe('conferences'); 
-    return conferenceCollection.find().fetch(); //read DB
-  });
-
+const Home=()=>{
   return (
-    <div>
-      {conferences.length > 0 ? (
-        conferences.map((conference) => (
-          <div key={conference._id}>
-            <Typography variant="h6">Session ID: {conference.sessionID}</Typography>
-            {/* Add more details as we want - just for example purposes */}
-          </div>
-        ))
-      ) : (
-        <Typography variant="body1">No conferences found.</Typography>
-      )}
-    </div>
-  );
-};
+    <div className="all">
+        <div className="logo">
+        <img src={window.location.origin + '/images/Unlogo.jpg'} alt="logoImage" />
+        </div>
+        <div className= "top">
+            <h2>Welcome to United Nations</h2>
+        </div>
 
-const Home = () => {
-  const [formData, setFormData] = useState({
-    sessionID: '',
-    delegates: [],
-    dias: [],
-    DMs: [],
-    motions: [],
-    speakers: [],
-    workingGroups: [],
-    status: 'formal',
-  });
+        <div className="logins">
+            <div className="container1">
+            <img src={window.location.origin + '/images/lecturer.png'} alt="lecturerImage" />
+                <h1>Dias Login</h1>
+                
+                    <div className="usernameLabel">
+                        <h6>Username</h6> 
+                        <div className="input-box">
+                            <input type="text" required />
+                        </div>
+                        <GavelIcon style={{ color: "white" }}/>
+                    </div>
 
-  useEffect(() => {
-    // Fetch all conferences when the component mounts
-    const allConferences = conferenceCollection.find().fetch();
-    console.log('All Conferences:', allConferences);
+                    <div className="passwordLabel">
+                        <h6>Password</h6>
+                        <div className="input-box">
+                            <input type="password" required />
+                        </div>
+                        <LockIcon style={{ color: "white" }}/>
+                    </div>
 
-    if (allConferences.length > 0) {
-      setFormData((prevData) => ({
-        ...prevData,
-        sessionID: allConferences[0].sessionID,
-      }));
-    }
-  }, []); // The empty dependency array ensures this effect runs only once on mount
-
-  const handleInputChange = (field, value) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      [field]: value,
-    }));
-  };
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    console.log('Submitting form...');
-    try {
-      await insertConference(formData);
-      console.log('Form submitted successfully!');
-      setFormData({
-        sessionID: '',
-        delegates: [],
-        dias: [],
-        DMs: [],
-        motions: [],
-        speakers: [],
-        workingGroups: [],
-        status: 'formal',
-      });
-    } catch (error) {
-      console.error('Error submitting form:', error);
-    }
-  };
-
-  return (
-    <div className="conferenceTest">
-       <h1>Conference Form</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Session ID:
-          <input
-            type="text"
-            value={formData.sessionID}
-            onChange={(e) => handleInputChange('sessionID', e.target.value)}
-          />
-        </label>
-
-        {/* Delegates */}
-        <label>
-          Delegates:
-          {formData.delegates.map((delegate, index) => (
-            <div key={index}>
-              <input
-                type="text"
-                placeholder="Country"
-                value={delegate.country || ''}
-                onChange={(e) => handleInputChange('delegates', updateArray(formData.delegates, index, { country: e.target.value }))}
-              />
-              <input
-                type="text"
-                placeholder="Role Call"
-                value={delegate.roleCall || ''}
-                onChange={(e) => handleInputChange('delegates', updateArray(formData.delegates, index, { roleCall: e.target.value }))}
-              />
+                    <div className="diasButtons">
+                    <button className="register" type="submit">Register</button>
+                    <Link to={'/dias'}>
+                    <button type="submit">Login</button>
+                    </Link>
+                    </div>
             </div>
-          ))}
-          <button type="button" onClick={() => handleInputChange('delegates', [...formData.delegates, { country: '', roleCall: '' }])}>
-            Add Delegate
-          </button>
-        </label>
 
-        {/* Dias */}
-        <label>
-          Dias:
-          {formData.dias.map((dia, index) => (
-            <div key={index}>
-              <input
-                type="text"
-                placeholder="User"
-                value={dia.user || ''}
-                onChange={(e) => handleInputChange('dias', updateArray(formData.dias, index, { user: e.target.value }))}
-              />
-              <input
-                type="text"
-                placeholder="Password"
-                value={dia.pass || ''}
-                onChange={(e) => handleInputChange('dias', updateArray(formData.dias, index, { pass: e.target.value }))}
-              />
+            <div className="container2">
+            <div className="heading">   
+            <img src={window.location.origin + '/images/delegate.png'} alt="lecturerImage" />
+            <h1>Delegate Login</h1>
             </div>
-          ))}
-          <button type="button" onClick={() => handleInputChange('dias', [...formData.dias, { user: '', pass: '' }])}>
-            Add Dia
-          </button>
-        </label>
+                <div className="countryLabel">
+                <label for="cars">Country</label>
+                <select name="countries" id="countries">
+                    <option value="choice"></option>
+                    <option value="afganistan">Afganistan</option>
+                    <option value="albania">Albania</option>
+                    <option value="algeria">Algeria</option>
+                    <option value="andorra">Andorra</option>
+                    <option value="angola">Angola</option>
+                    <option value="antiguaAndBarbuda">Antigua and Barbuda</option>
+                    <option value="argentina">Argentia</option>
+                    <option value="canada">Canada</option>
+                    <option value="united kingdom">United Kingdom</option>
+                </select>
+                <PublicIcon style={{ color: "white"}} />
+                </div>
+                
+                <div className="sessionLabel">
+                    <h6>Session ID</h6>
+                    <div className="input-box">
+                        <input type="text" required />
+                    </div>
+                    <InfoIcon style={{ color: "white"}} />
+                </div>
 
-        {/* DMs */}
-        <label>
-          DMs:
-          {formData.DMs.map((dm, index) => (
-            <div key={index}>
-              {/* Similar approach for DMs */}
-            </div>
-          ))}
-          <button type="button" onClick={() => handleInputChange('DMs', [...formData.DMs, { /* Default values */ }])}>
-            Add DM
-          </button>
-        </label>
+                <div className="submitButton">
+                <Link to={'/delegate'}>
+                    <button type="submit">Login</button>
+                </Link>
+                    </div>
+                </div>
+                {/* TO import images, you can put the image in /public/images/ then import it with the following:
+                 window.location.origin + '/images/YourImage.whatever*/}
 
-        {/* Motions */}
-        <label>
-          Motions:
-          {formData.motions.map((motion, index) => (
-            <div key={index}>
-              {/* Similar approach for Motions */}
-            </div>
-          ))}
-          <button type="button" onClick={() => handleInputChange('motions', [...formData.motions, { /* Default values */ }])}>
-            Add Motion
-          </button>
-        </label>
-
-        {/* Speakers */}
-        <label>
-          Speakers:
-          {formData.speakers.map((speaker, index) => (
-            <div key={index}>
-              {/* Similar approach for Speakers */}
-            </div>
-          ))}
-          <button type="button" onClick={() => handleInputChange('speakers', [...formData.speakers, { /* Default values */ }])}>
-            Add Speaker
-          </button>
-        </label>
-
-        {/* Working Groups */}
-        <label>
-          Working Groups:
-          {formData.workingGroups.map((wg, index) => (
-            <div key={index}>
-              {/* Similar approach for Working Groups */}
-            </div>
-          ))}
-          <button type="button" onClick={() => handleInputChange('workingGroups', [...formData.workingGroups, { /* Default values */ }])}>
-            Add Working Group
-          </button>
-        </label>
-
-        {/* Status */}
-        <label>
-          Status:
-          <select
-            value={formData.status}
-            onChange={(e) => handleInputChange('status', e.target.value)}
-          >
-            <option value="formal">Formal</option>
-            <option value="informal">Informal</option>
-          </select>
-        </label>
-
-        <button type="submit">Submit</button>
-      </form>
-    
-          {/* Render the container with the fetched conference data */}
-          <ConferenceContainer sessionID={formData.sessionID} />
+        </div>
     </div>
     
-  );
-};
-
+    );
+    
+}
+/*
+        <BrowserRouter>
+        <Routes>
+        <Route exact path='/dias' element={<Dias />} />
+        </Routes>
+        </BrowserRouter>
+*/
+//
 export default Home;
+

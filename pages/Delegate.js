@@ -13,18 +13,9 @@ const Delegate = () => {
   // }, []);
 
   return (
-    <div>
-      <Typography variant="h1">Delegate</Typography>
-      {/* <ul>
-        {links.map((link) => (
-          <li key={link._id}>
-            <strong>Country:</strong> {link.country}, {" "}
-            <strong>Vote:</strong> {link.vote}, {" "}
-            <strong>Motion:</strong> {link.motion}, {" "}
-            <strong>Created At:</strong> {link.createdAt.toString()}
-          </li>
-        ))}
-      </ul> */}
+    
+    <div >
+      <Typography variant="h3">Delegate</Typography>
     </div>
   );
 };
