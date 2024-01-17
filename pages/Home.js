@@ -5,7 +5,7 @@ import LockIcon from '@mui/icons-material/Lock';
 import PublicIcon from '@mui/icons-material/Public';
 import InfoIcon from '@mui/icons-material/Info';
 import GavelIcon from '@mui/icons-material/Gavel';
-//import UNLogo from './pictures/Unlogo.jpg';
+//import UNLogo from '/images/Unlogo.jpg';
 import { Link } from 'react-router-dom';
 //import Dias from '../pages/Dias.js';
 
@@ -73,11 +73,14 @@ const Home = () => {
                 </Link>
                     </div>
                 </div>
+                {/* TO import images, you can put the image in /public/images/ then import it with the following:
+                 window.location.origin + '/images/YourImage.whatever*/}
+<img src={window.location.origin + '/images/Unlogo.jpg'} alt="logoImage" />
         </div>
     </div>
     
-  );
-  
+    );
+    
 }
 /*
         <BrowserRouter>
@@ -86,6 +89,6 @@ const Home = () => {
         </Routes>
         </BrowserRouter>
 */
-//<img src={UNLogo} alt="logoImage" />
+//
 export default Home;
 
