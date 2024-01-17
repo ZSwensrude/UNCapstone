@@ -5,7 +5,7 @@ import React from "react";
 const Delegate = () => {
   return (
     <div >
-      <Typography variant="h1">Delegate</Typography>
+      <Typography variant="h3">Delegate</Typography>
     </div>
   );
 }
