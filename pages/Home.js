@@ -5,7 +5,7 @@ import LockIcon from '@mui/icons-material/Lock';
 import PublicIcon from '@mui/icons-material/Public';
 import InfoIcon from '@mui/icons-material/Info';
 import GavelIcon from '@mui/icons-material/Gavel';
-//import UNLogo from './pictures/Unlogo.jpg';
+
 import { Link } from 'react-router-dom';
 //import Dias from '../pages/Dias.js';
 
@@ -53,6 +53,13 @@ const Home = () => {
                 <label for="cars">Country</label>
                 <select name="countries" id="countries">
                     <option value="choice"></option>
+                    <option value="afganistan">Afganistan</option>
+                    <option value="albania">Albania</option>
+                    <option value="algeria">Algeria</option>
+                    <option value="andorra">Andorra</option>
+                    <option value="angola">Angola</option>
+                    <option value="antiguaAndBarbuda">Antigua and Barbuda</option>
+                    <option value="argentina">Argentia</option>
                     <option value="canada">Canada</option>
                     <option value="united kingdom">United Kingdom</option>
                 </select>
