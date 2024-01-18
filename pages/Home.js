@@ -54,7 +54,7 @@ const Home=()=>{
             <h1>Delegate Login</h1>
             </div>
                 <div className="countryLabel">
-                <label for="cars">Country</label>
+                <label htmlFor="country">Country</label>
                 <select name="countries" id="countries">
                     <option value="choice"></option>
                     <option value="afganistan">Afganistan</option>
