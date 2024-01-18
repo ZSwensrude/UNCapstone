@@ -9,9 +9,7 @@ import GavelIcon from '@mui/icons-material/Gavel';
 import { Link } from 'react-router-dom';
 //import Dias from '../pages/Dias.js';
 
-
-// Placeholder home screen
-const Home = () => {
+const Home=()=>{
   return (
     <div className="all">
         <div className="logo">
@@ -56,7 +54,7 @@ const Home = () => {
             <h1>Delegate Login</h1>
             </div>
                 <div className="countryLabel">
-                <label for="cars">Country</label>
+                <label htmlFor="country">Country</label>
                 <select name="countries" id="countries">
                     <option value="choice"></option>
                     <option value="afganistan">Afganistan</option>

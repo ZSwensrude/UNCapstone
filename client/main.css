@@ -5,7 +5,12 @@ body {
 
 
 .default {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: absolute;
+
+}
+
+.conferenceTest form{
+display: flex;
+flex-direction: column;
+
 }
