@@ -116,6 +116,14 @@ hr {
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 4px;
-  padding-right: 100px;
+  padding-right: 20px;
   border-radius: 30px;
+  display: flex;
 }
+
+#toggleText {
+  color: white;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
