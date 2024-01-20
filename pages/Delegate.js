@@ -7,7 +7,7 @@ const Delegate = () => {
 
   return (
     <div >
-      <Header country={"Ireland"} />
+      <Header country={"Ireland"} flagPath={'/images/flagPlaceholder.png'} />
       <Typography variant="h1">Delegate</Typography>
     </div>
   );
