@@ -24,7 +24,6 @@
 #flag {
   height: 90px;
   width: auto;
-  /* border: 2px solid black; */
   margin-right: 10px;
 }
 
@@ -35,4 +34,41 @@
 
 #un {
   height: 80px;
+}
+
+
+#top {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: #009EDB;
+  margin: auto;
+  margin-bottom: 15px;
+  border-radius: 30px;
+  width: 60%;
+}
+
+#body {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: #009EDB;
+  margin: auto;
+  border-radius: 30px;
+  height: 75vh;
+  width: 35vh;
+}
+
+
+#speakers {
+  position: fixed;
+  text-align: center;
+  left: 5vh;
+}
+
+hr {
+  height: 2px;
+  background-color: white;
 }

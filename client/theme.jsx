@@ -11,6 +11,7 @@ const theme = createTheme({
     h1: {
       fontSize: '2.5rem',
       fontWeight: 500,
+      color: 'black'
     },
     h2: {
       fontSize: '2rem',
@@ -19,6 +20,16 @@ const theme = createTheme({
     h3: {
       fontSize: '48px',
       fontWeight: 800
+    },
+    h4: {
+      fontSize: '36px',
+      fontWeight: 400,
+      color: 'white',
+    },
+    h5: {
+      fontSize: '24px',
+      fontWeight: 600,
+      color: 'white',
     }
     // Add more typography customizations as needed
   },

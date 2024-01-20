@@ -1,15 +1,32 @@
 import { Typography } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import Header from "../components/Header";
+
+import './delegate.css'
+import SpeakersList from "../components/SpeakersList";
 
 // Placeholder for delegate screen
 const Delegate = () => {
+  const [formal, setFormal] = useState(true);
 
   return (
-    <div >
+    <>
       <Header version={'delegate'} country={"Ireland"} flagPath={'/images/flagPlaceholder.png'} />
-      <Typography variant="h1">Delegate</Typography>
-    </div>
+      <div id="main">
+        {/* <Typography variant="h1">Delegate</Typography> */}
+        { formal ? (
+          // this will be the formal delegate dashboard
+          <>
+            <SpeakersList />
+          </>
+        ) : (
+          // and here is the informal
+          <>
+          <p>test</p>
+          </>
+        )}
+      </div>
+    </>
   );
 };
 
