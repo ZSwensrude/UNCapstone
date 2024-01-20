@@ -88,7 +88,6 @@ hr {
   padding-bottom: 2px;
   padding-left: 25px;
   border-radius: 30px;
-  color: white;
   width: fit-content;
   transition: transform 0.3s ease;
 }
@@ -110,4 +109,13 @@ hr {
   position: absolute;
   bottom: 1px;
   padding-right: 10px;
+}
+
+#toggleBack {
+  background-color: black;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 4px;
+  padding-right: 100px;
+  border-radius: 30px;
 }

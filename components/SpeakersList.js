@@ -31,7 +31,7 @@ const SpeakersList = () => {
         {/* put speakers queue here */}
 
         <div id='joinButton'>
-          <CoolButton buttonText='join queue' buttonColor={'#FF9728'} onClick={onClick}/>
+          <CoolButton buttonText='join queue' buttonColor={'#FF9728'} textColor={'white'} onClick={onClick}/>
         </div>
       </Paper>
     </div>
