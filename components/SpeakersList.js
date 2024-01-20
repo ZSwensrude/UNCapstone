@@ -5,6 +5,9 @@ import CoolButton from './CoolButton';
 
 
 const SpeakersList = () => {
+  const onClick = () => {
+    console.log("join button clicked");
+  }
 
   return(
     <div id='speakers'>
@@ -17,14 +20,18 @@ const SpeakersList = () => {
         <Typography variant='h5'>
           Currently Speaking:
         </Typography>
+        
         {/* put currently speaking here */}
+        
         <hr />
         <Typography variant='h5'>
           In Queue:
         </Typography>
 
+        {/* put speakers queue here */}
+
         <div id='joinButton'>
-          <CoolButton buttonText='join queue' buttonColor={'#FF9728'}/>
+          <CoolButton buttonText='join queue' buttonColor={'#FF9728'} onClick={onClick}/>
         </div>
       </Paper>
     </div>

@@ -3,13 +3,10 @@ import './components.css';
 import { Typography, Paper } from '@mui/material';
 
 
-const CoolButton = ({ buttonText, buttonColor }) => {
-  const TestClick = () => {
-    console.log("Clicked button: ", buttonText);
-  }
+const CoolButton = ({ buttonText, buttonColor, onClick }) => {
 
   return (
-    <Paper onClick={TestClick} id='button' style={{backgroundColor:buttonColor}}>
+    <Paper onClick={onClick} id='button' style={{backgroundColor:buttonColor}}>
       <Typography>
         {buttonText}
       </Typography>
