@@ -11,18 +11,24 @@ import DelegateToggle from "../components/DelegateToggle";
 const Delegate = () => {
   const [formal, setFormal] = useState(true);
 
+  const ToggleClick = () => {
+    setFormal(!formal);
+    console.log("formal", formal);
+  };
+
   return (
     <div id="container">
       <Header version={'delegate'} country={"Ireland"} flagPath={'/images/flagPlaceholder.png'} />
       <div id="main">
         {/* <Typography variant="h1">Delegate</Typography> */}
+        <div>
+          <DelegateToggle formal={formal} onClick={ToggleClick}/>
+        </div>
         { formal ? (
           // this will be the formal delegate dashboard
           <>
             <SpeakersList />
-            <div>
-              <DelegateToggle />
-            </div>
+            
             <div id="bottomButton">
               <CoolButton buttonColor={'#00DBD4'} textColor={'white'} buttonText={'view presentation screen'}/>
             </div>

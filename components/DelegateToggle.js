@@ -3,11 +3,20 @@ import './components.css';
 import { Typography, Paper } from '@mui/material';
 import CoolButton from './CoolButton';
 
-const DelegateToggle = () => {
+const DelegateToggle = ({ formal, onClick }) => {
   return (
     <Paper id='toggleBack'>
-      <CoolButton buttonColor={'white'} textColor={'black'} buttonText={'Formal'} />
-      <Typography id='toggleText' >Informal</Typography>
+      { formal ? (
+        <>
+          <CoolButton buttonColor={'white'} textColor={'black'} buttonText={'Formal'} onClick={onClick}/>
+          <Typography id='toggleText' >Informal</Typography>
+        </>
+      ) : (
+        <>
+          <Typography id='toggleText' >Formal</Typography>
+          <CoolButton buttonColor={'white'} textColor={'black'} buttonText={'Informal'} onClick={onClick}/>
+        </> 
+      )}
     </Paper>
   );
 }

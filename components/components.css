@@ -116,14 +116,17 @@ hr {
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 4px;
-  padding-right: 20px;
+  padding-right: 4px;
   border-radius: 30px;
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #toggleText {
   color: white;
   padding-left: 16px;
   padding-right: 16px;
+  
 }
 
