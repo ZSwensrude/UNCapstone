@@ -5,6 +5,13 @@
   height: '100vh';
 }
 
+#toggleButton {
+  position: fixed;
+  top: 110px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 #bottomButton {
   position: fixed;
   bottom: 1vh;

@@ -21,7 +21,7 @@ const Delegate = () => {
       <Header version={'delegate'} country={"Ireland"} flagPath={'/images/flagPlaceholder.png'} />
       <div id="main">
         {/* <Typography variant="h1">Delegate</Typography> */}
-        <div>
+        <div id="toggleButton">
           <DelegateToggle formal={formal} onClick={ToggleClick}/>
         </div>
         { formal ? (
@@ -39,7 +39,7 @@ const Delegate = () => {
         ) : (
           // and here is the informal
           <>
-          <p>test</p>
+          
           </>
         )}
       </div>

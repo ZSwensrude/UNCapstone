@@ -8,13 +8,13 @@ const DelegateToggle = ({ formal, onClick }) => {
     <Paper id='toggleBack'>
       { formal ? (
         <>
-          <CoolButton buttonColor={'white'} textColor={'black'} buttonText={'Formal'} onClick={onClick}/>
-          <Typography id='toggleText' >Informal</Typography>
+          <Typography id='toggleText' >Formal</Typography>
+          <CoolButton buttonColor={'black'} textColor={'white'} buttonText={'Informal'} onClick={onClick}/>
         </>
       ) : (
         <>
-          <Typography id='toggleText' >Formal</Typography>
-          <CoolButton buttonColor={'white'} textColor={'black'} buttonText={'Informal'} onClick={onClick}/>
+          <CoolButton buttonColor={'black'} textColor={'white'} buttonText={'Formal'} onClick={onClick}/>
+          <Typography id='toggleText' >Informal</Typography>
         </> 
       )}
     </Paper>
