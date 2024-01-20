@@ -16,6 +16,10 @@ const theme = createTheme({
       fontSize: '2rem',
       fontWeight: 400,
     },
+    h3: {
+      fontSize: '48px',
+      fontWeight: 800
+    }
     // Add more typography customizations as needed
   },
   palette: {
