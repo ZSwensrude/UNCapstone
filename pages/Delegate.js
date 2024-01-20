@@ -23,7 +23,7 @@ const Delegate = () => {
               <CoolButton buttonColor={'#00DBD4'} buttonText={'view presentation screen'}/>
             </div>
             <div id="rightButton">
-              <CoolButton buttonColor={'#999999'} buttonText={'send message to dias'}/>
+              <CoolButton buttonColor={'#999999'} buttonText={'send message to dias'} message={true}/>
             </div>
           </>
         ) : (

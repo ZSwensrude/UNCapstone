@@ -87,14 +87,27 @@ hr {
   padding-top: 2px;
   padding-bottom: 2px;
   padding-left: 25px;
-  padding-right: 25px;
   border-radius: 30px;
   color: white;
   width: fit-content;
   transition: transform 0.3s ease;
 }
 
+.normalButton {
+  padding-right: 25px;
+}
+
+.wideButton {
+  padding-right: 40px;
+}
+
 #button:hover {
   transform: scale(1.1);
   cursor: pointer;
+}
+
+#buttonIcon {
+  position: absolute;
+  bottom: 1px;
+  padding-right: 10px;
 }
