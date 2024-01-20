@@ -45,6 +45,9 @@ const theme = createTheme({
     background: {
       default: '#f0f0f0'
     },
+    orange: {
+      main: '#FF9728'
+    }
   },
   // Add more customizations like spacing, breakpoints, etc.
 });

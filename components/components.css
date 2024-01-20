@@ -50,12 +50,12 @@
 }
 
 #body {
+  position: relative;
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 20px;
   padding-right: 20px;
   background-color: #009EDB;
-  margin: auto;
   border-radius: 30px;
   height: 75vh;
   width: 35vh;
@@ -71,4 +71,30 @@
 hr {
   height: 2px;
   background-color: white;
+}
+
+#joinButton {
+  position: absolute;
+  bottom: 1vh;
+  left: 0; 
+  right: 0; 
+  margin-left: auto; 
+  margin-right: auto; 
+  width: fit-content;
+}
+
+#button {
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 25px;
+  padding-right: 25px;
+  border-radius: 30px;
+  color: white;
+  width: fit-content;
+  transition: transform 0.3s ease;
+}
+
+#button:hover {
+  transform: scale(1.1);
+  cursor: pointer;
 }
