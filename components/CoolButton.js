@@ -6,7 +6,7 @@ import { Typography, Paper } from '@mui/material';
 const CoolButton = ({ buttonText, buttonColor, onClick }) => {
 
   return (
-    <Paper onClick={onClick} id='button' style={{backgroundColor:buttonColor}}>
+    <Paper onClick={onClick} id='button' elevation={0} style={{backgroundColor:buttonColor}}>
       <Typography>
         {buttonText}
       </Typography>

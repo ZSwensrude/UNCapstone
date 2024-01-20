@@ -4,6 +4,7 @@ import Header from "../components/Header";
 
 import './delegate.css'
 import SpeakersList from "../components/SpeakersList";
+import CoolButton from "../components/CoolButton";
 
 // Placeholder for delegate screen
 const Delegate = () => {
@@ -18,6 +19,12 @@ const Delegate = () => {
           // this will be the formal delegate dashboard
           <>
             <SpeakersList />
+            <div id="bottomButton">
+              <CoolButton buttonColor={'#00DBD4'} buttonText={'view presentation screen'}/>
+            </div>
+            <div id="rightButton">
+              <CoolButton buttonColor={'#999999'} buttonText={'send message to dias'}/>
+            </div>
           </>
         ) : (
           // and here is the informal

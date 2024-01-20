@@ -4,3 +4,15 @@
   width: '100%';
   height: '100vh';
 }
+
+#bottomButton {
+  position: fixed;
+  bottom: 1vh;
+}
+
+#rightButton {
+  position: fixed;
+  bottom: 1vh;
+  right: 1vh;
+}
+
