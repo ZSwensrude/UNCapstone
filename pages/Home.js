@@ -5,27 +5,30 @@ import LockIcon from '@mui/icons-material/Lock';
 import PublicIcon from '@mui/icons-material/Public';
 import InfoIcon from '@mui/icons-material/Info';
 import GavelIcon from '@mui/icons-material/Gavel';
-//import UNLogo from '/images/Unlogo.jpg';
 import { Link } from 'react-router-dom';
-//import Dias from '../pages/Dias.js';
 
 
 // Placeholder home screen
 const Home = () => {
   return (
     <div className="all">
+
+        <div className="bar">
+        </div>
         <div className="logo">
         <img src={window.location.origin + '/images/Unlogo.jpg'} alt="logoImage" />
         </div>
         <div className= "top">
             <h2>Welcome to United Nations</h2>
         </div>
+        
 
         <div className="logins">
             <div className="container1">
-            <img src={window.location.origin + '/images/lecturer.png'} alt="lecturerImage" />
+            <div className="headingDelegate"> 
                 <h1>Dias Login</h1>
-                
+                <img src={window.location.origin + '/images/lecturer.png'} width={35} height={55} alt="lecturerImage" />
+            </div>
                     <div className="usernameLabel">
                         <h6>Username</h6> 
                         <div className="input-box">
@@ -51,12 +54,12 @@ const Home = () => {
             </div>
 
             <div className="container2">
-            <div className="heading">   
-            <img src={window.location.origin + '/images/delegate.png'} alt="lecturerImage" />
+            <div className="headingDelegate">   
             <h1>Delegate Login</h1>
+            <img src={window.location.origin + '/images/delegate.png'} width={35} height={55} alt="lecturerImage" />
             </div>
                 <div className="countryLabel">
-                <label for="cars">Country</label>
+                <label for="country">Country</label>
                 <select name="countries" id="countries">
                     <option value="choice"></option>
                     <option value="afganistan">Afganistan</option>
@@ -95,13 +98,6 @@ const Home = () => {
     );
     
 }
-/*
-        <BrowserRouter>
-        <Routes>
-        <Route exact path='/dias' element={<Dias />} />
-        </Routes>
-        </BrowserRouter>
-*/
-//
+
 export default Home;
 
