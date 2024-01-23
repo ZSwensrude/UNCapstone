@@ -23,12 +23,12 @@ const Home=()=>{
 
         <div className="logins">
             <div className="container1">
-            <div className="headingDelegate"> 
+            <div className="heading"> 
                 <h1>Dias Login</h1>
                 <img src={window.location.origin + '/images/lecturer.png'} width={35} height={55} alt="lecturerImage" />
             </div>
                     <div className="usernameLabel">
-                        <h6>Username</h6> 
+                        <h6 className="header6">Username</h6> 
                         <div className="input-box">
                             <input type="text" required />
                         </div>
@@ -36,7 +36,7 @@ const Home=()=>{
                     </div>
 
                     <div className="passwordLabel">
-                        <h6>Password</h6>
+                        <h6 className="header6">Password</h6>
                         <div className="input-box">
                             <input type="password" required />
                         </div>
@@ -52,7 +52,7 @@ const Home=()=>{
             </div>
 
             <div className="container2">
-            <div className="headingDelegate">   
+            <div className="heading">   
             <h1>Delegate Login</h1>
             <img src={window.location.origin + '/images/delegate.png'} width={35} height={55} alt="lecturerImage" />
             </div>
@@ -74,7 +74,7 @@ const Home=()=>{
                 </div>
                 
                 <div className="sessionLabel">
-                    <h6>Session ID</h6>
+                    <h6 className="header6">Session ID</h6>
                     <div className="input-box">
                         <input type="text" required />
                     </div>
