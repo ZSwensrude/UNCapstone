@@ -1,21 +1,48 @@
 import { Typography } from "@mui/material";
 import React, { useState } from "react";
-import { useTracker } from "meteor/react-meteor-data";
-//import { LinksCollection } from "../imports/api/links";
+import Header from "../components/Header";
+
+import './delegate.css'
+import SpeakersList from "../components/SpeakersList";
+import CoolButton from "../components/CoolButton";
+import DelegateToggle from "../components/DelegateToggle";
 
 // Placeholder for delegate screen
 const Delegate = () => {
-  const [links, setLinks] = useState([]);
+  const [formal, setFormal] = useState(true);
 
-  // useTracker(() => {
-  //   const linksData = LinksCollection.find().fetch();
-  //   setLinks(linksData);
-  // }, []);
+  const ToggleClick = () => {
+    setFormal(!formal);
+    console.log("formal", formal);
+  };
 
   return (
-    
-    <div >
-      <Typography variant="h3">Delegate</Typography>
+    <div id="container">
+      <Header version={'delegate'} country={"Ireland"} flagPath={'/images/flagPlaceholder.png'} />
+      <div id="main">
+        {/* <Typography variant="h1">Delegate</Typography> */}
+        <div id="toggleButton">
+          <DelegateToggle formal={formal} onClick={ToggleClick}/>
+        </div>
+        { formal ? (
+          // this will be the formal delegate dashboard
+          <>
+            <SpeakersList />
+            
+            <div id="bottomButton">
+              <CoolButton buttonColor={'#00DBD4'} textColor={'white'} buttonText={'view presentation screen'}/>
+            </div>
+            <div id="rightButton">
+              <CoolButton buttonColor={'#999999'} textColor={'white'} buttonText={'send message to dias'} message={true}/>
+            </div>
+          </>
+        ) : (
+          // and here is the informal
+          <>
+          
+          </>
+        )}
+      </div>
     </div>
   );
 };

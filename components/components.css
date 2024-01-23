@@ -1,0 +1,135 @@
+
+
+
+#headerbar {
+  /* Styling */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #009EDB;
+  color: white;
+  height: 90px;
+  /* Alignment */
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#logoback {
+  padding: 2px;
+}
+
+#flag {
+  height: 90px;
+  width: auto;
+  margin-right: 10px;
+}
+
+#settings {
+  font-size: 50px;
+  margin-right: 10px;
+}
+
+#un {
+  height: 80px;
+}
+
+
+#top {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: #009EDB;
+  margin: auto;
+  margin-bottom: 15px;
+  border-radius: 30px;
+  width: 60%;
+}
+
+#body {
+  position: relative;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: #009EDB;
+  border-radius: 30px;
+  height: 75vh;
+  width: 35vh;
+}
+
+
+#speakers {
+  position: fixed;
+  text-align: center;
+  left: 5vh;
+}
+
+hr {
+  height: 2px;
+  background-color: white;
+}
+
+#joinButton {
+  position: absolute;
+  bottom: 1vh;
+  left: 0; 
+  right: 0; 
+  margin-left: auto; 
+  margin-right: auto; 
+  width: fit-content;
+}
+
+#button {
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 25px;
+  border-radius: 30px;
+  width: fit-content;
+  transition: transform 0.3s ease;
+}
+
+.normalButton {
+  padding-right: 25px;
+}
+
+.wideButton {
+  padding-right: 40px;
+}
+
+#button:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+#buttonIcon {
+  position: absolute;
+  bottom: 1px;
+  padding-right: 10px;
+}
+
+#toggleBack {
+  background-color: black;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 4px;
+  padding-right: 4px;
+  border-radius: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#toggleText {
+  color: black;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  background-color: white;
+  border-radius: 30px;
+}
+
