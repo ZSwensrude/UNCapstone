@@ -55,7 +55,7 @@ body {
     margin: 10px;
   }
 
-  button {
+  .newButton {
     background: #FF9728;
     color: white;
     border-radius: 10px;

@@ -17,14 +17,14 @@ const Home=()=>{
         <img src={window.location.origin + '/images/Unlogo.jpg'} alt="logoImage" />
         </div>
         <div className= "top">
-            <h2>Welcome to United Nations</h2>
+            <h2 className="welcomeHeader">Welcome to United Nations</h2>
         </div>
         
 
         <div className="logins">
             <div className="container1">
             <div className="heading"> 
-                <h1>Dias Login</h1>
+                <h1 className="diasAndDelegateHeader">Dias Login</h1>
                 <img src={window.location.origin + '/images/lecturer.png'} width={35} height={55} alt="lecturerImage" />
             </div>
                     <div className="usernameLabel">
@@ -46,14 +46,14 @@ const Home=()=>{
                     <div className="diasButtons">
                     <button className="register" type="submit">Register</button>
                     <Link to={'/dias'}>
-                    <button type="submit">Login</button>
+                    <button className="loginButton" type="submit">Login</button>
                     </Link>
                     </div>
             </div>
 
             <div className="container2">
             <div className="heading">   
-            <h1>Delegate Login</h1>
+            <h1 className="diasAndDelegateHeader">Delegate Login</h1>
             <img src={window.location.origin + '/images/delegate.png'} width={35} height={55} alt="lecturerImage" />
             </div>
                 <div className="countryLabel">
@@ -83,7 +83,7 @@ const Home=()=>{
 
                 <div className="submitButton">
                 <Link to={'/delegate'}>
-                    <button type="submit">Login</button>
+                    <button className="loginButton" type="submit">Login</button>
                 </Link>
                     </div>
                 </div>

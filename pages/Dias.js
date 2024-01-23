@@ -19,7 +19,7 @@ const Dias = () => {
               </div>
             </div>
             <div className="buttonBlock">
-                <button type="submit">New</button>
+                <button className="newButton" type="submit">New</button>
             </div>
           </div>
         </div>

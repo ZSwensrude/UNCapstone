@@ -1,30 +1,118 @@
 import { Typography } from "@mui/material";
 import React from "react";
 import './DiasHomePageIndex.css';
-import Dias from "./Dias";
+
+function openTab(evt, tabName) {
+    // Declare all variables
+    var i, tabcontent, tablinks;
+  
+    // Get all elements with class="tabcontent" and hide them
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+  
+    // Get all elements with class="tablinks" and remove the class "active"
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+  
+    // Show the current tab, and add an "active" class to the button that opened the tab
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
+  }
 
 // Placeholder for Dias screen
 const DiasHome = () => {
   return (
     <div className="HomePageDias">
-        <h2>HELLO</h2>
 
-        
-        <ul>
-  <li><a href="#home">Home</a></li>
-  <li><a href="#news">News</a></li>
-  <li class="dropdown">
-    <a href="javascript:void(0)" class="dropbtn">Dropdown</a>
-    <div class="dropdown-content">
-      <a href="#">Link 1</a>
-      <a href="#">Link 2</a>
-      <a href="#">Link 3</a>
-    </div>
-  </li>
-</ul>
+        <div className="diasBar">
+        <img src={window.location.origin + '/images/Unlogo.jpg'} width={40} height={40} alt="logoImage" />
+        <button className="tablinks" onClick={() => openTab(event,'RollCall')}>Roll Call</button>
+        <button className="tablinks" onClick={() => openTab(event,'Formal')}>Formal</button>
+        <button className="tablinks" onClick={() => openTab(event,'Informal')}>Informal</button>
+        <button className="tablinks" onClick={() => openTab(event,'VotingProcedure')}>Voting Procedure</button>
+        <button className="tablinks" onClick={() => openTab(event,'NotesDias')}>Notes to the Dias</button>
+        </div>
 
+        <div id="RollCall" className="tabcontent">
+            <div className="RollCallBlock">
+                <div className="RollCallList">
+                    <div className="searchBlock">
+                            <input className="searchBox" placeholder="Search" type="text" />
+                    </div>
+                    <div className="titleBlock">
+                        <h5 className="titles">Member State</h5>
+                        <h5 className="titles">Absent</h5>
+                        <h5 className="titles">Present</h5>
+                        <h5 className="titles">Present & Voting</h5>
+                    </div>
+                    <div className="presentAbsentBlock">
+                    </div>
+                </div>
+            </div>
+
+            <div className="buttonBlock1">
+                <div className="firstBlock">
+                    <button className="startRollCallButton" type="submit">Start Roll Call</button>
+                    <button className="exportButton" type="submit">Export</button>
+                </div>
+                <div className="secondBlock">
+                    <button className="resetButton" type="submit">Reset</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="Formal" className="tabcontent">
+            <div className="FormalBlock">
+                <div className="SpeakerListBlock">
+                    <div className="SpeakerListButtonBlock">
+                        <button className="SpeakersListButton">Speakers List</button>
+                    </div>
+                    <div className="currentlySpeakingAndCurrent">
+                        <div className="currentlySpeaking">
+                        </div>
+                        <div className="current">
+                        </div>
+                    </div>
+                </div>
+
+                <div className="MotionsBlock">
+                    <div className="MotionsButtonBlock">
+                        <button className="MotionsButton">Motions</button>
+                    </div>
+
+                    <div className="timerBlock">
+                    </div>
+
+                    <div className="timerBlock2">
+                    </div>
+
+                    <div className="presentationButtonBlock">
+                    <button className="presentationButton">Presentation</button>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div id="Informal" className="tabcontent">
+            <h3>Informal</h3>
+        </div>
+
+        <div id="VotingProcedure" className="tabcontent">
+            <h3>Voting Procedure</h3>
+        </div>
+
+        <div id="NotesDias" className="tabcontent">
+            <h3>Notes to the Dias</h3>
+        </div>
     </div>
     );
 }
+
 
 export default DiasHome;
