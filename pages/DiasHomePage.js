@@ -30,7 +30,7 @@ const DiasHome = () => {
           </li>
         </ul>
 
-<div>
+    <div>
         <h3>Countries:</h3>
         {countries.map((country, index) => (
           <Country key={index} {...country} />
