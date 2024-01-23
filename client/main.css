@@ -6,7 +6,7 @@ body {
 
 .default {
   position: absolute;
-
+  width:100%;
 }
 
 .conferenceTest form{

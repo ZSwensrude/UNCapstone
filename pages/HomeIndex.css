@@ -4,13 +4,8 @@ body {
   background-color: #EFEFEF;
 }
 
-.all {
-  width: 1250px;
-}
-
 .bar {
   height: 40px;
-  width: auto;
   background: #009edb;
   margin-bottom: 15px;
 }
