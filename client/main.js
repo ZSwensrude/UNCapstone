@@ -6,7 +6,7 @@ import theme from './theme.jsx'; // This is the MUI theme that we can use to set
 import { ThemeProvider } from '@emotion/react';
 import { Route, Link, Routes, BrowserRouter } from 'react-router-dom';
 import Navbar from '../components/Navbar.js';
-
+//import Country from '../components/Country.js'
 // import the css file
 import './main.css';
 
@@ -34,7 +34,9 @@ function Main() {
   );
 }
 
+
 // <Navbar />
+//<Country/>
 Meteor.startup(() => {
   const container = document.getElementById('react-target');
   const root = createRoot(container);
