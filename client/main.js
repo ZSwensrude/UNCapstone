@@ -10,7 +10,7 @@ import Navbar from '../components/Navbar.js';
 // import the css file
 import './main.css';
 
-// import the main pages we need
+// import the main pages we need 
 import Home from '../pages/Home.js';
 import Dias from '../pages/Dias.js';
 import Delegate from '../pages/Delegate.js';

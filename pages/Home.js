@@ -7,9 +7,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import GavelIcon from '@mui/icons-material/Gavel';
 import { Link } from 'react-router-dom';
 
-
-// Placeholder home screen
-const Home = () => {
+const Home=()=>{
   return (
     <div className="all">
 
@@ -59,7 +57,7 @@ const Home = () => {
             <img src={window.location.origin + '/images/delegate.png'} width={35} height={55} alt="lecturerImage" />
             </div>
                 <div className="countryLabel">
-                <label for="country">Country</label>
+                <label htmlFor="country">Country</label>
                 <select name="countries" id="countries">
                     <option value="choice"></option>
                     <option value="afganistan">Afganistan</option>
