@@ -1,0 +1,64 @@
+body {
+    row-gap: 10px;
+    display:flex;
+    justify-content: center;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background: #efefef;
+}
+
+h2 {
+  display: flex;
+  justify-content: center;
+  font-size:  65px;
+  font-weight: 400;
+}
+
+.regContainer {
+    width: 30vw;
+    height: 50vh;
+    background: #009edb;
+    color: black;
+    display:flow;
+    justify-content: center;
+    align-items: center;
+    border-style: solid;
+    border-color:#009edb;
+    border-radius: 10px;
+  }
+
+.enterUsername, .enterPassword {
+  display:flex;
+  flex-direction: column;
+  justify-content:space-evenly;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.inputBoxRegister {
+  height: 10%;
+}
+
+h1 {
+    display:flex;
+    font-size:3em;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+h6 {
+  font-weight: bold;
+  font-size: 1.5em;
+  color: white;
+  margin: 0px;
+}
+
+button {
+  background: #FF9728;
+  color: white;
+  border-radius: 10px;
+  border-color: #FF9728;
+  width: 80px;
+}

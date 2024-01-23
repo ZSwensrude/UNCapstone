@@ -41,7 +41,9 @@ const Home=()=>{
                     </div>
 
                     <div className="diasButtons">
-                    <button className="register" type="submit">Register</button>
+                    <Link to={'/register'}>
+                        <button className="register" type="submit">Register</button>
+                    </Link>
                     <Link to={'/dias'}>
                     <button type="submit">Login</button>
                     </Link>
