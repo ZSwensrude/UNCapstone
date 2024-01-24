@@ -6,6 +6,7 @@ import PublicIcon from '@mui/icons-material/Public';
 import InfoIcon from '@mui/icons-material/Info';
 import GavelIcon from '@mui/icons-material/Gavel';
 import { Link } from 'react-router-dom';
+import CoolButton from '../components/CoolButton';
 
 const Home=()=>{
   return (
@@ -83,7 +84,8 @@ const Home=()=>{
 
                 <div className="submitButton">
                 <Link to={'/delegate'}>
-                    <button className="loginButton" type="submit">Login</button>
+                    <CoolButton buttonColor="#FF9728" textColor="white" buttonText="Login"/>
+         
                 </Link>
                     </div>
                 </div>
@@ -96,6 +98,7 @@ const Home=()=>{
     );
     
 }
+//           <button className="loginButton" type="submit">Login</button>
 
 export default Home;
 

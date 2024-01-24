@@ -5,10 +5,13 @@ body {
   }
   
   .diasBar {
-    display:flex;
-    height: 40px;
-    background: #009edb;
-    margin-bottom: 25px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #009EDB;
+    color: white;
+    height: 8vh;
   }
 
   /* Style the tab */
