@@ -26,6 +26,12 @@ const Header = ( {version, country, flagPath} ) => {
         </>
       ) }
 
+      { version === 'blank' && (
+        <>
+         
+        </>
+      ) }
+
     </div>
   );
 }
