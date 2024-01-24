@@ -6,15 +6,26 @@ import PublicIcon from '@mui/icons-material/Public';
 import InfoIcon from '@mui/icons-material/Info';
 import GavelIcon from '@mui/icons-material/Gavel';
 import { Link } from 'react-router-dom';
+import CoolButton from "../components/CoolButton";
+import Header from "../components/Header";
+import { useNavigate  } from 'react-router-dom';
 
 const Home=()=>{
+
+    const navigate = useNavigate();
+
+  const handleClick = () => {
+    // Navigate to a different route
+    navigate('/delegate');
+  };
+
+
   return (
     <div className="all">
 
-        <div className="bar">
-        </div>
+        <Header version={'blank'}/>
         <div className="logo">
-        <img src={window.location.origin + '/images/Unlogo.jpg'} alt="logoImage" />
+            <img src={window.location.origin + '/images/UN_emblem_blue.png'} height={200} alt="logoImage" />
         </div>
         <div className= "top">
             <h2>Welcome to United Nations</h2>
@@ -82,9 +93,10 @@ const Home=()=>{
                 </div>
 
                 <div className="submitButton">
-                <Link to={'/delegate'}>
-                    <button type="submit">Login</button>
-                </Link>
+                {/* <Link to={'/delegate'}> */}
+                    <CoolButton buttonText={"Login"} onClick={handleClick}/>
+                    {/* <button type="submit">Login</button> */}
+                {/* </Link> */}
                     </div>
                 </div>
                 {/* TO import images, you can put the image in /public/images/ then import it with the following:

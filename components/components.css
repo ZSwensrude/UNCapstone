@@ -9,7 +9,7 @@
   width: 100%;
   background-color: #009EDB;
   color: white;
-  height: 90px;
+  height: 8vh;
   /* Alignment */
   padding: 5px;
   display: flex;
@@ -22,7 +22,7 @@
 }
 
 #flag {
-  height: 90px;
+  height: 8vh;
   width: auto;
   margin-right: 10px;
 }
@@ -33,7 +33,7 @@
 }
 
 #un {
-  height: 80px;
+  height: 8vh;
 }
 
 
