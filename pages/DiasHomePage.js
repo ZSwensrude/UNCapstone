@@ -1,6 +1,7 @@
-import { Typography } from "@mui/material";
+import { Typography, Paper } from "@mui/material";
 import React from "react";
 import './DiasHomePageIndex.css';
+import '../components/components.css';
 
 function openTab(evt, tabName) {
     // Declare all variables
@@ -29,7 +30,9 @@ const DiasHome = () => {
     <div className="HomePageDias">
 
         <div className="diasBar">
-        <img src={window.location.origin + '/images/Unlogo.jpg'} width={40} height={40} alt="logoImage" />
+        <Paper id='logoback' elevation={0}>
+            <img id='un' src={window.location.origin + '/images/UN_emblem_blue.png'} alt='United Nations Logo' />
+        </Paper>
         <button className="tablinks" onClick={() => openTab(event,'RollCall')}>Roll Call</button>
         <button className="tablinks" onClick={() => openTab(event,'Formal')}>Formal</button>
         <button className="tablinks" onClick={() => openTab(event,'Informal')}>Informal</button>
