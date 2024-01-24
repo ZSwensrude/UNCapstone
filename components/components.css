@@ -159,7 +159,6 @@
 .votebox {
   position: relative;
   top: 20vh;
-  flex: auto;
   text-align: center;
 }
 
@@ -167,16 +166,17 @@
   display: inline-block;
   width: 5em;
   height: 5em;
-  background-color: black;
   margin-left: 5vh;
   margin-right: 5vh;
   margin-top: 2vh;
+  vertical-align: top;
+  border: 3px solid black;
 }
 
 .voteOptions {
   display: inline-block;
   width: 5em;
   height: 5em;
-  margin-left: 4.5vh;
-  margin-right: 4.5vh;
+  padding-left: 4.5vh;
+  padding-right: 4.5vh;
 }

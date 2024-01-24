@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import './components.css';
 import { Typography, Paper } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
 const VoteBox = ({ country, abstain }) => {
   const [selectedOption, setSelectedOption] = useState('');
@@ -12,21 +13,22 @@ const VoteBox = ({ country, abstain }) => {
     setSelectedOption(event.currentTarget.getAttribute("value"));
   };
 
-  const vote = (choice) => {
-    console.log("clicked: ", choice);
-    //setSelectedOption(choice);
-  }
-
   return (
     <div className="votebox">
       <Typography className='motionText' variant='h2'>
           {country + "'s Vote:"}
       </Typography>
       <div>
-        <div className='box' value='Yes' onClick={handleOptionChange}/>
-        <div className='box' value='No' onClick={handleOptionChange}/>
+        <div className='box' style={{backgroundColor:'#4aff7d'}} value='Yes' onClick={handleOptionChange}>
+          {selectedOption === 'Yes' && ( <CloseIcon style={{fontSize:'4rem', marginTop:'1vh'}}/> )}
+        </div>
+        <div className='box' style={{backgroundColor:'#ff4a4a'}} value='No' onClick={handleOptionChange}>
+          {selectedOption === 'No' && ( <CloseIcon style={{fontSize:'4rem', marginTop:'1vh'}}/> )}
+        </div>
         { abstain && (
-          <div className='box' value='Abstain' onClick={handleOptionChange}/>
+          <div className='box' style={{backgroundColor:'#ffc94a'}} value='Abstain' onClick={handleOptionChange}>
+            {selectedOption === 'Abstain' && ( <CloseIcon style={{fontSize:'4rem', marginTop:'1vh'}}/> )}
+          </div>
         )}
       </div>
       <div>
