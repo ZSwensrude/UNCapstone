@@ -11,7 +11,7 @@
   color: white;
   height: 8vh;
   /* Alignment */
-  padding: 5px;
+  padding: 1vh;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -22,7 +22,7 @@
 }
 
 #flag {
-  height: 90px;
+  height: 8vh;
   width: auto;
   margin-right: 10px;
 }
