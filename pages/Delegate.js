@@ -6,6 +6,7 @@ import './delegate.css'
 import SpeakersList from "../components/SpeakersList";
 import CoolButton from "../components/CoolButton";
 import DelegateToggle from "../components/DelegateToggle";
+import CurrentMotion from "../components/CurrentMotion";
 
 // Placeholder for delegate screen
 const Delegate = () => {
@@ -28,7 +29,9 @@ const Delegate = () => {
           // this will be the formal delegate dashboard
           <>
             <SpeakersList />
-            
+            <div id="motion">
+              <CurrentMotion motion={true} />
+            </div>
             <div id="bottomButton">
               <CoolButton buttonColor={'#00DBD4'} textColor={'white'} buttonText={'view presentation screen'}/>
             </div>

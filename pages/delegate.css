@@ -12,6 +12,15 @@
   transform: translateX(-50%);
 }
 
+#motion {
+  position: fixed;
+  top: 25vh;
+  left: 60vh;
+  width: 90vh;
+  height: 60vh;
+  border-radius: 30px;
+}
+
 #bottomButton {
   position: fixed;
   bottom: 1vh;

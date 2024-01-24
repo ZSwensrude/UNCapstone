@@ -56,7 +56,7 @@
   background-color: #009EDB;
   border-radius: 30px;
   height: 75vh;
-  width: 35vh;
+  width: 40vh;
 }
 
 
@@ -66,9 +66,10 @@
   left: 5vh;
 }
 
-hr {
+#whiteLine {
   height: .2vh;
   background-color: white;
+  border-color: white;
 }
 
 #joinButton {
@@ -131,3 +132,31 @@ hr {
   border-radius: 30px;
 }
 
+#noMotion {
+  padding-left: 30vh;
+  padding-top: 20vh;
+  color: gray;
+}
+
+.blackLine {
+  background-color: black;
+  border-color: black;
+  width: 70%;
+}
+
+#middleLine {
+  position: relative;
+  top: 20vh;
+}
+
+
+.motionText {
+  position: relative;
+  text-align: center;
+  padding: 1vh;
+}
+
+.votebox {
+  position: relative;
+  top: 20vh;
+}
