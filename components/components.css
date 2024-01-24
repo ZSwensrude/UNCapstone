@@ -9,16 +9,16 @@
   width: 100%;
   background-color: #009EDB;
   color: white;
-  height: 8vh;
+  height: 90px;
   /* Alignment */
-  padding: 1vh;
+  padding: 5px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 #logoback {
-  padding: 0.5vh;
+  padding: 2px;
 }
 
 #flag {
@@ -33,7 +33,7 @@
 }
 
 #un {
-  height: 7vh;
+  height: 80px;
 }
 
 
