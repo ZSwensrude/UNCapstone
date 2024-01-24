@@ -11,14 +11,14 @@
   color: white;
   height: 8vh;
   /* Alignment */
-  padding: 5px;
+  padding: 1vh;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 #logoback {
-  padding: 2px;
+  padding: 0.5vh;
 }
 
 #flag {
@@ -33,7 +33,7 @@
 }
 
 #un {
-  height: 8vh;
+  height: 7vh;
 }
 
 
