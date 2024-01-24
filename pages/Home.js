@@ -94,7 +94,7 @@ const Home=()=>{
 
                 <div className="submitButton">
                 {/* <Link to={'/delegate'}> */}
-                    <CoolButton buttonText={"Login"} onClick={handleClick}/>
+                    <CoolButton buttonText={"Login"} onClick={handleClick} buttonColor={'#FF9728'} textColor='white' />
                     {/* <button type="submit">Login</button> */}
                 {/* </Link> */}
                     </div>
