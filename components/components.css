@@ -186,3 +186,54 @@
   left: 75vh;
   bottom: 8vh;
 }
+
+.modalWindow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalContent {
+  /* display:grid;
+  width: 80vh;
+  height: 40vh; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 45vh; /* Use the full height of the viewport */
+  padding: 2vh;
+  width: 80vh;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.textBox {
+  position: relative;
+  width: 80%;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 120vh;
+  left: 25vh;
+  position: relative;
+}
+
+.button-wrapper {
+  flex: 1;
+  margin-top: 2vh;
+}
+
+.cancelButton {
+  left: 0; /* Position at the left */
+}
+
+.sendButton {
+  right: 0; /* Position at the right */
+}

@@ -6,6 +6,7 @@ import SpeakersList from "../components/SpeakersList";
 import CoolButton from "../components/CoolButton";
 import DelegateToggle from "../components/DelegateToggle";
 import CurrentMotion from "../components/CurrentMotion";
+import MessageDias from "../components/MessageDias";
 
 // Placeholder for delegate screen
 const Delegate = () => {
@@ -36,7 +37,7 @@ const Delegate = () => {
               <CoolButton buttonColor={'#00DBD4'} textColor={'white'} buttonText={'view presentation screen'}/>
             </div>
             <div id="rightButton">
-              <CoolButton buttonColor={'#999999'} textColor={'white'} buttonText={'send message to dias'} message={true}/>
+              <MessageDias />
             </div>
           </>
         ) : (
