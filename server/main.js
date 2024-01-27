@@ -5,7 +5,6 @@ import { diasCollection } from '/imports/api/dias';
 import { dmCollection } from '/imports/api/dm';
 import { motionCollection } from '/imports/api/motions';
 import { speakerCollection } from '/imports/api/speakers';
-import { userCollection } from '/imports/api/users';
 import { workingGroupCollection } from '/imports/api/workingGroups';
 
 // Allow statements for each collection
@@ -25,9 +24,6 @@ motionCollection.allow({
   insert: () => true,
 });
 speakerCollection.allow({
-  insert: () => true,
-});
-userCollection.allow({
   insert: () => true,
 });
 workingGroupCollection.allow({
