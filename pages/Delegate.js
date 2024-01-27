@@ -10,6 +10,7 @@ import CurrentMotion from "../components/CurrentMotion";
 // Placeholder for delegate screen
 const Delegate = () => {
   const [formal, setFormal] = useState(true);
+  const [motion, setMotion] = useState({});
 
   const ToggleClick = () => {
     setFormal(!formal);
@@ -29,7 +30,7 @@ const Delegate = () => {
           <>
             <SpeakersList />
             <div id="motion">
-              <CurrentMotion motion={true} />
+              <CurrentMotion motion={motion}/>
             </div>
             <div id="bottomButton">
               <CoolButton buttonColor={'#00DBD4'} textColor={'white'} buttonText={'view presentation screen'}/>

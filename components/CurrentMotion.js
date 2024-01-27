@@ -5,9 +5,11 @@ import VoteBox from './VoteBox';
 
 
 const CurrentMotion = ( {motion, onVote, country, abstain} ) => {
+  const isMotion = Object.keys(motion).length > 0;
+
   return (
     <>
-    { motion && (
+    { isMotion && (
       <Paper id="motion"> 
         <Typography className='motionText' variant='h2'>
           Vote on Current Motion
@@ -21,7 +23,7 @@ const CurrentMotion = ( {motion, onVote, country, abstain} ) => {
       </Paper> 
     )}
 
-    { !motion && (
+    { !isMotion && (
       <Typography id='noMotion' variant='h4'>
         No Current Motion
       </Typography>
