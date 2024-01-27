@@ -2,8 +2,9 @@ import React, {useState} from 'react';
 import './components.css';
 import { Typography, Paper } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import CoolButton from './CoolButton';
 
-const VoteBox = ({ country, abstain }) => {
+const VoteBox = ({ country, abstain, onVote }) => {
   const [selectedOption, setSelectedOption] = useState('');
 
   abstain = true;
@@ -12,6 +13,8 @@ const VoteBox = ({ country, abstain }) => {
     console.log("clicked: ", event.currentTarget.getAttribute("value"));
     setSelectedOption(event.currentTarget.getAttribute("value"));
   };
+
+  console.log("!selectedOption", !selectedOption)
 
   return (
     <div className="votebox">
@@ -37,6 +40,9 @@ const VoteBox = ({ country, abstain }) => {
         { abstain && (
           <Typography className='voteOptions'>Abstain</Typography>
         )}
+      </div>
+      <div className='submitVote'>
+        <CoolButton buttonColor={'#FF9728'} buttonText={'submit'} textColor={'white'} onClick={onVote} disabled={!selectedOption}/>
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ import CoolButton from './CoolButton';
 import VoteBox from './VoteBox';
 
 
-const CurrentMotion = ( {motion, onVote, country} ) => {
+const CurrentMotion = ( {motion, onVote, country, abstain} ) => {
   return (
     <>
     { motion && (
@@ -18,7 +18,7 @@ const CurrentMotion = ( {motion, onVote, country} ) => {
         {'This is the current motion'}
       </Typography>
       <hr className='blackLine' id='middleLine'/>
-      <VoteBox />
+      <VoteBox onVote={onVote} country={country} abstain={abstain}/>
 
      </Paper> 
     )}

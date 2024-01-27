@@ -180,3 +180,9 @@
   padding-left: 4.5vh;
   padding-right: 4.5vh;
 }
+
+.submitVote {
+  position: relative;
+  left: 75vh;
+  bottom: 8vh;
+}
