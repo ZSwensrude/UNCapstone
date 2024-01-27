@@ -1,20 +1,15 @@
 import React, {useState} from 'react';
 import './components.css';
-import { Typography, Paper } from '@mui/material';
+import { Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import CoolButton from './CoolButton';
 
 const VoteBox = ({ country, abstain, onVote }) => {
   const [selectedOption, setSelectedOption] = useState('');
 
-  abstain = true;
-
   const handleOptionChange = (event) => {
-    console.log("clicked: ", event.currentTarget.getAttribute("value"));
     setSelectedOption(event.currentTarget.getAttribute("value"));
   };
-
-  console.log("!selectedOption", !selectedOption)
 
   return (
     <div className="votebox">

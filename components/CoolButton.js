@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './components.css';
 import { Typography, Paper, Snackbar } from '@mui/material';
 import MessageIcon from '@mui/icons-material/Message';
