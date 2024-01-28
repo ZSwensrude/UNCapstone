@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { diasCollection } from '/imports/api/dias';
 import { useNavigate } from 'react-router-dom';
-import { Accounts } from 'meteor/accounts-base'
+import { Accounts } from 'meteor/accounts-base';
 
 export const RegisterForm = () => {
     const [username, setUsername] = useState("");
@@ -23,13 +23,11 @@ export const RegisterForm = () => {
         Accounts.createUser(info, function(error) {
          
             if (Meteor.user()) {
-               console.log(Meteor.userId());
+               console.log(Meteor.userId()); /* Verifies login was successful. DELETE LATER */
             } else {
                console.log("ERROR: " + error.reason);
             }
          });
-
-
         
         navigate('/dias-home-page');
       };
