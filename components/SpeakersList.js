@@ -23,7 +23,7 @@ const SpeakersList = () => {
         
         {/* put currently speaking here */}
         
-        <hr />
+        <hr id='whiteLine'/>
         <Typography variant='h5'>
           In Queue:
         </Typography>
