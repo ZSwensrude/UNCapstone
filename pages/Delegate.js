@@ -1,4 +1,3 @@
-import { Typography } from "@mui/material";
 import React, { useState } from "react";
 import Header from "../components/Header";
 
@@ -6,10 +5,13 @@ import './delegate.css'
 import SpeakersList from "../components/SpeakersList";
 import CoolButton from "../components/CoolButton";
 import DelegateToggle from "../components/DelegateToggle";
+import CurrentMotion from "../components/CurrentMotion";
+import MessageDias from "../components/MessageDias";
 
 // Placeholder for delegate screen
 const Delegate = () => {
   const [formal, setFormal] = useState(true);
+  const [motion, setMotion] = useState({});
 
   const ToggleClick = () => {
     setFormal(!formal);
@@ -28,12 +30,14 @@ const Delegate = () => {
           // this will be the formal delegate dashboard
           <>
             <SpeakersList />
-            
+            <div id="motion">
+              <CurrentMotion motion={motion}/>
+            </div>
             <div id="bottomButton">
               <CoolButton buttonColor={'#00DBD4'} textColor={'white'} buttonText={'view presentation screen'}/>
             </div>
             <div id="rightButton">
-              <CoolButton buttonColor={'#999999'} textColor={'white'} buttonText={'send message to dias'} message={true}/>
+              <MessageDias />
             </div>
           </>
         ) : (
