@@ -44,7 +44,7 @@
   margin: auto;
   margin-bottom: 1.5vh;
   border-radius: 30px;
-  width: 60%;
+  width: fit-content;
 }
 
 #body {
@@ -89,6 +89,8 @@
   border-radius: 30px;
   width: fit-content;
   transition: transform 0.3s ease;
+  z-index: 9;
+  position: relative;
 }
 
 .normalButton {
@@ -236,4 +238,40 @@
 
 .sendButton {
   right: 0; /* Position at the right */
+}
+
+
+#groups {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  left: 5vh;
+  width: 45%;
+  pointer-events: none;
+}
+
+#groupsTop {
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  padding-left: 2vh;
+  padding-right: 2vh;
+  background-color: #009EDB;
+  margin-bottom: 1.5vh;
+  border-radius: 30px;
+  width: fit-content;
+}
+
+#groupsBody {
+  position: relative;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  padding-left: 2vh;
+  padding-right: 2vh;
+  background-color: #009EDB;
+  border-radius: 30px;
+  height: 75vh;
+  width: 100%;
+  pointer-events: auto;
 }

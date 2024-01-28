@@ -7,6 +7,7 @@ import CoolButton from "../components/CoolButton";
 import DelegateToggle from "../components/DelegateToggle";
 import CurrentMotion from "../components/CurrentMotion";
 import MessageDias from "../components/MessageDias";
+import WorkingGroupsList from "../components/WorkingGroupsList";
 
 // Placeholder for delegate screen
 const Delegate = () => {
@@ -43,7 +44,7 @@ const Delegate = () => {
         ) : (
           // and here is the informal
           <>
-          
+            <WorkingGroupsList />
           </>
         )}
       </div>
