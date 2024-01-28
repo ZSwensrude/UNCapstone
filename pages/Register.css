@@ -1,0 +1,63 @@
+
+.regContainer {
+    width: 30vw;
+    height: 60vh;
+    background: #009edb;
+    color: black;
+    display:flow;
+    justify-content: center;
+    align-items: center;
+    border-style: solid;
+    border-color:#009edb;
+    border-radius: 10px;
+  }
+
+.inputRegister {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 15%;
+  margin-top: 5%;
+}
+
+.inputBoxRegister {
+  display: flex;
+  width: 50%;
+  height: 60%;
+  margin-top:1%;
+}
+
+.regHeader1 {
+    display:flex;
+    font-size:3em;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.regHeader6 {
+  display:flex;
+  font-weight: bold;
+  font-size: 1.5em;
+  color: white;
+  margin: 0px;
+}
+
+
+.buttonRegister {
+    position: absolute;
+  bottom: 3vh;
+  left: 0; 
+  right: 0; 
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+  height: fit-content;
+  font-size: 1.5em;
+  background: #00DB89;
+  color: white;
+  border-color: #00DB89;
+}

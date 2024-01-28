@@ -14,7 +14,9 @@ import './main.css';
 import Home from '../pages/Home.js';
 import Dias from '../pages/Dias.js';
 import Delegate from '../pages/Delegate.js';
+import Register from '../pages/Register.js';
 import DiasHome from '../pages/DiasHomePage.js';
+
 
 function Main() {
   return (
@@ -26,6 +28,7 @@ function Main() {
             <Route exact path='/' element={<Home />} />
             <Route exact path='/dias' element={<Dias />} />
             <Route exact path='/delegate' element={<Delegate />} />
+            <Route exact path='/register' element={<Register />} />
             <Route exact path='/dias-home-page' element={<DiasHome />} />
           </Routes>
         </BrowserRouter>

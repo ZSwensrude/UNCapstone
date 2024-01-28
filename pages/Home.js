@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import React from "react";
+import React, {useState} from 'react';
 import './HomeIndex.css';
 import LockIcon from '@mui/icons-material/Lock';
 import PublicIcon from '@mui/icons-material/Public';
@@ -9,16 +9,44 @@ import { Link } from 'react-router-dom';
 import CoolButton from "../components/CoolButton";
 import Header from "../components/Header";
 import { useNavigate  } from 'react-router-dom';
+import { LoginForm } from "../components/LoginForm";
 
 const Home=()=>{
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleClick = () => {
     // Navigate to a different route
     navigate('/delegate');
   };
 
+  const toRegister = () => {
+    // Navigate to a different route
+    Meteor.logout();
+    navigate('/register');
+  };
+
+  const login = e => {
+
+    e.preventDefault();
+
+    
+
+    Meteor.loginWithPassword(username, password, function(error) {
+         
+      if (error) {
+         setMessage(error.message);
+      }
+   })
+
+   if (Meteor.user()) {
+      navigate('/dias-home-page');
+   }
+   
+  }
 
   return (
     <div className="all">
@@ -33,7 +61,7 @@ const Home=()=>{
         
 
         <div className="logins">
-            <div className="container1">
+            <form className="container1" onSubmit={login}>
             <div className="heading"> 
                 <h1>Dias Login</h1>
                 <img src={window.location.origin + '/images/lecturer.png'} width={35} height={55} alt="lecturerImage" />
@@ -41,7 +69,11 @@ const Home=()=>{
                     <div className="usernameLabel">
                         <h6 className="header6">Username</h6> 
                         <div className="input-box">
-                            <input type="text" required />
+                            <input type="text" 
+                            required
+                            value = {username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            />
                         </div>
                         <GavelIcon style={{ color: "white" }}/>
                     </div>
@@ -49,18 +81,20 @@ const Home=()=>{
                     <div className="passwordLabel">
                         <h6 className="header6">Password</h6>
                         <div className="input-box">
-                            <input type="password" required />
+                            <input type="password" 
+                            required 
+                            value = {password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            />
                         </div>
                         <LockIcon style={{ color: "white" }}/>
                     </div>
 
                     <div className="diasButtons">
-                    <button className="register" type="submit">Register</button>
-                    <Link to={'/dias'}>
+                    <button className="register" type="button" onClick={toRegister}>Register</button>
                     <button type="submit">Login</button>
-                    </Link>
                     </div>
-            </div>
+            </form>
 
             <div className="container2">
             <div className="heading">   
