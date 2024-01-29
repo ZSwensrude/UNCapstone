@@ -11,7 +11,7 @@ import WorkingGroupsList from "../components/WorkingGroupsList";
 
 // Placeholder for delegate screen
 const Delegate = () => {
-  const [formal, setFormal] = useState(true);
+  const [formal, setFormal] = useState(false);
   const [motion, setMotion] = useState({});
 
   const ToggleClick = () => {

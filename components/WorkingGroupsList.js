@@ -2,6 +2,7 @@ import React from "react";
 import { Typography, Paper } from "@mui/material";
 import CoolButton from "./CoolButton";
 import './components.css'
+import WorkingGroup from "./WorkingGroup";
 
 const WorkingGroupsList = () => {
   const createGroup = () => {
@@ -18,6 +19,7 @@ const WorkingGroupsList = () => {
       <Paper id='groupsBody' elevation={4}>
         
         {/* put working groups list here */}
+        <WorkingGroup />
 
         <div id='joinButton'>
           <CoolButton buttonText='create group' buttonColor={'#FF9728'} textColor={'white'} onClick={createGroup}/>

@@ -275,3 +275,24 @@
   width: 100%;
   pointer-events: auto;
 }
+
+.workingGroupBack {
+  position: relative;
+  border-radius: 30px;
+  padding: 1vh;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-right: 10vh;
+}
+
+.workingGroupFlag {
+  height: 4vh;
+}
+
+.workingGroupButton {
+  position: absolute;
+  right: 1vh;
+  top: 1vh;
+}
