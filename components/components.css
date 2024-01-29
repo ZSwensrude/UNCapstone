@@ -276,6 +276,12 @@
   pointer-events: auto;
 }
 
+.groupHolder {
+  overflow-y: scroll;
+  height: 95%;
+  
+}
+
 #workingGroupBack {
   position: relative;
   border-radius: 30px;
@@ -285,6 +291,7 @@
   align-items: center;
   flex-wrap: wrap;
   padding-right: 10vh;
+  margin-bottom: 1vh;
 }
 
 .workingGroupFlag {

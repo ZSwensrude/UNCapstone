@@ -9,6 +9,7 @@ const WorkingGroupsList = () => {
     console.log("Create group pressed");
   }
 
+  // get working groups from database
   const workingGroups = [
     {
       "countries": [ 
@@ -30,9 +31,11 @@ const WorkingGroupsList = () => {
       </Paper>
       <Paper id='groupsBody' elevation={4}>
         
-        {workingGroups.map( (workingGroup, index) => (
-          <WorkingGroup key={workingGroup.groupName + index} workingGroup={workingGroup}/>
-        ))}
+        <div className="groupHolder">
+          {workingGroups.map( (workingGroup, index) => (
+            <WorkingGroup key={workingGroup.groupName + index} workingGroup={workingGroup}/>
+          ))}
+        </div>
 
         <div id='joinButton'>
           <CoolButton buttonText='create group' buttonColor={'#FF9728'} textColor={'white'} onClick={createGroup}/>
