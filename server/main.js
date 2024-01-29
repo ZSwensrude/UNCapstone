@@ -99,9 +99,28 @@ Meteor.startup(async () => {
   });
 });
 
+// Custom delegate user info
 Accounts.onCreateUser((options, user) => {
   user.country = options.country;
   user.conference = options.conference;
 
   return user;
 });
+
+/* 
+Code to interact with delegate accounts:
+
+Create user:
+Accounts.createUser({username: 'Irelandxyz', password: 'xyz', country: 'Ireland', conference: 'xyz'})
+
+Login:
+Meteor.loginWithPassword('Irelandxyz', 'xyz')
+
+Get user data:
+Meteor.user()
+
+Get just country:
+Meteor.user().country 
+
+You can put these in the code where needed, or in the console to test on the fly.
+*/
