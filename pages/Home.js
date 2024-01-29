@@ -9,7 +9,10 @@ import { Link } from 'react-router-dom';
 import CoolButton from "../components/CoolButton";
 import Header from "../components/Header";
 import { useNavigate  } from 'react-router-dom';
-import { LoginForm } from "../components/LoginForm";
+import countriesData from '../flags.json'  
+import { insertDel } from '../imports/api/delegates';
+
+//import { LoginForm } from "../components/LoginForm";
 
 const Home=()=>{
   const [username, setUsername] = useState("");
@@ -18,23 +21,24 @@ const Home=()=>{
 
   const navigate = useNavigate();
 
-  const handleClick = () => {
-    // Navigate to a different route
-    navigate('/delegate');
-  };
-
   const toRegister = () => {
     // Navigate to a different route
     Meteor.logout();
     navigate('/register');
   };
 
+  const generateCountryOptions = () => {
+    return countriesData.countries.map((country, index) => (
+      <option key={index} value={country.country}>
+        {country.country.charAt(0).toUpperCase() + country.country.slice(1)}
+      </option>
+    ));
+  };
+ 
+
   const login = e => {
 
     e.preventDefault();
-
-    
-
     Meteor.loginWithPassword(username, password, function(error) {
          
       if (error) {
@@ -46,7 +50,26 @@ const Home=()=>{
       navigate('/dias-home-page');
    }
    
-  }
+  };
+  const loginDelegate = () => {
+    // Get selected country and session ID
+    const selectedCountry = document.getElementById('countries').value;
+    const sessionId = document.getElementById('sessionId').value;
+
+    console.log("sessionID: ", sessionId);
+    console.log("country: ", selectedCountry);
+    // Check if the country is selected
+    if (selectedCountry === 'choice' || !sessionId) {
+      setMessage('Please select a country and enter a session ID.');
+      return;
+    }
+
+    // Insert delegate information into MongoDB
+    insertDel({ country: selectedCountry, roleCall: '' });
+
+    // Redirect to the delegate page or perform any other actions
+    navigate('/delegate');
+  };
 
   return (
     <div className="all">
@@ -101,36 +124,27 @@ const Home=()=>{
             <h1>Delegate Login</h1>
             <img src={window.location.origin + '/images/delegate.png'} width={35} height={55} alt="lecturerImage" />
             </div>
-                <div className="countryLabel">
+               
+            <div className="countryLabel">
                 <label htmlFor="country">Country</label>
                 <select name="countries" id="countries">
-                    <option value="choice"></option>
-                    <option value="afganistan">Afganistan</option>
-                    <option value="albania">Albania</option>
-                    <option value="algeria">Algeria</option>
-                    <option value="andorra">Andorra</option>
-                    <option value="angola">Angola</option>
-                    <option value="antiguaAndBarbuda">Antigua and Barbuda</option>
-                    <option value="argentina">Argentia</option>
-                    <option value="canada">Canada</option>
-                    <option value="united kingdom">United Kingdom</option>
+                <option value="choice"></option>
+                {generateCountryOptions()}
                 </select>
-                <PublicIcon style={{ color: "white"}} />
-                </div>
+                <PublicIcon style={{ color: "white" }} />
+            </div>
+
                 
                 <div className="sessionLabel">
                     <h6 className="header6">Session ID</h6>
                     <div className="input-box">
-                        <input type="text" required />
+                        <input type="text" required  id="sessionId"/>
                     </div>
                     <InfoIcon style={{ color: "white"}} />
                 </div>
 
                 <div className="submitButton">
-                {/* <Link to={'/delegate'}> */}
-                    <CoolButton buttonText={"Login"} onClick={handleClick} buttonColor={'#FF9728'} textColor='white' />
-                    {/* <button type="submit">Login</button> */}
-                {/* </Link> */}
+                <CoolButton buttonText={'Login'} onClick={loginDelegate} buttonColor={'#FF9728'} textColor="white" />                    {/* <button type="submit">Login</button> */}
                     </div>
                 </div>
                 {/* TO import images, you can put the image in /public/images/ then import it with the following:
