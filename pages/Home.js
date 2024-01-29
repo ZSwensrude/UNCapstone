@@ -9,12 +9,11 @@ import { Link } from 'react-router-dom';
 import CoolButton from "../components/CoolButton";
 import Header from "../components/Header";
 import { useNavigate  } from 'react-router-dom';
-import { LoginForm } from "../components/LoginForm";
+import LoginButton from "../components/LoginButton";
 
 const Home=()=>{
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
 
   const navigate = useNavigate();
 
@@ -29,22 +28,16 @@ const Home=()=>{
     navigate('/register');
   };
 
-  const login = e => {
-
-    e.preventDefault();
-
-    
+  const diasLogin = (modalOpen) => {
 
     Meteor.loginWithPassword(username, password, function(error) {
          
       if (error) {
-         setMessage(error.message);
+         modalOpen();
+      } else {
+        navigate('/dias-home-page');
       }
    })
-
-   if (Meteor.user()) {
-      navigate('/dias-home-page');
-   }
    
   }
 
@@ -61,7 +54,7 @@ const Home=()=>{
         
 
         <div className="logins">
-            <form className="container1" onSubmit={login}>
+            <form className="container1">
             <div className="heading"> 
                 <h1>Dias Login</h1>
                 <img src={window.location.origin + '/images/lecturer.png'} width={35} height={55} alt="lecturerImage" />
@@ -92,7 +85,7 @@ const Home=()=>{
 
                     <div className="diasButtons">
                     <button className="register" type="button" onClick={toRegister}>Register</button>
-                    <button type="submit">Login</button>
+                    <LoginButton loginFunc={diasLogin} text='Login' error='Username or Password is incorrect'/>
                     </div>
             </form>
 

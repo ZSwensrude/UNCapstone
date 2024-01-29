@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { diasCollection } from '/imports/api/dias';
 import { useNavigate } from 'react-router-dom';
 import { Accounts } from 'meteor/accounts-base';
+import LoginButton from './LoginButton';
 
 export const RegisterForm = () => {
     const [username, setUsername] = useState("");
@@ -9,11 +10,7 @@ export const RegisterForm = () => {
     const [password2, setPassword2] = useState("");
     const navigate = useNavigate();
 
-    const handleSubmit = e => {
-        
-        e.preventDefault();
-
-        if ((!username || !password1 || !password2) || password1 !== password2) return;
+    const register = (openModal) => {
     
         var info = {
           username: username.trim(),
@@ -22,18 +19,16 @@ export const RegisterForm = () => {
 
         Accounts.createUser(info, function(error) {
          
-            if (Meteor.user()) {
-               console.log(Meteor.userId()); /* Verifies login was successful. DELETE LATER */
+            if (error) {
+               openModal();
             } else {
-               console.log("ERROR: " + error.reason);
+              navigate('/dias-home-page');
             }
          });
-        
-        navigate('/dias-home-page');
       };
 
     return (
-        <form className="regContainer" onSubmit={handleSubmit}>
+        <form className="regContainer">
             <h1 className="regHeader1">Register</h1>
             <div className="inputRegister">
                 <h6 className="regHeader6">Username</h6> 
@@ -60,7 +55,7 @@ export const RegisterForm = () => {
                 value = {password2}
                 onChange={(e) => setPassword2(e.target.value)}/>
             </div>
-            <button className="buttonRegister" type="submit">Create Account</button>
+            <LoginButton loginFunc={register} text='Register' error='Registration failed'/>
         </form>
     );
 };
