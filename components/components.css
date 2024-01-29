@@ -143,7 +143,7 @@
 .blackLine {
   background-color: black;
   border-color: black;
-  width: 70%;
+  width: 90%;
 }
 
 #middleLine {
@@ -196,9 +196,6 @@
 }
 
 .modalContent {
-  /* display:grid;
-  width: 80vh;
-  height: 40vh; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -293,8 +290,8 @@
   justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
-  padding-right: 10vh;
   margin-bottom: 1vh;
+  padding-right: 10vh;
 }
 
 .workingGroupFlag {
@@ -304,4 +301,31 @@
 .workingGroupButton {
   position: absolute;
   right: 1vh;
+}
+
+#groupHolder {
+  position: fixed;
+  left: 50%;
+  top: 20%;
+  width: 40%;
+  border-radius: 30px;
+  padding: 2vh;
+}
+
+#groupDetails {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+#extraDetails {
+  position: absolute;
+  bottom: 1vh;
+}
+
+.groupMessage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
