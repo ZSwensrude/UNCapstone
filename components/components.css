@@ -276,7 +276,7 @@
   pointer-events: auto;
 }
 
-.workingGroupBack {
+#workingGroupBack {
   position: relative;
   border-radius: 30px;
   padding: 1vh;
@@ -294,5 +294,4 @@
 .workingGroupButton {
   position: absolute;
   right: 1vh;
-  top: 1vh;
 }

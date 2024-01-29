@@ -9,6 +9,18 @@ const WorkingGroupsList = () => {
     console.log("Create group pressed");
   }
 
+  const workingGroups = [
+    {
+      "countries": [ 
+        {"country": 'placeholder', "flag": "/images/flagPlaceholder.png" },
+        {"country": 'placeholder', "flag": "/images/flagPlaceholder.png" },
+      ],
+      "groupName": 'test group',
+      "location": "left room",
+      "topic": "politics"
+    }
+  ]
+
   return (
   <div id='groups'>
       <Paper id='groupsTop' elevation={4}>
@@ -18,8 +30,9 @@ const WorkingGroupsList = () => {
       </Paper>
       <Paper id='groupsBody' elevation={4}>
         
-        {/* put working groups list here */}
-        <WorkingGroup />
+        {workingGroups.map( (workingGroup, index) => (
+          <WorkingGroup key={workingGroup.groupName + index} workingGroup={workingGroup}/>
+        ))}
 
         <div id='joinButton'>
           <CoolButton buttonText='create group' buttonColor={'#FF9728'} textColor={'white'} onClick={createGroup}/>
