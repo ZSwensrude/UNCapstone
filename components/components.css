@@ -1,6 +1,4 @@
 
-
-
 #headerbar {
   /* Styling */
   position: fixed;
@@ -24,12 +22,12 @@
 #flag {
   height: 8vh;
   width: auto;
-  margin-right: 10px;
+  margin-right: 2vh;
 }
 
 #settings {
-  font-size: 50px;
-  margin-right: 10px;
+  font-size: 3em;
+  margin-right: 2vh;
 }
 
 #un {
@@ -38,27 +36,27 @@
 
 
 #top {
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  padding-left: 2vh;
+  padding-right: 2vh;
   background-color: #009EDB;
   margin: auto;
-  margin-bottom: 15px;
+  margin-bottom: 1.5vh;
   border-radius: 30px;
   width: 60%;
 }
 
 #body {
   position: relative;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  padding-left: 2vh;
+  padding-right: 2vh;
   background-color: #009EDB;
   border-radius: 30px;
   height: 75vh;
-  width: 35vh;
+  width: 40vh;
 }
 
 
@@ -68,9 +66,10 @@
   left: 5vh;
 }
 
-hr {
-  height: 2px;
+#whiteLine {
+  height: .2vh;
   background-color: white;
+  border-color: white;
 }
 
 #joinButton {
@@ -84,20 +83,20 @@ hr {
 }
 
 #button {
-  padding-top: 2px;
-  padding-bottom: 2px;
-  padding-left: 25px;
+  padding-top: .2vh;
+  padding-bottom: .2vh;
+  padding-left: 2.5vh;
   border-radius: 30px;
   width: fit-content;
   transition: transform 0.3s ease;
 }
 
 .normalButton {
-  padding-right: 25px;
+  padding-right: 2.5vh;
 }
 
 .wideButton {
-  padding-right: 40px;
+  padding-right: 4vh;
 }
 
 #button:hover {
@@ -107,16 +106,16 @@ hr {
 
 #buttonIcon {
   position: absolute;
-  bottom: 1px;
-  padding-right: 10px;
+  bottom: .1vh;
+  padding-right: 1vh;
 }
 
 #toggleBack {
   background-color: black;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 4px;
-  padding-right: 4px;
+  padding-top: .5vh;
+  padding-bottom: .5vh;
+  padding-left: .5vh;
+  padding-right: .5vh;
   border-radius: 30px;
   display: flex;
   justify-content: center;
@@ -125,11 +124,116 @@ hr {
 
 #toggleText {
   color: black;
-  padding-left: 24px;
-  padding-right: 24px;
-  padding-top: 4px;
-  padding-bottom: 4px;
+  padding-left: 2.4vh;
+  padding-right: 2.4vh;
+  padding-top: .4vh;
+  padding-bottom: .4vh;
   background-color: white;
   border-radius: 30px;
 }
 
+#noMotion {
+  padding-left: 30vh;
+  padding-top: 20vh;
+  color: gray;
+}
+
+.blackLine {
+  background-color: black;
+  border-color: black;
+  width: 70%;
+}
+
+#middleLine {
+  position: relative;
+  top: 20vh;
+}
+
+
+.motionText {
+  position: relative;
+  text-align: center;
+  padding: 1vh;
+}
+
+.votebox {
+  position: relative;
+  top: 20vh;
+  text-align: center;
+}
+
+.box {
+  display: inline-block;
+  width: 5em;
+  height: 5em;
+  margin-left: 5vh;
+  margin-right: 5vh;
+  margin-top: 2vh;
+  vertical-align: top;
+  border: 3px solid black;
+}
+
+.voteOptions {
+  display: inline-block;
+  width: 5em;
+  height: 5em;
+  padding-left: 4.5vh;
+  padding-right: 4.5vh;
+}
+
+.submitVote {
+  position: relative;
+  left: 75vh;
+  bottom: 8vh;
+}
+
+.modalWindow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalContent {
+  /* display:grid;
+  width: 80vh;
+  height: 40vh; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 45vh; /* Use the full height of the viewport */
+  padding: 2vh;
+  width: 80vh;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.textBox {
+  position: relative;
+  width: 80%;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 120vh;
+  left: 25vh;
+  position: relative;
+}
+
+.button-wrapper {
+  flex: 1;
+  margin-top: 2vh;
+}
+
+.cancelButton {
+  left: 0; /* Position at the left */
+}
+
+.sendButton {
+  right: 0; /* Position at the right */
+}

@@ -1,9 +1,13 @@
 import React from 'react';
 import './components.css';
-import { Typography, Paper } from '@mui/material';
+import { Typography, Paper, Snackbar } from '@mui/material';
 import MessageIcon from '@mui/icons-material/Message';
 
-const CoolButton = ({ buttonText, buttonColor, textColor, message, onClick }) => {
+const CoolButton = ({ buttonText, buttonColor, textColor, message, onClick, disabled }) => {
+  // if disabled display nadda nothing zilch
+  if (disabled)
+    return(<></>)
+
   const wide = message ? 'wideButton' : 'normalButton';
 
   return (
@@ -13,6 +17,7 @@ const CoolButton = ({ buttonText, buttonColor, textColor, message, onClick }) =>
         {message !== undefined && <MessageIcon id='buttonIcon'/>}
       </Typography>
     </Paper>
+    
   );
 }
 
