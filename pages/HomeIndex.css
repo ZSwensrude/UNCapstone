@@ -4,26 +4,16 @@ body {
   background-color: #EFEFEF;
 }
 
-.all {
-  width: 1250px;
-}
-.bar {
-  height: 40px;
-  width: auto;
-  background: #009edb;
-  margin-bottom: 15px;
-}
-
 .top {
   display: flexbox;
 }
 
 .logo {
   position: fixed;
-  top: 15vh;
+  top: 12vh;
   left: 50%;
   transform: translateX(-50%);
-  display: flex;
+  display: block;
   justify-content: center;
   z-index: -1;
 }
@@ -32,13 +22,13 @@ body {
   background-color:#009edb;
 
 }
-h2 {
+.welcomeHeader {
   display: flex;
   justify-content: center;
-  font-size:  62px;
+  font-size:  13vh;
   font-weight: 400;
-  margin-top: 4px;
-  margin-bottom: 5px;
+  margin-block-start: 27vh;
+  margin-block-end: 01vh;
 }
 
 .logins {
@@ -47,8 +37,8 @@ h2 {
 }
 
 .container1, .container2 {
-    width: 350px;
-    height: 210px;
+    width: 75vh;
+    height: 39vh;
     background: #009edb;
     color: black;
     display:flow;
@@ -56,71 +46,53 @@ h2 {
     align-items: center;
     border-style: solid;
     border-color:#009edb;
-    border-radius: 10px;
-    margin: 20px;
+    border-radius: 30px;
+    margin: 5vh;
   }
 
   .usernameLabel, .passwordLabel {
     display:flex;
     justify-content:space-evenly;
-    margin-bottom: 15px;
+    margin-bottom: 3vh;
   }
 
   .sessionLabel, .countryLabel {
     display:flex;
     justify-content: space-evenly;
-    margin-bottom: 15px;
+    margin-bottom: 3vh;
 
   }
-h1 {
+  .diasAndDelegateHeader {
     display:flex;
-    font-size:larger;
+    font-size:5vh;
     color: white;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
-    margin-bottom: 45px;
+    margin-top: 3vh;
+    margin-bottom: 5vh;
 }
-
 
 .header6, label {
   font-weight: bold;
-  font-size: smaller;
+  font-size: 3vh;
   color: white;
-  margin: 0px;
+  margin:0vh;
 }
 
 .diasButtons {
-  margin: 7px;
+  margin: 2vh;
   display:flex;
   justify-content: space-between;
-  
 }
 
 .submitButton {
   display: flex;
-  margin: 7px;
+  margin: 2vh;
   justify-content: flex-end;
 }
 
-button {
-  background: #FF9728;
-  color: white;
-  border-radius: 10px;
-  border-color: #FF9728;
-  width: 80px;
-}
-
-.register {
-  background: #00DB89;
-  color: white;
-  border-radius: 10px;
-  border-color: #00DB89;
-  width: 90px;
-}
-
 .heading {
-  margin-top: 5px;
+  margin-top: 2vh;
   display:flex;
   align-items: stretch;
   justify-content: center;

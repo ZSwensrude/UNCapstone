@@ -94,21 +94,24 @@ const Home=()=>{
 
   return (
     <div className="all">
-
-        <Header version={'blank'}/>
-        <div className="logo">
-            <img src={window.location.origin + '/images/UN_emblem_blue.png'} height={200} alt="logoImage" />
-        </div>
-        <div className= "top">
-            <h2>Welcome to United Nations</h2>
-        </div>
         
+        <div className="header">
+        <Header version={'blank'}/>
+        </div>
+
+        <div className="logo">
+            <img src={window.location.origin + '/images/UN_emblem_blue.png'} height={100} alt="logoImage" />
+        </div>
+
+        <div className= "top">
+            <h2 className="welcomeHeader">Welcome to United Nations</h2>
+        </div>
 
         <div className="logins">
             <form className="container1">
             <div className="heading"> 
-                <h1>Dias Login</h1>
-                <img src={window.location.origin + '/images/lecturer.png'} width={35} height={55} alt="lecturerImage" />
+                <h1 className="diasAndDelegateHeader">Dias Login</h1>
+                <img src={window.location.origin + '/images/lecturer.png'} width={45} height={65} alt="lecturerImage" />
             </div>
                     <div className="usernameLabel">
                         <h6 className="header6">Username</h6> 
@@ -142,8 +145,8 @@ const Home=()=>{
 
             <div className="container2">
             <div className="heading">   
-            <h1>Delegate Login</h1>
-            <img src={window.location.origin + '/images/delegate.png'} width={35} height={55} alt="lecturerImage" />
+            <h1 className="diasAndDelegateHeader">Delegate Login</h1>
+            <img src={window.location.origin + '/images/delegate.png'} width={45} height={63} alt="lecturerImage" />
             </div>
                
             <div className="countryLabel">
@@ -177,6 +180,7 @@ const Home=()=>{
     );
     
 }
+//           <button className="loginButton" type="submit">Login</button>
 
 export default Home;
 
