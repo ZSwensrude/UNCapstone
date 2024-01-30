@@ -48,7 +48,7 @@ const MessageDias = () => {
             <div className="button-wrapper">
               <CoolButton 
                 className="cancelButton" 
-                buttonText={"Cancel"} 
+                buttonText={"cancel"} 
                 buttonColor={"#FF9728"} 
                 textColor={'white'} 
                 onClick={handleClose}
@@ -57,7 +57,7 @@ const MessageDias = () => {
             <div className="button-wrapper">
               <CoolButton 
                 className="sendButton" 
-                buttonText={"Send"} 
+                buttonText={"send"} 
                 buttonColor={"#FF9728"} 
                 textColor={'white'} 
                 onClick={sendMessage}
