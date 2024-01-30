@@ -85,7 +85,7 @@ const Home=()=>{
 
                     <div className="diasButtons">
                       <CoolButton onClick={toRegister} buttonColor={'#00DB89'} textColor={'#FFFFFF'} buttonText={'Register'} />
-                      <LoginButton loginFunc={diasLogin} error='Username or Password is Incorrect' buttonText='Login' buttonColor={'#FF9728'} textColor={'#FFFFFF'}/>
+                      <LoginButton loginFunc={diasLogin} errors={{'error':'Username or Password is Incorrect'}} buttonText='Login' buttonColor={'#FF9728'} textColor={'#FFFFFF'}/>
                     </div>
             </form>
 

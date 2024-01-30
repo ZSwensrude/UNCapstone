@@ -7,12 +7,18 @@ import { useFormik } from 'formik';
 
 export const RegisterForm = () => {
     const navigate = useNavigate();
+    const [loginErrors, updateError] = useState({});
 
     const register = (openModal) => {
       formik.handleSubmit()
-      if (formik.errors) {
-        openModal()
+      if (Object.keys(loginErrors).length > 0) {
+        openModal();
       }
+    }
+
+    const onModalExit = (closeModal) => {
+      updateError({});
+      closeModal();
     }
 
     const validate = values => {
@@ -28,27 +34,26 @@ export const RegisterForm = () => {
    
         errors.password = 'Password required';
    
-      } else if (password1 !== password2) {
-   
+      } else if (values.password1 !== values.password2) {
         errors.password = 'Passwords must match';
    
       }
 
+      updateError(errors);
       return errors;
     }
 
     const formik = useFormik({
 
       initialValues: {
- 
         username: '',
         password1: '',
-        password2: '',
+        password2: ''
       },
 
       validate,
  
-      onSubmit: ({values, openModal}) => {
+      onSubmit: values => {
  
         var info = {
           username: values.username,
@@ -59,6 +64,8 @@ export const RegisterForm = () => {
          
             if (Meteor.user()) {
               navigate('/dias-home-page');
+            } else {
+              updateError({'error': error.reason})
             }
          });
  
@@ -76,7 +83,7 @@ export const RegisterForm = () => {
               name = "username"
               type="text" 
               required
-              value = {formik.values.email}
+              value = {formik.values.username}
               onChange={formik.handleChange}
                 />
           </div>
@@ -103,7 +110,7 @@ export const RegisterForm = () => {
               />
           </div>
           <div id='buttonRegister'>
-            <LoginButton id='buttonRegister' loginFunc={register} buttonText={'Create Account'} buttonColor={'#00DB89'} textColor={'#FFFFFF'} error={formik.errors} />
+            <LoginButton id='buttonRegister' loginFunc={register} closeFunc={onModalExit} buttonText={'Create Account'} buttonColor={'#00DB89'} textColor={'#FFFFFF'} errors={loginErrors} />
           </div>
         </form>
     );
