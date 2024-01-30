@@ -4,8 +4,8 @@ body {
   background-color: #EFEFEF;
 }
 
-.top {
-  /* display: flexbox; */
+.all {
+  width: 100%;
 }
 
 .logo {

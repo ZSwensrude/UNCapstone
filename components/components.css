@@ -251,6 +251,7 @@
 /* ------------------------------------ */
 img#itemflag {
   height: 30px;
+  width: 50px;
   border: solid 1px;
 }
 .countryname{

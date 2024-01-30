@@ -52,7 +52,7 @@ const Home=()=>{
   };
 
  
-  const loginDelegate = () => {
+  const loginDelegate = (modalOpen) => {
     // Get selected country and session ID
     const selectedCountry = document.getElementById('countries').value;
     const sessionId = document.getElementById('sessionId').value;   
@@ -65,7 +65,7 @@ const Home=()=>{
     Meteor.loginWithPassword(username, password, function(error) {
          
       if (error) {
-         //modalOpen();
+         modalOpen();
          console.log("ERROR LOGGING IN")
       } else {
         console.log("username",username);
@@ -168,8 +168,11 @@ const Home=()=>{
                 </div>
 
                 <div className="submitButton">
-                <CoolButton buttonText={'Login'} onClick={loginDelegate} buttonColor={'#FF9728'} textColor="white" />                    {/* <button type="submit">Login</button> */}
+                {/* <CoolButton buttonText={'Login'} onClick={loginDelegate} buttonColor={'#FF9728'} textColor="white" />                    <button type="submit">Login</button> */}
+                <LoginButton loginFunc={loginDelegate} errors={{'error':'Incorrect session ID'}} buttonText='Login' buttonColor={'#FF9728'} textColor={'#FFFFFF'}/>
+
                     </div>
+
                 </div>
                 {/* TO import images, you can put the image in /public/images/ then import it with the following:
                  window.location.origin + '/images/YourImage.whatever*/}
