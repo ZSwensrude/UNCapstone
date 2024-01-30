@@ -34,7 +34,8 @@ const Home=()=>{
       </option>
     ));
   };
- 
+
+  
 
   const login = e => {
 
@@ -54,21 +55,30 @@ const Home=()=>{
   const loginDelegate = () => {
     // Get selected country and session ID
     const selectedCountry = document.getElementById('countries').value;
-    const sessionId = document.getElementById('sessionId').value;
+    const sessionId = document.getElementById('sessionId').value;   
+    // Meteor.loginWithPassword('Irelandxyz', 'xyz')
+    Meteor.loginWithPassword(username, password, function(error) {
+         
+      if (error) {
+         //modalOpen();
+         console.log("ERROR LOGGING IN")
+      } else {
+        
+      console.log("sessionID: ", sessionId);
+      console.log("country: ", selectedCountry);
+      // Check if the country is selected
+      if (selectedCountry === 'choice' || !sessionId) {
+        setMessage('Please select a country and enter a session ID.');
+        return;
+      }
 
-    console.log("sessionID: ", sessionId);
-    console.log("country: ", selectedCountry);
-    // Check if the country is selected
-    if (selectedCountry === 'choice' || !sessionId) {
-      setMessage('Please select a country and enter a session ID.');
-      return;
+      // Insert delegate information into MongoDB
+      insertDel({ country: selectedCountry, roleCall: '' });
+
+      // Redirect to the delegate page or perform any other actions
+      navigate('/delegate');   
     }
-
-    // Insert delegate information into MongoDB
-    insertDel({ country: selectedCountry, roleCall: '' });
-
-    // Redirect to the delegate page or perform any other actions
-    navigate('/delegate');
+    })
   };
 
   return (
