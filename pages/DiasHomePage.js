@@ -2,6 +2,9 @@ import { Typography, Paper } from "@mui/material";
 import React from "react";
 import './DiasHomePageIndex.css';
 import '../components/components.css';
+import CoolButton from "../components/CoolButton";
+import Header from "../components/Header";
+import { useNavigate  } from 'react-router-dom';
 
 function openTab(evt, tabName) {
     // Declare all variables
@@ -59,11 +62,11 @@ const DiasHome = () => {
 
             <div className="buttonBlock1">
                 <div className="firstBlock">
-                    <button className="startRollCallButton" type="submit">Start Roll Call</button>
-                    <button className="exportButton" type="submit">Export</button>
+                <CoolButton buttonText={"Start Roll Call"} buttonColor={'#FF9728'} textColor='white' />
+                <CoolButton buttonText={"Export"} buttonColor={'#00DB89'} textColor='white' />
                 </div>
                 <div className="secondBlock">
-                    <button className="resetButton" type="submit">Reset</button>
+                <CoolButton buttonText={"Reset"} buttonColor={'#FF9728'} textColor='white' />
                 </div>
             </div>
         </div>

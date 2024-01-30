@@ -19,7 +19,7 @@ body {
   /* Style the tab */
 .tab {
     overflow: hidden;
-    border: 1px solid #009edb;
+    border: 1vh solid #009edb;
     background-color: #009edb;
   }
   
@@ -31,9 +31,9 @@ body {
     border: none;
     outline: none;
     cursor: pointer;
-    padding: 10px 16px;
+    padding: 2.5vh 5vh;
     transition: 0.3s;
-    font-size: 15px;
+    font-size: 3vh;
   }
   
   /* Change background color of buttons on hover */
@@ -50,25 +50,27 @@ body {
   .RollCall.tabcontent {
     display: flex;
     justify-content: center;
-    padding: 6px 12px;
+    padding: 3vh 5vh;
   }
 
   .RollCallBlock {
     display: flex;
     justify-content: center;
+    margin-block-start: 11vh;
   }
 
   .RollCallList {
-    width: 1000px;
-    height: 425px;
+    width: 170vh;
+    height: 70vh;
     display:block;
     background: #EFEFEF;
     border-style: solid;
     border-color: #009edb;
+    border-radius: 30px;
   }
 
   .searchBlock {
-    height: 50px;
+    height: 8vh;
     display:flex;
     background: #EFEFEF;
     border-bottom-style: solid;
@@ -77,7 +79,7 @@ body {
   }
 
   .searchBox {
-    width: 944px;
+    width: 160vh;
     height:32px;
     background: #E8E8E8;
     margin-top: 4px;

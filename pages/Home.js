@@ -14,7 +14,16 @@ const Home=()=>{
 
     const navigate = useNavigate();
 
-  const handleClick = () => {
+  const toDelegate = () => {
+    // Navigate to a different route
+    navigate('/delegate');
+  };
+  const toDias = () => {
+    // Navigate to a different route
+    navigate('/dias');
+  };
+
+  const toRegister = () => {
     // Navigate to a different route
     navigate('/delegate');
   };
@@ -22,21 +31,24 @@ const Home=()=>{
 
   return (
     <div className="all">
-
+        
+        <div className="header">
         <Header version={'blank'}/>
-        <div className="logo">
-            <img src={window.location.origin + '/images/UN_emblem_blue.png'} height={200} alt="logoImage" />
         </div>
+
+        <div className="logo">
+            <img src={window.location.origin + '/images/UN_emblem_blue.png'} height={100} alt="logoImage" />
+        </div>
+
         <div className= "top">
             <h2 className="welcomeHeader">Welcome to United Nations</h2>
         </div>
-        
 
         <div className="logins">
             <div className="container1">
             <div className="heading"> 
                 <h1 className="diasAndDelegateHeader">Dias Login</h1>
-                <img src={window.location.origin + '/images/lecturer.png'} width={35} height={55} alt="lecturerImage" />
+                <img src={window.location.origin + '/images/lecturer.png'} width={45} height={65} alt="lecturerImage" />
             </div>
                     <div className="usernameLabel">
                         <h6 className="header6">Username</h6> 
@@ -55,17 +67,15 @@ const Home=()=>{
                     </div>
 
                     <div className="diasButtons">
-                    <button className="register" type="submit">Register</button>
-                    <Link to={'/dias'}>
-                    <button className="loginButton" type="submit">Login</button>
-                    </Link>
+                    <CoolButton buttonText={"Register"} onClick={toRegister} buttonColor={'#00DB89'} textColor='white' />
+                    <CoolButton buttonText={"Login"} onClick={toDias} buttonColor={'#FF9728'} textColor='white' />
                     </div>
             </div>
 
             <div className="container2">
             <div className="heading">   
             <h1 className="diasAndDelegateHeader">Delegate Login</h1>
-            <img src={window.location.origin + '/images/delegate.png'} width={35} height={55} alt="lecturerImage" />
+            <img src={window.location.origin + '/images/delegate.png'} width={45} height={63} alt="lecturerImage" />
             </div>
                 <div className="countryLabel">
                 <label htmlFor="country">Country</label>
@@ -93,10 +103,7 @@ const Home=()=>{
                 </div>
 
                 <div className="submitButton">
-                {/* <Link to={'/delegate'}> */}
-                    <CoolButton buttonText={"Login"} onClick={handleClick} buttonColor={'#FF9728'} textColor='white' />
-                    {/* <button type="submit">Login</button> */}
-                {/* </Link> */}
+                    <CoolButton buttonText={"Login"} onClick={toDelegate} buttonColor={'#FF9728'} textColor='white' />
                     </div>
                 </div>
                 {/* TO import images, you can put the image in /public/images/ then import it with the following:
