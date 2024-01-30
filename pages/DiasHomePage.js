@@ -106,15 +106,15 @@ const DiasHome = () => {
         </div>
 
         <div id="Informal" className="tabcontent">
-            <h3>Informal</h3>
+            <h3 className="head">Informal</h3>
         </div>
 
         <div id="VotingProcedure" className="tabcontent">
-            <h3>Voting Procedure</h3>
+            <h3 className="head">Voting Procedure</h3>
         </div>
 
         <div id="NotesDias" className="tabcontent">
-            <h3>Notes to the Dias</h3>
+            <h3 className="head">Notes to the Dias</h3>
         </div>
     </div>
     );
