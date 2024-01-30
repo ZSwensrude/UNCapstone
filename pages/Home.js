@@ -57,27 +57,38 @@ const Home=()=>{
     const selectedCountry = document.getElementById('countries').value;
     const sessionId = document.getElementById('sessionId').value;   
     // Meteor.loginWithPassword('Irelandxyz', 'xyz')
+    console.log("sessionID: ", sessionId);
+    console.log("country: ", selectedCountry);
+
+    let username=selectedCountry+sessionId;
+    let password=sessionId;
     Meteor.loginWithPassword(username, password, function(error) {
          
       if (error) {
          //modalOpen();
          console.log("ERROR LOGGING IN")
       } else {
-        
-      console.log("sessionID: ", sessionId);
-      console.log("country: ", selectedCountry);
-      // Check if the country is selected
-      if (selectedCountry === 'choice' || !sessionId) {
-        setMessage('Please select a country and enter a session ID.');
-        return;
+        console.log("username",username);
+        // Check if the country is selected
+        if (selectedCountry === 'choice' || !sessionId) {
+          setMessage('Please select a country and enter a session ID.');
+          return;
+        }
+
+        // Insert delegate information into MongoDB
+        const success = insertDel({ country: selectedCountry, roleCall: '' });
+        console.log("success", success);
+        if (success) {
+          // Insertion was successful
+          // Redirect to the delegate page or perform any other actions
+          navigate('/waiting'); 
+        } else {
+          // Item already exists, handle accordingly
+          //console.log('Delegate already exists for the selected country.');
+        }
+
+  
       }
-
-      // Insert delegate information into MongoDB
-      insertDel({ country: selectedCountry, roleCall: '' });
-
-      // Redirect to the delegate page or perform any other actions
-      navigate('/delegate');   
-    }
     })
   };
 
