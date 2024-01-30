@@ -238,10 +238,43 @@
   right: 0; /* Position at the right */
 }
 
+
 #errorPaper {
   height: 10vh;
   width: 15vw;
   display: flex;
   justify-content: center;
   align-items: center;
+
+
+
+/* ------------------------------------ */
+img#itemflag {
+  height: 30px;
+  border: solid 1px;
+}
+.countryname{
+  margin:0;
+}
+.countryItem{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffff;
+  border-radius: 34px;
+  padding: 5px 15px 5px 3px;
+  margin: 5px 0px;
+  min-width: 300px;
+  max-width: 300px;
+}
+
+.countryItem:active{
+  background: blue;
+}
+.country.in.queue {
+  background: #ffff;
+  margin-top: 10px;
+  border-radius: 10px;
+  padding: 15px;
+  width: 80%;
 }

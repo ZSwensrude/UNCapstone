@@ -6,7 +6,7 @@ import theme from './theme.jsx'; // This is the MUI theme that we can use to set
 import { ThemeProvider } from '@emotion/react';
 import { Route, Link, Routes, BrowserRouter } from 'react-router-dom';
 import Navbar from '../components/Navbar.js';
-
+//import Country from '../components/Country.js'
 // import the css file
 import './main.css';
 
@@ -16,7 +16,8 @@ import Dias from '../pages/Dias.js';
 import Delegate from '../pages/Delegate.js';
 import Register from '../pages/Register.js';
 import DiasHome from '../pages/DiasHomePage.js';
-
+import RollCall from '../pages/DelRollCall.js';
+import Waiting from '../pages/Waiting.js';
 
 function Main() {
   return (
@@ -30,6 +31,8 @@ function Main() {
             <Route exact path='/delegate' element={<Delegate />} />
             <Route exact path='/register' element={<Register />} />
             <Route exact path='/dias-home-page' element={<DiasHome />} />
+            <Route exact path='/delegate-roll-call' element={<RollCall />} />
+            <Route exact path='/waiting' element={<Waiting />} />
           </Routes>
         </BrowserRouter>
       </div>
@@ -37,9 +40,12 @@ function Main() {
   );
 }
 
+
 // <Navbar />
+//<Country/>
 Meteor.startup(() => {
   const container = document.getElementById('react-target');
   const root = createRoot(container);
+  Meteor.subscribe('userData');
   root.render(<Main />);
 });
