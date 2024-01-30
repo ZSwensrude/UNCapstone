@@ -63,7 +63,7 @@ export const RegisterForm = () => {
         Accounts.createUser(info, function(error) {
          
             if (Meteor.user()) {
-              navigate('/dias-home-page');
+              navigate('/dias');
             } else {
               updateError({'error': error.reason})
             }

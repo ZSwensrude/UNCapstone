@@ -36,7 +36,7 @@ const Home=()=>{
       if (error) {
          modalOpen();
       } else {
-        navigate('/dias-home-page');
+        navigate('/dias');
       }
    })
 
