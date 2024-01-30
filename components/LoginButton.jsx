@@ -22,7 +22,8 @@ const LoginButton = ({loginFunc, error, buttonText, buttonColor, textColor}) => 
         >
           <Paper id="errorPaper">
             <Typography id="PasswordError">
-              {error}
+              {error.username}<br/>
+              {error.password}
             </Typography>
           </Paper>
       </Modal>
