@@ -9,6 +9,8 @@ import { Link } from 'react-router-dom';
 import CoolButton from "../components/CoolButton";
 import Header from "../components/Header";
 import { useNavigate  } from 'react-router-dom';
+import LoginButton from "../components/LoginButton";
+
 import countriesData from '../flags.json'  
 import { insertDel } from '../imports/api/delegates';
 
@@ -17,7 +19,6 @@ import { insertDel } from '../imports/api/delegates';
 const Home=()=>{
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
 
   const navigate = useNavigate();
 
@@ -26,6 +27,21 @@ const Home=()=>{
     Meteor.logout();
     navigate('/register');
   };
+  
+  
+  const diasLogin = (modalOpen) => {
+
+    Meteor.loginWithPassword(username, password, function(error) {
+
+      if (error) {
+         modalOpen();
+      } else {
+        navigate('/dias-home-page');
+      }
+   })
+
+  };
+
 
   const generateCountryOptions = () => {
     return countriesData.countries.map((country, index) => (
@@ -35,23 +51,7 @@ const Home=()=>{
     ));
   };
 
-  
-
-  const login = e => {
-
-    e.preventDefault();
-    Meteor.loginWithPassword(username, password, function(error) {
-         
-      if (error) {
-         setMessage(error.message);
-      }
-   })
-
-   if (Meteor.user()) {
-      navigate('/dias-home-page');
-   }
-   
-  };
+ 
   const loginDelegate = () => {
     // Get selected country and session ID
     const selectedCountry = document.getElementById('countries').value;
@@ -105,7 +105,7 @@ const Home=()=>{
         
 
         <div className="logins">
-            <form className="container1" onSubmit={login}>
+            <form className="container1">
             <div className="heading"> 
                 <h1>Dias Login</h1>
                 <img src={window.location.origin + '/images/lecturer.png'} width={35} height={55} alt="lecturerImage" />
@@ -135,8 +135,8 @@ const Home=()=>{
                     </div>
 
                     <div className="diasButtons">
-                    <button className="register" type="button" onClick={toRegister}>Register</button>
-                    <button type="submit">Login</button>
+                      <CoolButton onClick={toRegister} buttonColor={'#00DB89'} textColor={'#FFFFFF'} buttonText={'Register'} />
+                      <LoginButton loginFunc={diasLogin} errors={{'error':'Username or Password is Incorrect'}} buttonText='Login' buttonColor={'#FF9728'} textColor={'#FFFFFF'}/>
                     </div>
             </form>
 

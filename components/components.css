@@ -239,6 +239,14 @@
 }
 
 
+#errorPaper {
+  height: 10vh;
+  width: 15vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+
 
 /* ------------------------------------ */
 img#itemflag {
