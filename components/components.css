@@ -237,3 +237,11 @@
 .sendButton {
   right: 0; /* Position at the right */
 }
+
+#errorPaper {
+  height: 10vh;
+  width: 15vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

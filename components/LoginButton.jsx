@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Modal, Paper, Typography} from "@mui/material";
 import CoolButton from './CoolButton';
 
-const LoginButton = ({loginFunc, text, error}) => {
+const LoginButton = ({loginFunc, error, buttonText, buttonColor, textColor}) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -13,13 +13,14 @@ const LoginButton = ({loginFunc, text, error}) => {
 
   return(
     <div>
-      <CoolButton onClick={handleLogin} message={text}/>
+      <CoolButton onClick={handleLogin} buttonText={buttonText} buttonColor={buttonColor} textColor={textColor}/>
       <Modal 
+        className='modalWindow'
         open={open}
         onClose={handleClose}
         aria-describedby="PasswordError"
         >
-          <Paper id="LoginPaper">
+          <Paper id="errorPaper">
             <Typography id="PasswordError">
               {error}
             </Typography>

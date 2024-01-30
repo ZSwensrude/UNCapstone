@@ -84,8 +84,8 @@ const Home=()=>{
                     </div>
 
                     <div className="diasButtons">
-                    <button className="register" type="button" onClick={toRegister}>Register</button>
-                    <LoginButton loginFunc={diasLogin} text='Login' error='Username or Password is incorrect'/>
+                      <CoolButton onClick={toRegister} buttonColor={'#00DB89'} textColor={'#FFFFFF'} buttonText={'Register'} />
+                      <LoginButton loginFunc={diasLogin} error='Username or Password is Incorrect' buttonText='Login' buttonColor={'#FF9728'} textColor={'#FFFFFF'}/>
                     </div>
             </form>
 
