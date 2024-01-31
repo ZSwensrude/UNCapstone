@@ -4,26 +4,16 @@ body {
     background-color: #EFEFEF;
   }
 
-  .fullPage {
-    width: 1250px;
-  }
-
-  .bar {
-    height: 40px;
-    background: #009edb;
-    margin-bottom: 15px;
-  }
-
   .headerBar {
     display: flex;
     justify-content: center;
   }
 
   .myConference {
-    font-size:  50px;
+    font-size:  10vh;
     font-weight:lighter;
-    margin-top: 4px;
-    margin-bottom: 15px;
+    margin-block-start: 10vh;
+    margin-block-end: 1.5vh;
   }
 
   .mainBox {
@@ -32,33 +22,26 @@ body {
   }
 
   .container {
-    width: 500px;
-    height: 350px;
+    width: 75vh;
+    height: 60vh;
     background: #009edb;
     display:flow;
     justify-content: center;
     align-items: center;
     border-style: solid;
     border-color:#009edb;
-    margin-top: 15px;
+    margin-top: 3vh;
+    border-radius: 30px;
   }
 
   .line {
-    height: 1px;
+    height: 0.3vh;
     background: black;
-    margin-top: 310px;
+    margin-top: 52vh;
   }
 
   .buttonBlock {
     display:flex;
     justify-content: center;
-    margin: 10px;
-  }
-
-  button {
-    background: #FF9728;
-    color: white;
-    border-radius: 10px;
-    border-color: #FF9728;
-    width: 80px;
+    margin: 1.25vh;
   }

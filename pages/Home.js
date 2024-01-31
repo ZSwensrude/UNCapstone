@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import React from "react";
+import React, {useState} from 'react';
 import './HomeIndex.css';
 import LockIcon from '@mui/icons-material/Lock';
 import PublicIcon from '@mui/icons-material/Public';
@@ -9,39 +9,118 @@ import { Link } from 'react-router-dom';
 import CoolButton from "../components/CoolButton";
 import Header from "../components/Header";
 import { useNavigate  } from 'react-router-dom';
+import LoginButton from "../components/LoginButton";
+
+import countriesData from '../flags.json'  
+import { insertDel } from '../imports/api/delegates';
+
+//import { LoginForm } from "../components/LoginForm";
 
 const Home=()=>{
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  const handleClick = () => {
+  const toRegister = () => {
     // Navigate to a different route
-    navigate('/delegate');
+    Meteor.logout();
+    navigate('/register');
+  };
+  
+  
+  const diasLogin = (modalOpen) => {
+
+    Meteor.loginWithPassword(username, password, function(error) {
+
+      if (error) {
+         modalOpen();
+      } else {
+        navigate('/dias');
+      }
+   })
+
   };
 
 
+  const generateCountryOptions = () => {
+    return countriesData.countries.map((country, index) => (
+      <option key={index} value={country.country}>
+        {country.country.charAt(0).toUpperCase() + country.country.slice(1)}
+      </option>
+    ));
+  };
+
+ 
+  const loginDelegate = (modalOpen) => {
+    // Get selected country and session ID
+    const selectedCountry = document.getElementById('countries').value;
+    const sessionId = document.getElementById('sessionId').value;   
+    // Meteor.loginWithPassword('Irelandxyz', 'xyz')
+    console.log("sessionID: ", sessionId);
+    console.log("country: ", selectedCountry);
+
+    let username=selectedCountry+sessionId;
+    let password=sessionId;
+    Meteor.loginWithPassword(username, password, function(error) {
+         
+      if (error) {
+         modalOpen();
+         console.log("ERROR LOGGING IN")
+      } else {
+        console.log("username",username);
+        // Check if the country is selected
+        if (selectedCountry === 'choice' || !sessionId) {
+          setMessage('Please select a country and enter a session ID.');
+          return;
+        }
+
+        // Insert delegate information into MongoDB
+        const success = insertDel({ country: selectedCountry, roleCall: '' });
+        console.log("success", success);
+        if (success) {
+          // Insertion was successful
+          // Redirect to the delegate page or perform any other actions
+          navigate('/waiting'); 
+        } else {
+          // Item already exists, handle accordingly
+          //console.log('Delegate already exists for the selected country.');
+        }
+
+  
+      }
+    })
+  };
+
   return (
     <div className="all">
-
-        <Header version={'blank'}/>
-        <div className="logo">
-            <img src={window.location.origin + '/images/UN_emblem_blue.png'} height={200} alt="logoImage" />
-        </div>
-        <div className= "top">
-            <h2>Welcome to United Nations</h2>
-        </div>
         
+        <div className="header">
+        <Header version={'blank'}/>
+        </div>
+
+        <div className="logo">
+            <img src={window.location.origin + '/images/UN_emblem_blue.png'} height={100} alt="logoImage" />
+        </div>
+
+        <div className= "top">
+            <h2 className="welcomeHeader">Welcome to United Nations</h2>
+        </div>
 
         <div className="logins">
-            <div className="container1">
+            <form className="container1">
             <div className="heading"> 
-                <h1>Dias Login</h1>
-                <img src={window.location.origin + '/images/lecturer.png'} width={35} height={55} alt="lecturerImage" />
+                <h1 className="diasAndDelegateHeader">Dias Login</h1>
+                <img src={window.location.origin + '/images/lecturer.png'} width={45} height={65} alt="lecturerImage" />
             </div>
                     <div className="usernameLabel">
                         <h6 className="header6">Username</h6> 
                         <div className="input-box">
-                            <input type="text" required />
+                            <input type="text" 
+                            required
+                            value = {username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            />
                         </div>
                         <GavelIcon style={{ color: "white" }}/>
                     </div>
@@ -49,55 +128,51 @@ const Home=()=>{
                     <div className="passwordLabel">
                         <h6 className="header6">Password</h6>
                         <div className="input-box">
-                            <input type="password" required />
+                            <input type="password" 
+                            required 
+                            value = {password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            />
                         </div>
                         <LockIcon style={{ color: "white" }}/>
                     </div>
 
                     <div className="diasButtons">
-                    <button className="register" type="submit">Register</button>
-                    <Link to={'/dias'}>
-                    <button type="submit">Login</button>
-                    </Link>
+                      <CoolButton onClick={toRegister} buttonColor={'#00DB89'} textColor={'#FFFFFF'} buttonText={'Register'} />
+                      <LoginButton loginFunc={diasLogin} errors={{'error':'Username or Password is Incorrect'}} buttonText='Login' buttonColor={'#FF9728'} textColor={'#FFFFFF'}/>
                     </div>
-            </div>
+            </form>
 
             <div className="container2">
             <div className="heading">   
-            <h1>Delegate Login</h1>
-            <img src={window.location.origin + '/images/delegate.png'} width={35} height={55} alt="lecturerImage" />
+            <h1 className="diasAndDelegateHeader">Delegate Login</h1>
+            <img src={window.location.origin + '/images/delegate.png'} width={45} height={63} alt="lecturerImage" />
             </div>
-                <div className="countryLabel">
+               
+            <div className="countryLabel">
                 <label htmlFor="country">Country</label>
                 <select name="countries" id="countries">
-                    <option value="choice"></option>
-                    <option value="afganistan">Afganistan</option>
-                    <option value="albania">Albania</option>
-                    <option value="algeria">Algeria</option>
-                    <option value="andorra">Andorra</option>
-                    <option value="angola">Angola</option>
-                    <option value="antiguaAndBarbuda">Antigua and Barbuda</option>
-                    <option value="argentina">Argentia</option>
-                    <option value="canada">Canada</option>
-                    <option value="united kingdom">United Kingdom</option>
+                <option value="choice"></option>
+                {generateCountryOptions()}
                 </select>
-                <PublicIcon style={{ color: "white"}} />
-                </div>
+                <PublicIcon style={{ color: "white" }} />
+            </div>
+
                 
                 <div className="sessionLabel">
                     <h6 className="header6">Session ID</h6>
                     <div className="input-box">
-                        <input type="text" required />
+                        <input type="text" required  id="sessionId"/>
                     </div>
                     <InfoIcon style={{ color: "white"}} />
                 </div>
 
                 <div className="submitButton">
-                {/* <Link to={'/delegate'}> */}
-                    <CoolButton buttonText={"Login"} onClick={handleClick} buttonColor={'#FF9728'} textColor='white' />
-                    {/* <button type="submit">Login</button> */}
-                {/* </Link> */}
+                {/* <CoolButton buttonText={'Login'} onClick={loginDelegate} buttonColor={'#FF9728'} textColor="white" />                    <button type="submit">Login</button> */}
+                <LoginButton loginFunc={loginDelegate} errors={{'error':'Incorrect session ID'}} buttonText='Login' buttonColor={'#FF9728'} textColor={'#FFFFFF'}/>
+
                     </div>
+
                 </div>
                 {/* TO import images, you can put the image in /public/images/ then import it with the following:
                  window.location.origin + '/images/YourImage.whatever*/}
@@ -108,6 +183,7 @@ const Home=()=>{
     );
     
 }
+//           <button className="loginButton" type="submit">Login</button>
 
 export default Home;
 

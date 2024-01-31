@@ -3,19 +3,269 @@ body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     background-color: #EFEFEF;
   }
-
-  h2 {
-    color: black;
+  
+  .diasBar {
+    position: fixed;
+    display: flex;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #009EDB;
+    color: white;
+    height: 8vh;
+    padding: 1vh;
   }
 
-  ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+  /* Style the tab */
+.tab {
     overflow: hidden;
-    background-color: #38444d;
+    border: 1vh solid #009edb;
+    background-color: #009edb;
+  }
+  
+  /* Style the buttons inside the tab */
+  .tablinks {
+    background-color: inherit;
+    color: white;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 2.5vh 5vh;
+    transition: 0.3s;
+    font-size: 3vh;
+  }
+  
+  /* Change background color of buttons on hover */
+  .tablinks:hover {
+    background-color: #00DBD4;
+  }
+  
+  /* Create an active/current tablink class */
+  .tablinks:active {
+    background-color: #00DBD4;
+  }
+  
+  /* Style the tab content */
+  .RollCall.tabcontent {
+    display: flex;
+    justify-content: center;
+    padding: 3vh 5vh;
   }
 
-  li {
-    float: left;
+  .RollCallBlock {
+    display: flex;
+    justify-content: center;
+    margin-block-start: 11vh;
+  }
+
+  .RollCallList {
+    width: 170vh;
+    height: 70vh;
+    display:block;
+    background: #EFEFEF;
+    border-style: solid;
+    border-color: #009edb;
+    border-radius: 30px;
+  }
+
+  .searchBlock {
+    height: 8vh;
+    display:flex;
+    background: #EFEFEF;
+    border-bottom-style: solid;
+    border-bottom-color: #009edb;
+    justify-content: center;
+  }
+
+  .searchBox {
+    width: 160vh;
+    height:32px;
+    background: #E8E8E8;
+    margin-top: 4px;
+    border-color: #E8E8E8;
+  }
+
+  .titleBlock {
+    height: 30px;
+    display:flex;
+    background: #EFEFEF;
+    border-bottom-style: solid;
+    border-bottom-color: #009edb;
+    justify-content: center;
+    
+  }
+
+  .titles {
+        font-weight: lighter;
+        display:flex;
+        margin-top: 7px;
+        margin-bottom: 7px;
+        margin-left: 10px;
+        margin-right: 10px;
+        width: 250px;
+        justify-content: center;
+        
+  }
+
+  .presentAbsentBlock {
+    height: 295px;
+    display:flex;
+    background: #EFEFEF;
+    justify-content: space-evenly;
+  }
+
+  .firstBlock {
+    width: 1000px;
+    display:flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 125px;
+    margin-left: 125px;
+  }
+
+  .startRollCallButton {
+  background: #FF9728;
+    color: white;
+    border-radius: 5px;
+    border-color: #FF9728;
+    width: 100px;
+    height: 35px;
+  }
+
+  .exportButton {
+    background: #00DB89;
+    color: white;
+    border-radius: 5px;
+    border-color: #00DB89;
+    width: 75px;
+    height: 35px;
+  }
+
+  .secondBlock {
+    width: 1000px;
+    display:flex;
+    justify-content: flex-start;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 125px;
+    margin-left: 125px;
+  }
+
+  .resetButton {
+        background: #FF9728;
+        color: white;
+        border-radius: 5px;
+        border-color: #FF9728;
+        width: 65px;
+        height: 25px;
+  }
+
+  .Formal.tabcontent {
+    display:flex;
+    justify-content: center;
+  }
+
+  .FormalBlock {
+    display:flex;
+  }
+
+  .SpeakerListBlock {
+    display:block;
+    width: 690px;
+    margin-bottom: 5px;
+  }
+
+  .SpeakerListButtonBlock {
+    display: flex;
+    justify-content: center;
+  }
+
+  .SpeakersListButton {
+    background: #009edb;
+    color: white;
+    border-radius: 7px;
+    border-color: #009edb;
+    width: 150px;
+    font-size: medium;
+    height: 35px;
+  }
+
+  .currentlySpeakingAndCurrent {
+    display:flex;
+    justify-content: center;
+  }
+  
+  .currentlySpeaking, .current {
+    width: 345px;
+    height: 450px;
+    display:block;
+    background: #009edb;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: #009edb;
+    margin: 10px;
+  }
+
+  .MotionsBlock {
+      display:block;
+      width: 560px;
+      margin-bottom: 5px;
+  }
+
+  .MotionsButtonBlock {
+      display:flex;
+      justify-content: center;
+      margin-bottom: 9px;
+  }
+
+  .MotionsButton {
+    background: #009edb;
+    color: white;
+    border-radius: 7px;
+    border-color: #009edb;
+    width: 150px;
+    font-size: medium;
+    height: 35px;
+
+  }
+
+  .timerBlock {
+    width: 500px;
+    height: 225px;
+    display:block;
+    background: #009edb;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: #009edb;
+    margin-left: 15px;
+    margin-bottom: 10px;
+  }
+
+  .timerBlock2 {
+    width: 480px;
+    height: 200px;
+    display:block;
+    background: white;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: white;
+    margin-left: 25px;
+    margin-bottom: 5px;
+  }
+
+  .presentationButtonBlock {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .presentationButton {
+    background: #00DB89;
+    color: white;
+    border-radius: 7px;
+    border-color: #00DB89;
+    width: 110px;
+    font-size: medium;
+    height: 25px;
   }
