@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Modal, Paper, Typography, TextField } from "@mui/material";
 import CoolButton from "./CoolButton";
 import './components.css';
@@ -30,13 +30,13 @@ const CreateGroup = () => {
     setSelectedCountries(selectedCountries.filter((countryInList) => countryInList.country !== country.country));
   }
 
-  useEffect( ()=>{
-    console.log(selectedCountries);
-  }, [selectedCountries]);
-
   const create = () => {
     console.log("create pressed");
+    console.log("countries chosen: ", selectedCountries);
     // send the countries from selectedCountries messages
+
+    // create the working group with only this country in it
+    // add that new group to the database
 
     handleClose();
   }

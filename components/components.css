@@ -307,11 +307,8 @@
 
 .selectedFlag {
   height: 4vh;
-  margin: 6px;
   transition: transform 0.3s ease;
-  outline-width: 20px;
-  outline: solid;
-  outline-color: #009EDB;
+  border: solid 6px #009EDB
 }
 
 .smallFlag:hover {
