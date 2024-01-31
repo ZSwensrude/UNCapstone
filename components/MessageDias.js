@@ -30,7 +30,7 @@ const MessageDias = () => {
     <div>
       <CoolButton onClick={handleOpen} buttonColor={'#999999'} textColor={'white'} buttonText={'send message to dias'} message={true}/>
       <Modal className="modalWindow" open={open} onClose={handleClose}>
-        <Paper className="modalContent">
+        <Paper className="modalContent" style={{borderRadius:'30px'}}>
           <Typography variant="h2">
             Message Dias
           </Typography>

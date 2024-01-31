@@ -30,7 +30,7 @@ const MessageGroup = ({ country }) => {
     <div>
       <CoolButton onClick={handleOpen} buttonColor={'#00DB89'} textColor={'white'} buttonText={'message'} message={true}/>
       <Modal className="modalWindow" open={open} onClose={handleClose}>
-        <Paper className="modalContent">
+        <Paper className="modalContent" style={{borderRadius:'30px'}}>
           <Typography variant="h2">
             Message {country}
           </Typography>
