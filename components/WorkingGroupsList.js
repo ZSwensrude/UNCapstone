@@ -3,6 +3,7 @@ import { Typography, Paper, Divider } from "@mui/material";
 import CoolButton from "./CoolButton";
 import './components.css'
 import WorkingGroup from "./WorkingGroup";
+import MessageGroup from "./MessageGroup";
 
 const WorkingGroupsList = () => {
   const [group, setGroup] = useState({});
@@ -81,7 +82,7 @@ const WorkingGroupsList = () => {
               <Typography >Location: {group.location}</Typography>
               <Typography >Topic: {group.topic}</Typography>
               <div className="groupMessage">
-                <CoolButton onClick={sendMessage} buttonColor={'#00DB89'} textColor={'white'} buttonText={'message'} message={true} />
+                <MessageGroup onClick={sendMessage}/>
               </div>
             </Paper>
           </>
