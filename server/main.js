@@ -5,7 +5,6 @@ import { diasCollection } from '/imports/api/dias';
 import { dmCollection } from '/imports/api/dm';
 import { motionCollection } from '/imports/api/motions';
 import { speakerCollection } from '/imports/api/speakers';
-import { userCollection } from '/imports/api/users';
 import { workingGroupCollection } from '/imports/api/workingGroups';
 
 // Allow statements for each collection
@@ -25,9 +24,6 @@ motionCollection.allow({
   insert: () => true,
 });
 speakerCollection.allow({
-  insert: () => true,
-});
-userCollection.allow({
   insert: () => true,
 });
 workingGroupCollection.allow({
@@ -57,9 +53,6 @@ export const insertSpeaker = async ({ country }) => {
   // Set timeAdded to the current date/time
   const timeAdded = new Date();
   await speakerCollection.insert({ country, timeAdded });
-};
-export const insertUser = async ({ user, pass }) => {
-  await userCollection.insert({ user, pass });
 };
 export const insertWG = async ({ countries, location, topic }) => {
   await workingGroupCollection.insert({ countries, location, topic });
@@ -91,12 +84,43 @@ Meteor.startup(async () => {
   Meteor.publish("speakers", function () {
     return speakerCollection.find();
   });
-  // Publish "users" to clients
-  Meteor.publish("users", function () {
-    return userCollection.find();
-  });
   // Publish "WGs" to clients
   Meteor.publish("WGs", function () {
       return workingGroupCollection.find();
   });
+  Meteor.publish('userData', function () {
+    if (this.userId) {
+      return Meteor.users.find({ _id: this.userId }, {
+        fields: { country: 1, conference: 1 }
+      });
+    } else {
+      this.ready();
+    }
+  });
 });
+
+// Custom delegate user info
+Accounts.onCreateUser((options, user) => {
+  user.country = options.country;
+  user.conference = options.conference;
+
+  return user;
+});
+
+/* 
+Code to interact with delegate accounts:
+
+Create user:
+Accounts.createUser({username: 'Irelandxyz', password: 'xyz', country: 'Ireland', conference: 'xyz'})
+
+Login:
+Meteor.loginWithPassword('Irelandxyz', 'xyz')
+
+Get user data:
+Meteor.user()
+
+Get just country:
+Meteor.user().country 
+
+You can put these in the code where needed, or in the console to test on the fly.
+*/
