@@ -1,10 +1,12 @@
 import React from "react";
 import { Typography, Dialog, DialogTitle, DialogContent, Radio, RadioGroup, FormControlLabel, Button } from "@mui/material";
 import './DelRollCall.css';
+import { useNavigate } from "react-router";
 
 const DelRollCall = () => {
   const [open, setOpen] = React.useState(true);
   const [selectedOption, setSelectedOption] = React.useState('');
+  const navigate = useNavigate();
 
   const handleClose = () => {
     setOpen(false);
@@ -18,6 +20,7 @@ const DelRollCall = () => {
     // Handle the selected option as needed
     console.log('Selected Option:', selectedOption);
     setOpen(false);
+    navigate('/delegate');
   };
 
   return (

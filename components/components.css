@@ -44,7 +44,7 @@
   margin: auto;
   margin-bottom: 1.5vh;
   border-radius: 30px;
-  width: 60%;
+  width: fit-content;
 }
 
 #body {
@@ -89,6 +89,8 @@
   border-radius: 30px;
   width: fit-content;
   transition: transform 0.3s ease;
+  z-index: 9;
+  position: relative;
 }
 
 .normalButton {
@@ -141,7 +143,7 @@
 .blackLine {
   background-color: black;
   border-color: black;
-  width: 70%;
+  width: 90%;
 }
 
 #middleLine {
@@ -194,9 +196,6 @@
 }
 
 .modalContent {
-  /* display:grid;
-  width: 80vh;
-  height: 40vh; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -239,6 +238,97 @@
 }
 
 
+#groups {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  left: 5vh;
+  width: 45%;
+  pointer-events: none;
+}
+
+#groupsTop {
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  padding-left: 2vh;
+  padding-right: 2vh;
+  background-color: #009EDB;
+  margin-bottom: 1.5vh;
+  border-radius: 30px;
+  width: fit-content;
+}
+
+#groupsBody {
+  position: relative;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  padding-left: 2vh;
+  padding-right: 2vh;
+  background-color: #009EDB;
+  border-radius: 30px;
+  height: 75vh;
+  width: 100%;
+  pointer-events: auto;
+}
+
+.groupHolder {
+  overflow-y: scroll;
+  height: 95%;
+  scrollbar-width: none;
+}
+.groupHolder::-webkit-scrollbar {
+  display: none; /* Hide scrollbar in WebKit browsers (Chrome, Safari, etc.) */
+}
+
+#workingGroupBack {
+  position: relative;
+  border-radius: 30px;
+  padding: 1vh;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 1vh;
+  padding-right: 10vh;
+}
+
+.workingGroupFlag {
+  height: 4vh;
+}
+
+.workingGroupButton {
+  position: absolute;
+  right: 1vh;
+}
+
+#groupHolder {
+  position: fixed;
+  left: 50%;
+  top: 20%;
+  width: 40%;
+  border-radius: 30px;
+  padding: 2vh;
+}
+
+#groupDetails {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+#extraDetails {
+  position: absolute;
+  bottom: 1vh;
+}
+
+.groupMessage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 #errorPaper {
   height: 10vh;
   width: 15vw;
