@@ -299,6 +299,31 @@
   height: 4vh;
 }
 
+.smallFlag {
+  height: 4vh;
+  margin: 6px;
+  transition: transform 0.3s ease;
+}
+
+.selectedFlag {
+  height: 4vh;
+  margin: 6px;
+  transition: transform 0.3s ease;
+  outline-width: 20px;
+  outline: solid;
+  outline-color: #009EDB;
+}
+
+.smallFlag:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.selectedFlag:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
 .workingGroupButton {
   position: absolute;
   right: 1vh;
@@ -337,6 +362,27 @@
   justify-content: center;
   align-items: center;
 
+}
+
+.textInput {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 1vh;
+  width: 40vh;
+  justify-content: flex-end;
+}
+
+.flagList {
+  display: flex;
+  flex-wrap: wrap;
+  overflow-y: scroll;
+  width: 100%;
+  height: 30vh;
+}
+
+.flagList::-webkit-scrollbar {
+  display: none; /* Hide scrollbar in WebKit browsers (Chrome, Safari, etc.) */
 }
 
 /* ------------------------------------ */

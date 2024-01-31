@@ -4,6 +4,7 @@ import CoolButton from "./CoolButton";
 import './components.css'
 import WorkingGroup from "./WorkingGroup";
 import MessageGroup from "./MessageGroup";
+import CreateGroup from "./CreateGroup";
 
 const WorkingGroupsList = () => {
   const [group, setGroup] = useState({});
@@ -62,7 +63,7 @@ const WorkingGroupsList = () => {
           </div>
 
           <div id='joinButton'>
-            <CoolButton buttonText='create group' buttonColor={'#FF9728'} textColor={'white'} onClick={createGroup}/>
+            <CreateGroup />
           </div>
         </Paper>
       </div>
