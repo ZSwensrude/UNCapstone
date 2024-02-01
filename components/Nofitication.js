@@ -4,23 +4,12 @@ import CoolButton from "./CoolButton";
 import './components.css';
 
 const Notification = ({ notification, readNotification }) => {
-  const [group, setGroup] = useState(notification.sender);
   const [classname, setclassname] = useState("unreadNotification");
 
   const joinGroup = () => {
     // figure out how to send the group
-    console.log("accepted invite to join ", group)
+    console.log("accepted invite to join ", notification.group)
   };
-
-  // const readNotification = () => {
-  //   // might have to change this, i just wanna update read and then update
-  //   // the notification in the database
-  //   // if that doesnt work we might have to update it in Delegate rather than here
-    
-  //   setRead(true);
-  //   // update in database
-  //   notification.read = true;
-  // };
 
   const doRead = () => {
     readNotification(notification.id);

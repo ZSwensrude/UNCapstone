@@ -4,9 +4,6 @@ import './components.css';
 import Notification from "./Nofitication";
 
 const Notifications = ({ notifications, readNotification }) => {
-
-  
-
   return (
     <Paper id="notificationContent" >
       {notifications.length > 1 ? (

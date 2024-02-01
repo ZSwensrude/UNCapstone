@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
-
 import './delegate.css'
 import SpeakersList from "../components/SpeakersList";
 import CoolButton from "../components/CoolButton";
@@ -9,7 +8,7 @@ import CurrentMotion from "../components/CurrentMotion";
 import MessageDias from "../components/MessageDias";
 import WorkingGroupsList from "../components/WorkingGroupsList";
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { Paper, Typography } from "@mui/material";
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import Notifications from "../components/Notifications";
 
 // Placeholder for delegate screen
@@ -18,6 +17,7 @@ const Delegate = () => {
   const [motion, setMotion] = useState({});
   const [openNotification, setOpenNotification] = useState(false);
   const [notifications, setNotifications] = useState([]);
+  const [unreadNotifications, setUnreadNotifications] = useState(false);
 
   const notificationClick = () => {
     setOpenNotification(!openNotification);
@@ -52,21 +52,25 @@ const Delegate = () => {
   const readNotification = (id) => {
     setNotifications(notifications.map(notification => {
       if (notification.id === id) {
-        return { ...notification, ["read"]:true }; // Merge existing item with new data
+        return { ...notification, ["read"]:true };
       }
-      return notification; // Return unchanged item if ID doesn't match
+      return notification;
     }))
   }
 
   useEffect( () => {
-    console.log(notifications)
+    console.log(notifications);
+    setUnreadNotifications(notifications.some(notification => notification.read === false));
   }, [notifications]);
+
+  useEffect(()=>{
+    console.log("unreadNotifications", unreadNotifications);
+  }, [unreadNotifications]);
 
   return (
     <div id="container">
       <Header version={'delegate'} country={"Ireland"} flagPath={'/images/flagPlaceholder.png'} />
       <div id="main">
-        {/* <Typography variant="h1">Delegate</Typography> */}
         <div id="toggleButton">
           <DelegateToggle formal={formal} onClick={toggleClick}/>
         </div>
@@ -89,7 +93,11 @@ const Delegate = () => {
           <>
             <WorkingGroupsList />
             <div className="notifications">
-              <NotificationsIcon className="notifIcon" style={{fontSize:'56px'}} onClick={notificationClick}/>
+              {unreadNotifications ? (
+                <NotificationsActiveIcon className="notifIcon" style={{fontSize:'56px', color:'#cb0000'}} onClick={notificationClick}/>
+              ) : (
+                <NotificationsIcon className="notifIcon" style={{fontSize:'56px'}} onClick={notificationClick}/>
+              )}
             </div>
             <div className="notifications" style={{zIndex:'1'}} >
               { openNotification && (
