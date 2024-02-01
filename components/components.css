@@ -382,6 +382,33 @@
   display: none; /* Hide scrollbar in WebKit browsers (Chrome, Safari, etc.) */
 }
 
+.notifications {
+  position: fixed;
+  right: 1%;
+  top: 11%;
+  z-index: 2;
+}
+
+.notificationContent {
+  position: fixed;
+  right: 1%;
+  top: 11%;
+  z-index: 1;
+  padding-top: 8vh;
+}
+
+.notifIcon {
+  font-size: 56px;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.notifIcon:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+
 /* ------------------------------------ */
 img#itemflag {
   height: 30px;
