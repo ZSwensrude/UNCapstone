@@ -1,23 +1,20 @@
 import { Typography } from "@mui/material";
 import React from "react";
+import { useState } from "react";
 import './DiasIndex.css';
 import Header from "../components/Header";
-import { useNavigate  } from 'react-router-dom';
 import CoolButton from "../components/CoolButton";
+import CreateConference from "../components/Create Conference/CreateConference";
 
 // Placeholder for Dias screen
 const Dias = () => {
 
-  const navigate = useNavigate();
-
-  const toDiasHome = () => {
-    // Navigate to a different route
-    navigate('/dias-home-page');
-  };
+  const [openModal, setOpenModal] = useState(false)
 
   return (
     <div className="fullPage">
-
+        {openModal && <CreateConference closeModal={setOpenModal}/>}
+        
         <Header version={'dias'}/>
 
         <div className="headerBar">
@@ -31,8 +28,9 @@ const Dias = () => {
               </div>
             </div>
             <div className="buttonBlock">
-            <CoolButton buttonText={"New"} onClick={toDiasHome} buttonColor={'#FF9728'} textColor='white' />
+            <CoolButton buttonText={"New"} onClick={() => {setOpenModal(true);}} buttonColor={'#FF9728'} textColor='white' />
             </div>
+            
           </div>
         </div>
 

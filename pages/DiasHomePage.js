@@ -75,7 +75,7 @@ const DiasHome = () => {
             <div className="FormalBlock">
                 <div className="SpeakerListBlock">
                     <div className="SpeakerListButtonBlock">
-                        <button className="SpeakersListButton">Speakers List</button>
+                        <div className="SpeakersListButton">Speakers List</div>
                     </div>
                     <div className="currentlySpeakingAndCurrent">
                         <div className="currentlySpeaking">
@@ -87,7 +87,7 @@ const DiasHome = () => {
 
                 <div className="MotionsBlock">
                     <div className="MotionsButtonBlock">
-                        <button className="MotionsButton">Motions</button>
+                        <div button className="MotionsButton">Motions</div>
                     </div>
 
                     <div className="timerBlock">
@@ -97,7 +97,7 @@ const DiasHome = () => {
                     </div>
 
                     <div className="presentationButtonBlock">
-                    <button className="presentationButton">Presentation</button>
+                    <CoolButton buttonText={"Login"} buttonColor={'#00DB89'} textColor='white' />
                     </div>
 
 
