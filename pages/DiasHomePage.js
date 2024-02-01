@@ -5,6 +5,8 @@ import '../components/components.css';
 import CoolButton from "../components/CoolButton";
 import Header from "../components/Header";
 import { useNavigate  } from 'react-router-dom';
+import Dias from "./Dias";
+import Country from '../components/Country';
 
 function openTab(evt, tabName) {
     // Declare all variables
@@ -29,9 +31,14 @@ function openTab(evt, tabName) {
 
 // Placeholder for Dias screen
 const DiasHome = () => {
+  const countries = [
+    { position: 1, countryName: 'Country A', flagPath: '/path/to/flagA.png' },
+    { position: 2, countryName: 'Country B', flagPath: '/path/to/flagB.png' },
+    // Add more countries as needed
+  ];
+
   return (
     <div className="HomePageDias">
-
         <div className="diasBar">
         <Paper id='logoback' elevation={0}>
             <img id='un' src={window.location.origin + '/images/UN_emblem_blue.png'} alt='United Nations Logo' />
