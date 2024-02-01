@@ -13,11 +13,9 @@ const WorkingGroupsList = () => {
     setGroup(newGroup);
   };
 
-  useEffect( () => {
-    console.log("new group: ", group);
-  }, [group])
-
   const createGroup = () => {
+    // create group and send to database
+    // we need to get the information from the text boxes, i think as a state variable
     console.log("Create group pressed");
   }
 

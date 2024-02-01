@@ -3,9 +3,10 @@ import './components.css';
 import { Typography, Paper } from '@mui/material';
 import CoolButton from './CoolButton';
 
-
 const SpeakersList = () => {
+  // join handles join speakers list button
   const onClick = () => {
+    // add this group to the speakers list
     console.log("join button clicked");
   }
 

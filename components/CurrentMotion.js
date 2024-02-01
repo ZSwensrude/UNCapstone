@@ -5,6 +5,7 @@ import VoteBox from './VoteBox';
 
 
 const CurrentMotion = ( {motion, onVote, country, abstain} ) => {
+  // checks if there are any motions, if not doesnt display any
   const isMotion = Object.keys(motion).length > 0;
 
   return (

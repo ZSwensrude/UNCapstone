@@ -8,16 +8,19 @@ const MessageGroup = ({ country }) => {
   const [open, setOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
   
+  // handles opening and closing modal window
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
     setInputValue('');
   }
 
+  // handles what is written in the text box
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };
 
+  // handles when send message button is clicked
   const sendMessage = () => {
     if (inputValue.length > 0) {
       //send message to other working group here

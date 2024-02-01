@@ -11,25 +11,28 @@ const CreateGroup = () => {
   const [countries, setCountries] = useState(countriesData.countries);
   const [selectedCountries, setSelectedCountries] = useState([]);
   
+  // opening and closing modal window
   const handleOpen = () => {
     // we need to get the array of present countries here so we can show the flags
     // setCountries(countries from database)
 
     setOpen(true);
   }
-
   const handleClose = () => {
     setOpen(false);
   }
 
+  // when country flag is clicked
   const onSelect = (country) => {
     setSelectedCountries([...selectedCountries, country])
   }
   
+  // when selected flag is clicked again
   const onDeselect = (country) => {
     setSelectedCountries(selectedCountries.filter((countryInList) => countryInList.country !== country.country));
   }
 
+  // create button
   const create = () => {
     console.log("create pressed");
     console.log("countries chosen: ", selectedCountries);

@@ -6,15 +6,18 @@ import './components.css';
 const Notification = ({ notification, readNotification }) => {
   const [classname, setclassname] = useState("unreadNotification");
 
+  // will join the group in the database
   const joinGroup = () => {
     // figure out how to send the group
-    console.log("accepted invite to join ", notification.group)
+    console.log("accepted invite to join ", notification.sender)
   };
 
+  // sends id of read notification to Delegate.js
   const doRead = () => {
     readNotification(notification.id);
   }
 
+  // checks if a notification is read or not and updates its class if it is
   useEffect( () => {
     setclassname(notification.read ? "singleNotification" : "unreadNotification" ); 
   }, [notification])

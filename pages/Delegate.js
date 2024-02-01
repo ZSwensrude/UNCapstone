@@ -18,17 +18,18 @@ const Delegate = () => {
   const [openNotification, setOpenNotification] = useState(false);
   const [notifications, setNotifications] = useState([]);
   const [unreadNotifications, setUnreadNotifications] = useState(false);
-
-  const notificationClick = () => {
-    setOpenNotification(!openNotification);
-    console.log('clicked notifications')
-  };
-
+  
+  // handles main formal/informal state
   const toggleClick = () => {
     setFormal(!formal);
-    console.log("formal", formal);
   };
-
+  
+  // handles when the notification icon is clicked
+  const notificationClick = () => {
+    setOpenNotification(!openNotification);
+  };
+  
+  // get notifications from database, dont do it in a useEffect, this is just to set them for testing
   useEffect( () => {
     // get notifications from database, have to do it as database updates
     setNotifications([
@@ -49,7 +50,9 @@ const Delegate = () => {
     ]);
   }, []);
 
+  // handles when read notification is pressed, updates notification in the database
   const readNotification = (id) => {
+    // technically we can just handle notifications read status locally but we can send it to the database too
     setNotifications(notifications.map(notification => {
       if (notification.id === id) {
         return { ...notification, ["read"]:true };
@@ -58,14 +61,10 @@ const Delegate = () => {
     }))
   }
 
+  // checks if there are any unread notifications, is used to update the notification icon
   useEffect( () => {
-    console.log(notifications);
     setUnreadNotifications(notifications.some(notification => notification.read === false));
   }, [notifications]);
-
-  useEffect(()=>{
-    console.log("unreadNotifications", unreadNotifications);
-  }, [unreadNotifications]);
 
   return (
     <div id="container">

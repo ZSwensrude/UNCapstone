@@ -5,11 +5,13 @@ const CountryFlag = ({ country, onSelect, onDeselect }) => {
   const [selected, setSelected] = useState(false);
   const [classname, setclassname] = useState("smallFlag");
 
+  // handles when a flag is clicked
   onClick = () => {
     setSelected(!selected);
     selected ? onDeselect(country) : onSelect(country);
   };
 
+  // updates css class when selected or not
   useEffect( () => {
     setclassname( selected ? 'selectedFlag' : 'smallFlag' );
   }, [selected]);

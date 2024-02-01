@@ -8,16 +8,19 @@ const MessageDias = () => {
   const [open, setOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
   
+  // shows/hides the modal window
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
     setInputValue('');
   }
 
+  // deals with what is written in the text box
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };
 
+  // function for when send button is pressed
   const sendMessage = () => {
     if (inputValue.length > 0) {
       //code for message here
