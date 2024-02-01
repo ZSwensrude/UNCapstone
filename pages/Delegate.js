@@ -13,7 +13,7 @@ import Notifications from "../components/Notifications";
 
 // Placeholder for delegate screen
 const Delegate = () => {
-  const [formal, setFormal] = useState(false);
+  const [formal, setFormal] = useState(true);
   const [motion, setMotion] = useState({});
   const [openNotification, setOpenNotification] = useState(false);
   const [notifications, setNotifications] = useState([]);

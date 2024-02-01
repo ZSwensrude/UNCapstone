@@ -15,7 +15,7 @@ const Country = ({ position, countryName }) => {
 
   return (
     <li className='countryItem'>
-      {position !== "" && <p>{position}</p>}
+      {position !== "" && <p className='countryname'>{position}</p>}
       <p className='countryname'>{countryObject.name}</p>
       <img id='itemflag' src={window.location.origin + flagPath} alt={`Flag of ${countryName}`} />
     </li>

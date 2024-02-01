@@ -430,6 +430,14 @@
   margin: auto;
 }
 
+#speakersListCountry {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
 #singleNotificationMsg{
   display: flex;
   justify-content: space-between;

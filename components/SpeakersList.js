@@ -1,9 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './components.css';
 import { Typography, Paper } from '@mui/material';
 import CoolButton from './CoolButton';
+import Country from './Country';
 
 const SpeakersList = () => {
+  const [speakers, setSpeakers] = useState([]);
+  const [currentSpeaker, setCurrentSpeaker] = useState({})
+
+  // need to get automagically from database
+  useEffect(() => {
+    setSpeakers([
+      {
+        "country": "canada"
+      },
+      {
+        "country": "ireland"
+      },
+      {
+        "country": "namibia"
+      }
+    ]);
+    setCurrentSpeaker({'country': 'ukraine'})
+  }, [])
+
   // join handles join speakers list button
   const onClick = () => {
     // add this group to the speakers list
@@ -22,14 +42,22 @@ const SpeakersList = () => {
           Currently Speaking:
         </Typography>
         
-        {/* put currently speaking here */}
+        <div id='speakersListCountry'>
+          {Object.keys(currentSpeaker).length > 0 && (
+            <Country countryName={currentSpeaker.country} />
+          )}
+        </div>
         
         <hr id='whiteLine'/>
         <Typography variant='h5'>
           In Queue:
         </Typography>
-
-        {/* put speakers queue here */}
+        
+        <div id='speakersListCountry'>
+          {speakers.map( (speaker, index) => (
+            <Country key={speaker.country} countryName={speaker.country} position={index+1} />
+          ))}
+        </div>
 
         <div id='joinButton'>
           <CoolButton buttonText='join queue' buttonColor={'#FF9728'} textColor={'white'} onClick={onClick}/>
