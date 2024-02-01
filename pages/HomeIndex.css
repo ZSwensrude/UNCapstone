@@ -4,8 +4,8 @@ body {
   background-color: #EFEFEF;
 }
 
-.top {
-  display: flexbox;
+.all {
+  width: 100%;
 }
 
 .logo {
@@ -31,14 +31,21 @@ body {
   margin-block-end: 01vh;
 }
 
+.usernameLabel input,.passwordLabel input, 
+.countryLabel select, .sessionLabel input {
+  font-size: 17px;
+  height: 100%;
+}
+
 .logins {
   display: flex;
   justify-content: center;
 }
 
 .container1, .container2 {
-    width: 75vh;
-    height: 39vh;
+    /* width: 75vh;
+    height: 39vh; */
+    min-width: 40%;
     background: #009edb;
     color: black;
     display:flow;
@@ -50,17 +57,25 @@ body {
     margin: 5vh;
   }
 
+  .usernameLabel .input-box{
+    margin-left: -7px;
+  }
   .usernameLabel, .passwordLabel {
     display:flex;
     justify-content:space-evenly;
-    margin-bottom: 3vh;
+    margin-bottom: 15px;
   }
 
   .sessionLabel, .countryLabel {
     display:flex;
     justify-content: space-evenly;
-    margin-bottom: 3vh;
+    margin-bottom: 1vh;
 
+  }
+  select#countries{
+    margin-right: -24px;
+    min-height: 41px;
+    min-width: 215px;
   }
   .diasAndDelegateHeader {
     display:flex;
