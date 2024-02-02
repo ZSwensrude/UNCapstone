@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
-import { diasCollection } from '/imports/api/dias';
 import { useNavigate } from 'react-router-dom';
 import { Accounts } from 'meteor/accounts-base';
 import LoginButton from './LoginButton';
 import { useFormik } from 'formik';
+import { diasCollection, insertDias  } from '../imports/api/dias';
+
 
 export const RegisterForm = () => {
     const navigate = useNavigate();
@@ -63,7 +64,8 @@ export const RegisterForm = () => {
         Accounts.createUser(info, function(error) {
          
             if (Meteor.user()) {
-              navigate('/dias');
+              insertDias({ user: values.username, pass: values.password1 });
+              localStorage.setItem('loggedInUser', JSON.stringify({ username: values.username, userType: 'dias' }));              navigate('/dias');
             } else {
               updateError({'error': error.reason})
             }

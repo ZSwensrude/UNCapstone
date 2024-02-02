@@ -437,7 +437,9 @@
   align-items: center;
   margin: auto;
 }
-
+#speakersListCountry:first-of-type li:first-of-type{
+  background: #00DB89;
+}
 #singleNotificationMsg{
   display: flex;
   justify-content: space-between;
@@ -489,7 +491,7 @@ img#itemflag {
 }
 
 .countryItem.currentUser{
-  background: #d6d6d6;
+  background: #00DBD4;
 }
 .country.in.queue {
   background: #ffff;
@@ -498,6 +500,7 @@ img#itemflag {
   padding: 15px;
   width: 80%;
 }
+
 .country.in.queue span{
   font-weight: bold;
 }
