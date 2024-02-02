@@ -8,6 +8,7 @@ export const insertMotion = async ({ content, votes }) => {
   //example usage of motion: 
   // Insert a motion
   // await insertMotion({
+  //   acttive: 'true',
   //   content: 'Motion A',
   //   votes: [
   //     { country: 'USA', vote: 'Yes' },
