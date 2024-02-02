@@ -43,8 +43,8 @@ export const insertDel = async ({ country, roleCall }) => {
 export const insertDias = async ({ user, pass }) => {
   await diasCollection.insert({ user, pass });
 };
-export const insertDM = async ({ country, roleCall }) => {
-  await dmCollection.insert({ country, roleCall });
+export const insertDM = async ({ to, from, content}) => {
+  await dmCollection.insert({ to, from, content});
 };
 export const insertMotion = async ({ content, votes }) => {
   await motionCollection.insert({ content, votes });

@@ -59,16 +59,25 @@ const Delegate = () => {
       }
       return notification;
     }))
-  }
+  };
+  // Function to retrieve user information from localStorage
+  const getUserFromLocalStorage = () => {
+    const userString = localStorage.getItem('loggedInUser');
+    return userString ? JSON.parse(userString) : null;
+  };
+  // Get user information from localStorage
+  const user = getUserFromLocalStorage();
 
   // checks if there are any unread notifications, is used to update the notification icon
   useEffect( () => {
     setUnreadNotifications(notifications.some(notification => notification.read === false));
   }, [notifications]);
 
+
   return (
     <div id="container">
-      <Header version={'delegate'} country={"Ireland"} flagPath={'/images/flagPlaceholder.png'} />
+    <Header version={'delegate'} country={(user.country)} flagPath={`/images/flags/${user.country}.png`} />
+
       <div id="main">
         <div id="toggleButton">
           <DelegateToggle formal={formal} onClick={toggleClick}/>

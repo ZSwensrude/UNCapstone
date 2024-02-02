@@ -36,8 +36,9 @@ const Home=()=>{
       if (error) {
          modalOpen();
       } else {
-        navigate('/dias');
-      }
+      // Store user data in localStorage
+      localStorage.setItem('loggedInUser', JSON.stringify({ username, password, userType: 'dias' }));
+      navigate('/dias');      }
    })
 
   };
@@ -53,23 +54,19 @@ const Home=()=>{
 
  
   const loginDelegate = (modalOpen) => {
-    // Get selected country and session ID
     const selectedCountry = document.getElementById('countries').value;
-    const sessionId = document.getElementById('sessionId').value;   
-    // Meteor.loginWithPassword('Irelandxyz', 'xyz')
-    console.log("sessionID: ", sessionId);
-    console.log("country: ", selectedCountry);
-
-    let username=selectedCountry+sessionId;
-    let password=sessionId;
+    const sessionId = document.getElementById('sessionId').value;
+    const username = selectedCountry + sessionId;
+    const password = sessionId;
     Meteor.loginWithPassword(username, password, function(error) {
          
       if (error) {
          modalOpen();
          console.log("ERROR LOGGING IN")
       } else {
-        console.log("username",username);
-        // Check if the country is selected
+          // Store user data in localStorage
+          localStorage.setItem('loggedInUser', JSON.stringify({ username, password, userType: 'delegate', country: selectedCountry }));
+          // Check if the country is selected
         if (selectedCountry === 'choice' || !sessionId) {
           setMessage('Please select a country and enter a session ID.');
           return;
