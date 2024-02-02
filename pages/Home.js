@@ -37,7 +37,7 @@ const Home=()=>{
          modalOpen();
       } else {
       // Store user data in localStorage
-      localStorage.setItem('loggedInUser', JSON.stringify({ username, password, userType: 'dias' }));
+      localStorage.setItem('loggedInUser', JSON.stringify({ username, userType: 'dias' }));
       navigate('/dias');      }
    })
 
