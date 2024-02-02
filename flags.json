@@ -161,9 +161,9 @@
       "flagPath": "/images/flags/canada.png"
     },
     {
-      "country": "centralafricanre",
-      "name": "Central African Re",
-      "flagPath": "/images/flags/centralafricanre.png"
+      "country": "centralafricanrepublic",
+      "name": "Central African republic",
+      "flagPath": "/images/flags/centralafricanrepublic.png"
     },
     {
       "country": "chad",
@@ -241,9 +241,9 @@
       "flagPath": "/images/flags/dominica.png"
     },
     {
-      "country": "dominicanre",
-      "name": "Dominican Re",
-      "flagPath": "/images/flags/dominicanre.png"
+      "country": "dominicanrepublic",
+      "name": "Dominican Republic",
+      "flagPath": "/images/flags/dominicanrepublic.png"
     },
     {
       "country": "ecuador",
@@ -831,9 +831,9 @@
       "flagPath": "/images/flags/switzerland.png"
     },
     {
-      "country": "syrianarabre",
-      "name": "Syrian Arab Re",
-      "flagPath": "/images/flags/syrianarabre.png"
+      "country": "syrianarabrepublic",
+      "name": "Syrian Arab republic",
+      "flagPath": "/images/flags/syrianarabrepublic.png"
     },
     {
       "country": "tajikistan",

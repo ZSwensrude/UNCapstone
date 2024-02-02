@@ -3,7 +3,8 @@ import { Paper, Typography, Divider } from "@mui/material";
 import CoolButton from "./CoolButton";
 import './components.css'
 
-const WorkingGroup = ({ workingGroup, chooseGroup, type }) => {
+const WorkingGroup = ({ workingGroup, chooseGroup }) => {
+  //handles when the user clicks on view group button
   const onClick = () => {
     console.log("viewing group ", workingGroup?.groupName)
     chooseGroup(workingGroup ?? {});
