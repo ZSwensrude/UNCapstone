@@ -3,6 +3,8 @@ import { Typography, Paper, Divider } from "@mui/material";
 import CoolButton from "./CoolButton";
 import './components.css'
 import WorkingGroup from "./WorkingGroup";
+import MessageGroup from "./MessageGroup";
+import CreateGroup from "./CreateGroup";
 
 const WorkingGroupsList = () => {
   const [group, setGroup] = useState({});
@@ -11,11 +13,9 @@ const WorkingGroupsList = () => {
     setGroup(newGroup);
   };
 
-  useEffect( () => {
-    console.log("new group: ", group);
-  }, [group])
-
   const createGroup = () => {
+    // create group and send to database
+    // we need to get the information from the text boxes, i think as a state variable
     console.log("Create group pressed");
   }
 
@@ -61,7 +61,7 @@ const WorkingGroupsList = () => {
           </div>
 
           <div id='joinButton'>
-            <CoolButton buttonText='create group' buttonColor={'#FF9728'} textColor={'white'} onClick={createGroup}/>
+            <CreateGroup />
           </div>
         </Paper>
       </div>
@@ -81,7 +81,7 @@ const WorkingGroupsList = () => {
               <Typography >Location: {group.location}</Typography>
               <Typography >Topic: {group.topic}</Typography>
               <div className="groupMessage">
-                <CoolButton onClick={sendMessage} buttonColor={'#00DB89'} textColor={'white'} buttonText={'message'} message={true} />
+                <MessageGroup onClick={sendMessage}/>
               </div>
             </Paper>
           </>

@@ -4,26 +4,26 @@ import CoolButton from "./CoolButton";
 import './components.css';
 
 
-const MessageDias = () => {
+const MessageGroup = ({ country }) => {
   const [open, setOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
   
-  // shows/hides the modal window
+  // handles opening and closing modal window
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
     setInputValue('');
   }
 
-  // deals with what is written in the text box
+  // handles what is written in the text box
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };
 
-  // function for when send button is pressed
+  // handles when send message button is clicked
   const sendMessage = () => {
     if (inputValue.length > 0) {
-      //code for message here
+      //send message to other working group here
       console.log(inputValue);
     }
     handleClose();
@@ -31,16 +31,17 @@ const MessageDias = () => {
 
   return (
     <div>
-      <CoolButton onClick={handleOpen} buttonColor={'#999999'} textColor={'white'} buttonText={'send message to dias'} message={true}/>
+      <CoolButton onClick={handleOpen} buttonColor={'#00DB89'} textColor={'white'} buttonText={'message'} message={true}/>
       <Modal className="modalWindow" open={open} onClose={handleClose}>
         <Paper className="modalContent" style={{borderRadius:'30px'}}>
           <Typography variant="h2">
-            Message Dias
+            Message {country}
           </Typography>
+          {/*replace this TextField with the message builder if we do that*/}
           <TextField
             className="textBox"
             id="filled-multiline-static"
-            label='Message to Dias'
+            label={'Message to ' + country}
             multiline
             rows={5}
             placeholder="Type here..."
@@ -73,5 +74,5 @@ const MessageDias = () => {
   );
 };
 
-export default MessageDias;
+export default MessageGroup;
 
