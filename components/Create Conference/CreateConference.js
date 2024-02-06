@@ -61,7 +61,7 @@ function CreateConference( { closeModal }) {
                         <div className='locationBox'>
 
                             <div className="locationInputBox">
-                                <input className="locationInput" type="text" />
+                                <input className="locationInput" placeholder="type here..." type="text" />
                             </div>
 
                             <div className='addButtonBox'>

@@ -1,0 +1,34 @@
+
+.statusBackground {
+    margin-block: 10vh;
+    width: 30vw;
+    height:47vh;
+    background-color: rgba(200,200,200);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+}
+
+.statusContainer {
+    width: 30vw;
+    height: 47vh; 
+    border-radius: 30px;
+    background-color: white;
+    display:block;
+}
+
+
+.statusButtons {
+    display:flex;
+    justify-content: space-around;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+}
+
+.firstButtons {
+    display:flex;
+    justify-content: center;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+}

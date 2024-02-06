@@ -4,12 +4,14 @@ import { useState } from "react";
 import './DiasHomePageIndex.css';
 import '../components/components.css';
 import CoolButton from "../components/CoolButton";
-import Header from "../components/Header";
-import { useNavigate  } from 'react-router-dom';
-import Dias from "./Dias";
-import Country from '../components/Country';
+//import Country from '../components/Country';
 import SettingsIcon from '@mui/icons-material/Settings';
 import PresentAbsentList from "../components/PresentAbsentList";
+import StatusBox from "../components/StatusBox/StatusBox.js";
+import MotionsDias from "../components/MotionsDias.js";
+import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
+import RemoveIcon from '@mui/icons-material/Remove';
 
 function openTab(evt, tabName) {
     // Declare all variables
@@ -49,11 +51,20 @@ const DiasHome = () => {
     }
   ]
 
+  const motionsListDias = [
+    {
+      "motionChosen": "SpeakerTime: 60 Seconds"
+    },
+    {
+        "motionChosen": "Informal Session: 30 Minutes"
+    }
+  ]
+
   const [openModal, setOpenModal] = useState(false)
 
   return (
     <div className="HomePageDias">
-        {openModal && <CreateConference closeModal={setOpenModal}/>}
+        
         <div className="diasBar">
             <Paper id='logoback' elevation={0}>
                 <img id='un' src={window.location.origin + '/images/UN_emblem_blue.png'} alt='United Nations Logo' />
@@ -69,6 +80,9 @@ const DiasHome = () => {
             <button className="statusButton" onClick={() => {setOpenModal(true);}}>Status</button>
             <SettingsIcon id='settings'/>
         </div>
+
+        {openModal && <StatusBox closeModal={setOpenModal}/>}
+
         <div id="RollCall" className="tabcontent">
             <div className="RollCallBlock">
                 <div className="RollCallList">
@@ -106,10 +120,70 @@ const DiasHome = () => {
                     <div className="SpeakerListButtonBlock">
                         <div className="SpeakersListButton">Speakers List</div>
                     </div>
-                    <div className="currentlySpeakingAndCurrent">
+                    <div className="currentlySpeakingAndControl">
                         <div className="currentlySpeaking">
+                            <div className="controlTitleBlock">
+                                <div h2 className="controlTitle">Currently Speaking:</div>
+                            </div>
+
+                            <div className="currentlySpeakingBlock"></div>
+
+                            <div className="lineABlock">
+                                <div className="lineA"></div>
+                            </div>
+
+                            <div className="controlTitleBlock">
+                                <div h2 className="controlTitle">In Queue:</div>
+                            </div>
+
+                            <div className="inQueueBlock"></div>
+
+                            <div className="lineABlock">
+                                <div className="lineA"></div>
+                            </div>
+
+                            <div className="controlTitleBlock">
+                                <div h2 className="controlTitle">Speaker Timer:</div>
+                            </div>
+
+                            <div className="SpeakerTimerBlock">
+                                <div className="Timer"></div>
+                            </div>
+
+                            <div className="clearAndCloseButtonBlock">   
+                                <CoolButton buttonText={"Reset"} buttonColor={'#FF9728'} textColor='white' />
+                                <CoolButton buttonText={"Pause"} buttonColor={'#FF9728'} textColor='white' />
+                                <CoolButton buttonText={"Next"} buttonColor={'#FF9728'} textColor='white' />
+                            </div>
+
+
                         </div>
-                        <div className="current">
+                        <div className="control">
+                            <div className="controlTitleBlock">
+                                <div h2 className="controlTitle">Control</div>
+                            </div>
+                            <div className="controlInputBox">
+                                <input className="controlInput" placeholder="Search" type="text" />
+                            </div>
+                            <div className="addButtonBlock">   
+                                <CoolButton buttonText={"Add"} buttonColor={'#FF9728'} textColor='white' />
+                            </div>
+
+                            <div className="lineABlock">
+                                <div className="lineA"></div>
+                            </div>
+
+                            <div className="controlList"></div>
+
+                            <div className="lineABlock">
+                                <div className="lineA"></div>
+                            </div>
+
+                            <div className="clearAndCloseButtonBlock">   
+                                <CoolButton buttonText={"Clear List"} buttonColor={'#FF9728'} textColor='white' />
+                                <CoolButton buttonText={"Close Speaker List"} buttonColor={'#FF9728'} textColor='white' />
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -119,14 +193,66 @@ const DiasHome = () => {
                         <div button className="MotionsButton">Motions</div>
                     </div>
 
-                    <div className="timerBlock">
+                    <div className="motionBlock">
+                        <div className="addMotionBox">
+                            <input className="MotionInput" placeholder="Type here..." type="text" />
+                        </div>
+
+                        <div className="addButtonBlock">   
+                            <CoolButton buttonText={"Add"} buttonColor={'#FF9728'} textColor='white' />
+                        </div>
+
+                        <div className="lineABlock">
+                                <div className="lineB"></div>
+                        </div>
+
+                        <div className="motionsAdded">
+                        {motionsListDias.map( (aMotionDias, index) => (
+                            <MotionsDias key={aMotionDias.motionChosen + index} aMotionDias={aMotionDias}/>
+                            ))}
+                        </div>
+
+                        <div className="lineABlock">
+                                <div className="lineB"></div>
+                        </div>
+                        
+                        <div className="clearAndCloseButtonBlock">   
+                                <CoolButton buttonText={"Clear All"} buttonColor={'#FF9728'} textColor='white' />
+                                <CoolButton buttonText={"Send"} buttonColor={'#00DB89'} textColor='white' />
+                        </div>
+
+
                     </div>
 
-                    <div className="timerBlock2">
+                    <div className="timerBlock">
+                        <div className="controlTitleBlock">
+                                <div h2 className="speakerTimerTitle">Speakers Timer: 60 Seconds</div>
+                        </div>
+                        
+                        <div className="lineABlock">
+                                <div className="lineB"></div>
+                        </div>
+
+                        <div className="timerLogos">
+                            <div className="logos">
+                            <CheckIcon style={{ color: "green" }} fontSize="large"/>
+                            <CloseIcon style={{ color: "red" }} fontSize="large"/>
+                            <RemoveIcon style={{ color: "yellow" }} fontSize="large"/>
+                            </div>
+                        </div>
+
+                        <div className="lineABlock">
+                                <div className="lineB"></div>
+                        </div>
+
+                        <div className="controlTitleBlock">
+                                <div h2 className="responders">Responded: / </div>
+                        </div>
+
                     </div>
 
                     <div className="presentationButtonBlock">
-                    <CoolButton buttonText={"Login"} buttonColor={'#00DB89'} textColor='white' />
+                    <CoolButton buttonText={"Presentation"} buttonColor={'#00DB89'} textColor='white' />
                     </div>
 
 
