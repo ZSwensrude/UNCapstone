@@ -1,5 +1,6 @@
 import { Typography, Paper } from "@mui/material";
 import React from "react";
+import { useState } from "react";
 import './DiasHomePageIndex.css';
 import '../components/components.css';
 import CoolButton from "../components/CoolButton";
@@ -7,6 +8,8 @@ import Header from "../components/Header";
 import { useNavigate  } from 'react-router-dom';
 import Dias from "./Dias";
 import Country from '../components/Country';
+import SettingsIcon from '@mui/icons-material/Settings';
+import PresentAbsentList from "../components/PresentAbsentList";
 
 function openTab(evt, tabName) {
     // Declare all variables
@@ -37,19 +40,35 @@ const DiasHome = () => {
     // Add more countries as needed
   ];
 
+  const countriesLists = [
+    {
+      "countryName": "Argentina"
+    },
+    {
+      "countryName": "Canada"
+    }
+  ]
+
+  const [openModal, setOpenModal] = useState(false)
+
   return (
     <div className="HomePageDias">
+        {openModal && <CreateConference closeModal={setOpenModal}/>}
         <div className="diasBar">
-        <Paper id='logoback' elevation={0}>
-            <img id='un' src={window.location.origin + '/images/UN_emblem_blue.png'} alt='United Nations Logo' />
-        </Paper>
-        <button className="tablinks" onClick={() => openTab(event,'RollCall')}>Roll Call</button>
-        <button className="tablinks" onClick={() => openTab(event,'Formal')}>Formal</button>
-        <button className="tablinks" onClick={() => openTab(event,'Informal')}>Informal</button>
-        <button className="tablinks" onClick={() => openTab(event,'VotingProcedure')}>Voting Procedure</button>
-        <button className="tablinks" onClick={() => openTab(event,'NotesDias')}>Notes to the Dias</button>
+            <Paper id='logoback' elevation={0}>
+                <img id='un' src={window.location.origin + '/images/UN_emblem_blue.png'} alt='United Nations Logo' />
+            </Paper>
+            <div className="diasTabs">
+                <button className="tablinks" onClick={() => openTab(event,'RollCall')}>Roll Call</button>
+                <button className="tablinks" onClick={() => openTab(event,'Formal')}>Formal</button>
+                <button className="tablinks" onClick={() => openTab(event,'Informal')}>Informal</button>
+                <button className="tablinks" onClick={() => openTab(event,'VotingProcedure')}>Voting Procedure</button>
+                <button className="tablinks" onClick={() => openTab(event,'NotesDias')}>Notes to the Dias</button>
+            </div>
+            
+            <button className="statusButton" onClick={() => {setOpenModal(true);}}>Status</button>
+            <SettingsIcon id='settings'/>
         </div>
-
         <div id="RollCall" className="tabcontent">
             <div className="RollCallBlock">
                 <div className="RollCallList">
@@ -63,6 +82,9 @@ const DiasHome = () => {
                         <h5 className="titles">Present & Voting</h5>
                     </div>
                     <div className="presentAbsentBlock">
+                    {countriesLists.map( (countryList, index) => (
+                    <PresentAbsentList key={countryList.countryName + index} countryList={countryList}/>
+                    ))}
                     </div>
                 </div>
             </div>

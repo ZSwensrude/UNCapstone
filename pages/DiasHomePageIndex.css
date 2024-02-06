@@ -16,6 +16,12 @@ body {
     padding: 1vh;
   }
 
+  .diasTabs{
+    width: 180vh;
+    display: flex;
+    justify-content: center;
+  }
+
   /* Style the tab */
 .tab {
     overflow: hidden;
@@ -53,6 +59,11 @@ body {
     padding: 3vh 5vh;
   }
 
+  .statusButton {
+      background-color: #00DBD4;
+      border-radius: 30px;
+  }
+
   .RollCallBlock {
     display: flex;
     justify-content: center;
@@ -63,7 +74,7 @@ body {
     width: 170vh;
     height: 70vh;
     display:block;
-    background: #EFEFEF;
+    background: white;
     border-style: solid;
     border-color: #009edb;
   }
@@ -71,7 +82,7 @@ body {
   .searchBlock {
     height: 8vh;
     display:flex;
-    background: #EFEFEF;
+    background: white;
     border-bottom-style: solid;
     border-bottom-color: #009edb;
     justify-content: center;
@@ -88,7 +99,7 @@ body {
   .titleBlock {
     height: 6vh;
     display:flex;
-    background: #EFEFEF;
+    background: white;
     border-bottom-style: solid;
     border-bottom-color: #009edb;
     justify-content: center;
@@ -109,9 +120,7 @@ body {
 
   .presentAbsentBlock {
     height: 40vh;
-    display:flex;
-    background: #EFEFEF;
-    justify-content: space-evenly;
+    background: white;
   }
 
   .firstBlock {
@@ -120,7 +129,7 @@ body {
     justify-content: space-between;
     margin-top: 2vh;
     margin-bottom: 2vh;
-    margin-left: 20vh;
+    margin-left: 0vh;
   }
 
   .secondBlock {
@@ -129,7 +138,7 @@ body {
     justify-content: flex-start;
     margin-top: 2vh;
     margin-bottom: 2vh;
-    margin-left: 20vh;
+    margin-left: 0vh;
   }
 
   .Formal.tabcontent {
@@ -144,7 +153,6 @@ body {
 
   .SpeakerListBlock {
     display:block;
-    width: 200vh;
     margin-bottom: 2vh;
   }
 
@@ -184,7 +192,6 @@ body {
 
   .MotionsBlock {
       display:block;
-      width: 95vh;
       margin-bottom: 2vh;
   }
 

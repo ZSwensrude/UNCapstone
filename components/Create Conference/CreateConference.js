@@ -2,6 +2,7 @@ import React from 'react';
 import CoolButton from "../CoolButton";
 import "./CreateConference.css";
 import { useNavigate } from 'react-router-dom';
+import PriorLocations from '../PriorLocations';
 
 function CreateConference( { closeModal }) {
 
@@ -11,6 +12,18 @@ function CreateConference( { closeModal }) {
         // Navigate to a different route
         navigate('/dias-home-page');
     };
+
+    const conferenceLocations = [
+        {
+          "cLocation": "SA-214k"
+        },
+        {
+            "cLocation": "Northwest Center"
+        },
+        {
+            "cLocation": "SA-214b",
+        }
+      ]
 
     return (
         <div className='ModalBackground'>
@@ -23,13 +36,13 @@ function CreateConference( { closeModal }) {
                     <div className="TitleLabel">
                         <h6 className="header1">Title:</h6> 
                         <div className="inputBox">
-                            <input type="text" required />
+                            <input id="conferenceTitle" type="text" required />
                         </div>
                     </div>
                     <div className="ComiteeLabel">
                         <h6 className="header1">Commitee:</h6> 
                         <div className="inputBox">
-                            <input type="text" required />
+                            <input id="conferenceCommitee" type="text" required />
                         </div>
                     </div>
                     <div className='smallLineBox'>
@@ -39,9 +52,32 @@ function CreateConference( { closeModal }) {
                 </div>
 
                 <div className='secondPart'>
-                <div className='PresetLocationsTitleBlock'>
-                        <div className='title2'>Preset Locations</div>
-                </div>
+
+                    <div className='PresetLocationsTitleBlock'>
+                        <div className='title2'>Preset Locations</div>       
+                    </div>
+
+                    <div className="locationBoxBlock">
+                        <div className='locationBox'>
+
+                            <div className="locationInputBox">
+                                <input className="locationInput" type="text" />
+                            </div>
+
+                            <div className='addButtonBox'>
+                                <CoolButton buttonText={"Add"} buttonColor={'#FF9728'} textColor='white' />
+                            </div>
+
+                            <div className='smallerLineBox'>
+                                <div className="smallerLine"></div>
+                            </div>
+
+                            {conferenceLocations.map( (conferenceLocation, index) => (
+                            <PriorLocations key={conferenceLocation.cLocation + index} conferenceLocation={conferenceLocation}/>
+                            ))}
+
+                        </div>
+                    </div>
                 </div>
 
                 <div className='thirdPart'>
