@@ -1,4 +1,6 @@
+//Delegate.js
 import React, { useEffect, useState } from "react";
+import { useTracker } from 'meteor/react-meteor-data';
 import Header from "../components/Header";
 import './delegate.css'
 import SpeakersList from "../components/SpeakersList";
@@ -10,6 +12,7 @@ import WorkingGroupsList from "../components/WorkingGroupsList";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import Notifications from "../components/Notifications";
+import {motionCollection, insertMotion} from "../imports/api/motions";
 
 // Placeholder for delegate screen
 const Delegate = () => {
@@ -19,6 +22,8 @@ const Delegate = () => {
   const [notifications, setNotifications] = useState([]);
   const [unreadNotifications, setUnreadNotifications] = useState(false);
   
+ 
+
   // handles main formal/informal state
   const toggleClick = () => {
     setFormal(!formal);
@@ -49,7 +54,7 @@ const Delegate = () => {
       }
     ]);
   }, []);
-
+  
   // handles when read notification is pressed, updates notification in the database
   const readNotification = (id) => {
     // technically we can just handle notifications read status locally but we can send it to the database too
@@ -74,6 +79,14 @@ const Delegate = () => {
   }, [notifications]);
 
 
+  const { motionfromDB } = useTracker(() => {
+    const handler = Meteor.subscribe('motions');
+    const motionfromDB = motionCollection.find({ active: 'true' }).fetch();   
+     
+    return { motionfromDB };
+  });
+  
+  
   return (
     <div id="container">
     <Header version={'delegate'} country={(user.country)} flagPath={`/images/flags/${user.country}.png`} />
@@ -86,9 +99,13 @@ const Delegate = () => {
           // this will be the formal delegate dashboard
           <>
             <SpeakersList />
-            <div id="motion">
-              <CurrentMotion motion={motion}/>
-            </div>
+
+              {/* Conditionally render CurrentMotion if there are active motions */}
+              <div id="motion">
+                <CurrentMotion motion={motionfromDB} />
+              </div>
+          
+            
             <div id="bottomButton">
               <CoolButton buttonColor={'#00DBD4'} textColor={'white'} buttonText={'view presentation screen'}/>
             </div>

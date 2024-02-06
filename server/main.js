@@ -47,7 +47,7 @@ export const insertDM = async ({ to, from, content}) => {
   await dmCollection.insert({ to, from, content});
 };
 export const insertMotion = async ({ content, votes }) => {
-  await motionCollection.insert({ content, votes });
+  motionCollection.insert({ active:false, content, votes });
 };
 export const insertSpeaker = async ({ country }) => {
   // Set timeAdded to the current date/time
@@ -77,8 +77,8 @@ Meteor.startup(async () => {
     return dmCollection.find();
   });
   // Publish "motions" to clients
-  Meteor.publish("motions", function () {
-  return motionCollection.find();
+  Meteor.publish('motions', function () {
+    return motionCollection.find();
   });
   // Publish "speakers" to clients
   Meteor.publish("speakers", function () {
