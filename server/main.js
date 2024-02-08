@@ -1,3 +1,4 @@
+//server/main.js
 import { Meteor } from 'meteor/meteor';
 import { conferenceCollection } from '/imports/api/conference';
 import { delCollection } from '/imports/api/delegates';
@@ -54,8 +55,8 @@ export const insertSpeaker = async ({ country }) => {
   const timeAdded = new Date();
   await speakerCollection.insert({ country, timeAdded });
 };
-export const insertWG = async ({ countries, location, topic }) => {
-  await workingGroupCollection.insert({ countries, location, topic });
+export const insertWG = async ({ countries, location, topic, name }) => {
+  await workingGroupCollection.insert({ countries, location, topic,name });
 };
 
 Meteor.startup(async () => {
@@ -85,7 +86,7 @@ Meteor.startup(async () => {
     return speakerCollection.find();
   });
   // Publish "WGs" to clients
-  Meteor.publish("WGs", function () {
+  Meteor.publish("workingGroups", function () {
       return workingGroupCollection.find();
   });
   Meteor.publish('userData', function () {

@@ -25,6 +25,7 @@ const MessageGroup = ({ country }) => {
     if (inputValue.length > 0) {
       //send message to other working group here
       console.log(inputValue);
+      
     }
     handleClose();
   }

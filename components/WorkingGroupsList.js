@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useTracker } from 'meteor/react-meteor-data';
 import { Typography, Paper, Divider } from "@mui/material";
 import CoolButton from "./CoolButton";
 import './components.css'
 import WorkingGroup from "./WorkingGroup";
 import MessageGroup from "./MessageGroup";
 import CreateGroup from "./CreateGroup";
+import { workingGroupCollection } from "../imports/api/workingGroups";
 
 const WorkingGroupsList = () => {
   const [group, setGroup] = useState({});
@@ -24,25 +26,13 @@ const WorkingGroupsList = () => {
       console.log("send message to group: ", group.groupName);
     }
   }
-
-  // get working groups from database
-  const workingGroups = [
-    {
-      "countries": [ 
-        {"country": 'placeholder', "flag": "/images/flagPlaceholder.png" },
-        {"country": 'placeholder', "flag": "/images/flagPlaceholder.png" },
-        {"country": 'placeholder', "flag": "/images/flagPlaceholder.png" },
-        {"country": 'placeholder', "flag": "/images/flagPlaceholder.png" },
-        {"country": 'placeholder', "flag": "/images/flagPlaceholder.png" },
-        {"country": 'placeholder', "flag": "/images/flagPlaceholder.png" },
-        {"country": 'placeholder', "flag": "/images/flagPlaceholder.png" },
-        {"country": 'placeholder', "flag": "/images/flagPlaceholder.png" },
-      ],
-      "groupName": 'test group',
-      "location": "left room",
-      "topic": "politics"
-    }
-  ]
+   // Use useTracker to reactively fetch data from the speakers collection
+   const { workingGroupsDB } = useTracker(() => {
+    const handler = Meteor.subscribe('workingGroups');
+    const workingGroupData = workingGroupCollection.find().fetch(); 
+    console.log("working groups",workingGroupData);
+    return { workingGroupsDB: workingGroupData };
+  });
 
   return (
     <>
@@ -55,9 +45,12 @@ const WorkingGroupsList = () => {
         <Paper id='groupsBody' elevation={4}>
           
           <div className="groupHolder">
-            {workingGroups.map( (workingGroup, index) => (
+            {/* {workingGroups.map( (workingGroup, index) => (
               <WorkingGroup key={workingGroup.groupName + index} workingGroup={workingGroup} chooseGroup={chooseGroup}/>
-            ))}
+            ))} */}
+          {workingGroupsDB.map( (workingGroup, index) => (
+              <WorkingGroup key={workingGroup.name + index} workingGroup={workingGroup} chooseGroup={chooseGroup}/>
+            ))} 
           </div>
 
           <div id='joinButton'>

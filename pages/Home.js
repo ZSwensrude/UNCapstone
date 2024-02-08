@@ -82,9 +82,7 @@ const Home=()=>{
         } else {
           // Item already exists, handle accordingly
           //console.log('Delegate already exists for the selected country.');
-        }
-
-  
+        }  
       }
     })
   };

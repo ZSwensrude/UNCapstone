@@ -9,7 +9,7 @@ const CurrentMotion = ({ motion, onVote, country, abstain }) => {
   // checks if there are any motions, if not doesn't display any
   const isMotion = Object.keys(motion).length > 0;
 
-  console.log('Motion:', motion.content);
+  //console.log('Motion:', motion.content);
 
   return (
     <>

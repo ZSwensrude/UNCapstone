@@ -12,11 +12,11 @@ const WorkingGroup = ({ workingGroup, chooseGroup }) => {
 
   return(
     <Paper id={'workingGroupBack'} elevation={0}>
-      <Typography>{workingGroup?.groupName ?? "Group"}</Typography>
+      <Typography>{workingGroup?.name ?? "Group"}</Typography>
       <Divider orientation="vertical"  flexItem sx={{ marginRight:'10px', marginLeft:'10px' }} />
 
       {workingGroup?.countries?.map( (country, index) => (
-        <img className="workingGroupFlag" key={country.country + index} src={window.location.origin + `${country.flag}` } alt='United Nations Logo' />
+        <img className="workingGroupFlag" key={country.country + index} src={window.location.origin + `${country.flagPath}` } alt={country.name} />
       ))}
       
       <div className="workingGroupButton">
