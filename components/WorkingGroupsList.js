@@ -31,11 +31,10 @@ const WorkingGroupsList = () => {
     setGroup(newGroup);
   }  };
 
-  // const createGroup = () => {
-  //   // create group and send to database
-  //   // we need to get the information from the text boxes, i think as a state variable
-  //   console.log("Create group pressed");
-  // }
+  const inviteToGroup = () => {
+    // Logic to handle inviting users to the group
+    console.log("Invite users to the group: ", group.name);
+  };
 
   const sendMessage = () => {
     if (Object.keys(group).length > 0) {
@@ -99,6 +98,8 @@ const WorkingGroupsList = () => {
               <Typography >Topic: {group.topic}</Typography>
               <div className="groupMessage">
                 <MessageGroup onClick={sendMessage} countries={group.countries} groupname={group.name} />
+                {/* Show the invite button only if the user's country is in the group */}
+                {isInUserCountry(group) && <CoolButton buttonColor={'#00DB89'} textColor={'white'} buttonText={'Invite'} onClick={inviteToGroup} />}
               </div>
             </Paper>
           </>

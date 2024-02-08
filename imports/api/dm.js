@@ -14,5 +14,22 @@ export const insertDM = async ({ type, to, from, content, read}) => {
   dmCollection.insert({ type, to, from, content, createdAt, read });
   return true;
 };
+export const updateDMReadStatus = async (dmId, newReadStatus) => {
+  dmCollection.update(
+    { _id: dmId },
+    { $set: { read: newReadStatus } }
+  );
+  return true;
+};
+
+
 
 export const dmCollection = new Mongo.Collection('DMs');
+
+// Define allow/deny rules for the dmCollection
+dmCollection.allow({
+  update(userId, doc, fields, modifier) {
+    // Allow updating if the user is logged in
+    return !!userId;
+  }
+});

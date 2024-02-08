@@ -45,8 +45,9 @@ export const insertDias = async ({ user, pass }) => {
   await diasCollection.insert({ user, pass });
 };
 export const insertDM = async ({ type, to, from, content, read}) => {
-  await dmCollection.insert({ to, from, content, read});
+  await dmCollection.insert({type, to, from, content, read});
 };
+
 export const insertMotion = async ({ content, votes }) => {
   motionCollection.insert({ active:false, content, votes });
 };

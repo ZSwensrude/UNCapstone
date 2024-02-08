@@ -13,6 +13,8 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import Notifications from "../components/Notifications";
 import {motionCollection, insertMotion} from "../imports/api/motions";
+import { dmCollection, insertDM, updateDMReadStatus} from "../imports/api/dm";
+
 
 // Placeholder for delegate screen
 const Delegate = () => {
@@ -21,7 +23,14 @@ const Delegate = () => {
   const [openNotification, setOpenNotification] = useState(false);
   const [notifications, setNotifications] = useState([]);
   const [unreadNotifications, setUnreadNotifications] = useState(false);
-  
+   // Function to retrieve user information from localStorage
+   const getUserFromLocalStorage = () => {
+    const userString = localStorage.getItem('loggedInUser');
+    return userString ? JSON.parse(userString) : null;
+  };
+  // Get user information from localStorage
+  const user = getUserFromLocalStorage();
+
   // handles main formal/informal state
   const toggleClick = () => {
     setFormal(!formal);
@@ -31,51 +40,38 @@ const Delegate = () => {
   const notificationClick = () => {
     setOpenNotification(!openNotification);
   };
-  
-  // get notifications from database, dont do it in a useEffect, this is just to set them for testing
-  useEffect( () => {
-    // get notifications from database, have to do it as database updates
-    setNotifications([
-      {
-        "id": 1,
-        "type": "message",
-        "content": "this is a good message",
-        "sender": "Group 1",
-        "read": false
-      },
-      {
-        "id": 2,
-        "type": "invite",
-        "content": "join our group!",
-        "sender": "Group 2",
-        "read": false
-      }
-    ]);
-  }, []);
-  
-  // handles when read notification is pressed, updates notification in the database
-  const readNotification = (id) => {
-    // technically we can just handle notifications read status locally but we can send it to the database too
-    setNotifications(notifications.map(notification => {
-      if (notification.id === id) {
-        return { ...notification, ["read"]:true };
-      }
-      return notification;
-    }))
-  };
-  // Function to retrieve user information from localStorage
-  const getUserFromLocalStorage = () => {
-    const userString = localStorage.getItem('loggedInUser');
-    return userString ? JSON.parse(userString) : null;
-  };
-  // Get user information from localStorage
-  const user = getUserFromLocalStorage();
 
+  //get notifications from DMs
+  //Use useTracker to reactively fetch data from the collection
+  const { dms } = useTracker(() => {
+    const handler = Meteor.subscribe('DMs');
+    const dmData = dmCollection.find({ to: user.country }, { sort: { createdAt: -1 } }).fetch(); // Filter by country
+    //console.log("DM data: /n",dmData)
+    return { dms: dmData };
+  });
+
+ // handles when read notification is pressed, updates notification in the database
+const readNotification = (id) => {
+  // Update the read status in the database
+  updateDMReadStatus(id, "true")
+    .then(() => {
+      // Update the local state after successful update
+      setNotifications(notifications.map(notification => {
+        if (notification._id === id) {
+          return { ...notification, read: true };
+        }
+        return notification;
+      }));
+    })
+    .catch(error => {
+      console.error('Error updating notification read status:', error);
+    });
+  }
   // checks if there are any unread notifications, is used to update the notification icon
-  useEffect( () => {
-    setUnreadNotifications(notifications.some(notification => notification.read === false));
-  }, [notifications]);
-
+  useEffect(() => {
+    setUnreadNotifications(dms.some(notification => notification.read==="false"));
+    //console.log("unreadNotifications:",unreadNotifications );
+  }, [dms]);
 
   const { motionfromDB } = useTracker(() => {
     const handler = Meteor.subscribe('motions');
@@ -124,7 +120,7 @@ const Delegate = () => {
             </div>
             <div className="notifications" style={{zIndex:'1'}} >
               { openNotification && (
-                <Notifications notifications={notifications} readNotification={readNotification} />
+                <Notifications notifications={dms} readNotification={readNotification} />
               )}
             </div>
           </>
