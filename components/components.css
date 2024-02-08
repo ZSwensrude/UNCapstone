@@ -95,6 +95,7 @@
 
 .normalButton {
   padding-right: 2.5vh;
+  border: 0.5px solid black;
 }
 
 .wideButton {
@@ -294,6 +295,10 @@
   margin-bottom: 1vh;
   padding-right: 10vh;
 }
+.userInWorkingGroup{
+  /* border: 5px solid #00DBD4; */
+  background: #00DBD4 !important;
+}
 
 .workingGroupFlag {
   height: 4vh;
@@ -351,6 +356,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.groupMessage #button{
+  border: solid 0.5px black;
 }
 #errorPaper {
   height: 10vh;

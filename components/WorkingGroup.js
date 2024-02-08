@@ -3,15 +3,15 @@ import { Paper, Typography, Divider } from "@mui/material";
 import CoolButton from "./CoolButton";
 import './components.css'
 
-const WorkingGroup = ({ workingGroup, chooseGroup }) => {
+const WorkingGroup = ({ workingGroup, chooseGroup, isInUserCountry }) => {
   //handles when the user clicks on view group button
   const onClick = () => {
-    console.log("viewing group ", workingGroup?.groupName)
+    console.log("viewing group ", workingGroup?.name)
     chooseGroup(workingGroup ?? {});
   }
 
   return(
-    <Paper id={'workingGroupBack'} elevation={0}>
+    <Paper id={'workingGroupBack'} elevation={0} className={isInUserCountry ? 'userInWorkingGroup' : ''}>
       <Typography>{workingGroup?.name ?? "Group"}</Typography>
       <Divider orientation="vertical"  flexItem sx={{ marginRight:'10px', marginLeft:'10px' }} />
 

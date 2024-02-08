@@ -22,8 +22,6 @@ const Delegate = () => {
   const [notifications, setNotifications] = useState([]);
   const [unreadNotifications, setUnreadNotifications] = useState(false);
   
- 
-
   // handles main formal/informal state
   const toggleClick = () => {
     setFormal(!formal);

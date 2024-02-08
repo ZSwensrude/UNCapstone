@@ -2,12 +2,20 @@ import React, { useState } from "react";
 import { Modal, Paper, Typography, TextField } from "@mui/material";
 import CoolButton from "./CoolButton";
 import './components.css';
+import { insertDM } from "../imports/api/dm";
 
+const MessageGroup = ({ countries, groupname }) => {
+  // Function to retrieve user information from localStorage
+  const getUserFromLocalStorage = () => {
+    const userString = localStorage.getItem('loggedInUser');
+    return userString ? JSON.parse(userString) : null;
+  };
 
-const MessageGroup = ({ country }) => {
+  const user = getUserFromLocalStorage();
+
   const [open, setOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
-  
+   
   // handles opening and closing modal window
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -23,9 +31,11 @@ const MessageGroup = ({ country }) => {
   // handles when send message button is clicked
   const sendMessage = () => {
     if (inputValue.length > 0) {
-      //send message to other working group here
-      console.log(inputValue);
-      
+      // Send message to each country in the group
+      countries.forEach(country => {
+        console.log(`Sending message to ${country.name}: ${inputValue}`);
+        insertDM({ type:"group", to: country.country, from: groupname, content: inputValue, read:"false" });
+      });
     }
     handleClose();
   }
@@ -36,13 +46,15 @@ const MessageGroup = ({ country }) => {
       <Modal className="modalWindow" open={open} onClose={handleClose}>
         <Paper className="modalContent" style={{borderRadius:'30px'}}>
           <Typography variant="h2">
-            Message {country}
+            Message to Group
           </Typography>
-          {/*replace this TextField with the message builder if we do that*/}
+          <Typography variant="subtitle1">
+            You are messaging the following countries: {countries.map(country => country.name).join(', ')}
+          </Typography>
           <TextField
             className="textBox"
             id="filled-multiline-static"
-            label={'Message to ' + country}
+            label={'Message to members in group'}
             multiline
             rows={5}
             placeholder="Type here..."
@@ -76,4 +88,3 @@ const MessageGroup = ({ country }) => {
 };
 
 export default MessageGroup;
-

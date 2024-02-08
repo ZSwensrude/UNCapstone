@@ -33,7 +33,7 @@ const MessageDias = () => {
     if (inputValue.length > 0) {
       //code for message here
       console.log(inputValue);
-      insertDM({ to: "Dias", from: user.country, content: inputValue });
+      insertDM({ type:"dias", to: "Dias", from: user.country, content: inputValue, read:"false" });
     }
     handleClose();
   }

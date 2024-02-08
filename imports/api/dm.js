@@ -8,10 +8,10 @@ import { Mongo } from 'meteor/mongo';
 // content:
 // datetime:
 
-export const insertDM = async ({ to, from, content}) => {
+export const insertDM = async ({ type, to, from, content, read}) => {
     
   const createdAt = new Date();
-  dmCollection.insert({ to, from, content, createdAt });
+  dmCollection.insert({ type, to, from, content, createdAt, read });
   return true;
 };
 
