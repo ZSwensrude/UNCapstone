@@ -63,6 +63,15 @@ export const insertSpeaker = async ({ country }) => {
 export const insertWG = async ({ countries, location, topic, name }) => {
   await workingGroupCollection.insert({ countries, location, topic,name });
 };
+export const updateWG = async ({ groupId, name, topic, location }) => {
+  await workingGroupCollection.update(
+    { _id: groupId },
+    {
+      $set: { name, topic, location },
+     // $push: { countries: { $each: newCountries } }
+    }
+  );
+};
 
 Meteor.startup(async () => {
   

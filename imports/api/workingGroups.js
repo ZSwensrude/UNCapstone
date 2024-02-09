@@ -28,6 +28,24 @@ export const insertWG = async ({ countries, location, topic, name }) => {
   }
 };
   
+
+export const updateWG = async ({ groupId, name, topic, location }) => {
+  try {
+    // Update the existing working group with the provided data
+    workingGroupCollection.update(
+      { _id: groupId },
+      {
+        $set: { name, topic, location },
+        //$push: { countries: { $each: newCountries } }
+      }
+    );
+    console.log(`Updated working group with ID ${groupId}`);
+  } catch (error) {
+    console.error('Error updating working group:', error);
+    throw error;
+  }
+};
+
 export const workingGroupCollection = new Mongo.Collection('workingGroups');
 // Define allow/deny rules for the workingGroups collection
 workingGroupCollection.allow({

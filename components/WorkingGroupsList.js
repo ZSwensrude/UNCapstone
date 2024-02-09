@@ -6,6 +6,7 @@ import './components.css'
 import WorkingGroup from "./WorkingGroup";
 import MessageGroup from "./MessageGroup";
 import CreateGroup from "./CreateGroup";
+import InviteGroup from './InviteGroup';
 import { workingGroupCollection } from "../imports/api/workingGroups";
 import flagsData from '../flags.json';
 
@@ -35,6 +36,7 @@ const WorkingGroupsList = () => {
   const inviteToGroup = () => {
     // Logic to handle inviting users to the group
     console.log("Invite users to the group: ", group.name);
+
   };
 
   const sendMessage = () => {
@@ -74,6 +76,12 @@ const WorkingGroupsList = () => {
       console.error('Group id not found');
     }
   };
+  const handleInvite = (group) => {
+    // Logic to handle inviting users to the group
+    console.log("Invite users to the group: ", group.name);
+    // You can perform any additional actions here, such as opening a modal or sending notifications
+  };
+
   
   const joinGroup = () => {
     console.log("Join the group: ", group.name);
@@ -178,11 +186,11 @@ const getCountryInfo = (countryCode) => {
                 {/* Show the invite button only if the user's country is in the group */}
                 {isInUserCountry(group) && (
                   <>
-                    <CoolButton buttonColor={'#00DB89'} textColor={'white'} buttonText={'Invite'} onClick={inviteToGroup} />
-                    <CoolButton buttonColor={'#FF0000'} textColor={'white'} buttonText={'Remove'} onClick={removeFromGroup} />
+                    <CoolButton buttonColor={'#FF0000'} textColor={'white'} buttonText={'leave'} onClick={removeFromGroup} />
+                    <InviteGroup onInvite={handleInvite} group={group} />
                   </>
                 )}
-                <CoolButton buttonColor={'#00DB89'} textColor={'white'} buttonText={'Join'} onClick={joinGroup} />
+                <CoolButton buttonColor={'#00DB89'} textColor={'white'} buttonText={'join'} onClick={joinGroup} />
               </div>
             </Paper>
           </>
