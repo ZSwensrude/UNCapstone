@@ -36,3 +36,19 @@ workingGroupCollection.allow({
     return !!userId; // Return true if the user is logged in
   }
 });
+
+
+// {
+//   "_id": "E9do2XCGcHcuY8KCn",
+//   "location": "invite lco",
+//   "topic": "invite top",
+//   "name": "invite",
+//   "countries": [
+//     {
+//       "country": "ireland"
+//     },
+//     {
+//       "country": "burundi"
+//     }
+//   ]
+// }

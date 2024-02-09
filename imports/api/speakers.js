@@ -10,3 +10,11 @@ export const insertSpeaker = async ({ country }) => {
 };
 
 export const speakerCollection = new Mongo.Collection('speakers');
+
+// {
+//   "_id": "nAhd779DeWT98kxh4",
+//   "country": "antiguaandbarbuda",
+//   "createdAt": {
+//     "$date": "2024-02-09T02:53:06.099Z" 
+//   }
+// }

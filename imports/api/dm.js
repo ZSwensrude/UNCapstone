@@ -1,13 +1,6 @@
 // dm.js
 import { Mongo } from 'meteor/mongo';
 
-// DM TABLE
-// id:
-// to:
-// from:
-// content:
-// datetime:
-
 export const insertDM = async ({ type, to, from, content, read, groupId}) => {
     
   const createdAt = new Date();
@@ -33,3 +26,16 @@ dmCollection.allow({
     return !!userId;
   }
 });
+
+// {
+//   "_id": "sNfq36oKHmMjmxqEo",
+//   "type": "invite",
+//   "to": "burundi",
+//   "from": "invite",
+//   "content": "Please join our group!",
+//   "createdAt": {
+//     "$date": "2024-02-09T02:00:37.637Z"
+//   },
+//   "read": "false",
+//   "groupId": "E9do2XCGcHcuY8KCn"
+// }

@@ -6,3 +6,9 @@ export const insertDias = async ({ user, pass }) => {
 };
 
 export const diasCollection = new Mongo.Collection('dias');
+
+// {
+//     "_id": "hZtcXheuE8Eb3g3on",
+//     "user": "Dias1",
+//     "pass": "123"
+//   }

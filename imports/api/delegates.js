@@ -24,3 +24,9 @@ export const insertDel = async ({ country, roleCall }) => {
   delCollection.insert({ country, roleCall });
   return true;
 };
+
+// {
+//   "_id": "MpCdfzJpT59P3FNrz",
+//   "country": "algeria",
+//   "roleCall": "present"
+// }

@@ -52,8 +52,8 @@ export const insertDMHandler = async ({ type, to, from, content, read, groupId }
   await insertDM({ type, to, from, content, read, groupId });
 };
 
-export const insertMotion = async ({ content, votes }) => {
-  motionCollection.insert({ active:false, content, votes });
+export const insertMotion = async ({ content, votes, abstain }) => {
+  motionCollection.insert({ active:false, content, votes,abstain });
 };
 export const insertSpeaker = async ({ country }) => {
   // Set timeAdded to the current date/time

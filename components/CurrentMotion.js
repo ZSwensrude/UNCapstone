@@ -1,15 +1,12 @@
-//currentMotion
+//CurrentMotion.js
 import React from 'react';
 import './components.css';
 import { Typography, Paper } from '@mui/material';
 import VoteBox from './VoteBox';
 
-
-const CurrentMotion = ({ motion, onVote, country, abstain }) => {
-  // checks if there are any motions, if not doesn't display any
-  const isMotion = Object.keys(motion).length > 0;
-
-  //console.log('Motion:', motion.content);
+const CurrentMotion = ({ motion, country, abstain, user}) => {
+  // Check if motion exists and has the content property
+  const isMotion = motion && motion.content !== undefined;
 
   return (
     <>
@@ -23,7 +20,7 @@ const CurrentMotion = ({ motion, onVote, country, abstain }) => {
             {motion.content}
           </Typography>
           <hr className='blackLine' id='middleLine' />
-          <VoteBox onVote={onVote} country={country} abstain={abstain} />
+          <VoteBox motion={motion} country={country} abstain={abstain} user={user}/>
         </Paper>
       )}
 
