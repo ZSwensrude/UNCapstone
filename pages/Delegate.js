@@ -15,7 +15,6 @@ import Notifications from "../components/Notifications";
 import {motionCollection, insertMotion} from "../imports/api/motions";
 import { dmCollection, insertDM, updateDMReadStatus} from "../imports/api/dm";
 
-
 // Placeholder for delegate screen
 const Delegate = () => {
   const [formal, setFormal] = useState(true);
@@ -83,7 +82,7 @@ const readNotification = (id) => {
   
   return (
     <div id="container">
-    <Header version={'delegate'} country={(user.country)} flagPath={`/images/flags/${user.country}.png`} />
+    <Header version={'delegate'} country={(user.country)}  />
 
       <div id="main">
         <div id="toggleButton">

@@ -47,11 +47,10 @@ const Home=()=>{
   const generateCountryOptions = () => {
     return countriesData.countries.map((country, index) => (
       <option key={index} value={country.country}>
-        {country.country.charAt(0).toUpperCase() + country.country.slice(1)}
+        {country.name}
       </option>
     ));
   };
-
  
   const loginDelegate = (modalOpen) => {
     const selectedCountry = document.getElementById('countries').value;

@@ -5,6 +5,7 @@ import './components.css';
 import countriesData from '../flags.json'  
 import CountryFlag from "./CountryFlag";
 import { insertWG, workingGroupCollection } from "../imports/api/workingGroups";
+import { insertDM } from "../imports/api/dm";
 
 const CreateGroup = () => {
   const [open, setOpen] = useState(false);
@@ -51,26 +52,41 @@ const CreateGroup = () => {
     };
 
   // create button
-  const create = () => {
+  const create = async () => {
     console.log("create pressed");
     console.log("countries chosen: ", selectedCountries);
     console.log("Location: ", location); // Logging location value
     console.log("Topic: ", topic); // Logging topic value
     console.log("name:", groupname );
-
-    // send the countries from selectedCountries messages
-
-    // add that new group to the database
-    // create the working group with selected countries, location, and topic
-    insertWG({
-      countries: selectedCountries,
-      location: location, // Using the location state
-      topic: topic, // Using the topic state
-      name: groupname
-    });
-
-    handleClose();
-  }
+  
+    try {
+      // Add that new group to the database
+      // Create the working group with selected countries, location, and topic
+      const groupId = await insertWG({
+        location: location,
+        topic: topic,
+        name: groupname,
+        // countries: selectedCountries
+      });
+      console.log("groupID: ", groupId);
+  
+      // Insert a direct message for each country in the selected countries array
+      selectedCountries.forEach(country => {
+        insertDM({
+          type: "invite",
+          from: groupname,
+          to: country.country, // Specify the country to send the invite to
+          content: "Please join our group!",
+          read: "false",
+          groupId: groupId // Pass the groupId obtained from the insertWG function
+        });
+      });
+  
+      handleClose();
+    } catch (error) {
+      console.error('Error creating group:', error);
+    }
+  };
   
   return (
     <div>

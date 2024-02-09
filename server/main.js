@@ -3,7 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { conferenceCollection } from '/imports/api/conference';
 import { delCollection } from '/imports/api/delegates';
 import { diasCollection } from '/imports/api/dias';
-import { dmCollection } from '/imports/api/dm';
+import { dmCollection, insertDM } from '/imports/api/dm';
 import { motionCollection } from '/imports/api/motions';
 import { speakerCollection } from '/imports/api/speakers';
 import { workingGroupCollection } from '/imports/api/workingGroups';
@@ -44,8 +44,12 @@ export const insertDel = async ({ country, roleCall }) => {
 export const insertDias = async ({ user, pass }) => {
   await diasCollection.insert({ user, pass });
 };
-export const insertDM = async ({ type, to, from, content, read}) => {
-  await dmCollection.insert({type, to, from, content, read});
+// export const insertDM = async ({ type, to, from, content, read, groupId}) => {
+//   await dmCollection.insert({type, to, from, content, read, groupId});
+// };
+
+export const insertDMHandler = async ({ type, to, from, content, read, groupId }) => {
+  await insertDM({ type, to, from, content, read, groupId });
 };
 
 export const insertMotion = async ({ content, votes }) => {

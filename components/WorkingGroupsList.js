@@ -7,6 +7,7 @@ import WorkingGroup from "./WorkingGroup";
 import MessageGroup from "./MessageGroup";
 import CreateGroup from "./CreateGroup";
 import { workingGroupCollection } from "../imports/api/workingGroups";
+import flagsData from '../flags.json';
 
 
 const WorkingGroupsList = () => {
@@ -49,11 +50,79 @@ const WorkingGroupsList = () => {
     return { workingGroupsDB: workingGroupData };
   });
 
-  // Function to check if user's country is in the group's countries
-  const isInUserCountry = (group) => {
-    if (!user || !user.country) return false;
-    return group.countries.some(country => country.country === user.country);
+  const removeFromGroup = () => {
+    console.log("Remove from the group: ", group.name);
+  
+    if (group._id) { // Check if group id exists
+      // Get the id of the working group
+      const WGid = group._id;
+  
+      // Update the working group in the database to remove the user's country
+      workingGroupCollection.update(
+        { _id: WGid },
+        { $pull: { countries: { country: user.country } } }, // Remove the user's country from the countries array
+        (error, result) => {
+          if (error) {
+            console.error('Error removing from working group:', error);
+          } else {
+            console.log('Successfully removed from the group:', result);
+            // Optional: You can add any additional logic here after successfully removing from the group
+          }
+        }
+      );
+    } else {
+      console.error('Group id not found');
+    }
+  };
+  
+  const joinGroup = () => {
+    console.log("Join the group: ", group.name);
+    
+    if (group._id) { // Check if group id exists
+      // Get the id of the working group
+      const WGid = group._id;
+  
+      // Update the working group in the database
+      workingGroupCollection.update(
+        { _id: WGid },
+        { $push: { countries: { country: user.country, name: user.countryName, flagPath: user.flagPath } } },
+        (error, result) => {
+          if (error) {
+            console.error('Error updating working group:', error);
+          } else {
+            console.log('Successfully joined the group:', result);
+            // Optional: You can add any additional logic here after successfully joining the group
+          }
+        }
+      );
+    } else {
+      console.error('Group id not found');
+    }
+  };
+
+// Function to check if user's country is in the group's countries
+const isInUserCountry = (group) => {
+  if (!group || !group.countries) return false; // Add null here
+  if (!user || !user.country) return false;
+  return group.countries.some(country => country.country === user.country);
+}
+// Function to get the country name and flag path based on the country code
+const getCountryInfo = (countryCode) => {
+  if (!countryCode || !countryCode.country) return null; // Check if countryCode is valid
+  const countryObject = flagsData.countries.find(country => country.country.toLowerCase() === countryCode.country.toLowerCase());
+  //console.log(countryObject);
+  if (!countryObject) {
+    console.error(`Flag not found for country: ${countryCode.country}`);
+    return null;
   }
+
+  const { flagPath, country } = countryObject;
+  const isCurrentUser = user && country.toLowerCase() === user.country.toLowerCase();
+  const classNames = isCurrentUser ? 'currentUser' : '';
+
+  return { flagPath, country };
+};
+
 
   return (
     <>
@@ -66,14 +135,15 @@ const WorkingGroupsList = () => {
         <Paper id='groupsBody' elevation={4}>
           
           <div className="groupHolder">
-            {workingGroupsDB.map( (workingGroup, index) => (
-              <WorkingGroup 
-                key={workingGroup.name + index} 
-                workingGroup={workingGroup} 
-                chooseGroup={chooseGroup}
-                isInUserCountry={isInUserCountry(workingGroup)} // check if user in DB group
-              />
-            ))} 
+          {workingGroupsDB.map((workingGroup, index) => (
+            <WorkingGroup 
+              key={workingGroup._id} // Assuming `_id` is a unique identifier for each working group
+              workingGroup={workingGroup} 
+              chooseGroup={chooseGroup}
+              isInUserCountry={isInUserCountry(workingGroup)} 
+            />
+          ))}
+
           </div>
 
           <div id='joinButton'>
@@ -85,13 +155,20 @@ const WorkingGroupsList = () => {
       <div>
         { Object.keys(group).length > 0 && (
           <>
-            <Paper id='groupHolder' className={isInUserCountry(group) ? 'userInWorkingGroup' : ''}>              
+           <Paper id='groupHolder' className={isInUserCountry(group) ? 'userInWorkingGroup' : ''}>              
               <div id='groupDetails'>
                 <Typography>{group?.name ?? "Group"}</Typography>
                 <Divider orientation="vertical"  flexItem sx={{ marginRight:'10px', marginLeft:'10px' }} />
-                {group?.countries?.map((country, index) => (
-                  <img className="workingGroupFlag" key={country.country + index} src={window.location.origin + `${country.flagPath}` } alt={country.name} />
-                ))}
+                {group?.countries?.map((countryCode, index) => {
+                  const countryInfo = getCountryInfo(countryCode);
+                  if (countryInfo) {
+                    return (
+                      <img id='itemflag' src={window.location.origin + countryInfo.flagPath} alt={`Flag of ${countryInfo.country}`} />
+                    );
+                  } else {
+                    return null; // Handle if country info is not found
+                  }
+                })}
               </div>
               <hr className='blackLine'/>
               <Typography >Location: {group.location}</Typography>
@@ -99,7 +176,13 @@ const WorkingGroupsList = () => {
               <div className="groupMessage">
                 <MessageGroup onClick={sendMessage} countries={group.countries} groupname={group.name} />
                 {/* Show the invite button only if the user's country is in the group */}
-                {isInUserCountry(group) && <CoolButton buttonColor={'#00DB89'} textColor={'white'} buttonText={'Invite'} onClick={inviteToGroup} />}
+                {isInUserCountry(group) && (
+                  <>
+                    <CoolButton buttonColor={'#00DB89'} textColor={'white'} buttonText={'Invite'} onClick={inviteToGroup} />
+                    <CoolButton buttonColor={'#FF0000'} textColor={'white'} buttonText={'Remove'} onClick={removeFromGroup} />
+                  </>
+                )}
+                <CoolButton buttonColor={'#00DB89'} textColor={'white'} buttonText={'Join'} onClick={joinGroup} />
               </div>
             </Paper>
           </>

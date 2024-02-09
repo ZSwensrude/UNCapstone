@@ -33,6 +33,9 @@ const SpeakersList = () => {
     }
   };
 
+    // Check if the user's country is in the speakers list
+    const isUserInQueue = speakers.some(speaker => speaker.country === user?.country);
+
 
   return (
     <div id='speakers'>
@@ -53,9 +56,12 @@ const SpeakersList = () => {
             <Country key={index} countryName={speaker.country} position={index + 1} />
           ))}
         </div>
-        <div id='joinButton'>
-          <CoolButton buttonText='Join Queue' buttonColor={'#FF9728'} textColor={'white'} onClick={onClick} />
-        </div>
+        {/* Render the "Join Queue" button only if the user's country is not in the speakers list */}
+        {!isUserInQueue && (
+          <div id='joinButton'>
+            <CoolButton buttonText='Join Queue' buttonColor={'#FF9728'} textColor={'white'} onClick={onClick} />
+          </div>
+        )}
       </Paper>
     </div>
   );
