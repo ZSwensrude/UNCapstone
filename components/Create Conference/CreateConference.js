@@ -73,7 +73,7 @@ function CreateConference( { closeModal }) {
                             </div>
 
                             {conferenceLocations.map( (conferenceLocation, index) => (
-                            <PriorLocations key={conferenceLocation.cLocation + index} conferenceLocation={conferenceLocation}/>
+                            <PriorLocations key={conferenceLocation.cLocation + index} version={"diasHome"} conferenceLocation={conferenceLocation}/>
                             ))}
 
                         </div>

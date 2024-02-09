@@ -1,4 +1,4 @@
-import { Typography, Paper } from "@mui/material";
+import { Typography, Paper, Dialog, DialogContent, DialogActions, DialogTitle } from "@mui/material";
 import React from "react";
 import { useState } from "react";
 import './DiasHomePageIndex.css';
@@ -12,6 +12,13 @@ import MotionsDias from "../components/MotionsDias.js";
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import RemoveIcon from '@mui/icons-material/Remove';
+import DeadlineDias from "../components/DeadlinesDias.js";
+import PriorLocations from "../components/PriorLocations.js";
+import NotesToDias from "../components/NotesToDias.js";
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import { useNavigate  } from 'react-router-dom';
 
 function openTab(evt, tabName) {
     // Declare all variables
@@ -60,7 +67,56 @@ const DiasHome = () => {
     }
   ]
 
-  const [openModal, setOpenModal] = useState(false)
+  const DeadlineListDias = [
+    {
+        "deadlineAdded": "Working Paper Third Draft: 2pm"
+    },
+    {
+        "deadlineAdded": "Amendment Form Due: 4pm"
+    }
+  ]
+
+  const conferenceLocations = [
+    {
+      "cLocation": "SA-214k"
+    },
+    {
+        "cLocation": "Northwest Center"
+    },
+    {
+        "cLocation": "SA-214b",
+    }
+  ]
+
+  const notesToDiasGroups = [
+    {
+      "noteCountry": "China",
+      "noteFromCountry": "Just saying Hi!",
+      "status": "read"
+    },
+    {
+        "noteCountry": "Canada",
+        "noteFromCountry": "Not Happy!",
+        "status": "unread"
+    }
+  ]
+
+  const [open, setOpen] = React.useState(false);
+ 
+  const handleClickToOpen = () => {
+      setOpen(true);
+  };
+
+  const handleToClose = () => {
+      setOpen(false);
+  };
+
+  const navigate = useNavigate();
+
+    const toInformalPresentation = () => {
+        // Navigate to a different route
+        navigate('/informal-presentation');
+    };
 
   return (
     <div className="HomePageDias">
@@ -77,11 +133,30 @@ const DiasHome = () => {
                 <button className="tablinks" onClick={() => openTab(event,'NotesDias')}>Notes to the Dias</button>
             </div>
             
-            <button className="statusButton" onClick={() => {setOpenModal(true);}}>Status</button>
+            <button className="statusButton" onClick={handleClickToOpen}>Status</button>
             <SettingsIcon id='settings'/>
         </div>
 
-        {openModal && <StatusBox closeModal={setOpenModal}/>}
+        <Dialog open={open} onClose={handleToClose}>
+            <DialogTitle>{"Change Status?"}</DialogTitle>
+            <DialogContent>
+                <RadioGroup
+                    aria-labelledby="radio-buttons-group-label"
+                    defaultValue="Roll Call"
+                    name="radio-buttons-group"
+                >
+                    <FormControlLabel value="RollCall" control={<Radio />} label="Roll Call" />
+                    <FormControlLabel value="Formal" control={<Radio />} label="Formal" />
+                    <FormControlLabel value="Informal" control={<Radio />} label="Informal" />
+                    <FormControlLabel value="VotingProcedure" control={<Radio />} label="Voting Procedure" />
+                </RadioGroup>
+            
+                <div className='statusButtons'>
+                        <CoolButton buttonText={"Cancel"} onClick={handleToClose} buttonColor={'#800000'} textColor='white' />
+                        <CoolButton buttonText={"Change"} buttonColor={'#FF9728'} textColor='white' />
+                </div>
+                </DialogContent>
+        </Dialog>
 
         <div id="RollCall" className="tabcontent">
             <div className="RollCallBlock">
@@ -252,7 +327,7 @@ const DiasHome = () => {
                     </div>
 
                     <div className="presentationButtonBlock">
-                    <CoolButton buttonText={"Presentation"} buttonColor={'#00DB89'} textColor='white' />
+                        <CoolButton buttonText={"Presentation"} buttonColor={'#00DB89'} textColor='white' />
                     </div>
 
 
@@ -261,7 +336,69 @@ const DiasHome = () => {
         </div>
 
         <div id="Informal" className="tabcontent">
-            <h3 className="head">Informal</h3>
+            <div className="InformalBlock">
+                <div className="DeadlinesAndTimerBlock">
+                    <div className="BackInSessionBlock">
+                        <div h2 className="BackInSessionTitle">Back In Session In:</div>
+                    </div>
+                    <div className="timerBlock2">
+                    </div>
+                    <div className="timerBlock2Buttons">   
+                        <CoolButton buttonText={"Restart"} buttonColor={'#FF9728'} textColor='white' />
+                        <CoolButton buttonText={"Pause"} buttonColor={'#FF9728'} textColor='white' />
+                    </div>
+                    <div className="DeadlinesTitleBlock">
+                        <div className="DeadlinesTitle">Deadlines</div>
+                    </div>
+                    <div className="DeadlinesBlock">
+                        <div className="Deadlines">
+                            {DeadlineListDias.map( (aDeadlineDias, index) => (
+                            <DeadlineDias key={aDeadlineDias.deadlineAdded + index} aDeadlineDias={aDeadlineDias}/>
+                            ))}
+                        </div>
+                        <div className="lineABlock">
+                            <div className="lineC"></div>
+                        </div>
+                        <div className="addDeadlinesBox">
+                            <input className="DeadlineInput" placeholder="Type here..." type="text" />
+                        </div>
+                        <div className="DeadlineButtons">   
+                            <CoolButton buttonText={"Clear All"} buttonColor={'#FF9728'} textColor='white' />
+                            <CoolButton buttonText={"Add"} buttonColor={'#FF9728'} textColor='white' />
+                        </div>
+                    </div>
+
+                </div>
+                
+                <div className="WorkingGroupsBlock">
+                    <div className="WorkingGroupTitleBlock">
+                        <div className="WorkingGroupTitle">Working Groups</div>
+                    </div>
+                    <div className="WorkingGroupBlock2">
+                        <div className="WorkingGroupsDatabase">
+
+                        </div>
+                        <div className="WorkingGroupButtons">   
+                            <CoolButton buttonText={"Add"} buttonColor={'#FF9728'} textColor='white' />
+                            <CoolButton buttonText={"Merge Selected"}  onClick={handleClickToOpen} buttonColor={'#00DB89'} textColor='white' />
+                        </div>
+                    </div>
+                </div>
+
+                <div className="LocationsAndPresentationBlock">          
+                    <div className="LocationTitleBlock">
+                        <div className="LocationTitle">Locations</div>
+                    </div>
+                    <div className="LocationsBlock2">
+                            {conferenceLocations.map( (conferenceLocation, index) => (
+                            <PriorLocations key={conferenceLocation.cLocation + index} conferenceLocation={conferenceLocation}/>
+                            ))}
+                    </div>
+                    <div className="presentationButtonBlock">
+                        <CoolButton onClick={toInformalPresentation} buttonText={"Presentation"} buttonColor={'#00DB89'} textColor='white' />
+                    </div>  
+                </div>
+            </div>
         </div>
 
         <div id="VotingProcedure" className="tabcontent">
@@ -269,7 +406,13 @@ const DiasHome = () => {
         </div>
 
         <div id="NotesDias" className="tabcontent">
-            <h3 className="head">Notes to the Dias</h3>
+            <div className="NotesDiasBlock">
+                <div className="NotesDiasList">
+                    {notesToDiasGroups.map( (aDiasNote, index) => (
+                        <NotesToDias key={aDiasNote.noteChosen + index} aDiasNote={aDiasNote}/>
+                        ))}
+                </div>
+            </div>
         </div>
     </div>
     );

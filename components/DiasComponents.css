@@ -12,7 +12,7 @@
     padding-right: 10vh;
     }
 
-    #onePriorLocation, #oneMotion {
+    #onePriorLocation, #oneMotion, #oneDeadline, #oneNote {
         position:relative;
         border-radius: 30px;
         margin-top: 1vh;
@@ -27,3 +27,9 @@
         background-color: white;
     }
 
+    .statusButtons {
+        display:flex;
+        justify-content: space-around;
+        margin-top: 1vh;
+        margin-bottom: 1vh;
+    }
