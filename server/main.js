@@ -1,8 +1,9 @@
+//server/main.js
 import { Meteor } from 'meteor/meteor';
 import { conferenceCollection } from '/imports/api/conference';
 import { delCollection } from '/imports/api/delegates';
 import { diasCollection } from '/imports/api/dias';
-import { dmCollection } from '/imports/api/dm';
+import { dmCollection, insertDM } from '/imports/api/dm';
 import { motionCollection } from '/imports/api/motions';
 import { speakerCollection } from '/imports/api/speakers';
 import { workingGroupCollection } from '/imports/api/workingGroups';
@@ -43,19 +44,33 @@ export const insertDel = async ({ country, roleCall }) => {
 export const insertDias = async ({ user, pass }) => {
   await diasCollection.insert({ user, pass });
 };
-export const insertDM = async ({ country, roleCall }) => {
-  await dmCollection.insert({ country, roleCall });
+// export const insertDM = async ({ type, to, from, content, read, groupId}) => {
+//   await dmCollection.insert({type, to, from, content, read, groupId});
+// };
+
+export const insertDMHandler = async ({ type, to, from, content, read, groupId }) => {
+  await insertDM({ type, to, from, content, read, groupId });
 };
-export const insertMotion = async ({ content, votes }) => {
-  await motionCollection.insert({ content, votes });
+
+export const insertMotion = async ({ content, votes, abstain }) => {
+  motionCollection.insert({ active:false, content, votes,abstain });
 };
 export const insertSpeaker = async ({ country }) => {
   // Set timeAdded to the current date/time
   const timeAdded = new Date();
   await speakerCollection.insert({ country, timeAdded });
 };
-export const insertWG = async ({ countries, location, topic }) => {
-  await workingGroupCollection.insert({ countries, location, topic });
+export const insertWG = async ({ countries, location, topic, name }) => {
+  await workingGroupCollection.insert({ countries, location, topic,name });
+};
+export const updateWG = async ({ groupId, name, topic, location }) => {
+  await workingGroupCollection.update(
+    { _id: groupId },
+    {
+      $set: { name, topic, location },
+     // $push: { countries: { $each: newCountries } }
+    }
+  );
 };
 
 Meteor.startup(async () => {
@@ -77,15 +92,15 @@ Meteor.startup(async () => {
     return dmCollection.find();
   });
   // Publish "motions" to clients
-  Meteor.publish("motions", function () {
-  return motionCollection.find();
+  Meteor.publish('motions', function () {
+    return motionCollection.find();
   });
   // Publish "speakers" to clients
   Meteor.publish("speakers", function () {
     return speakerCollection.find();
   });
   // Publish "WGs" to clients
-  Meteor.publish("WGs", function () {
+  Meteor.publish("workingGroups", function () {
       return workingGroupCollection.find();
   });
   Meteor.publish('userData', function () {

@@ -16,8 +16,9 @@ import Dias from '../pages/Dias.js';
 import Delegate from '../pages/Delegate.js';
 import Register from '../pages/Register.js';
 import DiasHome from '../pages/DiasHomePage.js';
-import RollCall from '../pages/DelRollCall.js';
+//import RollCall from '../pages/DelRollCall.js';
 import Waiting from '../pages/Waiting.js';
+import InformalPresentation from '../pages/InformalPresentation.js';
 
 function Main() {
   return (
@@ -31,8 +32,8 @@ function Main() {
             <Route exact path='/delegate' element={<Delegate />} />
             <Route exact path='/register' element={<Register />} />
             <Route exact path='/dias-home-page' element={<DiasHome />} />
-            <Route exact path='/delegate-roll-call' element={<RollCall />} />
             <Route exact path='/waiting' element={<Waiting />} />
+            <Route exact path='/informal-presentation' element={<InformalPresentation />} />
           </Routes>
         </BrowserRouter>
       </div>
