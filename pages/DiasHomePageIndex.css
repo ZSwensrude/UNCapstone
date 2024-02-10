@@ -363,4 +363,18 @@ body {
     font-weight: bold;
   }
   
-   
+   /* .diasSpkSrch li.countryItem button{
+    display: none;
+   } */
+
+   img#itemflagSmol{
+    height: 15px;
+    width: 25px;
+  }
+  .diasspeakers #speakersListCountry{
+    max-height: 16rem;
+    overflow-y: scroll;
+  }
+  .diasspeakers #speakersListCountry::-webkit-scrollbar {
+    display: none; /* Hide scrollbar in WebKit browsers (Chrome, Safari, etc.) */
+  }

@@ -34,9 +34,17 @@ workingGroupCollection.allow({
 
 //use these for pre-loaded data
 export const insertConference = async ({ sessionID,delegates,dias,DMs,motions,
-  speakers,workingGroups,status }) => {
-  await conferenceCollection.insert({ sessionID,delegates,dias,DMs,motions,
-    speakers,workingGroups,status });
+  speakers,workingGroups,status, activeSpeakerList}) => {
+   conferenceCollection.insert({ sessionID,delegates,dias,DMs,motions,
+    speakers,workingGroups,status, activeSpeakerList });
+};
+export const updateConferenceActiveStatus = async ({ conferenceId, activeSpeakerList }) => {
+  await conferenceCollection.update(
+    { _id: conferenceId },
+    {
+      $set: { activeSpeakerList }
+    }
+  );
 };
 export const insertDel = async ({ country, roleCall }) => {
   await delCollection.insert({ country, roleCall });
@@ -60,6 +68,9 @@ export const insertSpeaker = async ({ country }) => {
   const timeAdded = new Date();
   await speakerCollection.insert({ country, timeAdded });
 };
+export const removeSpeaker = async ({ _id }) => {
+  speakerCollection.remove(_id); 
+};
 export const insertWG = async ({ countries, location, topic, name }) => {
   await workingGroupCollection.insert({ countries, location, topic,name });
 };
@@ -76,7 +87,7 @@ export const updateWG = async ({ groupId, name, topic, location }) => {
 Meteor.startup(async () => {
   
   // Publish "conferences" to clients
-  Meteor.publish("conferences", function () {
+  Meteor.publish("conference", function () {
     return conferenceCollection.find();
   });
   // Publish "delegates" to clients
