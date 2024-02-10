@@ -4,11 +4,6 @@ body {
     background-color: #EFEFEF;
   }
 
-  .headerBar {
-    display: flex;
-    justify-content: center;
-  }
-
   .myConference {
     font-size:  10vh;
     font-weight:lighter;
@@ -16,7 +11,7 @@ body {
     margin-block-end: 1.5vh;
   }
 
-  .mainBox {
+  .mainBox, .smallLineBox, .smallerLineBox, .headerBar {
     display: flex;
     justify-content: center;
   }
@@ -44,3 +39,69 @@ body {
     justify-content: center;
     margin: 1.25vh;
   }
+
+.createConferenceTitleBlock, .PresetLocationsTitleBlock, .locationBoxBlock, .locationInputBox {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2vh;
+}
+
+.title1 {
+    font-size: 4vh;
+}
+
+.TitleLabel, .ComiteeLabel {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3vh;
+}
+
+.header1 {
+    font-weight:normal;
+    font-size: 3vh;
+    color: black;
+    margin:0vh;
+    margin-right: 1vh;
+  }
+
+.title2 {
+    font-size: 3.5vh;
+}
+
+.secondPart, .thirdPart, .firstPart {
+    display:block;
+}
+
+.locationBox {
+    width: 40vh;
+    height: 37vh;
+    background-color: #009edb;
+    border-radius: 30px;
+    display: block;
+    justify-content: center;
+}
+
+.smallerLine {
+    width: 35vh;
+    height: 0.2vh;
+    background: black;
+}
+
+.locationInput {
+    height: 7vh;
+    background-color:lightgrey;
+}
+
+.smallLine {
+    width: 40vw;
+    height: 0.3vh;
+    background: black;
+}
+
+.createConfButtons, .addButtonBox {
+    display:flex;
+    justify-content: space-around;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+}

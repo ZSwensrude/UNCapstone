@@ -7,7 +7,6 @@ import CoolButton from "../components/CoolButton";
 //import Country from '../components/Country';
 import SettingsIcon from '@mui/icons-material/Settings';
 import PresentAbsentList from "../components/PresentAbsentList";
-import StatusBox from "../components/StatusBox/StatusBox.js";
 import MotionsDias from "../components/MotionsDias.js";
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
@@ -48,6 +47,7 @@ const DiasHome = () => {
     { position: 2, countryName: 'Country B', flagPath: '/path/to/flagB.png' },
     // Add more countries as needed
   ];
+  
 
   const countriesLists = [
     {
@@ -78,13 +78,16 @@ const DiasHome = () => {
 
   const conferenceLocations = [
     {
-      "cLocation": "SA-214k"
+      "cLocation": "SA-214k",
+      "cGroup": "Group 1"
     },
     {
-        "cLocation": "Northwest Center"
+        "cLocation": "Northwest Center",
+        "cGroup": "Group 2"
     },
     {
         "cLocation": "SA-214b",
+        "cGroup": "Group 1"
     }
   ]
 
@@ -101,25 +104,26 @@ const DiasHome = () => {
     }
   ]
 
-  const [open, setOpen] = React.useState(false);
+  const [openStatus, setOpenStatus] = React.useState(false);
  
-  const handleClickToOpen = () => {
-      setOpen(true);
+  const handleClickToOpenStatus = () => {
+      setOpenStatus(true);
   };
 
-  const handleToClose = () => {
-      setOpen(false);
+  const handleToCloseStatus = () => {
+      setOpenStatus(false);
   };
 
-  const [open1, setOpen1] = React.useState(false);
+  const [openMerge, setOpenMerge] = React.useState(false);
  
-  const handleClickToOpen1 = () => {
-      setOpen1(true);
+  const handleClickToOpenMerge = () => {
+      setOpenMerge(true);
   };
 
-  const handleToClose1 = () => {
-      setOpen1(false);
+  const handleToCloseMerge = () => {
+      setOpenMerge(false);
   };
+
   const navigate = useNavigate();
 
     const toInformalPresentation = () => {
@@ -142,18 +146,18 @@ const DiasHome = () => {
                 <button className="tablinks" onClick={() => openTab(event,'NotesDias')}>Notes to the Dias</button>
             </div>
             
-            <button className="statusButton" onClick={handleClickToOpen}>Status</button>
+            <button className="statusButton" onClick={handleClickToOpenStatus}>Status</button>
             <SettingsIcon id='settings'/>
         </div>
 
-        <Dialog open={open1} onClose={handleToClose1}>
+        <Dialog open={openMerge} onClose={handleToCloseMerge}>
             <DialogTitle>{"hello?"}</DialogTitle>
             <DialogContent>
-            <CoolButton buttonText={"Cancel"} onClick={handleToClose1} buttonColor={'#800000'} textColor='white' />
+            <CoolButton buttonText={"Cancel"} onClick={handleToCloseMerge} buttonColor={'#800000'} textColor='white' />
             </DialogContent>
         </Dialog>
 
-        <Dialog open={open} onClose={handleToClose}>
+        <Dialog open={openStatus} onClose={handleToCloseStatus}>
             <DialogTitle>{"Change Status?"}</DialogTitle>
             <DialogContent>
                 <RadioGroup
@@ -168,7 +172,7 @@ const DiasHome = () => {
                 </RadioGroup>
             
                 <div className='statusButtons'>
-                        <CoolButton buttonText={"Cancel"} onClick={handleToClose} buttonColor={'#800000'} textColor='white' />
+                        <CoolButton buttonText={"Cancel"} onClick={handleToCloseStatus} buttonColor={'#800000'} textColor='white' />
                         <CoolButton buttonText={"Change"} buttonColor={'#FF9728'} textColor='white' />
                 </div>
                 </DialogContent>
@@ -343,9 +347,8 @@ const DiasHome = () => {
                     </div>
 
                     <div className="presentationButtonBlock">
-                        <CoolButton buttonText={"Presentation"} buttonColor={'#00DB89'} textColor='white' />
+                        <CoolButton onClick={toInformalPresentation} buttonText={"Presentation"} buttonColor={'#00DB89'} textColor='white' />
                     </div>
-
 
                 </div>
             </div>
@@ -396,7 +399,7 @@ const DiasHome = () => {
                         </div>
                         <div className="WorkingGroupButtons">   
                             <CoolButton buttonText={"Add"} buttonColor={'#FF9728'} textColor='white' />
-                            <CoolButton buttonText={"Merge Selected"}  onClick={handleClickToOpen1} buttonColor={'#00DB89'} textColor='white' />
+                            <CoolButton buttonText={"Merge Selected"}  onClick={handleClickToOpenMerge} buttonColor={'#00DB89'} textColor='white' />
                         </div>
                     </div>
                 </div>
@@ -407,7 +410,7 @@ const DiasHome = () => {
                     </div>
                     <div className="LocationsBlock2">
                             {conferenceLocations.map( (conferenceLocation, index) => (
-                            <PriorLocations key={conferenceLocation.cLocation + index} conferenceLocation={conferenceLocation}/>
+                            <PriorLocations key={conferenceLocation.cLocation + index} version={"diasHome"} conferenceLocation={conferenceLocation}/>
                             ))}
                     </div>
                     <div className="presentationButtonBlock">
