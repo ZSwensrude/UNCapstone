@@ -111,6 +111,15 @@ const DiasHome = () => {
       setOpen(false);
   };
 
+  const [open1, setOpen1] = React.useState(false);
+ 
+  const handleClickToOpen1 = () => {
+      setOpen1(true);
+  };
+
+  const handleToClose1 = () => {
+      setOpen1(false);
+  };
   const navigate = useNavigate();
 
     const toInformalPresentation = () => {
@@ -136,6 +145,13 @@ const DiasHome = () => {
             <button className="statusButton" onClick={handleClickToOpen}>Status</button>
             <SettingsIcon id='settings'/>
         </div>
+
+        <Dialog open={open1} onClose={handleToClose1}>
+            <DialogTitle>{"hello?"}</DialogTitle>
+            <DialogContent>
+            <CoolButton buttonText={"Cancel"} onClick={handleToClose1} buttonColor={'#800000'} textColor='white' />
+            </DialogContent>
+        </Dialog>
 
         <Dialog open={open} onClose={handleToClose}>
             <DialogTitle>{"Change Status?"}</DialogTitle>
@@ -380,7 +396,7 @@ const DiasHome = () => {
                         </div>
                         <div className="WorkingGroupButtons">   
                             <CoolButton buttonText={"Add"} buttonColor={'#FF9728'} textColor='white' />
-                            <CoolButton buttonText={"Merge Selected"}  onClick={handleClickToOpen} buttonColor={'#00DB89'} textColor='white' />
+                            <CoolButton buttonText={"Merge Selected"}  onClick={handleClickToOpen1} buttonColor={'#00DB89'} textColor='white' />
                         </div>
                     </div>
                 </div>
