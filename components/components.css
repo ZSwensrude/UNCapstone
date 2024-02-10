@@ -95,6 +95,7 @@
 
 .normalButton {
   padding-right: 2.5vh;
+  border: 0.5px solid black;
 }
 
 .wideButton {
@@ -283,6 +284,7 @@
   display: none; /* Hide scrollbar in WebKit browsers (Chrome, Safari, etc.) */
 }
 
+
 #workingGroupBack {
   position: relative;
   border-radius: 30px;
@@ -293,6 +295,10 @@
   flex-wrap: wrap;
   margin-bottom: 1vh;
   padding-right: 10vh;
+}
+.userInWorkingGroup{
+  /* border: 5px solid #00DBD4; */
+  background: #00DBD4 !important;
 }
 
 .workingGroupFlag {
@@ -315,7 +321,25 @@
   transform: scale(1.1);
   cursor: pointer;
 }
+.image-container:hover .alt-text {
+  display: block;
+}
 
+.alt-text {
+  display: none;
+  position: absolute;
+  top: -30px; /* Adjust to position the popup */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  padding: 5px;
+  font-size: 14px;
+  text-align: center;
+  white-space: nowrap;
+  border-radius: 5px;
+  z-index: 100000;
+}
 .selectedFlag:hover {
   transform: scale(1.1);
   cursor: pointer;
@@ -351,6 +375,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.groupMessage #button{
+  border: solid 0.5px black;
 }
 #errorPaper {
   height: 10vh;
@@ -429,6 +456,12 @@
   justify-content: space-between;
   margin: auto;
 }
+#speakers div#body{
+  overflow-y: scroll;
+}
+#speakers div#body::-webkit-scrollbar {
+  display:none;
+}
 
 #speakersListCountry {
   display: flex;
@@ -437,7 +470,9 @@
   align-items: center;
   margin: auto;
 }
-
+#speakersListCountry:first-of-type li:first-of-type{
+  background: #00DB89;
+}
 #singleNotificationMsg{
   display: flex;
   justify-content: space-between;
@@ -481,14 +516,15 @@ img#itemflag {
   justify-content: space-between;
   background: #ffff;
   border-radius: 34px;
+  /* border: solid 1px; */
   padding: 5px 15px 5px 3px;
   margin: 5px 0px;
   min-width: 300px;
   max-width: 300px;
 }
 
-.countryItem:active{
-  background: blue;
+.countryItem.currentUser{
+  background: #00DBD4;
 }
 .country.in.queue {
   background: #ffff;
@@ -496,4 +532,32 @@ img#itemflag {
   border-radius: 10px;
   padding: 15px;
   width: 80%;
+}
+
+.country.in.queue span{
+  font-weight: bold;
+}
+
+.delrollcallPage{
+  width: 100%;
+  height:100%;
+  display: flex;
+  justify-content: center;
+}
+
+.DelRollCall{
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+
+  width: 45%;}
+
+.title.roll {
+  width: 80%;
+  border-bottom: solid 1px;
+  display: flex;
+  justify-content: center;
+}
+span.MuiTypography-root.MuiTypography-body1.MuiFormControlLabel-label.css-xvf5in-MuiTypography-root{
+  color:black;
 }
