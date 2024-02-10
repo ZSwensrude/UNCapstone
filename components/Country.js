@@ -39,8 +39,8 @@ const speakersArray = speakerCollection.find().fetch();
 
 // Find the speaker object with the matching country
 const speakerObj = speakersArray.find(speakerObj => speakerObj.country === countryObject.country);
-const speakerID = speakerObj._id;
-
+    // Define speakerID only if speakerObj is defined
+    const speakerID = speakerObj ? speakerObj._id : null;
 
    
 // Define a handler function to remove the country
@@ -59,8 +59,8 @@ const handleRemoveCountry = () => {
   // Render the component
   return (
     <li className={`countryItem ${classNames}`}>
-      {isDiasUser && <button onClick={handleRemoveCountry}>X</button>} {/* Render the "X" button with onClick handler */}
-      {position !== "" && <p className='countryname'>{position}</p>}
+      {isDiasUser  && <button onClick={handleRemoveCountry}>X</button>}  
+       {position !== "" && <p className='countryname'>{position}</p>}
       <p className='countryname'>{countryObject.name}</p>
       <img id='itemflag' src={window.location.origin + flagPath} alt={`Flag of ${countryName}`} />
     </li>

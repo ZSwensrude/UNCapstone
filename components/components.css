@@ -470,9 +470,11 @@
   align-items: center;
   margin: auto;
 }
-#speakersListCountry:first-of-type li:first-of-type{
+#speakersListCountry:first-of-type li:first-of-type, 
+.diasSpeakerfirst li{
   background: #00DB89;
 }
+
 #singleNotificationMsg{
   display: flex;
   justify-content: space-between;
@@ -507,6 +509,7 @@ img#itemflag {
   width: 50px;
   border: solid 1px;
 }
+
 .countryname{
   margin:0;
 }

@@ -1,6 +1,8 @@
 // speakers.js
 import { Mongo } from 'meteor/mongo';
 
+export const speakerCollection = new Mongo.Collection('speakers');
+
 export const insertSpeaker = async ({ country }) => {
   const createdAt = new Date();
   speakerCollection.insert({ country, createdAt });
@@ -11,14 +13,14 @@ export const removeSpeaker = async ({ _id }) => {
   speakerCollection.remove(_id); 
 };
 
-
-export const speakerCollection = new Mongo.Collection('speakers');
-
-
 speakerCollection.allow({
-  remove: function(userId, doc) {
-    // Allow removal only if the user is logged in and has permission
+  insert: function(userId, doc) {
+    // Allow insert only if the user is logged in and has permission
     return !!userId;
+  },
+  remove: function(userId, doc) {
+    // Allow removal of all documents
+    return true;
   }
 });
 

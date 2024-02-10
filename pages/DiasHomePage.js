@@ -1,10 +1,12 @@
+//DiasHomePage.js
 import { Typography, Paper, Dialog, DialogContent, DialogActions, DialogTitle } from "@mui/material";
 import React from "react";
+import { useTracker } from 'meteor/react-meteor-data';
 import { useState } from "react";
 import './DiasHomePageIndex.css';
 import '../components/components.css';
 import CoolButton from "../components/CoolButton";
-//import Country from '../components/Country';
+import Country from '../components/Country';
 import SettingsIcon from '@mui/icons-material/Settings';
 import PresentAbsentList from "../components/PresentAbsentList";
 import StatusBox from "../components/StatusBox/StatusBox.js";
@@ -20,6 +22,9 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { useNavigate  } from 'react-router-dom';
 import DiasSpeakersList from '../components/DiasSpeakersList.js';
+import { speakerCollection, removeSpeaker, insertSpeaker } from "../imports/api/speakers.js";
+import flagData from '../flags.json';
+import { insertConference, updateConferenceActiveStatus, conferenceCollection} from "../imports/api/conference.js";
 
 function openTab(evt, tabName) {
     // Declare all variables
@@ -44,6 +49,7 @@ function openTab(evt, tabName) {
 
 // Placeholder for Dias screen
 const DiasHome = () => {
+        
   const countries = [
     { position: 1, countryName: 'Country A', flagPath: '/path/to/flagA.png' },
     { position: 2, countryName: 'Country B', flagPath: '/path/to/flagB.png' },
@@ -103,7 +109,7 @@ const DiasHome = () => {
   ]
 
   const [open, setOpen] = React.useState(false);
- 
+
   const handleClickToOpen = () => {
       setOpen(true);
   };
@@ -128,6 +134,58 @@ const DiasHome = () => {
         navigate('/informal-presentation');
     };
 
+    const [openSpkClear, setopenSpkClear] = React.useState(false);
+    
+    const clearSpkList = () => {
+        setopenSpkClear(true); // Open the confirmation dialog
+      };
+      
+      const handleClearConfirmed = () => {
+        setopenSpkClear(false); // Close the confirmation dialog
+        console.log("clear pressed!!!!!!"); // Perform the clear operation
+        const handler = Meteor.subscribe('speakers');
+        const speakersData = speakerCollection.find().fetch(); 
+        speakersData.forEach(speaker => {
+          removeSpeaker({ _id: speaker._id }); // Pass _id to removeSpeaker
+        });
+      };
+
+      const handleClearCancelled = () => {
+        setopenSpkClear(false); // Close the confirmation dialog
+        console.log("clear cancelled"); // Log that the clear operation was cancelled
+      };
+
+    // Define state variables for searchTerm and searchResults
+const [searchTerm, setSearchTerm] = useState('');
+
+    const addtolist = (searchTerm) =>{
+        console.log("Selected country:", searchTerm);
+    
+        // Insert the speaker with the selected country
+        insertSpeaker({ country: searchTerm });
+    };
+     // Define state variable to store conference data
+     const [conferenceData, setConferenceData] = useState(null);
+
+     // Fetch conference data using useTracker hook
+     useTracker(() => {
+         const handler = Meteor.subscribe('conference');
+         const data = conferenceCollection.findOne();
+         setConferenceData(data); // Update conference data in state
+     }, []);
+     
+ //update later to get sessionID and corresponding record in conference table
+     // Function to update speaker list active status
+     const updateSpkerlistactive = () => {
+         if (conferenceData) {
+             const { _id, activeSpeakerList } = conferenceData;
+             const updatedActiveStatus = !activeSpeakerList;
+             updateConferenceActiveStatus({ conferenceId: _id, activeSpeakerList: updatedActiveStatus });
+         }
+     };
+  
+
+        
   return (
     <div className="HomePageDias">
         
@@ -146,6 +204,16 @@ const DiasHome = () => {
             <button className="statusButton" onClick={handleClickToOpen}>Status</button>
             <SettingsIcon id='settings'/>
         </div>
+        <Dialog open={openSpkClear} onClose={handleClearCancelled}>
+        <DialogTitle>{"Are you sure you want to clear the speaker list?"}</DialogTitle>
+        <DialogContent>
+            {/* Add any additional content or instructions here */}
+        </DialogContent>
+        <DialogActions>
+            <CoolButton buttonText={"Cancel"} onClick={handleClearCancelled} buttonColor={'#800000'} textColor='white' />
+            <CoolButton buttonText={"Yes"} onClick={handleClearConfirmed} buttonColor={'#00DB89'} textColor='white' />
+        </DialogActions>
+        </Dialog>
 
         <Dialog open={open1} onClose={handleToClose1}>
             <DialogTitle>{"hello?"}</DialogTitle>
@@ -236,26 +304,48 @@ const DiasHome = () => {
                                 <div h2 className="controlTitle">Control</div>
                             </div>
                             <div className="controlInputBox">
-                                <input className="controlInput" placeholder="Search" type="text" />
-                            </div>
+                            <select
+                                className="controlInput"
+                                value={searchTerm}
+                                onChange={(e) => addtolist(e.target.value)} // Pass the selected value to addtolist
+                            >
+                                <option value="">Select a country</option>
+                                {flagData.countries.map((country, index) => (
+                                    <option key={index} value={country.country}>
+                                        {country.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
                             <div className="addButtonBlock">   
-                                <CoolButton buttonText={"Add"} buttonColor={'#FF9728'} textColor='white' />
+                                {/* <CoolButton buttonText={"Add to queue"} buttonColor={'#FF9728'} textColor='white' onClick={addtolist}/> */}
                             </div>
 
-                            <div className="lineABlock">
+                            {/* <div className="lineABlock">
                                 <div className="lineA"></div>
-                            </div>
+                            </div> */}
 
-                            <div className="controlList"></div>
+                            {/* <div className="controlList diasSpkSrch">
+                                <ul>
+                                {searchResults.map((country, index) => (
+                                    <Country key={index} countryName={country.country} />
+                                ))}
+                                </ul>
+                            </div> */}
 
                             <div className="lineABlock">
                                 <div className="lineA"></div>
                             </div>
 
                             <div className="clearAndCloseButtonBlock">   
-                                <CoolButton buttonText={"Clear List"} buttonColor={'#FF9728'} textColor='white' />
-                                <CoolButton buttonText={"Close Speaker List"} buttonColor={'#FF9728'} textColor='white' />
-                            </div>
+                                <CoolButton buttonText={"Clear List"} buttonColor={'#FF9728'} textColor='white' onClick={clearSpkList} />
+                                <CoolButton 
+                                    buttonText={"Close/Open Speaker List"} 
+                                    buttonColor={'#FF9728'} 
+                                    textColor='white' 
+                                    onClick={updateSpkerlistactive} // Add onClick event handler
+                                />                            
+                                </div>
 
                         </div>
                     </div>

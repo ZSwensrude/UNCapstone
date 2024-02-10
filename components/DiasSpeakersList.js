@@ -35,16 +35,14 @@ const DiasSpeakersList = () => {
 
     // Check if the user's country is in the speakers list
     const isUserInQueue = speakers.some(speaker => speaker.country === user?.country);
-
-
   return (
     <div id='diasspeakers'>
         <div className="controlTitleBlock">
             <div h2 className="controlTitle">Currently Speaking:</div>
         </div>        
-        <div id='speakersListCountry'>
+        <div className='diasSpeakerfirst' id='speakersListCountry'>
           {Object.keys(currentSpeaker).length > 0 && (
-            <Country countryName={currentSpeaker.country} />
+            <Country countryName={currentSpeaker.country } />
           )}
         </div>
         <div className="lineABlock">
@@ -53,10 +51,11 @@ const DiasSpeakersList = () => {
         <div className="controlTitleBlock">
             <div h2 className="controlTitle">In Queue:</div>
         </div>
-        <div id="speakersListCountry">
-          {speakers.slice(1).map((speaker, index) => (
-            <Country key={index + 1} countryName={speaker.country} position={index + 2} />
-          ))}
+        <div className="queuebox" id="speakersListCountry">
+        {speakers.slice(1).map((speaker, index) => (
+          <Country key={speaker._id} countryName={speaker.country} position={index + 2} showclose={true} />
+        ))}
+
         </div>
 
         <div className="lineABlock">
