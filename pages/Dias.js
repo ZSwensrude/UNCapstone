@@ -1,11 +1,13 @@
 import { Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import './DiasIndex.css';
 import Header from "../components/Header";
 import CoolButton from "../components/CoolButton";
 import CreateConference from "../components/Create Conference/CreateConference";
 import MyConference from "../components/MyConferences";
+import countries from '../flags.json';
+import { Accounts } from "meteor/accounts-base";
 
 // Placeholder for Dias screen
 const Dias = () => {
@@ -24,7 +26,38 @@ const Dias = () => {
       "dateCreated": "24/03/01"
     }
   ]
-  
+
+/*
+Accounts.createUser(info, function(error) {
+
+  if (Meteor.user()) {
+    insertDias({ user: values.username, pass: values.password1 });
+    localStorage.setItem('loggedInUser', JSON.stringify({ username: values.username, userType: 'dias' }));              navigate('/dias');
+  } else {
+    updateError({'error': error.reason})
+  }
+});
+
+Accounts.createUser({username: 'Irelandxyz', password: 'xyz', country: 'Ireland', conference: 'xyz'})
+*/
+
+  const initializeDB = () => {
+    // update this later and give it the actual conference ID of the conference created
+    console.log(countries)
+    const conferenceId = 'xyz'
+    countries.countries.forEach(country => {
+      console.log("country", country);
+      Accounts.createUser({username: `${country.name + conferenceId}`, password: `${conferenceId}`, country: country.name, conference: `${conferenceId}`},
+      (error) => {
+        if(error) {
+          console.log("error: ", error);
+        } else {
+          console.log("Created account for ", country.name);
+        }
+      })
+    });
+  }
+ 
   return (
     <div className="fullPage">
         {openModal && <CreateConference closeModal={setOpenModal}/>}
@@ -53,6 +86,7 @@ const Dias = () => {
             
           </div>
         </div>
+        <CoolButton buttonText={"Initialize DB"} onClick={initializeDB}/>
 
     </div>
   );
