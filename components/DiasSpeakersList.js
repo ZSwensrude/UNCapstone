@@ -5,7 +5,7 @@ import Country from './Country';
 import { speakerCollection, insertSpeaker } from '../imports/api/speakers';
 import { useTracker } from 'meteor/react-meteor-data';
 
-const SpeakersList = () => {
+const DiasSpeakersList = () => {
   
   // Function to retrieve user information from localStorage
   const getUserFromLocalStorage = () => {
@@ -38,35 +38,35 @@ const SpeakersList = () => {
 
 
   return (
-    <div id='speakers'>
-      <Paper id='top' elevation={4}>
-        <Typography variant='h4'>Speakers List</Typography>
-      </Paper>
-      <Paper id='body' elevation={4}>
-        <Typography variant='h5'>Currently Speaking:</Typography>
+    <div id='diasspeakers'>
+        <div className="controlTitleBlock">
+            <div h2 className="controlTitle">Currently Speaking:</div>
+        </div>        
         <div id='speakersListCountry'>
           {Object.keys(currentSpeaker).length > 0 && (
             <Country countryName={currentSpeaker.country} />
           )}
         </div>
-        <hr id='whiteLine' />
-        <Typography variant='h5'>In Queue:</Typography>
-        <div id='speakersListCountry'>
-        {speakers.slice(1).map((speaker, index) => (
+        <div className="lineABlock">
+            <div className="lineA"></div>
+        </div>
+        <div className="controlTitleBlock">
+            <div h2 className="controlTitle">In Queue:</div>
+        </div>
+        <div id="speakersListCountry">
+          {speakers.slice(1).map((speaker, index) => (
             <Country key={index + 1} countryName={speaker.country} position={index + 2} />
           ))}
         </div>
-        {/* Render the "Join Queue" button only if the user's country is not in the speakers list */}
-        {!isUserInQueue && (
-          <div id='joinButton'>
-            <CoolButton buttonText='Join Queue' buttonColor={'#FF9728'} textColor={'white'} onClick={onClick} />
-          </div>
-        )}
-      </Paper>
+
+        <div className="lineABlock">
+            <div className="lineA"></div>
+        </div>
+
     </div>
   );
 };
 
-export default SpeakersList;
+export default DiasSpeakersList;
 
 

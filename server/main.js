@@ -60,6 +60,9 @@ export const insertSpeaker = async ({ country }) => {
   const timeAdded = new Date();
   await speakerCollection.insert({ country, timeAdded });
 };
+export const removeSpeaker = async ({ _id }) => {
+  speakerCollection.remove(_id); 
+};
 export const insertWG = async ({ countries, location, topic, name }) => {
   await workingGroupCollection.insert({ countries, location, topic,name });
 };

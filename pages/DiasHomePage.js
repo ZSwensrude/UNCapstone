@@ -19,6 +19,7 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { useNavigate  } from 'react-router-dom';
+import DiasSpeakersList from '../components/DiasSpeakersList.js';
 
 function openTab(evt, tabName) {
     // Declare all variables
@@ -213,26 +214,7 @@ const DiasHome = () => {
                     </div>
                     <div className="currentlySpeakingAndControl">
                         <div className="currentlySpeaking">
-                            <div className="controlTitleBlock">
-                                <div h2 className="controlTitle">Currently Speaking:</div>
-                            </div>
-
-                            <div className="currentlySpeakingBlock"></div>
-
-                            <div className="lineABlock">
-                                <div className="lineA"></div>
-                            </div>
-
-                            <div className="controlTitleBlock">
-                                <div h2 className="controlTitle">In Queue:</div>
-                            </div>
-
-                            <div className="inQueueBlock"></div>
-
-                            <div className="lineABlock">
-                                <div className="lineA"></div>
-                            </div>
-
+                            <DiasSpeakersList />
                             <div className="controlTitleBlock">
                                 <div h2 className="controlTitle">Speaker Timer:</div>
                             </div>
