@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Modal, Paper, Typography, TextField } from "@mui/material";
 import CoolButton from "./CoolButton";
 import './components.css';
+import {dmCollection, insertDM} from '../imports/api/dm';
+
 
 
 const MessageDias = () => {
@@ -19,12 +21,19 @@ const MessageDias = () => {
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };
-
+  // Function to retrieve user information from localStorage
+  const getUserFromLocalStorage = () => {
+    const userString = localStorage.getItem('loggedInUser');
+    return userString ? JSON.parse(userString) : null;
+  };
+  // Get user information from localStorage
+  const user = getUserFromLocalStorage();
   // function for when send button is pressed
   const sendMessage = () => {
     if (inputValue.length > 0) {
       //code for message here
       console.log(inputValue);
+      insertDM({ type:"dias", to: "Dias", from: user.country, content: inputValue, read:"false" });
     }
     handleClose();
   }

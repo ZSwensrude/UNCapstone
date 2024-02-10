@@ -1,7 +1,8 @@
 import React from "react";
 import { Typography, Dialog, DialogTitle, DialogContent, Radio, RadioGroup, FormControlLabel, Button } from "@mui/material";
-import './DelRollCall.css';
 import { useNavigate } from "react-router";
+import { Meteor } from 'meteor/meteor';
+import { delCollection } from "../imports/api/delegates";
 
 const DelRollCall = () => {
   const [open, setOpen] = React.useState(true);
@@ -17,10 +18,33 @@ const DelRollCall = () => {
   };
 
   const handleSave = () => {
-    // Handle the selected option as needed
-    console.log('Selected Option:', selectedOption);
-    setOpen(false);
-    navigate('/delegate');
+    // Get the current user
+      // Function to retrieve user information from localStorage
+      const getUserFromLocalStorage = () => {
+        const userString = localStorage.getItem('loggedInUser');
+        return userString ? JSON.parse(userString) : null;
+      };
+      // Get user information from localStorage
+      const user = getUserFromLocalStorage();
+    if (user) {
+      // Find the corresponding record in the delegates table and update the roll call value
+      const existingDelegate = delCollection.findOne({ country: user.country });
+
+      if (existingDelegate) {
+        // Update the roll call value
+        delCollection.update(existingDelegate._id, { $set: { roleCall: selectedOption } });
+        setOpen(false);
+        navigate('/delegate');
+      } else {
+        // If the user is not found in the delegates table, you may want to handle this case
+        console.error('User not found in delegates table');
+      }
+
+      
+    } else {
+      // Handle the case where the current user is not available
+      console.error('Current user not available');
+    }
   };
 
   return (

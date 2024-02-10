@@ -19,3 +19,13 @@ display: flex;
 flex-direction: column;
 
 }
+img{
+  border: solid 0.5px black;
+  margin: 1px;
+}
+img#un,
+.logins img, 
+.logo img
+{
+  border: none;
+}
