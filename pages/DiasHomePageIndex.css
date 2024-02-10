@@ -16,6 +16,12 @@ body {
     padding: 1vh;
   }
 
+  .diasTabs{
+    width: 185vh;
+    display: flex;
+    justify-content: center;
+  }
+
   /* Style the tab */
 .tab {
     overflow: hidden;
@@ -53,26 +59,30 @@ body {
     padding: 3vh 5vh;
   }
 
-  .RollCallBlock {
+  .statusButton {
+      background-color: #00DBD4;
+      border-radius: 30px;
+  }
+
+  .RollCallBlock, .NotesDiasBlock {
     display: flex;
     justify-content: center;
     margin-block-start: 11vh;
   }
 
-  .RollCallList {
+  .RollCallList, .NotesDiasList {
     width: 170vh;
     height: 70vh;
     display:block;
-    background: #EFEFEF;
+    background: white;
     border-style: solid;
     border-color: #009edb;
-    border-radius: 30px;
   }
 
   .searchBlock {
     height: 8vh;
     display:flex;
-    background: #EFEFEF;
+    background: white;
     border-bottom-style: solid;
     border-bottom-color: #009edb;
     justify-content: center;
@@ -80,16 +90,16 @@ body {
 
   .searchBox {
     width: 160vh;
-    height:32px;
+    height: 5vh;
     background: #E8E8E8;
     margin-top: 4px;
     border-color: #E8E8E8;
   }
 
   .titleBlock {
-    height: 30px;
+    height: 6vh;
     display:flex;
-    background: #EFEFEF;
+    background: white;
     border-bottom-style: solid;
     border-bottom-color: #009edb;
     justify-content: center;
@@ -99,160 +109,249 @@ body {
   .titles {
         font-weight: lighter;
         display:flex;
-        margin-top: 7px;
-        margin-bottom: 7px;
-        margin-left: 10px;
-        margin-right: 10px;
-        width: 250px;
-        justify-content: center;
-        
+        margin-top: 1vh;
+        margin-bottom: 1vh;
+        margin-left: 3vh;
+        margin-right: 3vh;
+        width: 40vh;
+        justify-content: center;   
   }
 
   .presentAbsentBlock {
-    height: 295px;
-    display:flex;
-    background: #EFEFEF;
-    justify-content: space-evenly;
+    height: 40vh;
+    background: white;
   }
 
   .firstBlock {
-    width: 1000px;
+    width: 170vh;
     display:flex;
     justify-content: space-between;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-right: 125px;
-    margin-left: 125px;
-  }
-
-  .startRollCallButton {
-  background: #FF9728;
-    color: white;
-    border-radius: 5px;
-    border-color: #FF9728;
-    width: 100px;
-    height: 35px;
-  }
-
-  .exportButton {
-    background: #00DB89;
-    color: white;
-    border-radius: 5px;
-    border-color: #00DB89;
-    width: 75px;
-    height: 35px;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    margin-left: 0vh;
   }
 
   .secondBlock {
-    width: 1000px;
+    width: 170vh;
     display:flex;
     justify-content: flex-start;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-right: 125px;
-    margin-left: 125px;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    margin-left: 0vh;
   }
 
-  .resetButton {
-        background: #FF9728;
-        color: white;
-        border-radius: 5px;
-        border-color: #FF9728;
-        width: 65px;
-        height: 25px;
-  }
-
-  .Formal.tabcontent {
+  .logos, .Formal.tabcontent, .SpeakerListButtonBlock, .currentlySpeakingAndControl, .controlTitleBlock, .BackInSessionBlock{
     display:flex;
     justify-content: center;
   }
 
-  .FormalBlock {
+  .FormalBlock, .InformalBlock {
     display:flex;
+    margin-block-start: 11vh;
   }
 
-  .SpeakerListBlock {
+  .MotionsBlock, .SpeakerListBlock {
     display:block;
-    width: 690px;
-    margin-bottom: 5px;
+    margin-bottom: 2vh;
   }
 
-  .SpeakerListButtonBlock {
-    display: flex;
-    justify-content: center;
-  }
-
-  .SpeakersListButton {
+  .SpeakersListButton, .DeadlinesTitle, .WorkingGroupTitle, .LocationTitle {
     background: #009edb;
     color: white;
-    border-radius: 7px;
+    border-radius: 30px;
     border-color: #009edb;
-    width: 150px;
-    font-size: medium;
-    height: 35px;
-  }
-
-  .currentlySpeakingAndCurrent {
-    display:flex;
+    width: 25vh;
+    display: flex;
     justify-content: center;
-  }
-  
-  .currentlySpeaking, .current {
-    width: 345px;
-    height: 450px;
+    align-items: center;
+    font-size: medium;
+    height: 7vh;
+  } 
+
+  .currentlySpeaking, .control {
+    width: 60vh;
+    height: 75vh;
     display:block;
     background: #009edb;
-    border-radius: 5px;
+    border-radius: 30px;
     border-style: solid;
     border-color: #009edb;
-    margin: 10px;
+    margin: 1.5vh;
   }
 
-  .MotionsBlock {
-      display:block;
-      width: 560px;
-      margin-bottom: 5px;
+  .SpeakerTimerBlock {
+    display:flex;
+    justify-content: center;
+    margin-block-start: 1vh;
   }
 
-  .MotionsButtonBlock {
-      display:flex;
-      justify-content: center;
-      margin-bottom: 9px;
+  .Timer {
+    width: 50vh;
+    height:20vh;
+    background-color: white;
+    border-radius: 30px;
+  }
+
+  .controlTitle {
+    margin-block-start: 1vh;
+    color:white;
+    font-size: medium;
+  }
+
+.BackInSessionTitle {
+    margin-block-start: 1vh;
+    color:black;
+    font-size: medium;
+}
+
+  .lineABlock,.controlInputBox, .addMotionBox, .addButtonBlock, .MotionsButtonBlock, 
+  .DeadlinesTitleBlock, .addDeadlinesBox, .WorkingGroupTitleBlock, .LocationTitleBlock {
+    display: flex;
+    justify-content: center;
+    margin-block-start: 1.5vh;
+  }
+
+  .controlInput {
+    height: 4vh;
+    min-width: 50vh;
+    max-width: 50vh;
+    background-color:lightgrey;
+  }
+
+  .lineA {
+    min-width: 55vh;
+    max-width: 55vh;
+    height: 0.3vh;
+    background: black;
+  }
+  
+  .clearAndCloseButtonBlock, .timerBlock2Buttons, .DeadlineButtons,.WorkingGroupButtons {
+    display:flex;
+    justify-content: space-evenly;
+    margin-block-start: 1.5vh;
   }
 
   .MotionsButton {
     background: #009edb;
     color: white;
-    border-radius: 7px;
+    border-radius: 30px;
     border-color: #009edb;
-    width: 150px;
+    width: 25vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: medium;
-    height: 35px;
+    height: 7vh;
+  }
 
+  .motionBlock {
+    width: 78vh;
+    height: 35vh;
+    display:block;
+    background: #009edb;
+    border-radius: 30px;
+    border-style: solid;
+    border-color: #009edb;
+    margin-left: 1vh;
+    margin-bottom: 1.5vh;
+  }
+
+  .DeadlinesBlock {
+    width: 60vh;
+    height: 35vh;
+    display:block;
+    background: #009edb;
+    border-radius: 30px;
+    border-style: solid;
+    border-color: #009edb;
+    margin-block-start: 2vh;
+  }
+
+  .WorkingGroupBlock2 {
+    width: 75vh;
+    height: 68vh;
+    display:block;
+    background: #009edb;
+    border-radius: 30px;
+    border-style: solid;
+    border-color: #009edb;
+    margin-block-start: 2vh;
+    margin-left:10vh;
+  }
+
+  .LocationsBlock2 {
+    width: 50vh;
+    height: 68vh;
+    display:block;
+    background: #009edb;
+    border-radius: 30px;
+    border-style: solid;
+    border-color: #009edb;
+    margin-block-start: 2vh;
+    margin-left:2vh;
+    margin-bottom: 2vh;
+  }
+
+  .MotionInput {
+    height: 4vh;
+    min-width: 70vh;
+    max-width: 70vh;
+    background-color:lightgrey;
+  }
+
+  .DeadlineInput {
+    height: 4vh;
+    min-width: 58vh;
+    max-width: 58vh;
+    background-color:lightgrey;
+  }
+
+  .lineB {
+    min-width: 72vh;
+    max-width: 72vh;
+    height: 0.3vh;
+    background: black;
+  }
+
+  .lineC {
+    min-width: 59vh;
+    max-width: 59vh;
+    height: 0.3vh;
+    background: black;
   }
 
   .timerBlock {
-    width: 500px;
-    height: 225px;
+    width: 78vh;
+    height: 30vh;
     display:block;
-    background: #009edb;
-    border-radius: 5px;
+    background: white;
+    border-radius: 30px;
     border-style: solid;
-    border-color: #009edb;
-    margin-left: 15px;
-    margin-bottom: 10px;
+    border-color: white;
+    margin-left: 1vh;
+    margin-bottom:1.5vh;
   }
 
   .timerBlock2 {
-    width: 480px;
-    height: 200px;
+    width: 60vh;
+    height: 25vh;
     display:block;
     background: white;
-    border-radius: 5px;
+    border-radius: 30px;
     border-style: solid;
     border-color: white;
-    margin-left: 25px;
-    margin-bottom: 5px;
+    margin-bottom:1.5vh;
+    margin-block-start: 2vh;
+  }
+
+  .speakerTimerTitle {
+    margin-block-start: 1vh;
+    color:black;
+    font-size: medium;
+  }
+
+  .timerLogos, .DeadlinesAndTimerBlock, .WorkingGroupsBlock, .LocationsAndPresentationBlock {
+    display: block;
   }
 
   .presentationButtonBlock {
@@ -260,12 +359,8 @@ body {
     justify-content: flex-end;
   }
 
-  .presentationButton {
-    background: #00DB89;
-    color: white;
-    border-radius: 7px;
-    border-color: #00DB89;
-    width: 110px;
-    font-size: medium;
-    height: 25px;
+  .BackInSessionTitle {
+    font-weight: bold;
   }
+  
+   

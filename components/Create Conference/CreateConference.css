@@ -1,0 +1,102 @@
+
+.ModalBackground {
+    width: 100vw;
+    height:100vh;
+    background-color: rgba(200,200,200);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalContainer {
+    margin-block-start: 10vh;
+    width: 50vw;
+    height: 75vh; 
+    border-radius: 30px;
+    background-color: white;
+}
+
+.firstPart {
+    display:block;
+}
+
+.createConferenceTitleBlock, .PresetLocationsTitleBlock, .locationBoxBlock {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2vh;
+}
+
+.title1 {
+    font-size: 4vh;
+}
+
+.TitleLabel, .ComiteeLabel {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3vh;
+}
+
+.header1 {
+    font-weight:normal;
+    font-size: 3vh;
+    color: black;
+    margin:0vh;
+    margin-right: 1vh;
+  }
+
+.title2 {
+    font-size: 3.5vh;
+}
+
+.secondPart {
+    display:block;
+}
+
+.locationBox {
+    width: 40vh;
+    height: 37vh;
+    background-color: #009edb;
+    border-radius: 30px;
+    display: block;
+    justify-content: center;
+}
+
+.smallerLine {
+    width: 35vh;
+    height: 0.2vh;
+    background: black;
+}
+
+.locationInputBox {
+    display: flex;
+    justify-content: center;
+    margin-block-start: 2vh;
+}
+
+.locationInput {
+    height: 7vh;
+    background-color:lightgrey;
+}
+
+.thirdPart {
+    display:block;
+}
+
+.smallLineBox, .smallerLineBox {
+    display: flex;
+    justify-content: center;
+}
+
+.smallLine {
+    width: 40vw;
+    height: 0.3vh;
+    background: black;
+}
+
+.createConfButtons, .addButtonBox {
+    display:flex;
+    justify-content: space-around;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+}
