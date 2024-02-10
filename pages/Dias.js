@@ -40,21 +40,22 @@ Accounts.createUser(info, function(error) {
 
 Accounts.createUser({username: 'Irelandxyz', password: 'xyz', country: 'Ireland', conference: 'xyz'})
 */
+const accounts = [];
 
   const initializeDB = () => {
     // update this later and give it the actual conference ID of the conference created
-    console.log(countries)
-    const conferenceId = 'xyz'
+    const conferenceId = 'xyz';
     countries.countries.forEach(country => {
-      console.log("country", country);
-      Accounts.createUser({username: `${country.name + conferenceId}`, password: `${conferenceId}`, country: country.name, conference: `${conferenceId}`},
-      (error) => {
-        if(error) {
-          console.log("error: ", error);
-        } else {
-          console.log("Created account for ", country.name);
-        }
-      })
+
+      accounts.push({username: `${country.name + conferenceId}`, password: `${conferenceId}`, country: country.name, conference: `${conferenceId}`});
+    });
+    
+    Meteor.call('users.createAllDelegates', accounts, (error, result) => {
+      if (error) {
+        console.error('Failed to insert users:', error);
+      } else {
+        console.log('Users inserted successfully:', result);
+      }
     });
   }
  
