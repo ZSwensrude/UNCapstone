@@ -138,22 +138,29 @@ const DiasHome = () => {
     
     const clearSpkList = () => {
         setopenSpkClear(true); // Open the confirmation dialog
-      };
+    };
       
-      const handleClearConfirmed = () => {
+    const handleClearConfirmed = () => {
         setopenSpkClear(false); // Close the confirmation dialog
         console.log("clear pressed!!!!!!"); // Perform the clear operation
         const handler = Meteor.subscribe('speakers');
         const speakersData = speakerCollection.find().fetch(); 
         speakersData.forEach(speaker => {
-          removeSpeaker({ _id: speaker._id }); // Pass _id to removeSpeaker
+            removeSpeaker({ _id: speaker._id }); // Pass _id to removeSpeaker
         });
-      };
+    };
 
-      const handleClearCancelled = () => {
+    const handleSpkNext = () => {
+        console.log("next speaker pressed!!!!!!"); // Perform the clear operation
+        const handler = Meteor.subscribe('speakers');
+        const speakersData = speakerCollection.find().fetch(); 
+        removeSpeaker({ _id: speakersData[0]._id }); // remove current speaker
+    };
+
+    const handleClearCancelled = () => {
         setopenSpkClear(false); // Close the confirmation dialog
         console.log("clear cancelled"); // Log that the clear operation was cancelled
-      };
+    };
 
     // Define state variables for searchTerm and searchResults
 const [searchTerm, setSearchTerm] = useState('');
@@ -294,7 +301,7 @@ const [searchTerm, setSearchTerm] = useState('');
                             <div className="clearAndCloseButtonBlock">   
                                 <CoolButton buttonText={"Reset"} buttonColor={'#FF9728'} textColor='white' />
                                 <CoolButton buttonText={"Pause"} buttonColor={'#FF9728'} textColor='white' />
-                                <CoolButton buttonText={"Next"} buttonColor={'#FF9728'} textColor='white' />
+                                <CoolButton buttonText={"Next"} buttonColor={'#FF9728'} textColor='white' onClick={handleSpkNext} />
                             </div>
 
 
