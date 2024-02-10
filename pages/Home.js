@@ -98,7 +98,10 @@ const Home=()=>{
         </div>
 
         <div className= "top">
-            <h2 className="welcomeHeader">Welcome to United Nations</h2>
+        {/* <h2 className="welcomeHeader1">Welcome to United Nations</h2> */}
+        <div className="welcomeHeader1">
+          <Typography variant="h6">Welcome to Mac-UN!</Typography>
+        </div>
         </div>
 
         <div className="logins">

@@ -31,6 +31,10 @@ let theme = createTheme({
       fontSize: '1.5rem',
       fontWeight: 600,
       color: 'white',
+    },
+    h6: {
+      fontSize: '4rem',
+      fontWeight: 400,
     }
     // Add more typography customizations as needed
   },
