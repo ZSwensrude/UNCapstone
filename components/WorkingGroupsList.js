@@ -190,7 +190,11 @@ const getCountryInfo = (countryCode) => {
                     <InviteGroup onInvite={handleInvite} group={group} />
                   </>
                 )}
-                <CoolButton buttonColor={'#00DB89'} textColor={'white'} buttonText={'join'} onClick={joinGroup} />
+                {!isInUserCountry(group) && (
+                  <>
+                    <CoolButton buttonColor={'#00DB89'} textColor={'white'} buttonText={'join'} onClick={joinGroup} />
+                  </>
+                )}
               </div>
             </Paper>
           </>

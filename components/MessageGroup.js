@@ -4,8 +4,8 @@ import CoolButton from "./CoolButton";
 import './components.css';
 import { insertDM } from "../imports/api/dm";
 
-const MessageGroup = ({ countries, groupname }) => {
-  // Function to retrieve user information from localStorage
+const MessageGroup = ({ countries = [], groupname }) => {
+    // Function to retrieve user information from localStorage
   const getUserFromLocalStorage = () => {
     const userString = localStorage.getItem('loggedInUser');
     return userString ? JSON.parse(userString) : null;
