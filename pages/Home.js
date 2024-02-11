@@ -58,9 +58,6 @@ const Home=()=>{
     const sessionId = document.getElementById('sessionId').value;
     const username = selectedCountry + sessionId;
     const password = sessionId;
-    console.log("username", username, "password", password)
-
-    console.log(Meteor.users.find().fetch());
 
     const country = Meteor.users.findOne({username: username});
     
@@ -72,7 +69,6 @@ const Home=()=>{
 
       // Insert delegate information into MongoDB
       const success = insertDel({ country: selectedCountry, roleCall: '' });
-      console.log("success", success);
       if (success) {
         // Insertion was successful
         // Redirect to the delegate page or perform any other actions
