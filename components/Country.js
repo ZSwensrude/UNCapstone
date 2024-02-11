@@ -62,7 +62,7 @@ const handleRemoveCountry = () => {
       {isDiasUser  && <button onClick={handleRemoveCountry}>X</button>}  
        {position !== "" && <p className='countryname'>{position}</p>}
       <p className='countryname'>{countryObject.name}</p>
-      <img id='itemflag' src={window.location.origin + flagPath} alt={`Flag of ${countryName}`} />
+      <img id='itemflag' src={window.location.origin + flagPath} alt={`Flag of ${countryName}`} title={countryObject.name}/>
     </li>
   );
 };

@@ -18,7 +18,7 @@ const CountryFlag = ({ country, onSelect, onDeselect }) => {
 
   return (
     <div onClick={onClick} className="image-container" title={country.name}>
-    <img className={classname} src={window.location.origin + country.flagPath} alt={country.country} />
+    <img className={classname} src={window.location.origin + country.flagPath} alt={country.country} title={country.name}/>
   </div>
   );
 };

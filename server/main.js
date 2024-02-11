@@ -84,6 +84,23 @@ export const updateWG = async ({ groupId, name, topic, location }) => {
   );
 };
 
+Meteor.methods({
+  'users.createAllDelegates': function (users) {
+    const bulkInsertOperations = users.map(user => ({
+      insertOne: { document: user },
+    }));
+
+    try {
+      const result = Meteor.users.rawCollection().bulkWrite(bulkInsertOperations);
+      console.log('Users inserted successfully:', result.insertedCount);
+      return result.insertedCount;
+    } catch (error) {
+      console.error('Failed to insert users:', error);
+      throw new Meteor.Error('insert-failed', 'Failed to insert users');
+    }
+  }
+})
+
 Meteor.startup(async () => {
   
   // Publish "conferences" to clients
@@ -113,6 +130,14 @@ Meteor.startup(async () => {
   // Publish "WGs" to clients
   Meteor.publish("workingGroups", function () {
       return workingGroupCollection.find();
+  });
+  // Publish all users to clients
+  Meteor.publish("allUsers", function () {
+    if (this.userId) {
+      return Meteor.users.find({}, { fields: {} }); // Return all fields
+    } else {
+      this.ready();
+    }
   });
   Meteor.publish('userData', function () {
     if (this.userId) {

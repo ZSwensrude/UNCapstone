@@ -48,5 +48,6 @@ Meteor.startup(() => {
   const container = document.getElementById('react-target');
   const root = createRoot(container);
   Meteor.subscribe('userData');
+  Meteor.subscribe('allUsers');
   root.render(<Main />);
 });
