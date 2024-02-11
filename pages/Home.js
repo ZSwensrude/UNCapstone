@@ -148,7 +148,7 @@ const Home=()=>{
             </div>
                
             <div className="countryLabel">
-                <label htmlFor="country">Country</label>
+              <h6 className="header6">Country</h6>
                 <select name="countries" id="countries">
                 <option value="choice"></option>
                 {generateCountryOptions()}
