@@ -131,6 +131,14 @@ Meteor.startup(async () => {
   Meteor.publish("workingGroups", function () {
       return workingGroupCollection.find();
   });
+  // Publish all users to clients
+  Meteor.publish("allUsers", function () {
+    if (this.userId) {
+      return Meteor.users.find({}, { fields: {} }); // Return all fields
+    } else {
+      this.ready();
+    }
+  });
   Meteor.publish('userData', function () {
     if (this.userId) {
       return Meteor.users.find({ _id: this.userId }, {
