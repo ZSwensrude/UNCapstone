@@ -14,6 +14,12 @@ const getFlagPath = (countryCode) => {
   return country ? country.flagPath : null;
 };
 
+const getFlagName = (countryCode) => {
+  if (!countryCode || !countryCode.country) return null; // Ensure countryCode is valid
+  const country = flagsData.countries.find(country => country.country.toLowerCase() === countryCode.country.toLowerCase());
+  return country ? country.name : null;
+};
+
   // Handles when the user clicks on the "view group" button
   const onClick = () => {
     console.log("Viewing group:", workingGroup?.name);
@@ -27,7 +33,7 @@ const getFlagPath = (countryCode) => {
 
       {/* Rendering flags for countries in the working group */}
       {workingGroup?.countries?.map((country, index) => (
-        <img className="workingGroupFlag" key={country.country + index} src={window.location.origin + getFlagPath(country)} alt={country.name} />
+        <img className="workingGroupFlag" key={country.country + index} src={window.location.origin + getFlagPath(country)} alt={country.name} title={getFlagName(country)} />
       ))}
 
       <div className="workingGroupButton">

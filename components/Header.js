@@ -25,7 +25,7 @@ const Header = ( {version, country} ) => {
           </Paper>
           
           <Typography variant='h3'>{countryName}</Typography>
-          <img id='flag' src={window.location.origin + flagPath} alt={`Flag of ${country}`} />
+          <img id='flag' src={window.location.origin + flagPath} alt={`Flag of ${country}`} title={countryName} />
         </>
       ) }
 

@@ -124,11 +124,11 @@ const getCountryInfo = (countryCode) => {
     return null;
   }
 
-  const { flagPath, country } = countryObject;
+  const { flagPath, country, name } = countryObject;
   const isCurrentUser = user && country.toLowerCase() === user.country.toLowerCase();
   const classNames = isCurrentUser ? 'currentUser' : '';
 
-  return { flagPath, country };
+  return { flagPath, country, name };
 };
 
 
@@ -171,7 +171,7 @@ const getCountryInfo = (countryCode) => {
                   const countryInfo = getCountryInfo(countryCode);
                   if (countryInfo) {
                     return (
-                      <img id='itemflag' src={window.location.origin + countryInfo.flagPath} alt={`Flag of ${countryInfo.country}`} />
+                      <img id='itemflag' src={window.location.origin + countryInfo.flagPath} alt={`Flag of ${countryInfo.country}`} title={countryInfo.name} />
                     );
                   } else {
                     return null; // Handle if country info is not found
