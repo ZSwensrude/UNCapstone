@@ -8,7 +8,7 @@ const MotionsDias = ({ aMotionDias }) => {
 
     const handleSetActiveMotion = () => {
         // Call the setActiveMotion function passed from the parent component
-        console.log(aMotionDias._id);
+        //console.log(aMotionDias._id);
         switchActiveMotion(aMotionDias._id);
     };
     

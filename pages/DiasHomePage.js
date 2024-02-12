@@ -23,7 +23,7 @@ import { motionCollection, insertMotion, removeMotion, switchActiveMotion} from 
 import { speakerCollection, removeSpeaker, insertSpeaker } from "../imports/api/speakers.js";
 import flagData from '../flags.json';
 import { insertConference, updateConferenceActiveStatus, conferenceCollection} from "../imports/api/conference.js";
-
+import VoteCountChart from "../components/VoteCountBox.js";
 function openTab(evt, tabName) {
     // Declare all variables
     var i, tabcontent, tablinks;
@@ -63,13 +63,15 @@ const DiasHome = () => {
     }
   ]
 
-
+  var activeMotion = null;
    //DB Communication - live pull on any change in table
    const { motionsListDias = [] } = useTracker(() => {
     const handler = Meteor.subscribe('motions');
     const motionsListDias = motionCollection.find().fetch();
+    activeMotion = motionCollection.find({ active: true }).fetch();
     return { motionsListDias };
 });
+console.log(activeMotion);
 
 
   const DeadlineListDias = [
@@ -230,12 +232,10 @@ const [searchTerm, setSearchTerm] = useState('');
         const closeClearConfirmationDialog = () => {
             setOpenClearConfirmation(false);
         };
-
         // Function to handle clearing all motions when confirmed
         const handleClearAllMotions = () => {
             // Close the confirmation dialog
             setOpenClearConfirmation(false);
-            
             // Perform the clear operation
             const handler = Meteor.subscribe('motions');
             const motionData = motionCollection.find().fetch(); 
@@ -344,7 +344,7 @@ const [searchTerm, setSearchTerm] = useState('');
                                 <div h2 className="controlTitle">Speaker Timer:</div>
                             </div>
 
-                            <div className="SpeakerTimerBlock">
+                            <div className="motionSummary">
                                 <div className="Timer"></div>
                             </div>
 
@@ -464,38 +464,26 @@ const [searchTerm, setSearchTerm] = useState('');
 
                     </div>
 
-                    <div className="timerBlock">
-                        <div className="controlTitleBlock">
-                                <div h2 className="speakerTimerTitle">Speakers Timer: 60 Seconds</div>
+                    <div className="MotionSummaryBlock">
+                        <div className="motion content">
+                        {console.log("ACTIVE MOTION: ", activeMotion)}
+                        {activeMotion && activeMotion.length > 0 && (
+                            activeMotion[0].content
+                        )}
                         </div>
-                        
-                        <div className="lineABlock">
-                                <div className="lineB"></div>
+                        <div className="motions voteCount">
+                            {/* {console.log("votes: ", activeMotion[0].votes)} */}
+                            {/* <VoteCountChart votes={activeMotion[0].votes} />*/}
+                            {activeMotion && activeMotion.length > 0 && (
+                            <VoteCountChart votes={activeMotion[0].votes} abstain={activeMotion[0].abstain} /> 
+                        )}
                         </div>
+                        <div className="motions totals">
 
-                        <div className="timerLogos">
-                            <div className="logos">
-                            <CheckIcon style={{ color: "green" }} fontSize="large"/>
-                            <CloseIcon style={{ color: "red" }} fontSize="large"/>
-                            <RemoveIcon style={{ color: "yellow" }} fontSize="large"/>
-                            </div>
-                        </div>
-
-                        <div className="lineABlock">
-                                <div className="lineB"></div>
-                        </div>
-
-                        <div className="controlTitleBlock">
-                                <div h2 className="responders">Responded: / </div>
                         </div>
 
                     </div>
-
-                    <div className="presentationButtonBlock">
-                        <CoolButton buttonText={"Presentation"} buttonColor={'#00DB89'} textColor='white' />
-                    </div>
-
-
+                     
                 </div>
             </div>
         </div>
