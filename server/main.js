@@ -60,9 +60,17 @@ export const insertDMHandler = async ({ type, to, from, content, read, groupId }
   await insertDM({ type, to, from, content, read, groupId });
 };
 
-export const insertMotion = async ({ content, votes, abstain }) => {
-  motionCollection.insert({ active:false, content, votes,abstain });
+export const insertMotion = async ({ content,  abstain}) => {
+  motionCollection.insert({ active: false, content, votes: [], abstain });
 };
+export const removeMotion  = async ({ _id }) => {
+  motionCollection.remove(_id); 
+};
+
+export const switchActiveMotion = async (motionId) => {
+  motionCollection.update({ _id: motionId }, { $set: { active: true } });
+};
+
 export const insertSpeaker = async ({ country }) => {
   // Set timeAdded to the current date/time
   const timeAdded = new Date();

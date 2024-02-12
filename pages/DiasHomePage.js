@@ -1,5 +1,5 @@
 //DiasHomePage.js
-import { Typography, Paper, Dialog, DialogContent, DialogActions, DialogTitle } from "@mui/material";
+import { Typography, Paper, Dialog, DialogContent, DialogActions, DialogTitle, Radio, RadioGroup, FormGroup, FormControlLabel, Checkbox } from "@mui/material";
 import React from "react";
 import { useTracker } from 'meteor/react-meteor-data';
 import { useState } from "react";
@@ -17,15 +17,13 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import DeadlineDias from "../components/DeadlinesDias.js";
 import PriorLocations from "../components/PriorLocations.js";
 import NotesToDias from "../components/NotesToDias.js";
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import { useNavigate  } from 'react-router-dom';
 import DiasSpeakersList from '../components/DiasSpeakersList.js';
+import { motionCollection, insertMotion, removeMotion, switchActiveMotion} from "../imports/api/motions.js";
 import { speakerCollection, removeSpeaker, insertSpeaker } from "../imports/api/speakers.js";
 import flagData from '../flags.json';
 import { insertConference, updateConferenceActiveStatus, conferenceCollection} from "../imports/api/conference.js";
-
+import VoteCountChart from "../components/VoteCountBox.js";
 function openTab(evt, tabName) {
     // Declare all variables
     var i, tabcontent, tablinks;
@@ -65,14 +63,16 @@ const DiasHome = () => {
     }
   ]
 
-  const motionsListDias = [
-    {
-      "motionChosen": "SpeakerTime: 60 Seconds"
-    },
-    {
-        "motionChosen": "Informal Session: 30 Minutes"
-    }
-  ]
+  var activeMotion = null;
+   //DB Communication - live pull on any change in table
+   const { motionsListDias = [] } = useTracker(() => {
+    const handler = Meteor.subscribe('motions');
+    const motionsListDias = motionCollection.find().fetch();
+    activeMotion = motionCollection.find({ active: true }).fetch();
+    return { motionsListDias };
+});
+console.log(activeMotion);
+
 
   const DeadlineListDias = [
     {
@@ -191,8 +191,58 @@ const [searchTerm, setSearchTerm] = useState('');
          }
      };
   
+    // State variable to store motion content
+    const [motionContent, setMotionContent] = useState('');
+    const [abstain, setAbstain] = useState(false);
+    const [motionError, setMotionError] = useState('');
 
+    const handleAbstainChange = (event) => {
+        setAbstain(event.target.checked);
+    };
+    
+    // Function to handle motion content change
+    const handleMotionContentChange = (event) => {
+        setMotionContent(event.target.value);
+    };
+
+    // Function to add motion
+    const addMotion = () => {
+        if (motionContent.trim() === '') {
+            setMotionError('Motion content cannot be empty!');
+            return;
+        }
+
+        // Insert motion into the motions table with active set to false
+        insertMotion({ content: motionContent, abstain: abstain });
         
+        // Clear motion content and abstain status
+        setMotionContent('');
+        setAbstain(false);
+        setMotionError('');
+    };
+        // Add a state variable for controlling the visibility of the confirmation dialog
+        const [openClearConfirmation, setOpenClearConfirmation] = React.useState(false);
+
+        // Function to open the confirmation dialog
+        const openClearConfirmationDialog = () => {
+            setOpenClearConfirmation(true);
+        };
+
+        // Function to close the confirmation dialog
+        const closeClearConfirmationDialog = () => {
+            setOpenClearConfirmation(false);
+        };
+        // Function to handle clearing all motions when confirmed
+        const handleClearAllMotions = () => {
+            // Close the confirmation dialog
+            setOpenClearConfirmation(false);
+            // Perform the clear operation
+            const handler = Meteor.subscribe('motions');
+            const motionData = motionCollection.find().fetch(); 
+            motionData.forEach(motion => {
+                removeMotion({ _id: motion._id });
+            });
+        };
   return (
     <div className="HomePageDias">
         
@@ -294,7 +344,7 @@ const [searchTerm, setSearchTerm] = useState('');
                                 <div h2 className="controlTitle">Speaker Timer:</div>
                             </div>
 
-                            <div className="SpeakerTimerBlock">
+                            <div className="motionSummary">
                                 <div className="Timer"></div>
                             </div>
 
@@ -353,7 +403,6 @@ const [searchTerm, setSearchTerm] = useState('');
                                     onClick={updateSpkerlistactive} // Add onClick event handler
                                 />                            
                                 </div>
-
                         </div>
                     </div>
                 </div>
@@ -364,12 +413,25 @@ const [searchTerm, setSearchTerm] = useState('');
                     </div>
 
                     <div className="motionBlock">
-                        <div className="addMotionBox">
-                            <input className="MotionInput" placeholder="Type here..." type="text" />
-                        </div>
+                    <div className="addMotionBox">
+                        <input
+                            className="MotionInput"
+                            placeholder="Motion Content..."
+                            type="text"
+                            value={motionContent}
+                            onChange={handleMotionContentChange}
+                        />
+                        <div className="abstainCheck">
+                            <FormControlLabel
+                                control={<Checkbox checked={abstain} onChange={handleAbstainChange} />}
+                                label="Allow abstain?"
+                            />
+                        </div>  
+                    </div>
 
                         <div className="addButtonBlock">   
-                            <CoolButton buttonText={"Add"} buttonColor={'#FF9728'} textColor='white' />
+                            <CoolButton buttonText={"Add"} buttonColor={'#FF9728'} textColor='white' onClick={addMotion} />
+                            {motionError && <div className="error">{motionError}</div>}
                         </div>
 
                         <div className="lineABlock">
@@ -377,9 +439,9 @@ const [searchTerm, setSearchTerm] = useState('');
                         </div>
 
                         <div className="motionsAdded">
-                        {motionsListDias.map( (aMotionDias, index) => (
-                            <MotionsDias key={aMotionDias.motionChosen + index} aMotionDias={aMotionDias}/>
-                            ))}
+                        {motionsListDias &&
+                            motionsListDias.map((aMotionDias, index) => (
+                            <MotionsDias key={aMotionDias.motionChosen + index} aMotionDias={aMotionDias} /> ))}
                         </div>
 
                         <div className="lineABlock">
@@ -387,45 +449,41 @@ const [searchTerm, setSearchTerm] = useState('');
                         </div>
                         
                         <div className="clearAndCloseButtonBlock">   
-                                <CoolButton buttonText={"Clear All"} buttonColor={'#FF9728'} textColor='white' />
-                                <CoolButton buttonText={"Send"} buttonColor={'#00DB89'} textColor='white' />
+                        <CoolButton buttonText={"Clear All"} buttonColor={'#FF9728'} textColor='white' onClick={openClearConfirmationDialog} />                                {/* <CoolButton buttonText={"Send"} buttonColor={'#00DB89'} textColor='white' /> */}
                         </div>
-
+                        <Dialog open={openClearConfirmation} onClose={closeClearConfirmationDialog}>
+                            <DialogTitle>{"Are you sure you want to clear all motions?"}</DialogTitle>
+                            <DialogContent>
+                                {/* Add any additional content or instructions here */}
+                            </DialogContent>
+                            <DialogActions>
+                                <CoolButton buttonText={"No"} onClick={closeClearConfirmationDialog} buttonColor={'#800000'} textColor='white' />
+                                <CoolButton buttonText={"Yes"} onClick={handleClearAllMotions} buttonColor={'#00DB89'} textColor='white' />
+                            </DialogActions>
+                        </Dialog>
 
                     </div>
 
-                    <div className="timerBlock">
-                        <div className="controlTitleBlock">
-                                <div h2 className="speakerTimerTitle">Speakers Timer: 60 Seconds</div>
+                    <div className="MotionSummaryBlock">
+                        <div className="motion content">
+                        {console.log("ACTIVE MOTION: ", activeMotion)}
+                        {activeMotion && activeMotion.length > 0 && (
+                            activeMotion[0].content
+                        )}
                         </div>
-                        
-                        <div className="lineABlock">
-                                <div className="lineB"></div>
+                        <div className="motions voteCount">
+                            {/* {console.log("votes: ", activeMotion[0].votes)} */}
+                            {/* <VoteCountChart votes={activeMotion[0].votes} />*/}
+                            {activeMotion && activeMotion.length > 0 && (
+                            <VoteCountChart votes={activeMotion[0].votes} abstain={activeMotion[0].abstain} /> 
+                        )}
                         </div>
+                        <div className="motions totals">
 
-                        <div className="timerLogos">
-                            <div className="logos">
-                            <CheckIcon style={{ color: "green" }} fontSize="large"/>
-                            <CloseIcon style={{ color: "red" }} fontSize="large"/>
-                            <RemoveIcon style={{ color: "yellow" }} fontSize="large"/>
-                            </div>
-                        </div>
-
-                        <div className="lineABlock">
-                                <div className="lineB"></div>
-                        </div>
-
-                        <div className="controlTitleBlock">
-                                <div h2 className="responders">Responded: / </div>
                         </div>
 
                     </div>
-
-                    <div className="presentationButtonBlock">
-                        <CoolButton buttonText={"Presentation"} buttonColor={'#00DB89'} textColor='white' />
-                    </div>
-
-
+                     
                 </div>
             </div>
         </div>
