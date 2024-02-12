@@ -218,23 +218,31 @@ const [searchTerm, setSearchTerm] = useState('');
         setAbstain(false);
         setMotionError('');
     };
-    
-    const [openMotionClear, setopenMotionClear] = React.useState(false);
-    
-    const clearMotions = () => {
-        setopenMotionClear(true); // Open the confirmation dialog
-    };
-      
-    const handleClearMotionConfirmed = () => {
-        setopenMotionClear(false); // Close the confirmation dialog
-        console.log("clear pressed!!!!!!"); // Perform the clear operation
-        const handler = Meteor.subscribe('motions');
-        const motionData = motionCollection.find().fetch(); 
-        motionData.forEach(motion => {
-            removeMotion({ _id: motion._id }); // Pass _id to removeSpeaker
-        });
-    };
+        // Add a state variable for controlling the visibility of the confirmation dialog
+        const [openClearConfirmation, setOpenClearConfirmation] = React.useState(false);
 
+        // Function to open the confirmation dialog
+        const openClearConfirmationDialog = () => {
+            setOpenClearConfirmation(true);
+        };
+
+        // Function to close the confirmation dialog
+        const closeClearConfirmationDialog = () => {
+            setOpenClearConfirmation(false);
+        };
+
+        // Function to handle clearing all motions when confirmed
+        const handleClearAllMotions = () => {
+            // Close the confirmation dialog
+            setOpenClearConfirmation(false);
+            
+            // Perform the clear operation
+            const handler = Meteor.subscribe('motions');
+            const motionData = motionCollection.find().fetch(); 
+            motionData.forEach(motion => {
+                removeMotion({ _id: motion._id });
+            });
+        };
   return (
     <div className="HomePageDias">
         
@@ -441,10 +449,18 @@ const [searchTerm, setSearchTerm] = useState('');
                         </div>
                         
                         <div className="clearAndCloseButtonBlock">   
-                                <CoolButton buttonText={"Clear All"} buttonColor={'#FF9728'} textColor='white' onClick={handleClearMotionConfirmed}/>
-                                <CoolButton buttonText={"Send"} buttonColor={'#00DB89'} textColor='white' />
+                        <CoolButton buttonText={"Clear All"} buttonColor={'#FF9728'} textColor='white' onClick={openClearConfirmationDialog} />                                {/* <CoolButton buttonText={"Send"} buttonColor={'#00DB89'} textColor='white' /> */}
                         </div>
-
+                        <Dialog open={openClearConfirmation} onClose={closeClearConfirmationDialog}>
+                            <DialogTitle>{"Are you sure you want to clear all motions?"}</DialogTitle>
+                            <DialogContent>
+                                {/* Add any additional content or instructions here */}
+                            </DialogContent>
+                            <DialogActions>
+                                <CoolButton buttonText={"No"} onClick={closeClearConfirmationDialog} buttonColor={'#800000'} textColor='white' />
+                                <CoolButton buttonText={"Yes"} onClick={handleClearAllMotions} buttonColor={'#00DB89'} textColor='white' />
+                            </DialogActions>
+                        </Dialog>
 
                     </div>
 
