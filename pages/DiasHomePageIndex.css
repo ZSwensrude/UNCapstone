@@ -292,13 +292,15 @@ body {
     margin-bottom: 2vh;
   }
 
-  .MotionInput {
+  /* .MotionInput {
     height: 4vh;
     min-width: 70vh;
     max-width: 70vh;
     background-color:lightgrey;
+  } */
+  .abstainCheck .css-fxerky-MuiButtonBase-root-MuiCheckbox-root.Mui-checked {
+    color: red;
   }
-
   .DeadlineInput {
     height: 4vh;
     min-width: 58vh;

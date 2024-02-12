@@ -1,5 +1,5 @@
 //DiasHomePage.js
-import { Typography, Paper, Dialog, DialogContent, DialogActions, DialogTitle } from "@mui/material";
+import { Typography, Paper, Dialog, DialogContent, DialogActions, DialogTitle, Radio, RadioGroup, FormGroup, FormControlLabel, Checkbox } from "@mui/material";
 import React from "react";
 import { useTracker } from 'meteor/react-meteor-data';
 import { useState } from "react";
@@ -17,11 +17,9 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import DeadlineDias from "../components/DeadlinesDias.js";
 import PriorLocations from "../components/PriorLocations.js";
 import NotesToDias from "../components/NotesToDias.js";
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import { useNavigate  } from 'react-router-dom';
 import DiasSpeakersList from '../components/DiasSpeakersList.js';
+import { motionCollection, insertMotion, removeMotion, switchActiveMotion} from "../imports/api/motions.js";
 import { speakerCollection, removeSpeaker, insertSpeaker } from "../imports/api/speakers.js";
 import flagData from '../flags.json';
 import { insertConference, updateConferenceActiveStatus, conferenceCollection} from "../imports/api/conference.js";
@@ -65,14 +63,14 @@ const DiasHome = () => {
     }
   ]
 
-  const motionsListDias = [
-    {
-      "motionChosen": "SpeakerTime: 60 Seconds"
-    },
-    {
-        "motionChosen": "Informal Session: 30 Minutes"
-    }
-  ]
+
+   //DB Communication - live pull on any change in table
+   const { motionsListDias = [] } = useTracker(() => {
+    const handler = Meteor.subscribe('motions');
+    const motionsListDias = motionCollection.find().fetch();
+    return { motionsListDias };
+});
+
 
   const DeadlineListDias = [
     {
@@ -191,8 +189,52 @@ const [searchTerm, setSearchTerm] = useState('');
          }
      };
   
+    // State variable to store motion content
+    const [motionContent, setMotionContent] = useState('');
+    const [abstain, setAbstain] = useState(false);
+    const [motionError, setMotionError] = useState('');
 
+    const handleAbstainChange = (event) => {
+        setAbstain(event.target.checked);
+    };
+    
+    // Function to handle motion content change
+    const handleMotionContentChange = (event) => {
+        setMotionContent(event.target.value);
+    };
+
+    // Function to add motion
+    const addMotion = () => {
+        if (motionContent.trim() === '') {
+            setMotionError('Motion content cannot be empty!');
+            return;
+        }
+
+        // Insert motion into the motions table with active set to false
+        insertMotion({ content: motionContent, abstain: abstain });
         
+        // Clear motion content and abstain status
+        setMotionContent('');
+        setAbstain(false);
+        setMotionError('');
+    };
+    
+    const [openMotionClear, setopenMotionClear] = React.useState(false);
+    
+    const clearMotions = () => {
+        setopenMotionClear(true); // Open the confirmation dialog
+    };
+      
+    const handleClearMotionConfirmed = () => {
+        setopenMotionClear(false); // Close the confirmation dialog
+        console.log("clear pressed!!!!!!"); // Perform the clear operation
+        const handler = Meteor.subscribe('motions');
+        const motionData = motionCollection.find().fetch(); 
+        motionData.forEach(motion => {
+            removeMotion({ _id: motion._id }); // Pass _id to removeSpeaker
+        });
+    };
+
   return (
     <div className="HomePageDias">
         
@@ -353,7 +395,6 @@ const [searchTerm, setSearchTerm] = useState('');
                                     onClick={updateSpkerlistactive} // Add onClick event handler
                                 />                            
                                 </div>
-
                         </div>
                     </div>
                 </div>
@@ -364,12 +405,25 @@ const [searchTerm, setSearchTerm] = useState('');
                     </div>
 
                     <div className="motionBlock">
-                        <div className="addMotionBox">
-                            <input className="MotionInput" placeholder="Type here..." type="text" />
-                        </div>
+                    <div className="addMotionBox">
+                        <input
+                            className="MotionInput"
+                            placeholder="Motion Content..."
+                            type="text"
+                            value={motionContent}
+                            onChange={handleMotionContentChange}
+                        />
+                        <div className="abstainCheck">
+                            <FormControlLabel
+                                control={<Checkbox checked={abstain} onChange={handleAbstainChange} />}
+                                label="Allow abstain?"
+                            />
+                        </div>  
+                    </div>
 
                         <div className="addButtonBlock">   
-                            <CoolButton buttonText={"Add"} buttonColor={'#FF9728'} textColor='white' />
+                            <CoolButton buttonText={"Add"} buttonColor={'#FF9728'} textColor='white' onClick={addMotion} />
+                            {motionError && <div className="error">{motionError}</div>}
                         </div>
 
                         <div className="lineABlock">
@@ -377,9 +431,9 @@ const [searchTerm, setSearchTerm] = useState('');
                         </div>
 
                         <div className="motionsAdded">
-                        {motionsListDias.map( (aMotionDias, index) => (
-                            <MotionsDias key={aMotionDias.motionChosen + index} aMotionDias={aMotionDias}/>
-                            ))}
+                        {motionsListDias &&
+                            motionsListDias.map((aMotionDias, index) => (
+                            <MotionsDias key={aMotionDias.motionChosen + index} aMotionDias={aMotionDias} /> ))}
                         </div>
 
                         <div className="lineABlock">
@@ -387,7 +441,7 @@ const [searchTerm, setSearchTerm] = useState('');
                         </div>
                         
                         <div className="clearAndCloseButtonBlock">   
-                                <CoolButton buttonText={"Clear All"} buttonColor={'#FF9728'} textColor='white' />
+                                <CoolButton buttonText={"Clear All"} buttonColor={'#FF9728'} textColor='white' onClick={handleClearMotionConfirmed}/>
                                 <CoolButton buttonText={"Send"} buttonColor={'#00DB89'} textColor='white' />
                         </div>
 

@@ -75,7 +75,8 @@ const Delegate = () => {
   //DB Communication - live pull on any change in table
   const { motionfromDB } = useTracker(() => {
     const handler = Meteor.subscribe('motions');
-    const motionfromDB = motionCollection.findOne({ active: 'true' }); // Fetch the active motion
+    const motionfromDB = motionCollection.findOne({ active: true }); // Fetch the active motion
+    //console.log("The motionfrom DB: ", motionfromDB)
     return { motionfromDB };
   });
 
@@ -119,7 +120,8 @@ const { SpeakersListActive } = useTracker(() => {
               <SpeakersList />
             ) : (
               <h3>Speakers list is closed</h3>
-            )}            {/* Conditionally render CurrentMotion if there is an active motion */}
+            )}            
+            {/* Conditionally render CurrentMotion if there is an active motion */}
             <div id="motion">
               {/* <CurrentMotion motion={motionfromDB} country={countryName} abstain={true} /> */}
               <CurrentMotion motion={motionfromDB} country={countryName} abstain={motionfromDB?.abstain} user={user.country} />

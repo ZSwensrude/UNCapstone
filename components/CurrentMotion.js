@@ -6,6 +6,7 @@ import VoteBox from './VoteBox';
 
 const CurrentMotion = ({ motion, country, abstain, user}) => {
   // Check if motion exists and has the content property
+  //console.log("The motion: ",motion);
   const isMotion = motion && motion.content !== undefined;
 
   return (
