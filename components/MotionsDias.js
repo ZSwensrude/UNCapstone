@@ -1,6 +1,6 @@
 import React from "react";
 import { Paper, Typography, Button } from "@mui/material";
-import { switchActiveMotion} from "../imports/api/motions.js";
+import { switchActiveMotion, removeMotion} from "../imports/api/motions.js";
 
 import './DiasComponents.css';
 
@@ -11,6 +11,12 @@ const MotionsDias = ({ aMotionDias }) => {
         console.log(aMotionDias._id);
         switchActiveMotion(aMotionDias._id);
     };
+    
+    // Define a handler function to remove the country
+    const handleRemoveMotion = () => {
+        console.log("Remove motion:", aMotionDias.content);
+        removeMotion({ _id: aMotionDias._id }); // Call the removeSpeaker function with the correct _id
+    };
 
     return (
         <Paper id={'oneMotion'} elevation={0}>
@@ -19,6 +25,7 @@ const MotionsDias = ({ aMotionDias }) => {
             <Button onClick={handleSetActiveMotion}>
                 {aMotionDias.active ? "Active" : "Inactive"}
             </Button>
+            <button onClick={handleRemoveMotion}>X</button>
         </Paper>
     );
 }

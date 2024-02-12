@@ -298,6 +298,13 @@ body {
     max-width: 70vh;
     background-color:lightgrey;
   } */
+  .motionsAdded{
+    overflow-y: scroll;
+    height: 124px;
+  }
+  .motionsAdded::-webkit-scrollbar{
+    display: none;
+  }
   .abstainCheck .css-fxerky-MuiButtonBase-root-MuiCheckbox-root.Mui-checked {
     color: red;
   }
