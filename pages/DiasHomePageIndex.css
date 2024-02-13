@@ -183,7 +183,7 @@ body {
     margin: 1.5vh;
   }
 
-  .SpeakerTimerBlock {
+  .SpeakerTimerBlock, .TimeBlock {
     display:flex;
     justify-content: center;
     margin-block-start: 1vh;
@@ -206,6 +206,7 @@ body {
     margin-block-start: 1vh;
     color:black;
     font-size: medium;
+    font-weight: bold;
 }
 
   .lineABlock,.controlInputBox, .addMotionBox, .addButtonBlock, .MotionsButtonBlock, 
@@ -370,10 +371,6 @@ body {
   .presentationButtonBlock {
     display: flex;
     justify-content: flex-end;
-  }
-
-  .BackInSessionTitle {
-    font-weight: bold;
   }
   
    /* .diasSpkSrch li.countryItem button{

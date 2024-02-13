@@ -19,6 +19,7 @@ import DiasHome from '../pages/DiasHomePage.js';
 //import RollCall from '../pages/DelRollCall.js';
 import Waiting from '../pages/Waiting.js';
 import InformalPresentation from '../pages/InformalPresentation.js';
+import FormalPresentation from '../pages/FormalPresentation.js';
 
 function Main() {
   return (
@@ -34,6 +35,7 @@ function Main() {
             <Route exact path='/dias-home-page' element={<DiasHome />} />
             <Route exact path='/waiting' element={<Waiting />} />
             <Route exact path='/informal-presentation' element={<InformalPresentation />} />
+            <Route exact path='/formal-presentation' element={<FormalPresentation />} />
           </Routes>
         </BrowserRouter>
       </div>

@@ -23,6 +23,9 @@ import { speakerCollection, removeSpeaker, insertSpeaker } from "../imports/api/
 import flagData from '../flags.json';
 import { insertConference, updateConferenceActiveStatus, conferenceCollection} from "../imports/api/conference.js";
 import VoteCountChart from "../components/VoteCountBox.js";
+import Countdown from 'react-countdown';
+
+
 function openTab(evt, tabName) {
     // Declare all variables
     var i, tabcontent, tablinks;
@@ -246,6 +249,19 @@ const [searchTerm, setSearchTerm] = useState('');
                 removeMotion({ _id: motion._id });
             });
         };
+
+        const Completionist = () => <span>You are good to go!</span>;
+
+        const renderer = ({ hours, minutes, seconds, completed }) => {
+            if (completed) {
+              // Render a completed state
+              return <Completionist />;
+            } else {
+              // Render a countdown
+              return <span>{hours}:{minutes}:{seconds}</span>;
+            }
+          };
+
   return (
     <div className="HomePageDias">
         
@@ -347,8 +363,12 @@ const [searchTerm, setSearchTerm] = useState('');
                                 <div h2 className="controlTitle">Speaker Timer:</div>
                             </div>
 
-                            <div className="motionSummary">
-                                <div className="Timer"></div>
+                            <div className="TimeBlock">
+                                <div className="Timer">
+                                <Countdown date={Date.now() + 10000}
+                                        renderer={renderer}
+                                    />
+                                </div>
                             </div>
 
                             <div className="clearAndCloseButtonBlock">   
@@ -513,7 +533,7 @@ const [searchTerm, setSearchTerm] = useState('');
                     <div className="DeadlinesBlock">
                         <div className="Deadlines">
                             {DeadlineListDias.map( (aDeadlineDias, index) => (
-                            <DeadlineDias key={aDeadlineDias.deadlineAdded + index} aDeadlineDias={aDeadlineDias}/>
+                            <DeadlineDias key={aDeadlineDias.deadlineAdded + index} version={"diasHome"} aDeadlineDias={aDeadlineDias}/>
                             ))}
                         </div>
                         <div className="lineABlock">
