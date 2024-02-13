@@ -250,7 +250,7 @@ const [searchTerm, setSearchTerm] = useState('');
             });
         };
 
-        const Completionist = () => <span>You are good to go!</span>;
+        const Completionist = () => <span>Time's Up!</span>;
 
         const renderer = ({ hours, minutes, seconds, completed }) => {
             if (completed) {
