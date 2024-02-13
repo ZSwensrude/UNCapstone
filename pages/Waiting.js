@@ -6,29 +6,48 @@ import { useNavigate  } from 'react-router-dom';
 import Header from "../components/Header";
 import Country from "../components/Country"; 
 import CoolButton from '../components/CoolButton';
+import DelRollCall from '../components/DelRollCall'; // Update the path accordingly
 
 Meteor.subscribe('delegates');
 
 const Waiting = () => {
   const navigate = useNavigate();
+  const [showRollCall, setShowRollCall] = useState(false);
 
   const toRollCall = () => {
-    navigate('/delegate-roll-call');
+    if(showRollCall===false){
+    setShowRollCall(true);
+    }
+    else{
+      setShowRollCall(false);
+    }
+    //console.log(showRollCall);
+  };
+
+  const closeRollCall= () => {
+    setShowRollCall(false);
   };
     
-    const { countriesFromDB } = useTracker(() => {
-      const handler = Meteor.subscribe('delegates');
-      const countriesFromDB = delCollection.find().fetch();
-      return { countriesFromDB };
+  const { countriesFromDB } = useTracker(() => {
+    const handler = Meteor.subscribe('delegates');
+    const countriesFromDB = delCollection.find().fetch();
+    return { countriesFromDB };
   });
 
   // Filter countries based on roleCall
   const filteredCountries = countriesFromDB;
-  console.log('the countries in table',filteredCountries);
-
+  // Function to retrieve user information from localStorage
+  const getUserFromLocalStorage = () => {
+    const userString = localStorage.getItem('loggedInUser');
+    return userString ? JSON.parse(userString) : null;
+  };
+  // Get user information from localStorage
+  const user = getUserFromLocalStorage();
+  
+  
   return (
     <div className="waitingScreen">
-      <Header version={'delegate'} country={"Ireland"} flagPath={'/images/flagPlaceholder.png'} />
+    <Header version={'delegate'} country={(user.country)} flagPath={`/images/flags/${user.country}.png`} />
       <div className="waitingbox">
         <span>Waiting for Dias to start the conference</span>
         <div className="country in queue">
@@ -51,7 +70,8 @@ const Waiting = () => {
           <CoolButton  buttonColor={'black'} textColor={'white'} buttonText={'Next'} onClick={toRollCall} />
         </div>
       </div>
-      
+
+      {showRollCall && <DelRollCall onClose={closeRollCall} />}
     </div>
   );
 };

@@ -1,12 +1,15 @@
 // delegates.js
 import { Mongo } from 'meteor/mongo';
 
-// export const insertDel = async ({ country, roleCall }) => {
-//      delCollection.insert({ country, roleCall });
-//   };
-  
-// export const delCollection= new Mongo.Collection('delegates');
+export const delCollection = new Mongo.Collection('delegates');
 
+// Define allow rules
+delCollection.allow({
+  update(userId, doc, fields, modifier) {
+    // Allow the update if the user is logged in
+    return !!userId;
+  },
+});
 
 export const insertDel = async ({ country, roleCall }) => {
   // Check if the item already exists in the collection
@@ -21,5 +24,10 @@ export const insertDel = async ({ country, roleCall }) => {
   delCollection.insert({ country, roleCall });
   return true;
 };
-  
-export const delCollection= new Mongo.Collection('delegates');
+
+
+// {
+//   "_id": "MpCdfzJpT59P3FNrz",
+//   "country": "algeria",
+//   "roleCall": "present"
+// }

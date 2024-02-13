@@ -105,3 +105,13 @@ body {
     margin-top: 1vh;
     margin-bottom: 1vh;
 }
+  #diasspeakers .queuebox{    
+    max-height: 16rem;
+    overflow-y: scroll;
+  }
+  #diasspeakers .queuebox{
+    justify-content: space-between;
+  }
+  #diasspeakers .queuebox::-webkit-scrollbar {
+    display: none; /* Hide scrollbar in WebKit browsers (Chrome, Safari, etc.) */
+  }

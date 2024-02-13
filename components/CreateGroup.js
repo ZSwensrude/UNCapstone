@@ -4,12 +4,19 @@ import CoolButton from "./CoolButton";
 import './components.css';
 import countriesData from '../flags.json'  
 import CountryFlag from "./CountryFlag";
+import { insertWG, workingGroupCollection } from "../imports/api/workingGroups";
+import { insertDM } from "../imports/api/dm";
 
 const CreateGroup = () => {
   const [open, setOpen] = useState(false);
   // remove the default value from this when getting from database
   const [countries, setCountries] = useState(countriesData.countries);
   const [selectedCountries, setSelectedCountries] = useState([]);
+  const [location, setLocation] = useState(""); // State to store location
+  const [topic, setTopic] = useState(""); // State to store topic
+  const [groupname, setName] = useState(""); // State to store name
+
+  
   
   // opening and closing modal window
   const handleOpen = () => {
@@ -31,19 +38,56 @@ const CreateGroup = () => {
   const onDeselect = (country) => {
     setSelectedCountries(selectedCountries.filter((countryInList) => countryInList.country !== country.country));
   }
+    // Handler for location field change
+    const handleLocationChange = (event) => {
+      setLocation(event.target.value);
+    };
+    // Handler for topic field change
+    const handleTopicChange = (event) => {
+      setTopic(event.target.value);
+    };
+    // Handler for topic field change
+    const handleNameChange = (event) => {
+      setName(event.target.value);
+    };
 
   // create button
-  const create = () => {
+  const create = async () => {
     console.log("create pressed");
     console.log("countries chosen: ", selectedCountries);
-    // send the countries from selectedCountries messages
-
-    // create the working group with only this country in it
-    // add that new group to the database
-
-    handleClose();
-  }
-
+    console.log("Location: ", location); // Logging location value
+    console.log("Topic: ", topic); // Logging topic value
+    console.log("name:", groupname );
+  
+    try {
+      // Add that new group to the database
+      // Create the working group with selected countries, location, and topic
+      const groupId = await insertWG({
+        location: location,
+        topic: topic,
+        name: groupname,
+        // countries: selectedCountries
+      });
+      console.log("groupID: ", groupId);
+  
+      // Insert a direct message for each country in the selected countries array
+      selectedCountries.forEach(country => {
+        insertDM({
+          type: "invite",
+          from: groupname,
+          to: country.country, // Specify the country to send the invite to
+          content: "Please join our group!",
+          read: "false",
+          groupId: groupId // Pass the groupId obtained from the insertWG function
+        });
+      });
+  
+      handleClose();
+    } catch (error) {
+      console.error('Error creating group:', error);
+    }
+  };
+  
   return (
     <div>
       <CoolButton onClick={handleOpen} buttonColor={'#FF9728'} textColor={'white'} buttonText={'create group'}/>
@@ -52,7 +96,16 @@ const CreateGroup = () => {
           <Typography variant="h2">
             Create Working Group
           </Typography>
-
+          <div className="textInput">
+            <Typography>Group Name:</Typography>
+            <TextField
+              label="Name"
+              id="outlined-size-small"
+              placeholder="Enter Group Name"
+              size="small"
+              onChange={handleNameChange} // Handling change event
+            />
+          </div>
           <div className="textInput">
             <Typography>Location:</Typography>
             <TextField
@@ -60,6 +113,7 @@ const CreateGroup = () => {
               id="outlined-size-small"
               placeholder="Enter Location"
               size="small"
+              onChange={handleLocationChange} // Handling change event
             />
           </div>
           <div className="textInput">
@@ -69,6 +123,7 @@ const CreateGroup = () => {
               id="outlined-size-small"
               placeholder="Enter Group Topic"
               size="small"
+              onChange={handleTopicChange} // Handling change event
             />
           </div>
           <hr className="blackLine" />

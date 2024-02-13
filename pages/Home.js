@@ -1,4 +1,5 @@
-import { Typography } from "@mui/material";
+import { Meteor } from "meteor/meteor";
+import { Typography, useRadioGroup } from "@mui/material";
 import React, {useState} from 'react';
 import './HomeIndex.css';
 import LockIcon from '@mui/icons-material/Lock';
@@ -10,7 +11,7 @@ import CoolButton from "../components/CoolButton";
 import Header from "../components/Header";
 import { useNavigate  } from 'react-router-dom';
 import LoginButton from "../components/LoginButton";
-
+import bcrypt from 'bcryptjs';
 import countriesData from '../flags.json'  
 import { insertDel } from '../imports/api/delegates';
 
@@ -36,8 +37,9 @@ const Home=()=>{
       if (error) {
          modalOpen();
       } else {
-        navigate('/dias');
-      }
+      // Store user data in localStorage
+      localStorage.setItem('loggedInUser', JSON.stringify({ username, userType: 'dias' }));
+      navigate('/dias');      }
    })
 
   };
@@ -46,50 +48,43 @@ const Home=()=>{
   const generateCountryOptions = () => {
     return countriesData.countries.map((country, index) => (
       <option key={index} value={country.country}>
-        {country.country.charAt(0).toUpperCase() + country.country.slice(1)}
+        {country.name}
       </option>
     ));
   };
-
  
   const loginDelegate = (modalOpen) => {
-    // Get selected country and session ID
     const selectedCountry = document.getElementById('countries').value;
-    const sessionId = document.getElementById('sessionId').value;   
-    // Meteor.loginWithPassword('Irelandxyz', 'xyz')
-    console.log("sessionID: ", sessionId);
-    console.log("country: ", selectedCountry);
+    const sessionId = document.getElementById('sessionId').value;
+    const username = selectedCountry + sessionId;
+    const password = sessionId;
 
-    let username=selectedCountry+sessionId;
-    let password=sessionId;
-    Meteor.loginWithPassword(username, password, function(error) {
-         
-      if (error) {
-         modalOpen();
-         console.log("ERROR LOGGING IN")
+    const country = Meteor.users.findOne({username: username});
+    
+    // we dont actually need to check the passwords anymore (huge waste of time)
+    // the username is made from country + sessionid so if its right the password is
+    if (country) {
+      // Store user data in localStorage
+      localStorage.setItem('loggedInUser', JSON.stringify({ username, password, userType: 'delegate', country: selectedCountry }));
+
+      // Insert delegate information into MongoDB
+      const success = insertDel({ country: selectedCountry, roleCall: '' });
+      if (success) {
+        // Insertion was successful
+        // Redirect to the delegate page or perform any other actions
+        navigate('/waiting'); 
       } else {
-        console.log("username",username);
-        // Check if the country is selected
-        if (selectedCountry === 'choice' || !sessionId) {
-          setMessage('Please select a country and enter a session ID.');
-          return;
-        }
-
-        // Insert delegate information into MongoDB
-        const success = insertDel({ country: selectedCountry, roleCall: '' });
-        console.log("success", success);
-        if (success) {
-          // Insertion was successful
-          // Redirect to the delegate page or perform any other actions
-          navigate('/waiting'); 
-        } else {
-          // Item already exists, handle accordingly
-          //console.log('Delegate already exists for the selected country.');
-        }
-
-  
-      }
-    })
+        // Item already exists, handle accordingly
+        //console.log('Delegate already exists for the selected country.');
+      } 
+    } else {
+      // Check if the country is selected
+      modalOpen();
+      // if (selectedCountry === 'choice' || !sessionId) {
+      //   setMessage('Please select a country and enter a session ID.');
+      //   return;
+      // }
+    }
   };
 
   return (
@@ -104,7 +99,10 @@ const Home=()=>{
         </div>
 
         <div className= "top">
-            <h2 className="welcomeHeader">Welcome to United Nations</h2>
+        {/* <h2 className="welcomeHeader1">Welcome to United Nations</h2> */}
+        <div className="welcomeHeader1">
+          <Typography variant="h6">Welcome to Mac-UN!</Typography>
+        </div>
         </div>
 
         <div className="logins">
@@ -150,7 +148,7 @@ const Home=()=>{
             </div>
                
             <div className="countryLabel">
-                <label htmlFor="country">Country</label>
+              <h6 className="header6">Country</h6>
                 <select name="countries" id="countries">
                 <option value="choice"></option>
                 {generateCountryOptions()}
@@ -169,7 +167,7 @@ const Home=()=>{
 
                 <div className="submitButton">
                 {/* <CoolButton buttonText={'Login'} onClick={loginDelegate} buttonColor={'#FF9728'} textColor="white" />                    <button type="submit">Login</button> */}
-                <LoginButton loginFunc={loginDelegate} errors={{'error':'Incorrect session ID'}} buttonText='Login' buttonColor={'#FF9728'} textColor={'#FFFFFF'}/>
+                <LoginButton loginFunc={loginDelegate} errors={{'error':'Country not selected or incorrect session ID'}} buttonText='Login' buttonColor={'#FF9728'} textColor={'#FFFFFF'}/>
 
                     </div>
 
@@ -187,3 +185,31 @@ const Home=()=>{
 
 export default Home;
 
+/* I am keeping the old delegate meteor login code down here just in case we wanna use it again:
+  Meteor.loginWithPassword(username, password, function(error) {         
+    if (error) {
+      modalOpen();
+      console.log("ERROR LOGGING IN", error)
+    } else {
+        // Store user data in localStorage
+        localStorage.setItem('loggedInUser', JSON.stringify({ username, password, userType: 'delegate', country: selectedCountry }));
+        // Check if the country is selected
+      if (selectedCountry === 'choice' || !sessionId) {
+        setMessage('Please select a country and enter a session ID.');
+        return;
+      }
+
+      // Insert delegate information into MongoDB
+      const success = insertDel({ country: selectedCountry, roleCall: '' });
+      console.log("success", success);
+      if (success) {
+        // Insertion was successful
+        // Redirect to the delegate page or perform any other actions
+        navigate('/waiting'); 
+      } else {
+        // Item already exists, handle accordingly
+        //console.log('Delegate already exists for the selected country.');
+      }  
+    }
+  })
+*/

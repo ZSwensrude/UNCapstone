@@ -250,7 +250,7 @@ body {
 
   .motionBlock {
     width: 78vh;
-    height: 35vh;
+    height: 43vh;
     display:block;
     background: #009edb;
     border-radius: 30px;
@@ -296,13 +296,22 @@ body {
     margin-bottom: 2vh;
   }
 
-  .MotionInput {
+  /* .MotionInput {
     height: 4vh;
     min-width: 70vh;
     max-width: 70vh;
     background-color:lightgrey;
+  } */
+  .motionsAdded{
+    overflow-y: scroll;
+    height: 190px;
   }
-
+  .motionsAdded::-webkit-scrollbar{
+    display: none;
+  }
+  .abstainCheck .css-fxerky-MuiButtonBase-root-MuiCheckbox-root.Mui-checked {
+    color: red;
+  }
   .DeadlineInput {
     height: 4vh;
     min-width: 58vh;
@@ -324,7 +333,7 @@ body {
     background: black;
   }
 
-  .timerBlock {
+  .MotionSummaryBlock {
     width: 78vh;
     height: 30vh;
     display:block;
@@ -367,4 +376,18 @@ body {
     font-weight: bold;
   }
   
-   
+   /* .diasSpkSrch li.countryItem button{
+    display: none;
+   } */
+
+   img#itemflagSmol{
+    height: 15px;
+    width: 25px;
+  }
+  .diasspeakers #speakersListCountry{
+    max-height: 16rem;
+    overflow-y: scroll;
+  }
+  .diasspeakers #speakersListCountry::-webkit-scrollbar {
+    display: none; /* Hide scrollbar in WebKit browsers (Chrome, Safari, etc.) */
+  }

@@ -1,8 +1,9 @@
+//server/main.js
 import { Meteor } from 'meteor/meteor';
 import { conferenceCollection } from '/imports/api/conference';
 import { delCollection } from '/imports/api/delegates';
 import { diasCollection } from '/imports/api/dias';
-import { dmCollection } from '/imports/api/dm';
+import { dmCollection, insertDM } from '/imports/api/dm';
 import { motionCollection } from '/imports/api/motions';
 import { speakerCollection } from '/imports/api/speakers';
 import { workingGroupCollection } from '/imports/api/workingGroups';
@@ -33,9 +34,17 @@ workingGroupCollection.allow({
 
 //use these for pre-loaded data
 export const insertConference = async ({ sessionID,delegates,dias,DMs,motions,
-  speakers,workingGroups,status }) => {
-  await conferenceCollection.insert({ sessionID,delegates,dias,DMs,motions,
-    speakers,workingGroups,status });
+  speakers,workingGroups,status, activeSpeakerList}) => {
+   conferenceCollection.insert({ sessionID,delegates,dias,DMs,motions,
+    speakers,workingGroups,status, activeSpeakerList });
+};
+export const updateConferenceActiveStatus = async ({ conferenceId, activeSpeakerList }) => {
+  await conferenceCollection.update(
+    { _id: conferenceId },
+    {
+      $set: { activeSpeakerList }
+    }
+  );
 };
 export const insertDel = async ({ country, roleCall }) => {
   await delCollection.insert({ country, roleCall });
@@ -43,25 +52,67 @@ export const insertDel = async ({ country, roleCall }) => {
 export const insertDias = async ({ user, pass }) => {
   await diasCollection.insert({ user, pass });
 };
-export const insertDM = async ({ country, roleCall }) => {
-  await dmCollection.insert({ country, roleCall });
+// export const insertDM = async ({ type, to, from, content, read, groupId}) => {
+//   await dmCollection.insert({type, to, from, content, read, groupId});
+// };
+
+export const insertDMHandler = async ({ type, to, from, content, read, groupId }) => {
+  await insertDM({ type, to, from, content, read, groupId });
 };
-export const insertMotion = async ({ content, votes }) => {
-  await motionCollection.insert({ content, votes });
+
+export const insertMotion = async ({ content,  abstain}) => {
+  motionCollection.insert({ active: false, content, votes: [], abstain });
 };
+export const removeMotion  = async ({ _id }) => {
+  motionCollection.remove(_id); 
+};
+
+export const switchActiveMotion = async (motionId) => {
+  motionCollection.update({ _id: motionId }, { $set: { active: true } });
+};
+
 export const insertSpeaker = async ({ country }) => {
   // Set timeAdded to the current date/time
   const timeAdded = new Date();
   await speakerCollection.insert({ country, timeAdded });
 };
-export const insertWG = async ({ countries, location, topic }) => {
-  await workingGroupCollection.insert({ countries, location, topic });
+export const removeSpeaker = async ({ _id }) => {
+  speakerCollection.remove(_id); 
 };
+export const insertWG = async ({ countries, location, topic, name }) => {
+  await workingGroupCollection.insert({ countries, location, topic,name });
+};
+export const updateWG = async ({ groupId, name, topic, location }) => {
+  await workingGroupCollection.update(
+    { _id: groupId },
+    {
+      $set: { name, topic, location },
+     // $push: { countries: { $each: newCountries } }
+    }
+  );
+};
+
+Meteor.methods({
+  'users.createAllDelegates': function (users) {
+    const bulkInsertOperations = users.map(user => ({
+      insertOne: { document: user },
+    }));
+
+    try {
+      const result = Meteor.users.rawCollection().bulkWrite(bulkInsertOperations);
+      console.log('Users inserted successfully:', result.insertedCount);
+      return result.insertedCount;
+    } catch (error) {
+      console.error('Failed to insert users:', error);
+      throw new Meteor.Error('insert-failed', 'Failed to insert users');
+    }
+  }
+})
 
 Meteor.startup(async () => {
   
   // Publish "conferences" to clients
-  Meteor.publish("conferences", function () {
+  Meteor.publish("conference", function () {
     return conferenceCollection.find();
   });
   // Publish "delegates" to clients
@@ -77,16 +128,20 @@ Meteor.startup(async () => {
     return dmCollection.find();
   });
   // Publish "motions" to clients
-  Meteor.publish("motions", function () {
-  return motionCollection.find();
+  Meteor.publish('motions', function () {
+    return motionCollection.find();
   });
   // Publish "speakers" to clients
   Meteor.publish("speakers", function () {
     return speakerCollection.find();
   });
   // Publish "WGs" to clients
-  Meteor.publish("WGs", function () {
+  Meteor.publish("workingGroups", function () {
       return workingGroupCollection.find();
+  });
+  // Publish all users to clients
+  Meteor.publish("allUsers", function () {
+    return Meteor.users.find({}, { fields: {} }); // Return all fields
   });
   Meteor.publish('userData', function () {
     if (this.userId) {
