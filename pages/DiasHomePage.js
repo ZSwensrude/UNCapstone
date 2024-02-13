@@ -39,7 +39,6 @@ function openTab(evt, tabName) {
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " active";
   }
-
 // Placeholder for Dias screen
 const DiasHome = () => {
   const countries = [
@@ -139,11 +138,11 @@ const DiasHome = () => {
                 <img id='un' src={window.location.origin + '/images/UN_emblem_blue.png'} alt='United Nations Logo' />
             </Paper>
             <div className="diasTabs">
-                <button className="tablinks" onClick={() => openTab(event,'RollCall')}>Roll Call</button>
-                <button className="tablinks" onClick={() => openTab(event,'Formal')}>Formal</button>
-                <button className="tablinks" onClick={() => openTab(event,'Informal')}>Informal</button>
-                <button className="tablinks" onClick={() => openTab(event,'VotingProcedure')}>Voting Procedure</button>
-                <button className="tablinks" onClick={() => openTab(event,'NotesDias')}>Notes to the Dias</button>
+                <button className="tablinks" onClick={() => openTab(Event,'RollCall')}>Roll Call</button>
+                <button className="tablinks" onClick={() => openTab(Event,'Formal')}>Formal</button>
+                <button className="tablinks" onClick={() => openTab(Event,'Informal')}>Informal</button>
+                <button className="tablinks" onClick={() => openTab(Event,'VotingProcedure')}>Voting Procedure</button>
+                <button className="tablinks" onClick={() => openTab(Event,'NotesDias')}>Notes to the Dias</button>
             </div>
             
             <button className="statusButton" onClick={handleClickToOpenStatus}>Status</button>
@@ -178,7 +177,7 @@ const DiasHome = () => {
                 </DialogContent>
         </Dialog>
 
-        <div id="RollCall" className="tabcontent">
+        <div id="RollCall" className="tabcontent" style={{display:"block"}}>
             <div className="RollCallBlock">
                 <div className="RollCallList">
                     <div className="searchBlock">
@@ -209,7 +208,7 @@ const DiasHome = () => {
             </div>
         </div>
 
-        <div id="Formal" className="tabcontent">
+        <div id="Formal" className="tabcontent" style={{display:"none"}}>
             <div className="FormalBlock">
                 <div className="SpeakerListBlock">
                     <div className="SpeakerListButtonBlock">
@@ -354,7 +353,7 @@ const DiasHome = () => {
             </div>
         </div>
 
-        <div id="Informal" className="tabcontent">
+        <div id="Informal" className="tabcontent" style={{display:"none"}}>
             <div className="InformalBlock">
                 <div className="DeadlinesAndTimerBlock">
                     <div className="BackInSessionBlock">
@@ -420,11 +419,11 @@ const DiasHome = () => {
             </div>
         </div>
 
-        <div id="VotingProcedure" className="tabcontent">
+        <div id="VotingProcedure" className="tabcontent" style={{display:"none"}}>
             <h3 className="head">Voting Procedure</h3>
         </div>
 
-        <div id="NotesDias" className="tabcontent">
+        <div id="NotesDias" className="tabcontent" style={{display:"none"}}>
             <div className="NotesDiasBlock">
                 <div className="NotesDiasList">
                     {notesToDiasGroups.map( (aDiasNote, index) => (
