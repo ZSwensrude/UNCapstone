@@ -11,7 +11,7 @@ import { workingGroupCollection } from "../imports/api/workingGroups";
 import flagsData from '../flags.json';
 
 
-const WorkingGroupsList = () => {
+const WorkingGroupsList = ({ openNotification, setOpenNotification }) => {
   // Function to retrieve user information from localStorage
   const getUserFromLocalStorage = () => {
     const userString = localStorage.getItem('loggedInUser');
@@ -22,6 +22,11 @@ const WorkingGroupsList = () => {
 
   const [group, setGroup] = useState({});
 
+  useEffect( ()=>{
+    if (openNotification) 
+      setGroup({});
+  }, [openNotification] );
+
   const chooseGroup = (newGroup) => {
  // Toggle the group state
   if (newGroup.name === group.name) {
@@ -30,6 +35,7 @@ const WorkingGroupsList = () => {
   } else {
     // Otherwise, set the new group
     setGroup(newGroup);
+    setOpenNotification(false);
   }  };
 
   const inviteToGroup = () => {
