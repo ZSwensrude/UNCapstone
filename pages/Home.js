@@ -6,12 +6,10 @@ import LockIcon from '@mui/icons-material/Lock';
 import PublicIcon from '@mui/icons-material/Public';
 import InfoIcon from '@mui/icons-material/Info';
 import GavelIcon from '@mui/icons-material/Gavel';
-import { Link } from 'react-router-dom';
 import CoolButton from "../components/CoolButton";
 import Header from "../components/Header";
 import { useNavigate  } from 'react-router-dom';
 import LoginButton from "../components/LoginButton";
-import bcrypt from 'bcryptjs';
 import countriesData from '../flags.json'  
 import { insertDel } from '../imports/api/delegates';
 
@@ -35,7 +33,7 @@ const Home=()=>{
   const handleClose = () => setOpen(false);
 
   const diasLogin = (modal, user = username, pass = password) => {
-    
+
     Meteor.loginWithPassword(user, pass, function(error) {
 
       if (error) {
