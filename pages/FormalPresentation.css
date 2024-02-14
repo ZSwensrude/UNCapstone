@@ -27,23 +27,23 @@ body {
     margin-block-end: 01vh;
   }
 
-  .mainBlockInformal {
+  .mainBlockFormal {
     display:flex;
+    justify-content: space-evenly;
   }
 
-  .deadlinesWholeBlock {
+    .SpeakerListBlock1, .currentlySpeakingBlock1, .MotionListBlock1 {
     display:block;
-    margin-left: 20vh;
+    margin-bottom: 2vh;
   }
 
-  .DeadlinesTitleBlock {
-    display: flex;
+  .SpeakerListButtonBlock1, .currentlySpeakingButtonBlock1, .MotionsListButtonBlock1{
+    display:flex;
     justify-content: center;
-    margin-block-start: 1.5vh;
   }
 
-  .DeadlinesTitle {
-  background: #009edb;
+  .SpeakersListButton1, .CurrentlySpeakingButton1, .MotionsListButton1{
+    background: #009edb;
     color: white;
     border-radius: 30px;
     border-color: #009edb;
@@ -55,42 +55,11 @@ body {
     height: 7vh;
   } 
 
-  .DeadlinesBlock {
-    width: 60vh;
-    height: 35vh;
-    display:block;
+  .FormalSpeakerList, .FormalMotionList {
     background: #009edb;
     border-radius: 30px;
-    border-style: solid;
     border-color: #009edb;
-    margin-block-start: 2vh;
-  }
-
-  .timerBlock2 {
-    width: 60vh;
-    height: 35vh;
-    display:block;
-    background: white;
-    border-radius: 30px;
-    border-style: solid;
-    border-color: white;
-    margin-bottom:1.5vh;
-    margin-block-start: 2vh;
-  }
-
-  .BackInSessionBlock{
-    display:flex;
-    justify-content: center;
-  }
-
-  .BackInSessionTitle {
-    color:black;
-    font-weight: bold;
-    font-size: large;
-    margin-block-start: 2vh;
-  }
-
-  .timerWholeBlock {
-    display:block;
-    margin-left: 3vh;
+    width: 55vh;
+    height: 50vh;
+    margin-block-start: 2vh;;
   }

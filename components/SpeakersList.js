@@ -26,7 +26,7 @@ const SpeakersList = () => {
 
   const onClick = () => {
     if (user && user.country) {
-      console.log("added to speaker DB:", user.country);
+      //console.log("added to speaker DB:", user.country);
       insertSpeaker({ country: user.country });
     } else {
       console.error("User or country is undefined.");

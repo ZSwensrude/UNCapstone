@@ -53,11 +53,11 @@ const CreateGroup = () => {
 
   // create button
   const create = async () => {
-    console.log("create pressed");
-    console.log("countries chosen: ", selectedCountries);
-    console.log("Location: ", location); // Logging location value
-    console.log("Topic: ", topic); // Logging topic value
-    console.log("name:", groupname );
+    //console.log("create pressed");
+    //console.log("countries chosen: ", selectedCountries);
+    //console.log("Location: ", location); // Logging location value
+    //console.log("Topic: ", topic); // Logging topic value
+    //console.log("name:", groupname );
   
     try {
       // Add that new group to the database
@@ -68,7 +68,7 @@ const CreateGroup = () => {
         name: groupname,
         // countries: selectedCountries
       });
-      console.log("groupID: ", groupId);
+      //console.log("groupID: ", groupId);
   
       // Insert a direct message for each country in the selected countries array
       selectedCountries.forEach(country => {
