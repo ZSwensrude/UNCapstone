@@ -105,7 +105,7 @@ const { SpeakersListActive } = useTracker(() => {
 
 
   return (
-    <div id="container">
+    <div id="container">      
       <Header version={'delegate'} country={(user.country)} />
       {/* <Header version={'delegate'} country={countryName} /> */}
 

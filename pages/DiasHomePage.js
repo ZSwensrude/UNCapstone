@@ -24,6 +24,7 @@ import flagData from '../flags.json';
 import { insertConference, updateConferenceActiveStatus, conferenceCollection} from "../imports/api/conference.js";
 import VoteCountChart from "../components/VoteCountBox.js";
 import Countdown from 'react-countdown';
+import LogoutButton from "../components/LogoutButton.js";
 
 
 function openTab(evt, tabName) {
@@ -264,6 +265,8 @@ const [searchTerm, setSearchTerm] = useState('');
 
   return (
     <div className="HomePageDias">
+      <LogoutButton />
+
         
         <div className="diasBar">
             <Paper id='logoback' elevation={0}>
