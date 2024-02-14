@@ -1,31 +1,56 @@
+.containerDelegate{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
 #main {
   margin-top: 8em;
-  position: relative;
   width: 100%;
   height: 100%;
 }
-
-#toggleButton {
-  position: fixed;
-  top: 15%;
-  left: 50%;
-  transform: translateX(-50%);
+.delegateHome{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  align-content: center;
+  margin-top: 13em;
 }
 
+
+
 #motion {
-  position: fixed;
-  top: 25px;
-  left: 35%;
-  width: 90px;
-  height: 60px;
+ /* position: absolute;
+  right: 0;
+  translate: -24% 26%;
+   height: 50%; */
+  width: 33%;
   border-radius: 30px;
 }
 
+.motionbox {
+  height: 30em;
+ border-radius: 30px;
+ padding: 44px 0;
+}
+
 #bottomButton {
-  position: fixed;
-  bottom: 1px;
-  left: 50%;
-  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+}
+#bottomButton #button{
+  margin: 0 10px;
+  margin-top: 10px;
+  display: flex;
+  align-content: center;
+  align-items: center;
+ border-color: transparent;
+}
+#bottomButton #button:last-of-type p{
+  display: flex;
+  /* padding-bottom: 10px; */
+ 
 }
 
 #rightButton {
@@ -34,3 +59,6 @@
   right: 1px;
 }
 
+.messageDias{
+  width: 10px;
+}

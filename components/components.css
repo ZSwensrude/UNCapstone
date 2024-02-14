@@ -1,9 +1,9 @@
 
 #headerbar {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 100.8%;
   background-color: #009EDB;
   color: white;
   height: 7em;
@@ -16,6 +16,8 @@
 
 #logoback {
   padding: 0.5px;
+  margin-left: 6px;
+
 }
 
 #flag {
@@ -43,7 +45,7 @@
   margin: auto;
   margin-bottom: 1.5px;
   border-radius: 30px;
-  /* width: fit-content; */
+   width: fit-content;
 }
 
 #body {
@@ -60,27 +62,35 @@
 
 
 #speakers {
-  position: fixed;
-  text-align: center;
-  left: 57px;
-  height: 83%;
-  width: 25%;
+   background-color: #009EDB;
+   min-width: 24em;
+   width: 30%;
+   height: 39em;
+   border-radius: 30px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
 }
+.upcomingSpeakers{
+  overflow-y: scroll;
+  height: 68%;
+  padding: 0 26px;
+  width: 74%;
 
+}
 #whiteLine {
   height: .2px;
   background-color: white;
   border-color: white;
+  width: 90%;
 }
 
 #joinButton {
-  position: absolute;
-  bottom: 1px;
-  left: 0; 
-  right: 0; 
-  margin-left: auto; 
-  margin-right: auto; 
+   margin-left: auto;
+  margin-right: auto;
   width: fit-content;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 #button {
@@ -107,10 +117,13 @@
   cursor: pointer;
 }
 
-#buttonIcon {
+#toggleButton{
+  display: flex;
+  justify-content: center;
   position: absolute;
-  bottom: .1px;
-  padding-right: 1px;
+  left: 50%;
+  right: 50%;
+  top: 133px;
 }
 
 #toggleBack {
@@ -127,13 +140,16 @@
 
 #toggleText {
   color: black;
-  padding-left: 2.4px;
-  padding-right: 2.4px;
+  padding-left: 17px;
+  padding-right: 17px;
   padding-top: .4px;
   padding-bottom: .4px;
   background-color: white;
   border-radius: 30px;
+  width: 80px;
+  margin: 0 22px;
 }
+
 
 #noMotion {
   padding-left: 30px;
@@ -148,9 +164,9 @@
 }
 
 #middleLine {
-  position: relative;
-  top: 20px;
-}
+  /* position: relative;
+  top: 20px;*/
+} 
 
 
 .motionText {
@@ -160,9 +176,16 @@
 }
 
 .votebox {
-  position: relative;
-  top: 20px;
-  text-align: center;
+  display: flex;
+  /* text-align: center; */
+  justify-content: space-evenly;
+  flex-direction: column;
+  /* align-content: center; */
+  align-items: center;
+
+}
+.voteCont{
+  display: grid;
 }
 
 .box {
@@ -175,19 +198,22 @@
   vertical-align: top;
   border: 3px solid black;
 }
+p.motionText {
+  font-weight: 900;
+  min-height: 9em;
+}
 
 .voteOptions {
   display: inline-block;
   width: 5em;
   height: 5em;
-  padding-left: 4.5px;
-  padding-right: 4.5px;
+  padding-left: 18.5px;
 }
 
 .submitVote {
-  position: relative;
+  /* position: relative;
   left: 75px;
-  bottom: 8px;
+  bottom: 8px; */
 }
 
 .modalWindow {
@@ -197,16 +223,14 @@
 }
 
 .modalContent {
+  border-radius: 30px;
+  height: 40%;
+  width: 40%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: 45px; /* Use the full height of the viewport */
-  padding: 2px;
-  width: 80px;
-  outline: none;
-  border-radius: 30px;
-  box-sizing: border-box;
+  padding-top: 25px;
+
 }
 
 .textBox {
@@ -220,15 +244,15 @@
 
 .buttonContainer {
   display: flex;
+  width: 77%;
   justify-content: space-between;
-  width: 120px;
-  left: 25px;
-  position: relative;
 }
 
 .button-wrapper {
-  flex: 1;
+  /* flex: 1; */
   margin-top: 2px;
+  display:flex;
+
 }
 
 .cancelButton {
@@ -241,15 +265,16 @@
 
 
 #groups {
-  position: fixed;
+  background-color: #009EDB;
+  min-width: 24em;
+  width: 30%;
+  height: 39em;
+  border-radius: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  left: 5px;
-  width: 45%;
-  pointer-events: none;
 }
+
 
 #groupsTop {
   padding-top: 1px;
@@ -466,27 +491,35 @@
 }
 
 #speakers div#body{
-    overflow-y: scroll;
-    width: 100%;
+    /* overflow-y: scroll; */
+    /* width: 100%; */
     border-radius: 0;
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 34px;
-    margin: 0;
+    /* margin: 0;
     box-shadow: none;
-    height: 93%;
+    height: fit-content;
+    overflow: hidden;
+    max-height: 44em; */
 }
-#speakers div#body::-webkit-scrollbar {
+.upcomingSpeakers::-webkit-scrollbar {
   display:none;
 }
 
 #speakersListCountry {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: auto;
+  margin: auto; */
 }
-#speakersListCountry:first-of-type li:first-of-type, 
+ul.countryItemList{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding:0;
+}
+#speakersListCountry:first-of-type li:first-of-type,
 .diasSpeakerfirst li{
   background: #00DB89;
 }
@@ -502,8 +535,8 @@
 .emptyNotification {
   position: absolute;
   color: #989898;
-  top: 50%; 
-  left: 50%; 
+  top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
 }
 

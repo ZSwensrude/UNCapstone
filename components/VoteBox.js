@@ -41,25 +41,29 @@ const VoteBox = ({ motion, country, abstain, user }) => {
           <Typography className='motionText' variant='h2'>
             {country + "'s Vote:"}
           </Typography>
-          <div>
-            <div className='box' style={{ backgroundColor: '#4aff7d' }} onClick={() => handleOptionChange('Yes')}>
-              {selectedOption === 'Yes' && (<CloseIcon style={{ fontSize: '4rem' }} />)}
-            </div>
-            <div className='box' style={{ backgroundColor: '#ff4a4a' }} onClick={() => handleOptionChange('No')}>
-              {selectedOption === 'No' && (<CloseIcon style={{ fontSize: '4rem' }} />)}
-            </div>
-            {abstain && (
-              <div className='box' style={{ backgroundColor: '#ffc94a' }} onClick={() => handleOptionChange('Abstain')}>
-                {selectedOption === 'Abstain' && (<CloseIcon style={{ fontSize: '4rem'}} />)}
+          <div className='voteCont'>
+            <div>
+              <div className='box' style={{ backgroundColor: '#4aff7d' }} onClick={() => handleOptionChange('Yes')}>
+                {selectedOption === 'Yes' && (<CloseIcon style={{ fontSize: '4rem' }} />)}
               </div>
-            )}
-          </div>
-          <div>
-            <Typography className='voteOptions'>Yes</Typography>
-            <Typography className='voteOptions'>No</Typography>
-            {abstain && (
-              <Typography className='voteOptions'>Abstain</Typography>
-            )}
+              <div className='box' style={{ backgroundColor: '#ff4a4a' }} onClick={() => handleOptionChange('No')}>
+                {selectedOption === 'No' && (<CloseIcon style={{ fontSize: '4rem' }} />)}
+              </div>
+              {abstain && (
+                <div className='box' style={{ backgroundColor: '#ffc94a' }} onClick={() => handleOptionChange('Abstain')}>
+                  {selectedOption === 'Abstain' && (<CloseIcon style={{ fontSize: '4rem'}} />)}
+                </div>
+              )}
+            </div>
+          
+            <div className='yesnoabstain'>
+              <span className='voteOptions'>Yes</span>
+              <span className='voteOptions'>No</span>
+              {abstain && (
+                <span className='voteOptions'>Abstain</span>
+              )}
+            
+            </div>
           </div>
           <div className='submitVote'>
             <CoolButton buttonColor={'#FF9728'} buttonText={'Submit'} textColor={'white'} onClick={handleSubmitVote} />

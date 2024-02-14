@@ -105,14 +105,14 @@ const { SpeakersListActive } = useTracker(() => {
 
 
   return (
-    <div id="container">
+    <div className="containerDelegate">
       <Header version={'delegate'} country={(user.country)} />
       {/* <Header version={'delegate'} country={countryName} /> */}
-
-      <div id="main">
         <div id="toggleButton">
           <DelegateToggle formal={formal} onClick={toggleClick} />
         </div>
+      <div id="main " className="delegateHome">
+       
         {formal ? (
           // this will be the formal delegate dashboard
           <>
@@ -126,12 +126,13 @@ const { SpeakersListActive } = useTracker(() => {
               {/* <CurrentMotion motion={motionfromDB} country={countryName} abstain={true} /> */}
               <CurrentMotion motion={motionfromDB} country={countryName} abstain={motionfromDB?.abstain} user={user.country} />
             </div>
-            <div id="bottomButton">
+            
+            {/* <div id="bottomButton">
               <CoolButton buttonColor={'#00DBD4'} textColor={'white'} buttonText={'view presentation screen'} />
             </div>
             <div id="rightButton">
               <MessageDias />
-            </div>
+            </div> */}
           </>
         ) : (
           // and here is the informal
@@ -152,6 +153,12 @@ const { SpeakersListActive } = useTracker(() => {
           </>
         )}
       </div>
+      <div id="bottomButton">
+              <CoolButton buttonColor={'#00DBD4'} textColor={'white'} buttonText={'view presentation screen'} />
+            {/* </div> */}
+            {/* <div id="rightButton"> */}
+              <MessageDias />
+            </div>
     </div>
   );
 };

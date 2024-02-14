@@ -39,10 +39,10 @@ const SpeakersList = () => {
 
   return (
     <div id='speakers'>
-      <Paper id='top' elevation={4}>
+      {/* <div id='top' elevation={4}> */}
         <Typography variant='h4'>Speakers List</Typography>
-      </Paper>
-      <Paper id='body' elevation={4}>
+      {/* </div> */}
+      {/* <div id='body' elevation={4}> */}
         <Typography variant='h5'>Currently Speaking:</Typography>
         <div id='speakersListCountry'>
           {Object.keys(currentSpeaker).length > 0 && (
@@ -51,10 +51,12 @@ const SpeakersList = () => {
         </div>
         <hr id='whiteLine' />
         <Typography variant='h5'>In Queue:</Typography>
-        <div id='speakersListCountry'>
+        <div className='upcomingSpeakers'>
+          <ul className='countryItemList'>
         {speakers.slice(1).map((speaker, index) => (
             <Country key={index + 1} countryName={speaker.country} position={index + 2} />
           ))}
+          </ul>
         </div>
         {/* Render the "Join Queue" button only if the user's country is not in the speakers list */}
         {!isUserInQueue && (
@@ -62,8 +64,8 @@ const SpeakersList = () => {
             <CoolButton buttonText='Join Queue' buttonColor={'#FF9728'} textColor={'white'} onClick={onClick} />
           </div>
         )}
-      </Paper>
-    </div>
+      </div>
+    // </div>
   );
 };
 
