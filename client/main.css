@@ -23,6 +23,9 @@ img{
   border: solid 0.5px black;
   margin: 1px;
 }
+img.loginimage{
+  height: 50px;
+}
 img#un,
 .logins img, 
 .logo img

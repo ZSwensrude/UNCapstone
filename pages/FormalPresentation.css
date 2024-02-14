@@ -10,7 +10,7 @@ body {
   
   .logo {
     position: fixed;
-    top: 12vh;
+    top: 12px;
     left: 50%;
     transform: translateX(-50%);
     display: block;
@@ -21,10 +21,10 @@ body {
   .welcomeHeader {
     display: flex;
     justify-content: center;
-    font-size:  10vh;
+    font-size:  10px;
     font-weight: 400;
-    margin-block-start: 27vh;
-    margin-block-end: 01vh;
+    margin-block-start: 27px;
+    margin-block-end: 01px;
   }
 
   .mainBlockFormal {
@@ -34,7 +34,7 @@ body {
 
     .SpeakerListBlock1, .currentlySpeakingBlock1, .MotionListBlock1 {
     display:block;
-    margin-bottom: 2vh;
+    margin-bottom: 2px;
   }
 
   .SpeakerListButtonBlock1, .currentlySpeakingButtonBlock1, .MotionsListButtonBlock1{
@@ -47,19 +47,19 @@ body {
     color: white;
     border-radius: 30px;
     border-color: #009edb;
-    width: 25vh;
+    width: 25px;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: medium;
-    height: 7vh;
+    height: 7px;
   } 
 
   .FormalSpeakerList, .FormalMotionList {
     background: #009edb;
     border-radius: 30px;
     border-color: #009edb;
-    width: 55vh;
-    height: 50vh;
-    margin-block-start: 2vh;;
+    width: 55px;
+    height: 50px;
+    margin-block-start: 2px;;
   }

@@ -92,7 +92,7 @@ const CreateGroup = () => {
     <div>
       <CoolButton onClick={handleOpen} buttonColor={'#FF9728'} textColor={'white'} buttonText={'create group'}/>
       <Modal className="modalWindow" open={open} onClose={handleClose}>
-        <Paper className="modalContent" style={{borderRadius:'30px', height:'60vh'}}>
+        <Paper className="modalContent" style={{borderRadius:'30px'}}>
           <Typography variant="h2">
             Create Working Group
           </Typography>

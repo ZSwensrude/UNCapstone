@@ -10,7 +10,7 @@ body {
   
   .logo {
     position: fixed;
-    top: 12vh;
+    top: 12px;
     left: 50%;
     transform: translateX(-50%);
     display: block;
@@ -21,10 +21,10 @@ body {
   .welcomeHeader {
     display: flex;
     justify-content: center;
-    font-size:  10vh;
+    font-size:  10px;
     font-weight: 400;
-    margin-block-start: 27vh;
-    margin-block-end: 01vh;
+    margin-block-start: 27px;
+    margin-block-end: 01px;
   }
 
   .mainBlockInformal {
@@ -33,13 +33,13 @@ body {
 
   .deadlinesWholeBlock {
     display:block;
-    margin-left: 20vh;
+    margin-left: 20px;
   }
 
   .DeadlinesTitleBlock {
     display: flex;
     justify-content: center;
-    margin-block-start: 1.5vh;
+    margin-block-start: 1.5px;
   }
 
   .DeadlinesTitle {
@@ -47,35 +47,35 @@ body {
     color: white;
     border-radius: 30px;
     border-color: #009edb;
-    width: 25vh;
+    width: 25px;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: medium;
-    height: 7vh;
+    height: 7px;
   } 
 
   .DeadlinesBlock {
-    width: 60vh;
-    height: 35vh;
+    width: 60px;
+    height: 35px;
     display:block;
     background: #009edb;
     border-radius: 30px;
     border-style: solid;
     border-color: #009edb;
-    margin-block-start: 2vh;
+    margin-block-start: 2px;
   }
 
   .timerBlock2 {
-    width: 60vh;
-    height: 35vh;
+    width: 60px;
+    height: 35px;
     display:block;
     background: white;
     border-radius: 30px;
     border-style: solid;
     border-color: white;
-    margin-bottom:1.5vh;
-    margin-block-start: 2vh;
+    margin-bottom:1.5px;
+    margin-block-start: 2px;
   }
 
   .BackInSessionBlock{
@@ -87,10 +87,10 @@ body {
     color:black;
     font-weight: bold;
     font-size: large;
-    margin-block-start: 2vh;
+    margin-block-start: 2px;
   }
 
   .timerWholeBlock {
     display:block;
-    margin-left: 3vh;
+    margin-left: 3px;
   }

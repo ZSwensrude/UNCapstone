@@ -1,36 +1,36 @@
 #main {
-  margin-top: 10vh;
+  margin-top: 8em;
   position: relative;
-  width: '100%';
-  height: '100%';
+  width: 100%;
+  height: 100%;
 }
 
 #toggleButton {
   position: fixed;
-  top: 11vh;
+  top: 15%;
   left: 50%;
   transform: translateX(-50%);
 }
 
 #motion {
   position: fixed;
-  top: 25vh;
+  top: 25px;
   left: 35%;
-  width: 90vh;
-  height: 60vh;
+  width: 90px;
+  height: 60px;
   border-radius: 30px;
 }
 
 #bottomButton {
   position: fixed;
-  bottom: 1vh;
+  bottom: 1px;
   left: 50%;
   transform: translateX(-50%);
 }
 
 #rightButton {
   position: fixed;
-  bottom: 1vh;
-  right: 1vh;
+  bottom: 1px;
+  right: 1px;
 }
 

@@ -43,14 +43,14 @@ const VoteBox = ({ motion, country, abstain, user }) => {
           </Typography>
           <div>
             <div className='box' style={{ backgroundColor: '#4aff7d' }} onClick={() => handleOptionChange('Yes')}>
-              {selectedOption === 'Yes' && (<CloseIcon style={{ fontSize: '4rem', marginTop: '1vh' }} />)}
+              {selectedOption === 'Yes' && (<CloseIcon style={{ fontSize: '4rem' }} />)}
             </div>
             <div className='box' style={{ backgroundColor: '#ff4a4a' }} onClick={() => handleOptionChange('No')}>
-              {selectedOption === 'No' && (<CloseIcon style={{ fontSize: '4rem', marginTop: '1vh' }} />)}
+              {selectedOption === 'No' && (<CloseIcon style={{ fontSize: '4rem' }} />)}
             </div>
             {abstain && (
               <div className='box' style={{ backgroundColor: '#ffc94a' }} onClick={() => handleOptionChange('Abstain')}>
-                {selectedOption === 'Abstain' && (<CloseIcon style={{ fontSize: '4rem', marginTop: '1vh' }} />)}
+                {selectedOption === 'Abstain' && (<CloseIcon style={{ fontSize: '4rem'}} />)}
               </div>
             )}
           </div>

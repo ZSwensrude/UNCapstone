@@ -5,10 +5,10 @@ body {
   }
 
   .myConference {
-    font-size:  10vh;
+    font-size:  10px;
     font-weight:lighter;
-    margin-block-start: 10vh;
-    margin-block-end: 1.5vh;
+    margin-block-start: 10px;
+    margin-block-end: 1.5px;
   }
 
   .mainBox, .smallLineBox, .smallerLineBox, .headerBar {
@@ -17,56 +17,56 @@ body {
   }
 
   .container {
-    width: 75vh;
-    height: 60vh;
+    width: 75px;
+    height: 60px;
     background: #009edb;
     display:flow;
     justify-content: center;
     align-items: center;
     border-style: solid;
     border-color:#009edb;
-    margin-top: 3vh;
+    margin-top: 3px;
     border-radius: 30px;
   }
 
   .line {
-    height: 0.3vh;
+    height: 0.3px;
     background: black;
   }
 
   .buttonBlock {
     display:flex;
     justify-content: center;
-    margin: 1.25vh;
+    margin: 1.25px;
   }
 
 .createConferenceTitleBlock, .PresetLocationsTitleBlock, .locationBoxBlock, .locationInputBox {
     display: flex;
     justify-content: center;
-    margin-bottom: 2vh;
+    margin-bottom: 2px;
 }
 
 .title1 {
-    font-size: 4vh;
+    font-size: 4px;
 }
 
 .TitleLabel, .ComiteeLabel {
     display:flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 3vh;
+    margin-bottom: 3px;
 }
 
 .header1 {
     font-weight:normal;
-    font-size: 3vh;
+    font-size: 3px;
     color: black;
-    margin:0vh;
-    margin-right: 1vh;
+    margin:0px;
+    margin-right: 1px;
   }
 
 .title2 {
-    font-size: 3.5vh;
+    font-size: 3.5px;
 }
 
 .secondPart, .thirdPart, .firstPart {
@@ -74,8 +74,8 @@ body {
 }
 
 .locationBox {
-    width: 40vh;
-    height: 37vh;
+    width: 40px;
+    height: 37px;
     background-color: #009edb;
     border-radius: 30px;
     display: block;
@@ -83,27 +83,27 @@ body {
 }
 
 .smallerLine {
-    width: 35vh;
-    height: 0.2vh;
+    width: 35px;
+    height: 0.2px;
     background: black;
 }
 
 .locationInput {
-    height: 7vh;
+    height: 7px;
     background-color:lightgrey;
 }
 
 .smallLine {
     width: 40vw;
-    height: 0.3vh;
+    height: 0.3px;
     background: black;
 }
 
 .createConfButtons, .addButtonBox {
     display:flex;
     justify-content: space-around;
-    margin-top: 1vh;
-    margin-bottom: 1vh;
+    margin-top: 1px;
+    margin-bottom: 1px;
 }
   #diasspeakers .queuebox{    
     max-height: 16rem;

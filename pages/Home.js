@@ -93,23 +93,21 @@ const Home=()=>{
         <div className="header">
         <Header version={'blank'}/>
         </div>
-
-        <div className="logo">
-            <img src={window.location.origin + '/images/UN_emblem_blue.png'} height={100} alt="logoImage" />
-        </div>
-
+        
         <div className= "top">
         {/* <h2 className="welcomeHeader1">Welcome to United Nations</h2> */}
         <div className="welcomeHeader1">
+        <img src={window.location.origin + '/images/UN_emblem_blue.png'} height={100} alt="logoImage" />
+
           <Typography variant="h6">Welcome to Mac-UN!</Typography>
         </div>
         </div>
 
         <div className="logins">
-            <form className="container1">
+            <form className="homecontainer">
             <div className="heading"> 
                 <h1 className="diasAndDelegateHeader">Dias Login</h1>
-                <img src={window.location.origin + '/images/lecturer.png'} width={45} height={65} alt="lecturerImage" />
+                <img className="loginimage"  src={window.location.origin + '/images/dias.png'} alt="lecturerImage" />
             </div>
                     <div className="usernameLabel">
                         <h6 className="header6">Username</h6> 
@@ -141,15 +139,15 @@ const Home=()=>{
                     </div>
             </form>
 
-            <div className="container2">
+            <div className="homecontainer">
             <div className="heading">   
             <h1 className="diasAndDelegateHeader">Delegate Login</h1>
-            <img src={window.location.origin + '/images/delegate.png'} width={45} height={63} alt="lecturerImage" />
+            <img className="loginimage" src={window.location.origin + '/images/delegate.png'} alt="lecturerImage" />
             </div>
                
-            <div className="countryLabel">
+            <div className=" usernameLabel">
               <h6 className="header6">Country</h6>
-                <select name="countries" id="countries">
+                <select className="input-box" name="countries" id="countries">
                 <option value="choice"></option>
                 {generateCountryOptions()}
                 </select>
@@ -157,7 +155,7 @@ const Home=()=>{
             </div>
 
                 
-                <div className="sessionLabel">
+                <div className=" passwordLabel">
                     <h6 className="header6">Session ID</h6>
                     <div className="input-box">
                         <input type="text" required  id="sessionId"/>
