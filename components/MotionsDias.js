@@ -14,7 +14,7 @@ const MotionsDias = ({ aMotionDias }) => {
     
     // Define a handler function to remove the country
     const handleRemoveMotion = () => {
-        console.log("Remove motion:", aMotionDias.content);
+        //console.log("Remove motion:", aMotionDias.content);
         removeMotion({ _id: aMotionDias._id }); // Call the removeSpeaker function with the correct _id
     };
 

@@ -100,7 +100,7 @@ Meteor.methods({
 
     try {
       const result = Meteor.users.rawCollection().bulkWrite(bulkInsertOperations);
-      console.log('Users inserted successfully:', result.insertedCount);
+      //console.log('Users inserted successfully:', result.insertedCount);
       return result.insertedCount;
     } catch (error) {
       console.error('Failed to insert users:', error);
@@ -141,11 +141,7 @@ Meteor.startup(async () => {
   });
   // Publish all users to clients
   Meteor.publish("allUsers", function () {
-    if (this.userId) {
-      return Meteor.users.find({}, { fields: {} }); // Return all fields
-    } else {
-      this.ready();
-    }
+    return Meteor.users.find({}, { fields: {} }); // Return all fields
   });
   Meteor.publish('userData', function () {
     if (this.userId) {

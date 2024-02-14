@@ -35,13 +35,13 @@ const WorkingGroupsList = () => {
 
   const inviteToGroup = () => {
     // Logic to handle inviting users to the group
-    console.log("Invite users to the group: ", group.name);
+    //console.log("Invite users to the group: ", group.name);
 
   };
 
   const sendMessage = () => {
     if (Object.keys(group).length > 0) {
-      console.log("send message to group: ", group.groupName);
+      //console.log("send message to group: ", group.groupName);
     }
   }
    // Use useTracker to reactively fetch data from the speakers collection
@@ -53,7 +53,7 @@ const WorkingGroupsList = () => {
   });
 
   const removeFromGroup = () => {
-    console.log("Remove from the group: ", group.name);
+    //console.log("Remove from the group: ", group.name);
   
     if (group._id) { // Check if group id exists
       // Get the id of the working group
@@ -67,7 +67,7 @@ const WorkingGroupsList = () => {
           if (error) {
             console.error('Error removing from working group:', error);
           } else {
-            console.log('Successfully removed from the group:', result);
+            //console.log('Successfully removed from the group:', result);
             // Optional: You can add any additional logic here after successfully removing from the group
           }
         }
@@ -78,13 +78,13 @@ const WorkingGroupsList = () => {
   };
   const handleInvite = (group) => {
     // Logic to handle inviting users to the group
-    console.log("Invite users to the group: ", group.name);
+    //console.log("Invite users to the group: ", group.name);
     // You can perform any additional actions here, such as opening a modal or sending notifications
   };
 
   
   const joinGroup = () => {
-    console.log("Join the group: ", group.name);
+    //console.log("Join the group: ", group.name);
     
     if (group._id) { // Check if group id exists
       // Get the id of the working group
@@ -98,7 +98,7 @@ const WorkingGroupsList = () => {
           if (error) {
             console.error('Error updating working group:', error);
           } else {
-            console.log('Successfully joined the group:', result);
+            //console.log('Successfully joined the group:', result);
             // Optional: You can add any additional logic here after successfully joining the group
           }
         }

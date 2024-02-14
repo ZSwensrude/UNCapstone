@@ -22,7 +22,7 @@ const getFlagName = (countryCode) => {
 
   // Handles when the user clicks on the "view group" button
   const onClick = () => {
-    console.log("Viewing group:", workingGroup?.name);
+    //console.log("Viewing group:", workingGroup?.name);
     chooseGroup(workingGroup ?? {});
   };
 
