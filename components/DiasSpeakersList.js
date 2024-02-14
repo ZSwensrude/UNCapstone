@@ -38,7 +38,7 @@ const DiasSpeakersList = () => {
   return (
     <div id='diasspeakers'>
         <div className="controlTitleBlock">
-            <div h2 className="controlTitle">Currently Speaking:</div>
+            <h2 className="controlTitle">Currently Speaking:</h2>
         </div>        
         <div className='diasSpeakerfirst' id='speakersListCountry'>
           {Object.keys(currentSpeaker).length > 0 && (
@@ -49,7 +49,7 @@ const DiasSpeakersList = () => {
             <div className="lineA"></div>
         </div>
         <div className="controlTitleBlock">
-            <div h2 className="controlTitle">In Queue:</div>
+            <h2 className="controlTitle">In Queue:</h2>
         </div>
         <div className="queuebox" id="speakersListCountry">
         {speakers.slice(1).map((speaker, index) => (

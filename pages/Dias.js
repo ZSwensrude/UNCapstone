@@ -95,7 +95,7 @@ const accounts = [];
       if (error) {
         console.error('Failed to insert users:', error);
       } else {
-        console.log('Users inserted successfully:', result);
+        //console.log('Users inserted successfully:', result);
       }
     });
   }

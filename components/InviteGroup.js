@@ -52,11 +52,11 @@ const InviteGroup = ({ onInvite, group }) => {
   
     // Function to update group
     const updateGroup = async () => {
-      console.log("Working group: ", workingGroup);
-      console.log("Selected countries: ", selectedCountries);
-      console.log("Location: ", location);
-      console.log("Topic: ", topic);
-      console.log("Name: ", groupname);
+      //console.log("Working group: ", workingGroup);
+      //console.log("Selected countries: ", selectedCountries);
+      //console.log("Location: ", location);
+      //console.log("Topic: ", topic);
+      //console.log("Name: ", groupname);
   
       try {
         // Update the existing working group with the provided data
@@ -73,7 +73,7 @@ const InviteGroup = ({ onInvite, group }) => {
 
     // Filter out the selected countries that are already in the collection
     const newCountries = selectedCountries.filter(country => !existingCountries.includes(country.country));
-    console.log("NEW COUTNRIES", newCountries);
+    //console.log("NEW COUTNRIES", newCountries);
     // Insert a direct message for each new country
     newCountries.forEach(country => {
       insertDM({

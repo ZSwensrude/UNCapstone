@@ -73,7 +73,7 @@ const DiasHome = () => {
     activeMotion = motionCollection.find({ active: true }).fetch();
     return { motionsListDias };
 });
-console.log(activeMotion);
+//console.log(activeMotion);
 
 
   const DeadlineListDias = [
@@ -148,7 +148,7 @@ console.log(activeMotion);
       
     const handleClearConfirmed = () => {
         setopenSpkClear(false); // Close the confirmation dialog
-        console.log("clear pressed!!!!!!"); // Perform the clear operation
+        //console.log("clear pressed!!!!!!"); // Perform the clear operation
         const handler = Meteor.subscribe('speakers');
         const speakersData = speakerCollection.find().fetch(); 
         speakersData.forEach(speaker => {
@@ -157,7 +157,7 @@ console.log(activeMotion);
     };
 
     const handleSpkNext = () => {
-        console.log("next speaker pressed!!!!!!"); // Perform the clear operation
+        //console.log("next speaker pressed!!!!!!"); // Perform the clear operation
         const handler = Meteor.subscribe('speakers');
         const speakersData = speakerCollection.find().fetch(); 
         removeSpeaker({ _id: speakersData[0]._id }); // remove current speaker
@@ -165,14 +165,14 @@ console.log(activeMotion);
 
     const handleClearCancelled = () => {
         setopenSpkClear(false); // Close the confirmation dialog
-        console.log("clear cancelled"); // Log that the clear operation was cancelled
+        //console.log("clear cancelled"); // Log that the clear operation was cancelled
     };
 
     // Define state variables for searchTerm and searchResults
 const [searchTerm, setSearchTerm] = useState('');
 
     const addtolist = (searchTerm) =>{
-        console.log("Selected country:", searchTerm);
+        //console.log("Selected country:", searchTerm);
     
         // Insert the speaker with the selected country
         insertSpeaker({ country: searchTerm });
@@ -360,7 +360,7 @@ const [searchTerm, setSearchTerm] = useState('');
                         <div className="currentlySpeaking">
                             <DiasSpeakersList />
                             <div className="controlTitleBlock">
-                                <div h2 className="controlTitle">Speaker Timer:</div>
+                                <h2 className="controlTitle">Speaker Timer:</h2>
                             </div>
 
                             <div className="TimeBlock">
@@ -381,7 +381,7 @@ const [searchTerm, setSearchTerm] = useState('');
                         </div>
                         <div className="control">
                             <div className="controlTitleBlock">
-                                <div h2 className="controlTitle">Control</div>
+                                <h2 className="controlTitle">Control</h2>
                             </div>
                             <div className="controlInputBox">
                             <select
@@ -519,7 +519,7 @@ const [searchTerm, setSearchTerm] = useState('');
             <div className="InformalBlock">
                 <div className="DeadlinesAndTimerBlock">
                     <div className="BackInSessionBlock">
-                        <div h2 className="BackInSessionTitle">Back In Session In:</div>
+                        <h2 className="BackInSessionTitle">Back In Session In:</h2>
                     </div>
                     <div className="timerBlock2">
                     </div>

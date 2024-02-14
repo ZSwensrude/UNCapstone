@@ -100,7 +100,7 @@ Meteor.methods({
 
     try {
       const result = Meteor.users.rawCollection().bulkWrite(bulkInsertOperations);
-      console.log('Users inserted successfully:', result.insertedCount);
+      //console.log('Users inserted successfully:', result.insertedCount);
       return result.insertedCount;
     } catch (error) {
       console.error('Failed to insert users:', error);

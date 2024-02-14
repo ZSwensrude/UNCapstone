@@ -18,10 +18,10 @@ const Notification = ({ notification, readNotification}) => {
 
   // will join the group in the database
   const joinGroup = () => {
-    console.log("accepted invite to join ", notification.from);
-    console.log("notification._id: ", notification._id);
+    //console.log("accepted invite to join ", notification.from);
+    //console.log("notification._id: ", notification._id);
 
-    console.log("test: ",dmCollection.findOne({ _id: notification._id }));
+    //console.log("test: ",dmCollection.findOne({ _id: notification._id }));
   
     // Find the corresponding DM document in the dmCollection
     const dmDocument = dmCollection.findOne({ _id: notification._id });
@@ -38,7 +38,7 @@ const Notification = ({ notification, readNotification}) => {
           if (error) {
             console.error('Error updating working group:', error);
           } else {
-            console.log('Successfully joined the group:', result);
+            //console.log('Successfully joined the group:', result);
           }
         }
       );

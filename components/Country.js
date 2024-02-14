@@ -46,8 +46,8 @@ const speakerObj = speakersArray.find(speakerObj => speakerObj.country === count
 // Define a handler function to remove the country
 const handleRemoveCountry = () => {
   if (isDiasUser) { 
-    console.log("Remove country:", countryObject.country);
-    console.log("speakerID: ", speakerID); 
+    //console.log("Remove country:", countryObject.country);
+    //console.log("speakerID: ", speakerID); 
     removeSpeaker({ _id: speakerID }); // Call the removeSpeaker function with the correct _id
   }
 };

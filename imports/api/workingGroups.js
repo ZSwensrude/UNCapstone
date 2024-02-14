@@ -14,12 +14,12 @@ export const insertWG = async ({ countries, location, topic, name }) => {
         { name },
         { $set: { countries, location, topic } }
       );
-      console.log(`Updated existing working group: ${name}`);
+      //console.log(`Updated existing working group: ${name}`);
       return existingGroup._id; // Return the ID of the existing group
     } else {
       // If the group does not exist, insert a new document
       const groupId = workingGroupCollection.insert({ countries, location, topic, name });
-      console.log(`Inserted new working group: ${name}`);
+      //console.log(`Inserted new working group: ${name}`);
       return groupId; // Return the ID of the newly inserted group
     }
   } catch (error) {
@@ -39,7 +39,7 @@ export const updateWG = async ({ groupId, name, topic, location }) => {
         //$push: { countries: { $each: newCountries } }
       }
     );
-    console.log(`Updated working group with ID ${groupId}`);
+    //console.log(`Updated working group with ID ${groupId}`);
   } catch (error) {
     console.error('Error updating working group:', error);
     throw error;
