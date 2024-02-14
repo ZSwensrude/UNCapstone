@@ -333,7 +333,7 @@ const [searchTerm, setSearchTerm] = useState('');
                     </div>
                     <div className="presentAbsentBlock">
                     {countriesLists.map( (countryList, index) => (
-                    <PresentAbsentList key={countryList.countryName + index} countryList={countryList}/>
+                    <PresentAbsentList key={countryList?.countryName + index + "palist"} countryList={countryList}/>
                     ))}
                     </div>
                 </div>
@@ -391,7 +391,7 @@ const [searchTerm, setSearchTerm] = useState('');
                             >
                                 <option value="">Select a country</option>
                                 {flagData.countries.map((country, index) => (
-                                    <option key={index} value={country.country}>
+                                    <option key={country?.country + index + "flagdata"} value={country.country}>
                                         {country.name}
                                     </option>
                                 ))}
@@ -432,7 +432,7 @@ const [searchTerm, setSearchTerm] = useState('');
 
                 <div className="MotionsBlock">
                     <div className="MotionsButtonBlock">
-                        <div button className="MotionsButton">Motions</div>
+                        <div className="MotionsButton">Motions</div>
                     </div>
 
                     <div className="motionBlock">
@@ -464,7 +464,7 @@ const [searchTerm, setSearchTerm] = useState('');
                         <div className="motionsAdded">
                         {motionsListDias &&
                             motionsListDias.map((aMotionDias, index) => (
-                            <MotionsDias key={aMotionDias.motionChosen + index} aMotionDias={aMotionDias} /> ))}
+                            <MotionsDias key={aMotionDias?.motionChosen + index + "motions"} aMotionDias={aMotionDias} /> ))}
                         </div>
 
                         <div className="lineABlock">
@@ -533,7 +533,7 @@ const [searchTerm, setSearchTerm] = useState('');
                     <div className="DeadlinesBlock">
                         <div className="Deadlines">
                             {DeadlineListDias.map( (aDeadlineDias, index) => (
-                            <DeadlineDias key={aDeadlineDias.deadlineAdded + index} version={"diasHome"} aDeadlineDias={aDeadlineDias}/>
+                            <DeadlineDias key={aDeadlineDias?.deadlineAdded + index + 'deadline'} version={"diasHome"} aDeadlineDias={aDeadlineDias}/>
                             ))}
                         </div>
                         <div className="lineABlock">
@@ -571,7 +571,7 @@ const [searchTerm, setSearchTerm] = useState('');
                     </div>
                     <div className="LocationsBlock2">
                             {conferenceLocations.map( (conferenceLocation, index) => (
-                            <PriorLocations key={conferenceLocation.cLocation + index} version={"diasHome"} conferenceLocation={conferenceLocation}/>
+                            <PriorLocations key={conferenceLocation?.cLocation + index + "prior"} version={"diasHome"} conferenceLocation={conferenceLocation}/>
                             ))}
                     </div>
                     <div className="presentationButtonBlock">
@@ -589,7 +589,7 @@ const [searchTerm, setSearchTerm] = useState('');
             <div className="NotesDiasBlock">
                 <div className="NotesDiasList">
                     {notesToDiasGroups.map( (aDiasNote, index) => (
-                        <NotesToDias key={aDiasNote.noteChosen + index} aDiasNote={aDiasNote}/>
+                        <NotesToDias key={index + "note"} aDiasNote={aDiasNote}/>
                         ))}
                 </div>
             </div>

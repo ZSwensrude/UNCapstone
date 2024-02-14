@@ -17,7 +17,7 @@ const MotionsDias = ({ aMotionDias }) => {
         //console.log("Remove motion:", aMotionDias.content);
         removeMotion({ _id: aMotionDias._id }); // Call the removeSpeaker function with the correct _id
     };
-s
+
     return (
         <Paper id={'oneMotion'} elevation={0}>
             <Typography>{aMotionDias?.content ?? "Motion"}</Typography>
