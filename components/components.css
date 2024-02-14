@@ -92,6 +92,9 @@
   margin-top: 5px;
   margin-bottom: 5px;
 }
+#jjoinButton #button{
+
+}
 
 #button {
   border-radius: 30px;
@@ -273,6 +276,7 @@ p.motionText {
   display: flex;
   flex-direction: column;
   align-items: center;
+
 }
 
 
@@ -288,26 +292,20 @@ p.motionText {
 }
 
 #groupsBody {
-  position: relative;
-  padding-top: 1px;
-  padding-bottom: 1px;
-  padding-left: 2px;
-  padding-right: 2px;
-  background-color: #009EDB;
-  border-radius: 30px;
-  height: 75px;
-  width: 100%;
-  pointer-events: auto;
-}
-
-.groupHolder {
+  width: 94%;
+  padding: 0 7px;
+  height: 81%;
   overflow-y: scroll;
-  height: 95%;
-  scrollbar-width: none;
+  box-shadow: none;
+  background-color: transparent;
 }
-.groupHolder::-webkit-scrollbar {
+#groupsBody::-webkit-scrollbar {
   display: none; /* Hide scrollbar in WebKit browsers (Chrome, Safari, etc.) */
 }
+.groupHolder {
+  background-color: transparent;
+}
+
 
 
 #workingGroupBack {
@@ -320,6 +318,11 @@ p.motionText {
   flex-wrap: wrap;
   margin-bottom: 1px;
   padding-right: 10px;
+  min-height: 53px;
+  border-radius: 11px;
+  margin: 9px 0;
+  padding: 0 12px;
+  
 }
 .userInWorkingGroup{
   /* border: 5px solid #00DBD4; */
@@ -327,7 +330,7 @@ p.motionText {
 }
 
 .workingGroupFlag {
-  height: 4px;
+  height: 30px;
 }
 
 .smallFlag {
@@ -372,16 +375,19 @@ p.motionText {
 
 .workingGroupButton {
   position: absolute;
-  right: 1px;
+  right: 13px;
+  top: 0px;
 }
 
+
 #groupHolder {
-  position: fixed;
-  left: 50%;
-  top: 20%;
-  width: 40%;
+  min-width: 35em;
+  width: 30%;
+  height: 39em;
   border-radius: 30px;
-  padding: 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #groupDetails {

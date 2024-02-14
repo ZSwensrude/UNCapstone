@@ -135,12 +135,12 @@ const getCountryInfo = (countryCode) => {
   return (
     <>
       <div id='groups'>
-        <Paper id='groupsTop' elevation={4}>
+        <span id='groupsTop' elevation={4}>
           <Typography variant='h4'>
             Working Groups
           </Typography>
-        </Paper>
-        <Paper id='groupsBody' elevation={4}>
+        </span>
+        <div id='groupsBody' elevation={4}>
           
           <div className="groupHolder">
           {workingGroupsDB.map((workingGroup, index) => (
@@ -153,11 +153,10 @@ const getCountryInfo = (countryCode) => {
           ))}
 
           </div>
-
-          <div id='joinButton'>
+        </div> 
+        <div id='joinButton'>
             <CreateGroup />
           </div>
-        </Paper>
       </div>
 
       <div>
@@ -199,7 +198,8 @@ const getCountryInfo = (countryCode) => {
             </Paper>
           </>
         ) }
-      </div>
+
+      </div>      
     </>
   );
 };
