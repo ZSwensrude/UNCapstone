@@ -32,6 +32,7 @@ const DelRollCall = () => {
 
       if (existingDelegate) {
         // Update the roll call value
+        console.log("Rollcall should update here")
         delCollection.update(existingDelegate._id, { $set: { roleCall: selectedOption } });
         setOpen(false);
         navigate('/delegate');

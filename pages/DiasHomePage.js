@@ -25,6 +25,7 @@ import { insertConference, updateConferenceActiveStatus, conferenceCollection} f
 import VoteCountChart from "../components/VoteCountBox.js";
 import Countdown from 'react-countdown';
 import LogoutButton from "../components/LogoutButton.js";
+import { delCollection } from "../imports/api/delegates.js";
 
 
 function openTab(evt, tabName) {
@@ -50,30 +51,39 @@ function openTab(evt, tabName) {
 // Placeholder for Dias screen
 const DiasHome = () => {
         
-  const countries = [
-    { position: 1, countryName: 'Country A', flagPath: '/path/to/flagA.png' },
-    { position: 2, countryName: 'Country B', flagPath: '/path/to/flagB.png' },
-    // Add more countries as needed
-  ];
-  
+    const countries = [
+        { position: 1, countryName: 'Country A', flagPath: '/path/to/flagA.png' },
+        { position: 2, countryName: 'Country B', flagPath: '/path/to/flagB.png' },
+        // Add more countries as needed
+    ];
+    
 
-  const countriesLists = [
-    {
-      "countryName": "Argentina"
-    },
-    {
-      "countryName": "Canada"
-    }
-  ]
+    // const delegates = [
+    //     {
+    //     "countryName": "Argentina"
+    //     },
+    //     {
+    //     "countryName": "Canada"
+    //     }
+    // ]
 
-  var activeMotion = null;
-   //DB Communication - live pull on any change in table
-   const { motionsListDias = [] } = useTracker(() => {
-    const handler = Meteor.subscribe('motions');
-    const motionsListDias = motionCollection.find().fetch();
-    activeMotion = motionCollection.find({ active: true }).fetch();
-    return { motionsListDias };
-});
+    //DB Communication - live pull on any change in table
+    const { delegatesListDias = [] } = useTracker(() => {
+        const handler = Meteor.subscribe('delegates');
+        const delegatesListDias = delCollection.find().fetch();
+        console.log(delegatesListDias);
+        
+        return { delegatesListDias };
+    });
+
+    var activeMotion = null;
+    //DB Communication - live pull on any change in table
+    const { motionsListDias = [] } = useTracker(() => {
+        const handler = Meteor.subscribe('motions');
+        const motionsListDias = motionCollection.find().fetch();
+        activeMotion = motionCollection.find({ active: true }).fetch();
+        return { motionsListDias };
+    });
 //console.log(activeMotion);
 
 
@@ -335,8 +345,8 @@ const [searchTerm, setSearchTerm] = useState('');
                         <h5 className="titles">Present & Voting</h5>
                     </div>
                     <div className="presentAbsentBlock">
-                    {countriesLists.map( (countryList, index) => (
-                    <PresentAbsentList key={countryList?.countryName + index + "palist"} countryList={countryList}/>
+                    {delegatesListDias && delegatesListDias.map( (delegate, index) => (
+                        <PresentAbsentList key={delegate?.country + index + "palist"} delegate={delegate}/>
                     ))}
                     </div>
                 </div>
