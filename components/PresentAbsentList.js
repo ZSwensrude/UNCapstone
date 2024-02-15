@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Paper, Typography, Divider, Radio} from "@mui/material";
 import './DiasComponents.css';
 import flagsData from '../flags.json';
+import { updateDelRoll } from "../imports/api/delegates";
 
 const PresentAbsentList = ({ delegate }) => {
     const [selectedValue, setSelectedValue] = useState('');
@@ -9,7 +10,7 @@ const PresentAbsentList = ({ delegate }) => {
 
     const handleChange = (event) => {
         setSelectedValue(event.target.value);
-        console.log("changed for", countryName, "value: ", event.target.value)
+        updateDelRoll(delegate.country, event.target.value);
     };
 
     // get nicer name cause its not stored in delegate DB

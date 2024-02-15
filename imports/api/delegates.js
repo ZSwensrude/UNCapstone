@@ -24,6 +24,14 @@ export const insertDel = async ({ country, roleCall }) => {
   return true;
 };
 
+export const updateDelRoll = async ( countryToUpdate, rollCall ) => {
+  const documentToUpdate = delCollection.findOne({ country: countryToUpdate });
+  delCollection.update(
+    { _id: documentToUpdate._id},
+    { $set: { roleCall: rollCall } }
+  )
+};
+
 
 // {
 //   "_id": "MpCdfzJpT59P3FNrz",

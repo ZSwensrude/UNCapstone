@@ -71,7 +71,6 @@ const DiasHome = () => {
     const { delegatesListDias = [] } = useTracker(() => {
         const handler = Meteor.subscribe('delegates');
         const delegatesListDias = delCollection.find().fetch();
-        console.log(delegatesListDias);
         
         return { delegatesListDias };
     });
