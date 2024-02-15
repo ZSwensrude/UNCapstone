@@ -26,6 +26,7 @@ const Waiting = () => {
     //setOpenRollCall(data.rollCallOpen); // Update conference data in state
   }, []);
 
+  // tracks whether roll call should be open or not and opens/closes it
   useEffect( () => {
     if (openRollCall)
       setShowRollCall(openRollCall)

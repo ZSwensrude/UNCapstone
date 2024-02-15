@@ -1,6 +1,6 @@
 //DiasHomePage.js
 import { Typography, Paper, Dialog, DialogContent, DialogActions, DialogTitle, Radio, RadioGroup, FormGroup, FormControlLabel, Checkbox } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import { useTracker } from 'meteor/react-meteor-data';
 import { useState } from "react";
 import './DiasHomePageIndex.css';
@@ -124,6 +124,7 @@ const DiasHome = () => {
   ]
 
   const [openStatus, setOpenStatus] = React.useState(false);
+  const [rollCallButton, setRollCallButton] = React.useState('');
  
   const handleClickToOpenStatus = () => {
       setOpenStatus(true);
@@ -217,6 +218,10 @@ const [searchTerm, setSearchTerm] = useState('');
             updateRollCallStatus(_id, updatedRollCall );
         }
     };
+
+    useEffect( () => {
+        setRollCallButton(conferenceData?.rollCallOpen ? "Close Roll Call" : "Start Roll Call");
+    }, [conferenceData?.rollCallOpen]);
   
     // State variable to store motion content
     const [motionContent, setMotionContent] = useState('');
@@ -364,7 +369,7 @@ const [searchTerm, setSearchTerm] = useState('');
 
             <div className="buttonBlock1">
                 <div className="firstBlock">
-                <CoolButton onClick={updateRollCallActive} buttonText={"Start Roll Call"} buttonColor={'#FF9728'} textColor='white' />
+                <CoolButton onClick={updateRollCallActive} buttonText={rollCallButton} buttonColor={'#FF9728'} textColor='white' />
                 <CoolButton buttonText={"Export"} buttonColor={'#00DB89'} textColor='white' />
                 </div>
                 <div className="secondBlock">
