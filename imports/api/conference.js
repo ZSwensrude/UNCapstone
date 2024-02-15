@@ -3,9 +3,9 @@ import { Mongo } from 'meteor/mongo';
 
 
 export const insertConference = async ({ sessionID,delegates,dias,DMs,motions,
-    speakers,workingGroups,status, activeSpeakerList}) => {
+    speakers,workingGroups,status, activeSpeakerList, rollCallOpen }) => {
      conferenceCollection.insert({ sessionID,delegates,dias,DMs,motions,
-      speakers,workingGroups,status, activeSpeakerList });
+      speakers,workingGroups,status, activeSpeakerList, rollCallOpen });
   };
   // Example usage of conference:
   // const conference = insertConference({
@@ -46,6 +46,15 @@ export const updateConferenceActiveStatus = async ({ conferenceId, activeSpeaker
     { _id: conferenceId },
     {
       $set: { activeSpeakerList }
+    }
+  );
+};
+
+export const updateRollCallStatus = async ( conferenceId, openRollCall ) => {
+  await conferenceCollection.update(
+    { _id: conferenceId },
+    {
+      $set: { rollCallOpen: openRollCall }
     }
   );
 };

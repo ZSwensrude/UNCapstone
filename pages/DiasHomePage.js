@@ -21,7 +21,7 @@ import DiasSpeakersList from '../components/DiasSpeakersList.js';
 import { motionCollection, insertMotion, removeMotion, switchActiveMotion} from "../imports/api/motions.js";
 import { speakerCollection, removeSpeaker, insertSpeaker } from "../imports/api/speakers.js";
 import flagData from '../flags.json';
-import { insertConference, updateConferenceActiveStatus, conferenceCollection} from "../imports/api/conference.js";
+import { insertConference, updateConferenceActiveStatus, conferenceCollection, updateRollCallStatus} from "../imports/api/conference.js";
 import VoteCountChart from "../components/VoteCountBox.js";
 import Countdown from 'react-countdown';
 import LogoutButton from "../components/LogoutButton.js";
@@ -195,6 +195,7 @@ const [searchTerm, setSearchTerm] = useState('');
          const handler = Meteor.subscribe('conference');
          const data = conferenceCollection.findOne();
          setConferenceData(data); // Update conference data in state
+         console.log(data);
      }, []);
      
  //update later to get sessionID and corresponding record in conference table
@@ -203,9 +204,19 @@ const [searchTerm, setSearchTerm] = useState('');
          if (conferenceData) {
              const { _id, activeSpeakerList } = conferenceData;
              const updatedActiveStatus = !activeSpeakerList;
-             updateConferenceActiveStatus({ conferenceId: _id, activeSpeakerList: updatedActiveStatus });
+            console.log("trying to update SpeakerList: ", activeSpeakerList, "setting: ", updatedActiveStatus);
+            updateConferenceActiveStatus({ conferenceId: _id, activeSpeakerList: updatedActiveStatus });
          }
      };
+
+     const updateRollCallActive = () => {
+        if (conferenceData) {
+            const { _id, rollCallOpen } = conferenceData;
+            const updatedRollCall = !rollCallOpen;
+            console.log("trying to update rollCall: ", rollCallOpen, "setting: ", updatedRollCall);
+            updateRollCallStatus(_id, updatedRollCall );
+        }
+    };
   
     // State variable to store motion content
     const [motionContent, setMotionContent] = useState('');
@@ -353,7 +364,7 @@ const [searchTerm, setSearchTerm] = useState('');
 
             <div className="buttonBlock1">
                 <div className="firstBlock">
-                <CoolButton buttonText={"Start Roll Call"} buttonColor={'#FF9728'} textColor='white' />
+                <CoolButton onClick={updateRollCallActive} buttonText={"Start Roll Call"} buttonColor={'#FF9728'} textColor='white' />
                 <CoolButton buttonText={"Export"} buttonColor={'#00DB89'} textColor='white' />
                 </div>
                 <div className="secondBlock">
