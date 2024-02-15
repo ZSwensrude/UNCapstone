@@ -58,6 +58,15 @@ export const updateRollCallStatus = async ( conferenceId, openRollCall ) => {
     }
   );
 };
+
+export const getRollCallStatus = async ( conferenceId ) => {
+  const conference = conferenceCollection.findOne( {_id: conferenceId} )
+  if (conference) {
+    return conference.rollCallOpen;
+  }
+  return null;
+} 
+
 // Define allow rules for the update method on the conferenceCollection
 conferenceCollection.allow({
   update(userId, doc, fields, modifier) {

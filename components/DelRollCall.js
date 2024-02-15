@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Typography, Dialog, DialogTitle, DialogContent, Radio, RadioGroup, FormControlLabel, Button } from "@mui/material";
 import { useNavigate } from "react-router";
 import { Meteor } from 'meteor/meteor';
@@ -9,9 +9,6 @@ const DelRollCall = () => {
   const [selectedOption, setSelectedOption] = React.useState('');
   const navigate = useNavigate();
 
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
@@ -32,7 +29,6 @@ const DelRollCall = () => {
 
       if (existingDelegate) {
         // Update the roll call value
-        console.log("Rollcall should update here")
         delCollection.update(existingDelegate._id, { $set: { roleCall: selectedOption } });
         setOpen(false);
         navigate('/delegate');
@@ -50,7 +46,7 @@ const DelRollCall = () => {
 
   return (
     <div className="delrollcallPage">
-      <Dialog open={open} onClose={handleClose} fullWidth maxWidth="xs">
+      <Dialog open={open} fullWidth maxWidth="xs">
         <DialogTitle>
           <div className="title roll">
             <span>Roll Call</span>
