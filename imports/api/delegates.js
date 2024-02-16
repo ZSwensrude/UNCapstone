@@ -5,10 +5,9 @@ export const delCollection = new Mongo.Collection('delegates');
 
 // Define allow rules
 delCollection.allow({
-  update(userId, doc, fields, modifier) {
-    // Allow the update if the user is logged in
-    return !!userId;
-  },
+  insert: () => true, // Allow insert for all users
+  update: () => true, // Allow update for all users
+  remove: () => true, // Allow remove for all users
 });
 
 export const insertDel = async ({ country, roleCall }) => {
@@ -23,6 +22,14 @@ export const insertDel = async ({ country, roleCall }) => {
   // If the item doesn't exist, insert it into the collection
   delCollection.insert({ country, roleCall });
   return true;
+};
+
+export const updateDelRoll = async ( countryToUpdate, rollCall ) => {
+  const documentToUpdate = delCollection.findOne({ country: countryToUpdate });
+  delCollection.update(
+    { _id: documentToUpdate._id},
+    { $set: { roleCall: rollCall } }
+  )
 };
 
 

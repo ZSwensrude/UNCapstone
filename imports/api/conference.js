@@ -3,9 +3,9 @@ import { Mongo } from 'meteor/mongo';
 
 
 export const insertConference = async ({ sessionID,delegates,dias,DMs,motions,
-    speakers,workingGroups,status, activeSpeakerList}) => {
+    speakers,workingGroups,status, activeSpeakerList, rollCallOpen }) => {
      conferenceCollection.insert({ sessionID,delegates,dias,DMs,motions,
-      speakers,workingGroups,status, activeSpeakerList });
+      speakers,workingGroups,status, activeSpeakerList, rollCallOpen });
   };
   // Example usage of conference:
   // const conference = insertConference({
@@ -49,6 +49,24 @@ export const updateConferenceActiveStatus = async ({ conferenceId, activeSpeaker
     }
   );
 };
+
+export const updateRollCallStatus = async ( conferenceId, openRollCall ) => {
+  await conferenceCollection.update(
+    { _id: conferenceId },
+    {
+      $set: { rollCallOpen: openRollCall }
+    }
+  );
+};
+
+export const getRollCallStatus = async ( conferenceId ) => {
+  const conference = conferenceCollection.findOne( {_id: conferenceId} )
+  if (conference) {
+    return conference.rollCallOpen;
+  }
+  return null;
+} 
+
 // Define allow rules for the update method on the conferenceCollection
 conferenceCollection.allow({
   update(userId, doc, fields, modifier) {

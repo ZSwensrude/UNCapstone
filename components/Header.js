@@ -3,6 +3,7 @@ import './components.css';
 import { Typography, Paper } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
 import flagsData from '../flags.json';
+import LogoutButton from './LogoutButton';
 
 
 const Header = ( {version, country} ) => {
@@ -20,6 +21,8 @@ const Header = ( {version, country} ) => {
     <div id='headerbar'>
       { version === 'delegate' && (
         <>
+          <LogoutButton />
+
           <Paper id='logoback' elevation={0}>
             <img id='un' src={window.location.origin + '/images/UN_emblem_blue.png'} alt='United Nations Logo' />
           </Paper>
@@ -31,6 +34,8 @@ const Header = ( {version, country} ) => {
 
       { version === 'dias' && (
         <>
+          <LogoutButton />
+
           <Paper id='logoback' elevation={0}>
             <img id='un' src={window.location.origin + '/images/UN_emblem_blue.png'} alt='United Nations Logo' />
           </Paper>
