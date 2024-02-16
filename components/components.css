@@ -566,7 +566,8 @@ ul.countryItemList{
 #logoutButton {
   position: absolute;
   left: 24px;
-  bottom: -47px 
+  bottom: -47px;
+  z-index: 10;
 }
 
 /* ------------------------------------ */
