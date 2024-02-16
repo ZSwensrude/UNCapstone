@@ -118,9 +118,7 @@ const accounts = [];
                     <input id="conferenceCommitee" type="text" required />
                   </div>
                 </div>
-                <div className='smallLineBox'>
-                  <div className="smallLine"></div>
-                </div>
+
             </div>
 
             <div className='secondPart'>
@@ -140,9 +138,6 @@ const accounts = [];
                                 <CoolButton buttonText={"Add"} buttonColor={'#FF9728'} textColor='white' />
                             </div>
 
-                            <div className='smallerLineBox'>
-                                <div className="smallerLine"></div>
-                            </div>
 
                             {conferenceLocations.map( (conferenceLocation, index) => (
                             <PriorLocations key={conferenceLocation.cLocation + index} version={"dias"} conferenceLocation={conferenceLocation}/>
@@ -168,29 +163,23 @@ const accounts = [];
         
         <Header version={'dias'}/>
 
-        <div className="headerBar">
-            <h6 className="myConference">My Conferences</h6>
-        </div>
 
-        <div className="mainBox">
-          <div className="container">
+                  
+          <h6 className="myConference">My Conferences</h6>
+
+          <div className="confContainer">
 
           {conferenceGroups.map( (conferenceGroup, index) => (
               <MyConference key={conferenceGroup.conferenceName + index} conferenceGroup={conferenceGroup}/>
             ))}
-
-            <div className="lineBlock">
-              <div className="line">
-              </div>
-            
               <div className="buttonBlock">
               <CoolButton buttonText={"New"} onClick={handleClickToOpenConference} buttonColor={'#FF9728'} textColor='white' />
               </div>
-            </div>
             
           </div>
-        </div>
+          <div className="initialBtnBox">
         <CoolButton buttonText={"Initialize DB"} onClick={initializeDB}/>
+        </div>
 
     </div>
   );
