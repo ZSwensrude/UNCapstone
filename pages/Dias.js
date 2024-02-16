@@ -106,14 +106,14 @@ const accounts = [];
             <DialogTitle>{"Create Conference"}</DialogTitle>
             <DialogContent>
             <div className='firstPart'>
-                <div className="TitleLabel">
-                  <h6 className="header1">Title:</h6> 
+                <div className="Title ULabel">
+                  <span className="header1">Title:</span> 
                     <div className="inputBox">
                         <input id="conferenceTitle" type="text" required />
                     </div>
                 </div>
-                <div className="ComiteeLabel">
-                  <h6 className="header1">Commitee:</h6> 
+                <div className="Comitee ULabel">
+                  <span className="header1">Commitee:</span> 
                   <div className="inputBox">
                     <input id="conferenceCommitee" type="text" required />
                   </div>
@@ -148,9 +148,7 @@ const accounts = [];
                 </div>
 
                 <div className='thirdPart'>
-                    <div className='smallLineBox'>
-                        <div className="smallLine"></div>
-                    </div>
+                    
                     <div className='createConfButtons'>
                         <CoolButton buttonText={"Cancel"} onClick={handleToCloseConference} buttonColor={'#800000'} textColor='white' />
                         <CoolButton buttonText={"Create"} onClick={toDiasHome} buttonColor={'#FF9728'} textColor='white' />
