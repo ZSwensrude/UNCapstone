@@ -96,6 +96,7 @@ const WorkingGroupsList = ({ openNotification, setOpenNotification }) => {
     if (group._id) { // Check if group id exists
       // Get the id of the working group
       const WGid = group._id;
+      console.log("WGID: ",WGid);
   
       // Update the working group in the database
       workingGroupCollection.update(

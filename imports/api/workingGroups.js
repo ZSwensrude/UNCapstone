@@ -49,13 +49,11 @@ export const updateWG = async ({ groupId, name, topic, location }) => {
 export const workingGroupCollection = new Mongo.Collection('workingGroups');
 // Define allow/deny rules for the workingGroups collection
 workingGroupCollection.allow({
-  // Allow updates if the user is logged in
-  update(userId, doc, fieldNames, modifier) {
-    return !!userId; // Return true if the user is logged in
+  // Allow updates without any permission check
+  update() {
+    return true;
   }
 });
-
-
 // {
 //   "_id": "E9do2XCGcHcuY8KCn",
 //   "location": "invite lco",

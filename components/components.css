@@ -443,9 +443,9 @@ p.motionText {
 
 .notifications {
   position: fixed;
-  right: 1%;
-  top: 11%;
-  z-index: 2;
+  right: 4em;
+  top: 8em;
+  z-index: 3;
 }
 
 #notificationContent {
