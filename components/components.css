@@ -557,6 +557,12 @@ ul.countryItemList{
   cursor: pointer;
 }
 
+#logoutButton {
+  position: absolute;
+  left: 5%;
+  top: 5%;
+}
+
 
 /* ------------------------------------ */
 img#itemflag {

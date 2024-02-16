@@ -34,9 +34,9 @@ workingGroupCollection.allow({
 
 //use these for pre-loaded data
 export const insertConference = async ({ sessionID,delegates,dias,DMs,motions,
-  speakers,workingGroups,status, activeSpeakerList}) => {
+  speakers,workingGroups,status, activeSpeakerList, rollCallOpen}) => {
    conferenceCollection.insert({ sessionID,delegates,dias,DMs,motions,
-    speakers,workingGroups,status, activeSpeakerList });
+    speakers,workingGroups,status, activeSpeakerList, rollCallOpen });
 };
 export const updateConferenceActiveStatus = async ({ conferenceId, activeSpeakerList }) => {
   await conferenceCollection.update(

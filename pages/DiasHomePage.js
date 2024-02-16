@@ -1,6 +1,6 @@
 //DiasHomePage.js
 import { Typography, Paper, Dialog, DialogContent, DialogActions, DialogTitle, Radio, RadioGroup, FormGroup, FormControlLabel, Checkbox } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import { useTracker } from 'meteor/react-meteor-data';
 import { useState } from "react";
 import './DiasHomePageIndex.css';
@@ -21,9 +21,11 @@ import DiasSpeakersList from '../components/DiasSpeakersList.js';
 import { motionCollection, insertMotion, removeMotion, switchActiveMotion} from "../imports/api/motions.js";
 import { speakerCollection, removeSpeaker, insertSpeaker } from "../imports/api/speakers.js";
 import flagData from '../flags.json';
-import { insertConference, updateConferenceActiveStatus, conferenceCollection} from "../imports/api/conference.js";
+import { insertConference, updateConferenceActiveStatus, conferenceCollection, updateRollCallStatus} from "../imports/api/conference.js";
 import VoteCountChart from "../components/VoteCountBox.js";
 import Countdown from 'react-countdown';
+import LogoutButton from "../components/LogoutButton.js";
+import { delCollection } from "../imports/api/delegates.js";
 
 
 function openTab(evt, tabName) {
@@ -49,30 +51,38 @@ function openTab(evt, tabName) {
 // Placeholder for Dias screen
 const DiasHome = () => {
         
-  const countries = [
-    { position: 1, countryName: 'Country A', flagPath: '/path/to/flagA.png' },
-    { position: 2, countryName: 'Country B', flagPath: '/path/to/flagB.png' },
-    // Add more countries as needed
-  ];
-  
+    const countries = [
+        { position: 1, countryName: 'Country A', flagPath: '/path/to/flagA.png' },
+        { position: 2, countryName: 'Country B', flagPath: '/path/to/flagB.png' },
+        // Add more countries as needed
+    ];
+    
 
-  const countriesLists = [
-    {
-      "countryName": "Argentina"
-    },
-    {
-      "countryName": "Canada"
-    }
-  ]
+    // const delegates = [
+    //     {
+    //     "countryName": "Argentina"
+    //     },
+    //     {
+    //     "countryName": "Canada"
+    //     }
+    // ]
 
-  var activeMotion = null;
-   //DB Communication - live pull on any change in table
-   const { motionsListDias = [] } = useTracker(() => {
-    const handler = Meteor.subscribe('motions');
-    const motionsListDias = motionCollection.find().fetch();
-    activeMotion = motionCollection.find({ active: true }).fetch();
-    return { motionsListDias };
-});
+    //DB Communication - live pull on any change in table
+    const { delegatesListDias = [] } = useTracker(() => {
+        const handler = Meteor.subscribe('delegates');
+        const delegatesListDias = delCollection.find().fetch();
+        
+        return { delegatesListDias };
+    });
+
+    var activeMotion = null;
+    //DB Communication - live pull on any change in table
+    const { motionsListDias = [] } = useTracker(() => {
+        const handler = Meteor.subscribe('motions');
+        const motionsListDias = motionCollection.find().fetch();
+        activeMotion = motionCollection.find({ active: true }).fetch();
+        return { motionsListDias };
+    });
 //console.log(activeMotion);
 
 
@@ -114,6 +124,7 @@ const DiasHome = () => {
   ]
 
   const [openStatus, setOpenStatus] = React.useState(false);
+  const [rollCallButton, setRollCallButton] = React.useState('');
  
   const handleClickToOpenStatus = () => {
       setOpenStatus(true);
@@ -185,6 +196,7 @@ const [searchTerm, setSearchTerm] = useState('');
          const handler = Meteor.subscribe('conference');
          const data = conferenceCollection.findOne();
          setConferenceData(data); // Update conference data in state
+         console.log(data);
      }, []);
      
  //update later to get sessionID and corresponding record in conference table
@@ -193,9 +205,23 @@ const [searchTerm, setSearchTerm] = useState('');
          if (conferenceData) {
              const { _id, activeSpeakerList } = conferenceData;
              const updatedActiveStatus = !activeSpeakerList;
-             updateConferenceActiveStatus({ conferenceId: _id, activeSpeakerList: updatedActiveStatus });
+            console.log("trying to update SpeakerList: ", activeSpeakerList, "setting: ", updatedActiveStatus);
+            updateConferenceActiveStatus({ conferenceId: _id, activeSpeakerList: updatedActiveStatus });
          }
      };
+
+     const updateRollCallActive = () => {
+        if (conferenceData) {
+            const { _id, rollCallOpen } = conferenceData;
+            const updatedRollCall = !rollCallOpen;
+            console.log("trying to update rollCall: ", rollCallOpen, "setting: ", updatedRollCall);
+            updateRollCallStatus(_id, updatedRollCall );
+        }
+    };
+
+    useEffect( () => {
+        setRollCallButton(conferenceData?.rollCallOpen ? "Close Roll Call" : "Start Roll Call");
+    }, [conferenceData?.rollCallOpen]);
   
     // State variable to store motion content
     const [motionContent, setMotionContent] = useState('');
@@ -264,6 +290,8 @@ const [searchTerm, setSearchTerm] = useState('');
 
   return (
     <div className="HomePageDias">
+      <LogoutButton />
+
         
         <div className="diasBar">
             <Paper id='logoback' elevation={0}>
@@ -332,8 +360,8 @@ const [searchTerm, setSearchTerm] = useState('');
                         <h5 className="titles">Present & Voting</h5>
                     </div>
                     <div className="presentAbsentBlock">
-                    {countriesLists.map( (countryList, index) => (
-                    <PresentAbsentList key={countryList?.countryName + index + "palist"} countryList={countryList}/>
+                    {delegatesListDias && delegatesListDias.map( (delegate, index) => (
+                        <PresentAbsentList key={delegate?.country + index + "palist"} delegate={delegate}/>
                     ))}
                     </div>
                 </div>
@@ -341,7 +369,7 @@ const [searchTerm, setSearchTerm] = useState('');
 
             <div className="buttonBlock1">
                 <div className="firstBlock">
-                <CoolButton buttonText={"Start Roll Call"} buttonColor={'#FF9728'} textColor='white' />
+                <CoolButton onClick={updateRollCallActive} buttonText={rollCallButton} buttonColor={'#FF9728'} textColor='white' />
                 <CoolButton buttonText={"Export"} buttonColor={'#00DB89'} textColor='white' />
                 </div>
                 <div className="secondBlock">

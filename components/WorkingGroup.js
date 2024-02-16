@@ -4,21 +4,19 @@ import CoolButton from "./CoolButton";
 import './components.css'
 import flagsData from '../flags.json';
 
-
-
 const WorkingGroup = ({ workingGroup, chooseGroup, isInUserCountry }) => {
   // Function to get the flag path for a given country code
-const getFlagPath = (countryCode) => {
-  if (!countryCode || !countryCode.country) return null; // Ensure countryCode is valid
-  const country = flagsData.countries.find(country => country.country.toLowerCase() === countryCode.country.toLowerCase());
-  return country ? country.flagPath : null;
-};
+  const getFlagPath = (countryCode) => {
+    if (!countryCode || !countryCode.country) return null; // Ensure countryCode is valid
+    const country = flagsData.countries.find(country => country.country.toLowerCase() === countryCode.country.toLowerCase());
+    return country ? country.flagPath : null;
+  };
 
-const getFlagName = (countryCode) => {
-  if (!countryCode || !countryCode.country) return null; // Ensure countryCode is valid
-  const country = flagsData.countries.find(country => country.country.toLowerCase() === countryCode.country.toLowerCase());
-  return country ? country.name : null;
-};
+  const getFlagName = (countryCode) => {
+    if (!countryCode || !countryCode.country) return null; // Ensure countryCode is valid
+    const country = flagsData.countries.find(country => country.country.toLowerCase() === countryCode.country.toLowerCase());
+    return country ? country.name : null;
+  };
 
   // Handles when the user clicks on the "view group" button
   const onClick = () => {

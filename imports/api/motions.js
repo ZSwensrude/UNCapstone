@@ -26,14 +26,9 @@ export const switchActiveMotion = async (motionId) => {
 
 // Define allow rules
 motionCollection.allow({
-  update(userId, doc, fields, modifier) {
-    // Allow the update if the user is logged in
-    return !!userId;
-  },
-  remove(userId) {
-    // Allow the remove operation if the user is logged in
-    return !!userId;
-},
+  insert: () => true, // Allow insert for all users
+  update: () => true, // Allow update for all users
+  remove: () => true, // Allow remove for all users
 });
 
 

@@ -137,7 +137,7 @@ const { SpeakersListActive } = useTracker(() => {
         ) : (
           // and here is the informal
           <>
-            <WorkingGroupsList />
+            <WorkingGroupsList openNotification={openNotification} setOpenNotification={setOpenNotification} />
             <div className="notifications">
               {unreadNotifications ? (
                 <NotificationsActiveIcon className="notifIcon" style={{ fontSize: '56px', color: '#cb0000' }} onClick={notificationClick} />
