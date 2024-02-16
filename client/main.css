@@ -92,7 +92,7 @@ img#un,
     align-items: center;
   }
   .waitingList{
-    column-count: 2;
+    column-count: unset;
   }
 }
 
@@ -103,9 +103,7 @@ img#un,
   .homecontainer svg{
     display: none;
   }
-  .waitingList{
-    column-count: 1;
-  }
+
 }
 
 @media screen and (max-width: 700px) {
