@@ -227,8 +227,8 @@ p.motionText {
 
 .modalContent {
   border-radius: 30px;
-  height: 40%;
-  width: 40%;
+  height: 30em;
+  width: 45em;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -289,6 +289,8 @@ p.motionText {
   margin-bottom: 1.5px;
   border-radius: 30px;
   width: fit-content;
+  margin-top: 13px;
+
 }
 
 #groupsBody {
@@ -334,13 +336,13 @@ p.motionText {
 }
 
 .smallFlag {
-  height: 4px;
+  height: 55px;
   margin: 6px;
   transition: transform 0.3s ease;
 }
 
 .selectedFlag {
-  height: 4px;
+  height: 55px;
   transition: transform 0.3s ease;
   border: solid 6px #009EDB
 }
@@ -377,6 +379,7 @@ p.motionText {
   position: absolute;
   right: 13px;
   top: 0px;
+  z-index: 0;
 }
 
 
@@ -395,6 +398,7 @@ p.motionText {
   justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
+  margin-top: 10px;
 }
 
 #extraDetails {
@@ -424,16 +428,18 @@ p.motionText {
   flex-direction: row;
   align-items: center;
   margin: 1px;
-  width: 40px;
+  width: 18em;
   justify-content: flex-end;
 }
-
+.textInput p:first-of-type{
+  width: 120px;
+}
 .flagList {
   display: flex;
   flex-wrap: wrap;
   overflow-y: scroll;
   width: 100%;
-  height: 30px;
+  height: 13em;
   scrollbar-width: none;
 }
 
@@ -449,14 +455,14 @@ p.motionText {
 }
 
 #notificationContent {
-  position: fixed;
-  right: 1%;
-  top: 11%;
+  position: absolute;
+  right: 1em;
+  top: 4em;
   z-index: 1;
   padding-top: 8px;
-  width: 32%;
+  width: 31em;
   border-radius: 30px;
-  max-height: 80%;
+  max-height: 42em;
   overflow-y: scroll;
   scrollbar-width: none;
 }
@@ -559,10 +565,9 @@ ul.countryItemList{
 
 #logoutButton {
   position: absolute;
-  left: 5%;
-  top: 5%;
+  left: 24px;
+  bottom: -47px 
 }
-
 
 /* ------------------------------------ */
 img#itemflag {
@@ -592,7 +597,7 @@ img#itemflag {
 }
 .country.in.queue {
   background: #ffff;
-  margin-top: 10px;
+  margin-top: 28px;
   border-radius: 10px;
   padding: 15px;
   width: 95%;
@@ -627,3 +632,5 @@ img#itemflag {
 span.MuiTypography-root.MuiTypography-body1.MuiFormControlLabel-label.css-xvf5in-MuiTypography-root{
   color:black;
 }
+
+

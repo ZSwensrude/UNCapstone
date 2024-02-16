@@ -24,7 +24,8 @@ export const insertWG = async ({ countries, location, topic, name }) => {
     }
   } catch (error) {
     console.error('Error inserting/updating working group:', error);
-    throw error; // Re-throw the error to handle it in the calling code if necessary
+    //throw error; // Re-throw the error to handle it in the calling code if necessary
+    return "error";
   }
 };
   
