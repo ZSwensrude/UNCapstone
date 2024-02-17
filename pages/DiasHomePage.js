@@ -86,14 +86,41 @@ const DiasHome = () => {
 //console.log(activeMotion);
 
 
-  const DeadlineListDias = [
-    {
-        "deadlineAdded": "Working Paper Third Draft: 2pm"
-    },
-    {
-        "deadlineAdded": "Amendment Form Due: 4pm"
-    }
-  ]
+    const DeadlineListDias = [
+        {
+            "deadlineAdded": "Working Paper Third Draft: 2pm"
+        },
+        {
+            "deadlineAdded": "Working Paper Third Draft: 2pm"
+        },
+        {
+            "deadlineAdded": "Working Paper Third Draft: 2pm"
+        },
+        {
+            "deadlineAdded": "a"
+        },
+        {
+            "deadlineAdded": "b"
+        },
+        {
+            "deadlineAdded": "c"
+        },
+        {
+            "deadlineAdded": "d"
+        },
+        {
+            "deadlineAdded": "e"
+        },
+        {
+            "deadlineAdded": "f"
+        },
+        {
+            "deadlineAdded": "Working Paper Third Draft: 2pm"
+        },
+        {
+            "deadlineAdded": "Amendment Form Due: 4pm"
+        }
+      ]
 
   const conferenceLocations = [
     {

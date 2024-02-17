@@ -39,44 +39,9 @@ body {
   .DeadlinesTitleBlock {
     display: flex;
     justify-content: center;
-    margin-block-start: 1.5px;
-  }
+    margin-top: 7px;  }
 
-  .DeadlinesTitle {
-  background: #009edb;
-    color: white;
-    border-radius: 30px;
-    border-color: #009edb;
-    width: 25px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: medium;
-    height: 7px;
-  } 
 
-  .DeadlinesBlock {
-    width: 60px;
-    height: 35px;
-    display:block;
-    background: #009edb;
-    border-radius: 30px;
-    border-style: solid;
-    border-color: #009edb;
-    margin-block-start: 2px;
-  }
-
-  .timerBlock2 {
-    width: 60px;
-    height: 35px;
-    display:block;
-    background: white;
-    border-radius: 30px;
-    border-style: solid;
-    border-color: white;
-    margin-bottom:1.5px;
-    margin-block-start: 2px;
-  }
 
   .BackInSessionBlock{
     display:flex;

@@ -142,9 +142,9 @@ body {
   }
 
   .FormalBlock, .InformalBlock {
-    display:flex;
+    display: flex;
     margin-block-start: 11px;
-    justify-content: center;
+    justify-content: space-evenly;
     height: 100%;
   }
 #diasspeakers{
@@ -196,7 +196,7 @@ body {
     width: 100%;
   }
 
-  .Timer {
+  .Timer, .timerBlock2{
     width: 100%;
     height: 5em;
     background-color: white;
@@ -285,7 +285,7 @@ body {
     margin-left: 1px;
     margin-bottom: 1.5px;
   }
-  .DeleteMotion{
+  .DeleteMotion, .DeleteSpeaker{
     height: 38px;
     color: red;
     background: none;
@@ -296,47 +296,44 @@ body {
   }
 
   .DeadlinesBlock {
-    width: 60px;
-    height: 35px;
+    width: 100%;
+    height: 26.81em;
     display:block;
     background: #009edb;
     border-radius: 30px;
-    border-style: solid;
-    border-color: #009edb;
-    margin-block-start: 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 9px;
+    margin-top: 4px;
+  }
+  .Deadlines{
+    width: 85%;
+    height: 12em;
   }
 
   .WorkingGroupBlock2 {
-    width: 75px;
-    height: 68px;
-    display:block;
+    width: 100%;
+    height: 38em;
+    display: block;
     background: #009edb;
     border-radius: 30px;
-    border-style: solid;
-    border-color: #009edb;
-    margin-block-start: 2px;
-    margin-left:10px;
+    margin-top: 5px;
   }
 
   .LocationsBlock2 {
-    width: 50px;
-    height: 68px;
-    display:block;
+    width: 100%;
+    height: 38em;
+    display: block;
     background: #009edb;
     border-radius: 30px;
-    border-style: solid;
-    border-color: #009edb;
-    margin-block-start: 2px;
-    margin-left:2px;
-    margin-bottom: 2px;
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
   }
 
-  /* .MotionInput {
-    height: 4px;
-    min-width: 70px;
-    max-width: 70px;
-    background-color:lightgrey;
-  } */
   .motionsAdded{
     overflow-y: scroll;
     height: 160px;
@@ -386,17 +383,7 @@ body {
 .motion.content{
   font-size: 20px;
 }
-  .timerBlock2 {
-    width: 60px;
-    height: 25px;
-    display:block;
-    background: white;
-    border-radius: 30px;
-    border-style: solid;
-    border-color: white;
-    margin-bottom:1.5px;
-    margin-block-start: 2px;
-  }
+
 
   .speakerTimerTitle {
     margin-block-start: 1px;
@@ -407,7 +394,9 @@ body {
   .timerLogos, .DeadlinesAndTimerBlock, .WorkingGroupsBlock, .LocationsAndPresentationBlock {
     display: block;
   }
-
+  .DeadlinesAndTimerBlock, .WorkingGroupsBlock, .LocationsAndPresentationBlock{
+    width: 30%;
+  }
   .presentationButtonBlock {
     display: flex;
     justify-content: flex-end;

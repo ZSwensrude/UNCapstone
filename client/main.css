@@ -94,8 +94,7 @@ img#un,
 /* dias */
   .FormalBlock{
     flex-direction: column;
-    align-items: center;
-  
+    align-items: center;  
   }
  #Formal{
   margin-top: 54em ;
