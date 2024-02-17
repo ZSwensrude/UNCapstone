@@ -54,15 +54,18 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;  
+    width: 500px;
+    padding-bottom: 13px;
   }
 .ULabel{
   display: flex;
   flex-direction: row;
+  margin: 3px 0;
 }
-
-
   #diasspeakers .queuebox{    
     overflow-y: scroll;
+    height: 458px;
+    padding-bottom: 4px;
   }
   #diasspeakers .queuebox{
     justify-content: space-between;
@@ -75,4 +78,63 @@ body {
     bottom: -7em;
     z-index: 10;
     position: relative;
+  }
+  .locationBox,.secondPart{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .locationBoxBlock{
+    background: #009edb;
+    border-radius: 30px;
+    min-width: 80%;
+    min-height: 24em;
+  }
+  .locationInputBox{
+    margin: 11px 0;
+    width: 90%;
+    display: flex;
+    justify-content: center;  
+  }
+
+  .createConfButtons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+  #onePriorLocation{
+    width: 95%;
+    margin: 2px 0;
+  }
+  .createConfDialog {
+    min-width: 17em;
+  }
+  .presetLoc{
+    font-size: 23px !important;
+  }
+  .createConfDialog span{
+  }
+  .createConfDialog .ULabel span{
+    font-size: 20px;
+    width: 94px;
+    text-align: right;
+    margin-right: 8px;
+  }
+  .createConfDialog  input{
+    font-size: 20px;
+    width: 220px;
+  }
+
+   h2.creatdialogtitle {
+    font-size: 20px;
+    text-align: center;
+  }
+  .addButtonBox{
+    width: 90%;    
+    border-bottom: 3px solid black;
+    display: flex;
+    margin-bottom: 22px;
+    padding-bottom: 13px;
+    flex-direction: column;
+    align-items: center;
   }

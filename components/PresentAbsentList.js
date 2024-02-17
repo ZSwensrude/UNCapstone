@@ -24,36 +24,41 @@ const PresentAbsentList = ({ delegate }) => {
     }, [delegate.roleCall])
 
     return (
-        <Paper id={'oneCountry'} elevation={0}>
-            <Typography>{countryName ?? "Name"}</Typography>
-            <Divider orientation="vertical"  flexItem sx={{ marginRight:'10px', marginLeft:'10px' }} />
-            <Radio
-                checked={selectedValue === 'absent'}
-                onChange={handleChange}
-                value="absent"
-                name="radio-buttons"
-                inputProps={{ 'aria-label': 'absent' }}
-                color="orange"
-            />
-            <Divider orientation="vertical"  flexItem sx={{ marginRight:'10px', marginLeft:'10px' }} />
-            <Radio
-                checked={selectedValue === 'present'}
-                onChange={handleChange}
-                value="present"
-                name="radio-buttons"
-                inputProps={{ 'aria-label': 'present' }}
-                color="orange"
-            />
-            <Divider orientation="vertical"  flexItem sx={{ marginRight:'10px', marginLeft:'10px' }} />
-            <Radio
-                checked={selectedValue === 'presentAndVoting'}
-                onChange={handleChange}
-                value="presentAndVoting"
-                name="radio-buttons"
-                inputProps={{ 'aria-label': 'presentAndVoting' }}
-                color="orange"
-            />
-        </Paper>
+        <tr>
+            <td>
+                <Typography>{countryName ?? "Name"}</Typography>
+            </td>
+            <td>
+                <Radio
+                    checked={selectedValue === 'absent'}
+                    onChange={handleChange}
+                    value="absent"
+                    name="radio-buttons"
+                    inputProps={{ 'aria-label': 'absent' }}
+                    color="orange"
+                />
+            </td>
+            <td>
+                <Radio
+                    checked={selectedValue === 'present'}
+                    onChange={handleChange}
+                    value="present"
+                    name="radio-buttons"
+                    inputProps={{ 'aria-label': 'present' }}
+                    color="orange"
+                />
+            </td>
+            <td>
+                <Radio
+                    checked={selectedValue === 'presentAndVoting'}
+                    onChange={handleChange}
+                    value="presentAndVoting"
+                    name="radio-buttons"
+                    inputProps={{ 'aria-label': 'presentAndVoting' }}
+                    color="orange"
+                />
+            </td>
+        </tr>
     );
 }
 

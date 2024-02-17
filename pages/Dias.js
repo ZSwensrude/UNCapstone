@@ -102,9 +102,9 @@ const accounts = [];
   return (
     <div className="fullPage">
         
-        <Dialog open={openConference} onClose={handleToCloseConference}>
-            <DialogTitle>{"Create Conference"}</DialogTitle>
-            <DialogContent>
+        <Dialog className="createConfDialog" open={openConference} onClose={handleToCloseConference}>
+            <DialogTitle className="creatdialogtitle">{"Create Conference"}</DialogTitle>
+            <DialogContent >
             <div className='firstPart'>
                 <div className="Title ULabel">
                   <span className="header1">Title:</span> 
@@ -123,9 +123,7 @@ const accounts = [];
 
             <div className='secondPart'>
 
-                    <div className='PresetLocationsTitleBlock'>
-                        <div className='title2'>Preset Locations</div>       
-                    </div>
+                        <span className='presetLoc'>Preset Locations</span>       
 
                     <div className="locationBoxBlock">
                         <div className='locationBox'>
@@ -147,14 +145,11 @@ const accounts = [];
                     </div>
                 </div>
 
-                <div className='thirdPart'>
                     
                     <div className='createConfButtons'>
                         <CoolButton buttonText={"Cancel"} onClick={handleToCloseConference} buttonColor={'#800000'} textColor='white' />
                         <CoolButton buttonText={"Create"} onClick={toDiasHome} buttonColor={'#FF9728'} textColor='white' />
                     </div>
-                </div>
-
               
             </DialogContent>
         </Dialog>

@@ -1,25 +1,36 @@
+#settings{
+  display: none;
+}
 body {
     display:flex;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     background-color: #EFEFEF;
   }
+  .HomePageDias{
+    height: 100%;
+    width: 100%;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
   
   .diasBar {
-    position: fixed;
+    position: absolute;
     display: flex;
     top: 0;
     left: 0;
     width: 100%;
     background-color: #009EDB;
     color: white;
-    height: 8px;
+    height: 7em;
     padding: 1px;
   }
 
   .diasTabs{
-    width: 185px;
+    width: 80%;
     display: flex;
-    justify-content: center;
+    /* justify-content: space-evenly; */
   }
 
   /* Style the tab */
@@ -39,7 +50,8 @@ body {
     cursor: pointer;
     padding: 2.5px 5px;
     transition: 0.3s;
-    font-size: 3px;
+    font-size: 20px;
+    width: 10em;
   }
   
   /* Change background color of buttons on hover */
@@ -54,94 +66,74 @@ body {
   
   .tabcontent {
     display:none;
+    height: 100%;
+    margin-top: 127px;
+    }
+
+  .statusButton{
+    background: #00DBD4;
+    border-radius: 30px;
+    border: 1px solid black;
+    height: 79px;
+    top: 11%;
+    position: absolute;
+    right: 2%;
+    width: 86px;
+    font-size: 19px;
   }
 
-  /* Style the tab content */
-  .RollCall.tabcontent {
-    display: flex;
-    justify-content: center;
-    padding: 3px 5px;
-  }
+  /* Style the tab content */    
+  /* roll call page */
+ 
 
-  .statusButton {
-      background-color: #00DBD4;
-      border-radius: 30px;
+  .rollCallTable{
+    width: 80%;
+    margin-top: 5px;
+    background: #ffff;
+    border-radius: 30px;
+  }  
+  .searchBox{
+    height: 30px;
+    font-size: 20px;
+    width: 60%;
   }
-
-  .RollCallBlock, .NotesDiasBlock {
-    display: flex;
-    justify-content: center;
-    margin-block-start: 11px;
-  }
-
-  .RollCallList, .NotesDiasList {
-    width: 170px;
-    height: 70px;
-    display:block;
-    background: white;
-    border-style: solid;
-    border-color: #009edb;
-  }
-
-  .searchBlock {
-    height: 8px;
-    display:flex;
-    background: white;
-    border-bottom-style: solid;
-    border-bottom-color: #009edb;
-    justify-content: center;
-  }
-
-  .searchBox {
-    width: 160px;
-    height: 5px;
-    background: #E8E8E8;
-    margin-top: 4px;
-    border-color: #E8E8E8;
-  }
-
-  .titleBlock {
-    height: 6px;
-    display:flex;
-    background: white;
-    border-bottom-style: solid;
-    border-bottom-color: #009edb;
-    justify-content: center;
-    
-  }
-
-  .titles {
-        font-weight: lighter;
-        display:flex;
-        margin-top: 1px;
-        margin-bottom: 1px;
-        margin-left: 3px;
-        margin-right: 3px;
-        width: 40px;
-        justify-content: center;   
-  }
-
-  .presentAbsentBlock {
+  .searchBlock{
+    width: 80%;
     height: 40px;
-    background: white;
+    padding-top: 11px;
   }
-
-  .firstBlock {
-    width: 170px;
-    display:flex;
-    justify-content: space-between;
-    margin-top: 2px;
-    margin-bottom: 2px;
-    margin-left: 0px;
+  .RollCallList{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
+  .rollCallTable tr:nth-child(even){
+    background: #ebebeb;
+  }
+  .rollCallTable td{
+    padding:0;
+    margin:0;
+  }
+  .titles{
+    padding: 0;
+    border-spacing: 0;
+    font-size: 20px;
+    text-decoration: underline;
+  }
+  .buttonBlock1{    
+    /* width: 100%; */
+    display: flex;
+    justify-content: space-around;
+  }
+  .firstBlock{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    }
 
   .secondBlock {
-    width: 170px;
-    display:flex;
-    justify-content: flex-start;
-    margin-top: 2px;
-    margin-bottom: 2px;
-    margin-left: 0px;
+    
   }
 
   .logos, .Formal.tabcontent, .SpeakerListButtonBlock, .currentlySpeakingAndControl, .controlTitleBlock, .BackInSessionBlock{
@@ -152,35 +144,46 @@ body {
   .FormalBlock, .InformalBlock {
     display:flex;
     margin-block-start: 11px;
+    justify-content: center;
+    height: 100%;
   }
-
+#diasspeakers{
+  overflow:hidden;
+}
+.MotionsBlock{
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+}
   .MotionsBlock, .SpeakerListBlock {
     display:block;
     margin-bottom: 2px;
+    width: 42%;
   }
 
-  .SpeakersListButton, .DeadlinesTitle, .WorkingGroupTitle, .LocationTitle {
+  .SpeakersListButton, .DeadlinesTitle, .WorkingGroupTitle, .LocationTitle, .MotionsButton {
     background: #009edb;
     color: white;
     border-radius: 30px;
     border-color: #009edb;
-    width: 25px;
+    width: 211px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: medium;
-    height: 7px;
+    font-size: 24px;
+    height: 2em;
   } 
 
-  .currentlySpeaking, .control {
-    width: 60px;
-    height: 75px;
-    display:block;
+  .currentlySpeaking, .control {    
+    width: 100%;
+    height: 38em;
+    display: block;
     background: #009edb;
     border-radius: 30px;
     border-style: solid;
     border-color: #009edb;
     margin: 1.5px;
+    padding-top: 18px;
   }
 
   .SpeakerTimerBlock, .TimeBlock {
@@ -188,18 +191,31 @@ body {
     justify-content: center;
     margin-block-start: 1px;
   }
-
-  .Timer {
-    width: 50px;
-    height:20px;
-    background-color: white;
-    border-radius: 30px;
+  .TimeBlock{
+    height: 6em;
+    width: 100%;
   }
 
+  .Timer {
+    width: 100%;
+    height: 5em;
+    background-color: white;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+.Timer span{
+  font-size: 35px;
+}
   .controlTitle {
     margin-block-start: 1px;
-    color:white;
-    font-size: medium;
+    color: white;
+    font-size: 21px;
+    font-weight: 500;
+  }
+  .controlTitle.last{
+    margin-bottom: 1px;
   }
 
 .BackInSessionTitle {
@@ -208,19 +224,33 @@ body {
     font-size: medium;
     font-weight: bold;
 }
-
-  .lineABlock,.controlInputBox, .addMotionBox, .addButtonBlock, .MotionsButtonBlock, 
+.addButtonBlock{
+  margin-bottom: 10px;
+}
+  .controlInputBox, .addMotionBox, .addButtonBlock, .MotionsButtonBlock, 
   .DeadlinesTitleBlock, .addDeadlinesBox, .WorkingGroupTitleBlock, .LocationTitleBlock {
     display: flex;
     justify-content: center;
     margin-block-start: 1.5px;
   }
-
+  .addMotionBox{
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+  }
+  .MotionsButtonBlock{
+    margin-bottom: 2px;
+  }
+  .MotionInput{
+    width: 73%;
+    height: 30px;
+    font-size: 16px;
+  }
   .controlInput {
-    height: 4px;
-    min-width: 50px;
+    height: 35px;
+    min-width: 90%;
     max-width: 50px;
-    background-color:lightgrey;
+    background-color: #fff;
   }
 
   .lineA {
@@ -235,23 +265,18 @@ body {
     justify-content: space-evenly;
     margin-block-start: 1.5px;
   }
-
-  .MotionsButton {
-    background: #009edb;
-    color: white;
-    border-radius: 30px;
-    border-color: #009edb;
-    width: 25px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: medium;
-    height: 7px;
+  .clearAndCloseButtonBlock{
+    margin-bottom: 15em ;
+  }
+  .clearAndCloseButtonBlock #button{
+    font-size: 10px;
   }
 
+
+
   .motionBlock {
-    width: 78px;
-    height: 43px;
+    width: 72%;
+    height: 23em;
     display:block;
     background: #009edb;
     border-radius: 30px;
@@ -259,6 +284,15 @@ body {
     border-color: #009edb;
     margin-left: 1px;
     margin-bottom: 1.5px;
+  }
+  .DeleteMotion{
+    height: 38px;
+    color: red;
+    background: none;
+    border: none;
+    font-size: 31px;
+    font-weight: bold;
+    float: right;    
   }
 
   .DeadlinesBlock {
@@ -305,7 +339,10 @@ body {
   } */
   .motionsAdded{
     overflow-y: scroll;
-    height: 190px;
+    height: 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   .motionsAdded::-webkit-scrollbar{
     display: none;
@@ -335,17 +372,20 @@ body {
   }
 
   .MotionSummaryBlock {
-    width: 78px;
-    height: 30px;
-    display:block;
+    width: 60%;
+    height: 12em;
+    display: flex;
     background: white;
     border-radius: 30px;
     border-style: solid;
     border-color: white;
-    margin-left: 1px;
-    margin-bottom:1.5px;
+    margin: 8px 0 0 0;
+    flex-direction: column;
+    align-items: center;
   }
-
+.motion.content{
+  font-size: 20px;
+}
   .timerBlock2 {
     width: 60px;
     height: 25px;
@@ -385,6 +425,8 @@ body {
     max-height: 16rem;
     overflow-y: scroll;
   }
+  
   .diasspeakers #speakersListCountry::-webkit-scrollbar {
     display: none; /* Hide scrollbar in WebKit browsers (Chrome, Safari, etc.) */
   }
+

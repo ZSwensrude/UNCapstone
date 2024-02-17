@@ -8,12 +8,21 @@ body {
 
 
 .default {
+  /* position: absolute;
+  width: 99%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: -10; */
   position: absolute;
   width: 99%;
   display: flex;
   flex-direction: column;
   align-items: center;
   z-index: -10;
+  /* height: 93%; */
+  height: 53em;
+
 }
 
 
@@ -34,6 +43,11 @@ img#un,
 .logo img
 {
   border: none;
+}
+
+@media screen and (max-width: 1750px) {
+
+
 }
 
 @media screen and (max-width: 1550px) {
@@ -77,6 +91,25 @@ img#un,
     min-height: 25em;
     right: 0;
   }
+/* dias */
+  .FormalBlock{
+    flex-direction: column;
+    align-items: center;
+  
+  }
+ #Formal{
+  margin-top: 54em ;
+ }
+ .MotionsBlock, .SpeakerListBlock{
+  width: 80%;
+ }
+ .motionBlock{
+  width: 90%;
+  height: 30em;
+ }
+ .motionsAdded{
+  height: 290px;
+ }
 
 }
 
@@ -94,6 +127,9 @@ img#un,
   .waitingList{
     column-count: unset;
   }
+  .statusButton{
+    top: 122px;
+    height: 37px;  }
 }
 
 @media screen and (max-width: 900px) {
@@ -103,8 +139,36 @@ img#un,
   .homecontainer svg{
     display: none;
   }
+  .confContainer {
+    width: 80%;
+  }
+  #un{
+    height: 50px;
+  }
 
 }
+
+@media screen and (max-width: 800px) {
+  #Formal{
+    margin-top: 14em
+  }
+  .FormalBlock{
+    justify-content: unset;
+  }
+  .currentlySpeakingAndControl{
+    flex-direction: column;
+    align-items: center;
+    justify-content: unset;
+  }
+  #logoutButton{
+    left: 3px;
+    top: 116px;
+  }
+  .motionBlock{
+
+  }
+}
+
 
 @media screen and (max-width: 700px) {
   /* delegate informal  */
@@ -120,6 +184,16 @@ img#un,
   }
   #notificationContent{
     max-width: 23em;
+  }
+  .ULabel{
+    flex-direction: column;
+    align-items: center;
+  }
+  .createConfDialog .ULabel span{
+    text-align: center;
+  }
+  .firstPart{
+    width: 388px;
   }
 
 }

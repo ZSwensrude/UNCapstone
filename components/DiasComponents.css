@@ -20,13 +20,25 @@
         justify-content: center;
     }
 
+    #oneMotion{
+        width: 90%;
+        margin: 2px 0;
+        width: 90%;
+        margin: 2px 0;
+        padding: 3px 21px;        
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
     #oneCountry {
         position:relative;
         display:flex;
         justify-content: space-evenly;
         background-color: white;
     }
-
+    .motionContent{
+        margin: 0 29px !important;
+    }
     .statusButtons {
         display:flex;
         justify-content: space-around;

@@ -351,29 +351,34 @@ const [searchTerm, setSearchTerm] = useState('');
             <div className="RollCallBlock">
                 <div className="RollCallList">
                     <div className="searchBlock">
-                            <input className="searchBox" placeholder="Search" type="text" />
+                        <input className="searchBox" placeholder="Search" type="text" />
                     </div>
-                    <div className="titleBlock">
-                        <h5 className="titles">Member State</h5>
-                        <h5 className="titles">Absent</h5>
-                        <h5 className="titles">Present</h5>
-                        <h5 className="titles">Present & Voting</h5>
-                    </div>
-                    <div className="presentAbsentBlock">
-                    {delegatesListDias && delegatesListDias.map( (delegate, index) => (
-                        <PresentAbsentList key={delegate?.country + index + "palist"} delegate={delegate}/>
-                    ))}
-                    </div>
+                    <table className="rollCallTable">
+                        <thead>
+                            <tr className="titleBlock">
+                                <th className="titles">Member State</th>
+                                <th className="titles">Absent</th>
+                                <th className="titles">Present</th>
+                                <th className="titles">Present &amp; Voting</th>
+                            </tr>
+                        </thead>
+                        <tbody className="presentAbsentBlock">
+                            {delegatesListDias && delegatesListDias.map((delegate, index) => (
+                                <PresentAbsentList key={delegate?.country + index + "palist"} delegate={delegate} />
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
             </div>
+
 
             <div className="buttonBlock1">
                 <div className="firstBlock">
                 <CoolButton onClick={updateRollCallActive} buttonText={rollCallButton} buttonColor={'#FF9728'} textColor='white' />
-                <CoolButton buttonText={"Export"} buttonColor={'#00DB89'} textColor='white' />
+                <CoolButton buttonText={"Reset"} buttonColor={'#FF9728'} textColor='white' />
                 </div>
                 <div className="secondBlock">
-                <CoolButton buttonText={"Reset"} buttonColor={'#FF9728'} textColor='white' />
+                <CoolButton buttonText={"Export"} buttonColor={'#00DB89'} textColor='white' />
                 </div>
             </div>
         </div>
@@ -387,8 +392,8 @@ const [searchTerm, setSearchTerm] = useState('');
                     <div className="currentlySpeakingAndControl">
                         <div className="currentlySpeaking">
                             <DiasSpeakersList />
-                            <div className="controlTitleBlock">
-                                <h2 className="controlTitle">Speaker Timer:</h2>
+                            {/* <div className="controlTitleBlock">
+                                <h2 className="controlTitle last">Speaker Timer:</h2>
                             </div>
 
                             <div className="TimeBlock">
@@ -403,7 +408,7 @@ const [searchTerm, setSearchTerm] = useState('');
                                 <CoolButton buttonText={"Reset"} buttonColor={'#FF9728'} textColor='white' />
                                 <CoolButton buttonText={"Pause"} buttonColor={'#FF9728'} textColor='white' />
                                 <CoolButton buttonText={"Next"} buttonColor={'#FF9728'} textColor='white' onClick={handleSpkNext} />
-                            </div>
+                            </div> */}
 
 
                         </div>
@@ -429,21 +434,7 @@ const [searchTerm, setSearchTerm] = useState('');
                                 {/* <CoolButton buttonText={"Add to queue"} buttonColor={'#FF9728'} textColor='white' onClick={addtolist}/> */}
                             </div>
 
-                            {/* <div className="lineABlock">
-                                <div className="lineA"></div>
-                            </div> */}
 
-                            {/* <div className="controlList diasSpkSrch">
-                                <ul>
-                                {searchResults.map((country, index) => (
-                                    <Country key={index} countryName={country.country} />
-                                ))}
-                                </ul>
-                            </div> */}
-
-                            <div className="lineABlock">
-                                <div className="lineA"></div>
-                            </div>
 
                             <div className="clearAndCloseButtonBlock">   
                                 <CoolButton buttonText={"Clear List"} buttonColor={'#FF9728'} textColor='white' onClick={clearSpkList} />
@@ -454,7 +445,25 @@ const [searchTerm, setSearchTerm] = useState('');
                                     onClick={updateSpkerlistactive} // Add onClick event handler
                                 />                            
                                 </div>
+                                <div className="controlTitleBlock">
+                                <h2 className="controlTitle last">Speaker Timer:</h2>
+                            </div>
+
+                            <div className="TimeBlock">
+                                <div className="Timer">
+                                <Countdown date={Date.now() + 10000}
+                                        renderer={renderer}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="clearAndCloseButtonBlock">   
+                                <CoolButton buttonText={"Reset"} buttonColor={'#FF9728'} textColor='white' />
+                                <CoolButton buttonText={"Pause"} buttonColor={'#FF9728'} textColor='white' />
+                                <CoolButton buttonText={"Next"} buttonColor={'#FF9728'} textColor='white' onClick={handleSpkNext} />
+                            </div>
                         </div>
+                        
                     </div>
                 </div>
 
@@ -485,9 +494,7 @@ const [searchTerm, setSearchTerm] = useState('');
                             {motionError && <div className="error">{motionError}</div>}
                         </div>
 
-                        <div className="lineABlock">
-                                <div className="lineB"></div>
-                        </div>
+                        
 
                         <div className="motionsAdded">
                         {motionsListDias &&
@@ -495,9 +502,6 @@ const [searchTerm, setSearchTerm] = useState('');
                             <MotionsDias key={aMotionDias?.motionChosen + index + "motions"} aMotionDias={aMotionDias} /> ))}
                         </div>
 
-                        <div className="lineABlock">
-                                <div className="lineB"></div>
-                        </div>
                         
                         <div className="clearAndCloseButtonBlock">   
                         <CoolButton buttonText={"Clear All"} buttonColor={'#FF9728'} textColor='white' onClick={openClearConfirmationDialog} />                                {/* <CoolButton buttonText={"Send"} buttonColor={'#00DB89'} textColor='white' /> */}
@@ -564,9 +568,7 @@ const [searchTerm, setSearchTerm] = useState('');
                             <DeadlineDias key={aDeadlineDias?.deadlineAdded + index + 'deadline'} version={"diasHome"} aDeadlineDias={aDeadlineDias}/>
                             ))}
                         </div>
-                        <div className="lineABlock">
-                            <div className="lineC"></div>
-                        </div>
+                        
                         <div className="addDeadlinesBox">
                             <input className="DeadlineInput" placeholder="Type here..." type="text" />
                         </div>
