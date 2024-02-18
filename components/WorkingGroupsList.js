@@ -141,6 +141,7 @@ const getCountryInfo = (countryCode) => {
 };
 
 
+
   return (
     <>
       <div id='groups'>
@@ -191,7 +192,12 @@ const getCountryInfo = (countryCode) => {
               <Typography >Location: {group.location}</Typography>
               <Typography >Topic: {group.topic}</Typography>
               <div className="groupMessage">
-                <MessageGroup onClick={sendMessage} countries={group.countries} groupname={group.name} />
+              <MessageGroup
+                  onClick={sendMessage}
+                  countries={group.countries}
+                  fromname={user.country}
+                  groupname={group.name}
+                />                
                 {/* Show the invite button only if the user's country is in the group */}
                 {isInUserCountry(group) && (
                   <>

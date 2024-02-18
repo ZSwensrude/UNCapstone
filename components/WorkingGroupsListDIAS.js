@@ -109,9 +109,9 @@ const getCountryInfo = (countryCode) => {
 
           </div>
         </div> 
-        <div id='joinButton'>
+        {/* <div id='joinButton'>
             <CreateGroup />
-          </div>
+          </div> */}
       </div>
 
       <div>
