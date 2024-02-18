@@ -150,6 +150,10 @@ img#un,
   .statusButton{
     top: 122px;
     height: 37px;  }
+    
+    .tabcontent#NotesDias {
+      margin-top: 250px;
+  }
 }
 
 @media screen and (max-width: 900px) {

@@ -28,6 +28,8 @@ import Countdown from 'react-countdown';
 import LogoutButton from "../components/LogoutButton.js";
 import { delCollection } from "../imports/api/delegates.js";
 import { dmCollection, insertDM, updateDMReadStatus } from "../imports/api/dm";
+import BellIcon from '@mui/icons-material/Notifications';
+
 
 
 
@@ -78,7 +80,6 @@ const DiasHome = () => {
         activeMotion = motionCollection.find({ active: true }).fetch();
         return { motionsListDias };
     });
-//console.log(activeMotion);
 
 
     const DeadlineListDias = [
@@ -150,14 +151,21 @@ const DiasHome = () => {
     }
   ]
 
+  const [unreadMessages, setUnreadMessages] = useState(false);
   const { dms } = useTracker(() => {
     const handler = Meteor.subscribe('DMs');
     const dmData = dmCollection.find({ type: "dias" }, { sort: { createdAt: -1 } }).fetch(); // Filter by dias type
-    console.log("DM DATA: ", dmData);
+   
     return { dms: dmData };
-  });
+    });
+    const countUnreadMessages = (dms) => { // Change parameter name to dmData
+            return dms.filter(dm => dm.read === "false").length;
+        }; 
 
-
+        useEffect(() => {
+        // Update unread messages count
+        setUnreadMessages(dms.filter(dm => dm.read === "false").length > 0);
+    }, [dms]);
   const [openStatus, setOpenStatus] = React.useState(false);
   const [rollCallButton, setRollCallButton] = React.useState('');
  
@@ -194,7 +202,6 @@ const DiasHome = () => {
       
     const handleClearConfirmed = () => {
         setopenSpkClear(false); // Close the confirmation dialog
-        //console.log("clear pressed!!!!!!"); // Perform the clear operation
         const handler = Meteor.subscribe('speakers');
         const speakersData = speakerCollection.find().fetch(); 
         speakersData.forEach(speaker => {
@@ -203,7 +210,6 @@ const DiasHome = () => {
     };
 
     const handleSpkNext = () => {
-        //console.log("next speaker pressed!!!!!!"); // Perform the clear operation
         const handler = Meteor.subscribe('speakers');
         const speakersData = speakerCollection.find().fetch(); 
         removeSpeaker({ _id: speakersData[0]._id }); // remove current speaker
@@ -211,14 +217,12 @@ const DiasHome = () => {
 
     const handleClearCancelled = () => {
         setopenSpkClear(false); // Close the confirmation dialog
-        //console.log("clear cancelled"); // Log that the clear operation was cancelled
     };
 
     // Define state variables for searchTerm and searchResults
 const [searchTerm, setSearchTerm] = useState('');
 
     const addtolist = (searchTerm) =>{
-        //console.log("Selected country:", searchTerm);
     
         // Insert the speaker with the selected country
         insertSpeaker({ country: searchTerm });
@@ -231,7 +235,6 @@ const [searchTerm, setSearchTerm] = useState('');
          const handler = Meteor.subscribe('conference');
          const data = conferenceCollection.findOne();
          setConferenceData(data); // Update conference data in state
-         console.log(data);
      }, []);
      
  //update later to get sessionID and corresponding record in conference table
@@ -244,7 +247,14 @@ const [searchTerm, setSearchTerm] = useState('');
             updateConferenceActiveStatus({ conferenceId: _id, activeSpeakerList: updatedActiveStatus });
          }
      };
+    // Update button text based on activeSpeakerList value
+    useEffect(() => {
+        if (conferenceData) {
+            setButtonText(conferenceData.activeSpeakerList ? "Close Speaker List" : "Open Speaker List");
+        }
+    }, [conferenceData?.activeSpeakerList]);
 
+    const [buttonText, setButtonText] = useState("");
      const updateRollCallActive = () => {
         if (conferenceData) {
             const { _id, rollCallOpen } = conferenceData;
@@ -337,7 +347,10 @@ const [searchTerm, setSearchTerm] = useState('');
                 <button className="tablinks" onClick={() => openTab(Event,'Formal')}>Formal</button>
                 <button className="tablinks" onClick={() => openTab(Event,'Informal')}>Informal</button>
                 <button className="tablinks" onClick={() => openTab(Event,'VotingProcedure')}>Voting Procedure</button>
-                <button className="tablinks" onClick={() => openTab(Event,'NotesDias')}>Notes to the Dias</button>
+                <button className="tablinks" onClick={() => openTab(Event,'NotesDias')}>
+                    Notes to the Dias
+                    {unreadMessages && <BellIcon className="bellIcon" />} {/* Render the bell icon conditionally */}
+                </button>            
             </div>
             
             <button className="statusButton" onClick={handleClickToOpenStatus}>Status</button>
@@ -383,6 +396,15 @@ const [searchTerm, setSearchTerm] = useState('');
         </Dialog>
 
         <div id="RollCall" className="tabcontent" style={{display:"block"}}>
+        <div className="buttonBlock1">
+                <div className="firstBlock">
+                <CoolButton onClick={updateRollCallActive} buttonText={rollCallButton} buttonColor={'#FF9728'} textColor='white' />
+                <CoolButton buttonText={"Reset"} buttonColor={'#FF9728'} textColor='white' />
+                </div>
+                <div className="secondBlock">
+                <CoolButton buttonText={"Export"} buttonColor={'#00DB89'} textColor='white' />
+                </div>
+            </div>
             <div className="RollCallBlock">
                 <div className="RollCallList">
                     <div className="searchBlock">
@@ -403,17 +425,6 @@ const [searchTerm, setSearchTerm] = useState('');
                             ))}
                         </tbody>
                     </table>
-                </div>
-            </div>
-
-
-            <div className="buttonBlock1">
-                <div className="firstBlock">
-                <CoolButton onClick={updateRollCallActive} buttonText={rollCallButton} buttonColor={'#FF9728'} textColor='white' />
-                <CoolButton buttonText={"Reset"} buttonColor={'#FF9728'} textColor='white' />
-                </div>
-                <div className="secondBlock">
-                <CoolButton buttonText={"Export"} buttonColor={'#00DB89'} textColor='white' />
                 </div>
             </div>
         </div>
@@ -455,12 +466,12 @@ const [searchTerm, setSearchTerm] = useState('');
 
                             <div className="clearAndCloseButtonBlock">   
                                 <CoolButton buttonText={"Clear List"} buttonColor={'#FF9728'} textColor='white' onClick={clearSpkList} />
-                                <CoolButton 
-                                    buttonText={"Close/Open Speaker List"} 
-                                    buttonColor={'#FF9728'} 
-                                    textColor='white' 
-                                    onClick={updateSpkerlistactive} // Add onClick event handler
-                                />                            
+                                <CoolButton
+                                    buttonText={buttonText}
+                                    buttonColor={'#FF9728'}
+                                    textColor='white'
+                                    onClick={updateSpkerlistactive}
+                                />                           
                                 </div>
                                 <div className="controlTitleBlock">
                                 <h2 className="controlTitle last">Speaker Timer:</h2>
@@ -538,14 +549,11 @@ const [searchTerm, setSearchTerm] = useState('');
 
                     <div className="MotionSummaryBlock">
                         <div className="motion content">
-                        {console.log("ACTIVE MOTION: ", activeMotion)}
                         {activeMotion && activeMotion.length > 0 && (
                             activeMotion[0].content
                         )}
                         </div>
                         <div className="motions voteCount">
-                            {/* {console.log("votes: ", activeMotion[0].votes)} */}
-                            {/* <VoteCountChart votes={activeMotion[0].votes} />*/}
                             {activeMotion && activeMotion.length > 0 && (
                             <VoteCountChart votes={activeMotion[0].votes} abstain={activeMotion[0].abstain} /> 
                         )}
