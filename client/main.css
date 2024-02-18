@@ -96,22 +96,43 @@ img#un,
     flex-direction: column;
     align-items: center;  
   }
- #Formal{
-  margin-top: 54em ;
- }
- .MotionsBlock, .SpeakerListBlock{
-  width: 80%;
- }
- .motionBlock{
-  width: 90%;
-  height: 30em;
- }
- .motionsAdded{
-  height: 290px;
- }
+  #Formal{
+    margin-top: 54em ;
+  }
+  .MotionsBlock, .SpeakerListBlock{
+    width: 80%;
+  }
+  .motionBlock{
+    width: 90%;
+    height: 30em;
+  }
+  .motionsAdded{
+    height: 290px;
+  }
 
+  .InformalBlock{
+    flex-direction: column;
+    justify-content: unset;
+    align-items: center;
+  }
+  .DeadlinesAndTimerBlock{
+    width: 80%;
+  }
+  .WorkingGroupsBlock, .LocationsAndPresentationBlock{
+    width: 80%;
+  }
+  .HomePageDias #logoutButton{
+    left: 3px;
+      top: 116px;
+  }
+  .WorkingGroupBlock2 {
+    width: unset; 
+    height: 39em; 
+  }
+  .tabcontent#Informal{
+    margin-top: 15em;
+  }
 }
-
 @media screen and (max-width: 1200px) {
   .homecontainer {
     width: 60%;

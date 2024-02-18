@@ -560,7 +560,9 @@ ul.countryItemList{
   transform: scale(1.1);
   cursor: pointer;
 }
-
+.containerDelegate #logoutButton{
+  bottom: -47px;
+}
 #logoutButton {
   position: absolute;
   left: 24px;

@@ -1,20 +1,36 @@
-import React from "react";
-import { Paper, Typography, Divider} from "@mui/material";
+import { Paper, Typography, Divider } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import './DiasComponents.css';
-import MailIcon from '@mui/icons-material/Mail';
-import DraftsIcon from '@mui/icons-material/Drafts';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { MailOutlined, DraftsOutlined, OpenInNewOutlined } from '@mui/icons-material';
+import { updateDMReadStatus } from "../imports/api/dm";
 
-const NotesToDias = ({aDiasNote}) => {
+const NotesToDias = ({ aDiasNote }) => {
+    const [isRead, setIsRead] = useState(aDiasNote.read); // Initialize the isRead state with the value of the read field from aDiasNote
+
+    const handleClick = () => {
+        if (!isRead) { // If the note is unread, update the read status
+            updateDMReadStatus(aDiasNote._id, true)
+                .then(() => {
+                    setIsRead(true); // Update the local state after successful update
+                })
+                .catch(error => {
+                    console.error('Error updating DM read status:', error);
+                });
+        }
+    };
 
     return (
-        <Paper id={'oneNote'} elevation={0}>
-        <Typography>{aDiasNote?.noteCountry?? "Country"}</Typography>
-        <Divider orientation="vertical"  flexItem sx={{ marginRight:'10px', marginLeft:'10px' }} />
-        <Typography>{aDiasNote?.noteFromCountry?? "Note"}</Typography>
-        <MailIcon style={{color:"gray"}} fontSize="medium"/>
-        <ArrowForwardIosIcon style={{color:"gray"}} fontSize="medium"/>
-        </Paper>
+        <tr>
+            <td className=" firstTD">
+                <span>{aDiasNote?.from ?? "Country"}</span>
+            </td>
+            <td className="messageTD">
+                <span>{aDiasNote?.content ?? "Note"}</span>
+            </td>
+            <td className="TDicons" onClick={handleClick}>
+                {isRead ? <DraftsOutlined style={{ color: "gray" }} fontSize="medium" /> : <MailOutlined style={{ color: "gray" }} fontSize="medium" />}
+            </td>
+        </tr>
     );
 }
 

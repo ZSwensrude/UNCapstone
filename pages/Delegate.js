@@ -126,13 +126,7 @@ const { SpeakersListActive } = useTracker(() => {
               {/* <CurrentMotion motion={motionfromDB} country={countryName} abstain={true} /> */}
               <CurrentMotion motion={motionfromDB} country={countryName} abstain={motionfromDB?.abstain} user={user.country} />
             </div>
-            
-            {/* <div id="bottomButton">
-              <CoolButton buttonColor={'#00DBD4'} textColor={'white'} buttonText={'view presentation screen'} />
-            </div>
-            <div id="rightButton">
-              <MessageDias />
-            </div> */}
+          
           </>
         ) : (
           // and here is the informal

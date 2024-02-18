@@ -155,9 +155,6 @@ const accounts = [];
         </Dialog>
         
         <Header version={'dias'}/>
-
-
-                  
           <h6 className="myConference">My Conferences</h6>
 
           <div className="confContainer">
@@ -179,8 +176,6 @@ const accounts = [];
 }
 
 export default Dias;
-
-
 
 /*
 

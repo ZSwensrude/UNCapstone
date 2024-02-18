@@ -11,7 +11,7 @@ import { workingGroupCollection } from "../imports/api/workingGroups";
 import flagsData from '../flags.json';
 
 
-const WorkingGroupsList = ({ openNotification, setOpenNotification }) => {
+const WorkingGroupsList = ({ openNotification, setOpenNotification, Dias}) => {
   // Function to retrieve user information from localStorage
   const getUserFromLocalStorage = () => {
     const userString = localStorage.getItem('loggedInUser');
@@ -154,6 +154,7 @@ const getCountryInfo = (countryCode) => {
           <div className="groupHolder">
           {workingGroupsDB.map((workingGroup, index) => (
             <WorkingGroup 
+            Dias ={true}
               key={ index + "wg" + workingGroup._id} // Assuming `_id` is a unique identifier for each working group
               workingGroup={workingGroup} 
               chooseGroup={chooseGroup}

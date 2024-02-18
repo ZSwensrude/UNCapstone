@@ -46,6 +46,16 @@ export const updateWG = async ({ groupId, name, topic, location }) => {
     throw error;
   }
 };
+export const deleteWG = async (groupId) => {
+  try {
+    // Delete the working group with the provided ID
+    workingGroupCollection.remove({ _id: groupId });
+    //console.log(`Deleted working group with ID ${groupId}`);
+  } catch (error) {
+    console.error('Error deleting working group:', error);
+    throw error;
+  }
+};
 
 export const workingGroupCollection = new Mongo.Collection('workingGroups');
 // Define allow/deny rules for the workingGroups collection
@@ -53,7 +63,10 @@ workingGroupCollection.allow({
   // Allow updates without any permission check
   update() {
     return true;
-  }
+  },
+  remove(){
+    return true;
+  },
 });
 // {
 //   "_id": "E9do2XCGcHcuY8KCn",

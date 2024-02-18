@@ -120,6 +120,21 @@ body {
     border-spacing: 0;
     font-size: 20px;
     text-decoration: underline;
+  } 
+  .RCcountryInfo{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+  .countryFlagContainer {
+    display: flex;
+    align-items: center; 
+  }
+
+  .countryFlagRC {
+    width: 20px; 
+    height: auto; 
+    margin-right: 5px; 
   }
   .buttonBlock1{    
     /* width: 100%; */
@@ -265,11 +280,17 @@ body {
     justify-content: space-evenly;
     margin-block-start: 1.5px;
   }
+  .DeadlineButtons{
+    width: 80%;
+  }
   .clearAndCloseButtonBlock{
     margin-bottom: 15em ;
   }
   .clearAndCloseButtonBlock #button{
     font-size: 10px;
+  }
+  .WorkingGroupButtons{
+    margin-top: -36px;
   }
 
 
@@ -309,7 +330,11 @@ body {
   }
   .Deadlines{
     width: 85%;
-    height: 12em;
+    height: 66%;
+    overflow-y: scroll;
+  }
+  .Deadlines::-webkit-scrollbar {
+    display: none;
   }
 
   .WorkingGroupBlock2 {
@@ -320,6 +345,25 @@ body {
     border-radius: 30px;
     margin-top: 5px;
   }
+  .WorkingGroupsDatabase #groups{
+    width: 100%;
+    height: 36em;
+  } 
+  .WorkingGroupsDatabase #joinButton{
+    display: none;
+  }
+  .dialogWG .MuiPaper-root{
+    width: 35em;
+  }
+  .groupName{
+    font-size: 29px !important;
+  }
+  .WGbuttons{
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between !important;
+  }
+
 
   .LocationsBlock2 {
     width: 100%;
@@ -348,10 +392,11 @@ body {
     color: red;
   }
   .DeadlineInput {
-    height: 4px;
-    min-width: 58px;
-    max-width: 58px;
-    background-color:lightgrey;
+    height: 60px;
+    background: #fff;
+    margin: 14px 0 0 0;
+    border: none;
+    width: 76%;
   }
 
   .lineB {
@@ -419,3 +464,40 @@ body {
     display: none; /* Hide scrollbar in WebKit browsers (Chrome, Safari, etc.) */
   }
 
+
+  /* #NotesDias */
+
+  .NotesDiasBlock{    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .NotesDiasBlock table{
+    width: 60%;
+    background: #fff;
+    border: 2px solid #009EDB;
+  }
+  .NotesDiasBlock td{
+    border-bottom: 2px solid #009EDB;
+  }
+  .NotesDiasBlock tr:last-of-type td{
+    border-bottom: none;
+  }
+  .NotesDiasBlock .firstTD{
+    border-right: 2px solid #009EDB;
+  }
+  .NotesDiasBlock span{
+    font-size: 20px;
+  }
+  .NotesDiasBlock .messageTD span{
+    text-overflow: ellipsis;
+  }
+  .TDicons{
+    text-align: end;
+    min-width: 5em;
+  }
+  .messageTD{ 
+    margin-left: 2px;
+    text-overflow: ellipsis;
+  } 

@@ -16,6 +16,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import DeadlineDias from "../components/DeadlinesDias.js";
 import PriorLocations from "../components/PriorLocations.js";
 import NotesToDias from "../components/NotesToDias.js";
+import WorkingGroupsListDIAS from "../components/WorkingGroupsListDIAS.js";
 import { useNavigate  } from 'react-router-dom';
 import DiasSpeakersList from '../components/DiasSpeakersList.js';
 import { motionCollection, insertMotion, removeMotion, switchActiveMotion} from "../imports/api/motions.js";
@@ -26,6 +27,8 @@ import VoteCountChart from "../components/VoteCountBox.js";
 import Countdown from 'react-countdown';
 import LogoutButton from "../components/LogoutButton.js";
 import { delCollection } from "../imports/api/delegates.js";
+import { dmCollection, insertDM, updateDMReadStatus } from "../imports/api/dm";
+
 
 
 function openTab(evt, tabName) {
@@ -50,7 +53,7 @@ function openTab(evt, tabName) {
   }
 // Placeholder for Dias screen
 const DiasHome = () => {
-        
+
     const countries = [
         { position: 1, countryName: 'Country A', flagPath: '/path/to/flagA.png' },
         { position: 2, countryName: 'Country B', flagPath: '/path/to/flagB.png' },
@@ -58,15 +61,7 @@ const DiasHome = () => {
     ];
     
 
-    // const delegates = [
-    //     {
-    //     "countryName": "Argentina"
-    //     },
-    //     {
-    //     "countryName": "Canada"
-    //     }
-    // ]
-
+    
     //DB Communication - live pull on any change in table
     const { delegatesListDias = [] } = useTracker(() => {
         const handler = Meteor.subscribe('delegates');
@@ -87,6 +82,24 @@ const DiasHome = () => {
 
 
     const DeadlineListDias = [
+        {
+            "deadlineAdded": "Working Paper Third Draft: 2pm"
+        },
+        {
+            "deadlineAdded": "Working Paper Third Draft: 2pm"
+        },
+        {
+            "deadlineAdded": "Working Paper Third Draft: 2pm"
+        },
+        {
+            "deadlineAdded": "Working Paper Third Draft: 2pm"
+        },
+        {
+            "deadlineAdded": "Working Paper Third Draft: 2pm"
+        },
+        {
+            "deadlineAdded": "Working Paper Third Draft: 2pm"
+        },
         {
             "deadlineAdded": "Working Paper Third Draft: 2pm"
         },
@@ -137,18 +150,13 @@ const DiasHome = () => {
     }
   ]
 
-  const notesToDiasGroups = [
-    {
-      "noteCountry": "China",
-      "noteFromCountry": "Just saying Hi!",
-      "status": "read"
-    },
-    {
-        "noteCountry": "Canada",
-        "noteFromCountry": "Not Happy!",
-        "status": "unread"
-    }
-  ]
+  const { dms } = useTracker(() => {
+    const handler = Meteor.subscribe('DMs');
+    const dmData = dmCollection.find({ type: "dias" }, { sort: { createdAt: -1 } }).fetch(); // Filter by dias type
+    console.log("DM DATA: ", dmData);
+    return { dms: dmData };
+  });
+
 
   const [openStatus, setOpenStatus] = React.useState(false);
   const [rollCallButton, setRollCallButton] = React.useState('');
@@ -419,25 +427,7 @@ const [searchTerm, setSearchTerm] = useState('');
                     <div className="currentlySpeakingAndControl">
                         <div className="currentlySpeaking">
                             <DiasSpeakersList />
-                            {/* <div className="controlTitleBlock">
-                                <h2 className="controlTitle last">Speaker Timer:</h2>
-                            </div>
-
-                            <div className="TimeBlock">
-                                <div className="Timer">
-                                <Countdown date={Date.now() + 10000}
-                                        renderer={renderer}
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="clearAndCloseButtonBlock">   
-                                <CoolButton buttonText={"Reset"} buttonColor={'#FF9728'} textColor='white' />
-                                <CoolButton buttonText={"Pause"} buttonColor={'#FF9728'} textColor='white' />
-                                <CoolButton buttonText={"Next"} buttonColor={'#FF9728'} textColor='white' onClick={handleSpkNext} />
-                            </div> */}
-
-
+                        
                         </div>
                         <div className="control">
                             <div className="controlTitleBlock">
@@ -594,11 +584,8 @@ const [searchTerm, setSearchTerm] = useState('');
                             {DeadlineListDias.map( (aDeadlineDias, index) => (
                             <DeadlineDias key={aDeadlineDias?.deadlineAdded + index + 'deadline'} version={"diasHome"} aDeadlineDias={aDeadlineDias}/>
                             ))}
-                        </div>
-                        
-                        <div className="addDeadlinesBox">
+                        </div>                        
                             <input className="DeadlineInput" placeholder="Type here..." type="text" />
-                        </div>
                         <div className="DeadlineButtons">   
                             <CoolButton buttonText={"Clear All"} buttonColor={'#FF9728'} textColor='white' />
                             <CoolButton buttonText={"Add"} buttonColor={'#FF9728'} textColor='white' />
@@ -613,7 +600,7 @@ const [searchTerm, setSearchTerm] = useState('');
                     </div>
                     <div className="WorkingGroupBlock2">
                         <div className="WorkingGroupsDatabase">
-
+                        <WorkingGroupsListDIAS />
                         </div>
                         <div className="WorkingGroupButtons">   
                             <CoolButton buttonText={"Add"} buttonColor={'#FF9728'} textColor='white' />
@@ -642,13 +629,19 @@ const [searchTerm, setSearchTerm] = useState('');
             <h3 className="head">Voting Procedure</h3>
         </div>
 
-        <div id="NotesDias" className="tabcontent" style={{display:"none"}}>
+        <div id="NotesDias" className="tabcontent" style={{ display: "none" }}>
             <div className="NotesDiasBlock">
-                <div className="NotesDiasList">
-                    {notesToDiasGroups.map( (aDiasNote, index) => (
-                        <NotesToDias key={index + "note"} aDiasNote={aDiasNote}/>
-                        ))}
-                </div>
+                {dms.length > 0 ? (
+                    <table>
+                        <tbody>
+                            {dms.map((dm, index) => (
+                                <NotesToDias key={index + "note"} aDiasNote={dm} />
+                            ))}
+                        </tbody>
+                    </table>
+                ) : (
+                    <Typography>No notes to display</Typography>
+                )}
             </div>
         </div>
     </div>
