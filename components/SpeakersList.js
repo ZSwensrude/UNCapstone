@@ -4,6 +4,9 @@ import CoolButton from './CoolButton';
 import Country from './Country';
 import { speakerCollection, insertSpeaker } from '../imports/api/speakers';
 import { useTracker } from 'meteor/react-meteor-data';
+import { conferenceCollection } from "../imports/api/conference";
+
+
 
 const SpeakersList = () => {
   
@@ -36,13 +39,22 @@ const SpeakersList = () => {
     // Check if the user's country is in the speakers list
     const isUserInQueue = speakers.some(speaker => speaker.country === user?.country);
 
+   //Use useTracker to reactively fetch data from the collection
+   const { SpeakersListActive } = useTracker(() => {
+    const handler = Meteor.subscribe('conference');
+    const conferenceData = conferenceCollection.find().fetch(); //add .find for filter by session id later
+    // Check if conferenceData is defined before accessing its properties
+    const activeSpeakerList = conferenceData && conferenceData.length > 0 ? conferenceData[0].activeSpeakerList : false;
+  
+    return { SpeakersListActive: activeSpeakerList };
+  });
 
   return (
     <div id='speakers'>
-      <Paper id='top' elevation={4}>
+      {/* <div id='top' elevation={4}> */}
         <Typography variant='h4'>Speakers List</Typography>
-      </Paper>
-      <Paper id='body' elevation={4}>
+      {/* </div> */}
+      {/* <div id='body' elevation={4}> */}
         <Typography variant='h5'>Currently Speaking:</Typography>
         <div id='speakersListCountry'>
           {Object.keys(currentSpeaker).length > 0 && (
@@ -51,19 +63,25 @@ const SpeakersList = () => {
         </div>
         <hr id='whiteLine' />
         <Typography variant='h5'>In Queue:</Typography>
-        <div id='speakersListCountry'>
+        <div className='upcomingSpeakers'>
+          <ul className='countryItemList'>
         {speakers.slice(1).map((speaker, index) => (
             <Country key={index + 1} countryName={speaker.country} position={index + 2} />
           ))}
+          </ul>
         </div>
-        {/* Render the "Join Queue" button only if the user's country is not in the speakers list */}
-        {!isUserInQueue && (
-          <div id='joinButton'>
-            <CoolButton buttonText='Join Queue' buttonColor={'#FF9728'} textColor={'white'} onClick={onClick} />
-          </div>
+        {/* Render the "Join Queue" button or the message based on SpeakersListActive */}
+        {SpeakersListActive ? (
+          !isUserInQueue && (
+            <div id='joinButton'>
+              <CoolButton buttonText='Join Queue' buttonColor={'#FF9728'} textColor={'white'} onClick={onClick} />
+            </div>
+          )
+        ) : (
+          <Typography variant='body1' style={{ marginTop: '10px' }}>Joining Speakers List is currently closed</Typography>
         )}
-      </Paper>
-    </div>
+      </div>
+    // </div>
   );
 };
 

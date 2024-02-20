@@ -7,6 +7,24 @@ const InformalPresentation = () => {
 
     const DeadlineListDias = [
         {
+            "deadlineAdded": "a"
+        },
+        {
+            "deadlineAdded": "b"
+        },
+        {
+            "deadlineAdded": "c"
+        },
+        {
+            "deadlineAdded": "d"
+        },
+        {
+            "deadlineAdded": "e"
+        },
+        {
+            "deadlineAdded": "f"
+        },
+        {
             "deadlineAdded": "Working Paper Third Draft: 2pm"
         },
         {

@@ -30,17 +30,16 @@ const MessageDias = () => {
   const user = getUserFromLocalStorage();
   // function for when send button is pressed
   const sendMessage = () => {
-    if (inputValue.length > 0) {
-      //code for message here
-      console.log(inputValue);
-      insertDM({ type:"dias", to: "Dias", from: user.country, content: inputValue, read:"false" });
-    }
-    handleClose();
+      if (inputValue.length > 0) {
+        const messageContent = inputValue.slice(0, 250); // Limiting the message to 250 characters
+        insertDM({ type:"dias", to: "Dias", from: user.country, content: messageContent, read:"false" });
+      }
+      handleClose();
   }
 
   return (
     <div>
-      <CoolButton onClick={handleOpen} buttonColor={'#999999'} textColor={'white'} buttonText={'send message to dias'} message={true}/>
+      <CoolButton onClick={handleOpen} buttonColor={'#999999'} textColor={'white'} buttonText={'send message to dias'} message={true} className="messageDias" />
       <Modal className="modalWindow" open={open} onClose={handleClose}>
         <Paper className="modalContent" style={{borderRadius:'30px'}}>
           <Typography variant="h2">
@@ -49,12 +48,13 @@ const MessageDias = () => {
           <TextField
             className="textBox"
             id="filled-multiline-static"
-            label='Message to Dias'
+            label='Message to Dias - 250chars max'
             multiline
             rows={5}
             placeholder="Type here..."
             variant="filled"
             onChange={handleInputChange}
+            maxLength={250} // Setting the maximum character limit to 250
           />
           <div className="buttonContainer">
             <div className="button-wrapper">

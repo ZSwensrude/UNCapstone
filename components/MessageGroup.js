@@ -3,13 +3,22 @@ import { Modal, Paper, Typography, TextField } from "@mui/material";
 import CoolButton from "./CoolButton";
 import './components.css';
 import { insertDM } from "../imports/api/dm";
+import flagsData from "../flags.json";
 
-const MessageGroup = ({ countries = [], groupname }) => {
+const MessageGroup = ({ countries = [], fromname, groupname}) => {
+  // console.log("countries: ", countries);
+  // console.log("from name:  ", fromname);
+  // console.log("group name:  ", groupname);
     // Function to retrieve user information from localStorage
   const getUserFromLocalStorage = () => {
     const userString = localStorage.getItem('loggedInUser');
     return userString ? JSON.parse(userString) : null;
   };
+  const properFromName = () => {
+    const countryObject = flagsData.countries.find(country => country.country === fromname);
+    return countryObject ? countryObject.name : fromname;
+  };
+  
 
   const user = getUserFromLocalStorage();
 
@@ -33,8 +42,9 @@ const MessageGroup = ({ countries = [], groupname }) => {
     if (inputValue.length > 0) {
       // Send message to each country in the group
       countries.forEach(country => {
-        console.log(`Sending message to ${country.name}: ${inputValue}`);
-        insertDM({ type:"group", to: country.country, from: groupname, content: inputValue, read:"false" });
+        const properFrom = properFromName();
+        console.log(`Sending message from ${properFrom} to ${country.name}: ${inputValue}`);
+        insertDM({ type:"group", to: country.country, from: properFrom,  content: `${groupname}: ${inputValue}`, read:"false" });
       });
     }
     handleClose();

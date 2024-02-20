@@ -1,17 +1,15 @@
 import { Meteor } from "meteor/meteor";
-import { Typography, useRadioGroup } from "@mui/material";
-import React, {useState} from 'react';
+import { Paper, Typography, useRadioGroup, Modal } from "@mui/material";
+import React, {useState, useEffect} from 'react';
 import './HomeIndex.css';
 import LockIcon from '@mui/icons-material/Lock';
 import PublicIcon from '@mui/icons-material/Public';
 import InfoIcon from '@mui/icons-material/Info';
 import GavelIcon from '@mui/icons-material/Gavel';
-import { Link } from 'react-router-dom';
 import CoolButton from "../components/CoolButton";
 import Header from "../components/Header";
 import { useNavigate  } from 'react-router-dom';
 import LoginButton from "../components/LoginButton";
-import bcrypt from 'bcryptjs';
 import countriesData from '../flags.json'  
 import { insertDel } from '../imports/api/delegates';
 
@@ -20,6 +18,7 @@ import { insertDel } from '../imports/api/delegates';
 const Home=()=>{
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [open, setOpen] = useState(false);
 
   const navigate = useNavigate();
 
@@ -28,14 +27,17 @@ const Home=()=>{
     Meteor.logout();
     navigate('/register');
   };
-  
-  
-  const diasLogin = (modalOpen) => {
 
-    Meteor.loginWithPassword(username, password, function(error) {
+  // shows/hides the modal window
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const diasLogin = (modal, user = username, pass = password) => {
+
+    Meteor.loginWithPassword(user, pass, function(error) {
 
       if (error) {
-         modalOpen();
+         handleOpen();
       } else {
       // Store user data in localStorage
       localStorage.setItem('loggedInUser', JSON.stringify({ username, userType: 'dias' }));
@@ -53,7 +55,7 @@ const Home=()=>{
     ));
   };
  
-  const loginDelegate = (modalOpen) => {
+  const loginDelegate = (modal) => {
     const selectedCountry = document.getElementById('countries').value;
     const sessionId = document.getElementById('sessionId').value;
     const username = selectedCountry + sessionId;
@@ -79,37 +81,66 @@ const Home=()=>{
       } 
     } else {
       // Check if the country is selected
-      modalOpen();
+      handleOpen();
       // if (selectedCountry === 'choice' || !sessionId) {
       //   setMessage('Please select a country and enter a session ID.');
       //   return;
       // }
     }
   };
+  
+  useEffect(() => {
+    const listener = event => {
+      if (event.code === "Enter" || event.code === "NumpadEnter") {
+        event.preventDefault();
+
+        // get selected country (checks if they are logging in as delegate)
+        const selectedCountry = document.getElementById('countries').value;
+        const userinput = document.getElementById('diasUser').value;
+        const passinput = document.getElementById('diasPass').value;
+        
+        if (selectedCountry != "choice") {
+          loginDelegate();
+          // else check if they are trying to login as dias
+        } else {
+          diasLogin(null, userinput, passinput);
+        }
+      }
+    };
+    document.addEventListener("keydown", listener);
+    return () => {
+      document.removeEventListener("keydown", listener);
+    };
+  }, []);
 
   return (
     <div className="all">
+      <Modal className="modalWindow" open={open} onClose={handleClose}>
+        <Paper>
+          <Typography>
+            Error logging in.
+          </Typography>
+        </Paper>
+      </Modal>
         
         <div className="header">
         <Header version={'blank'}/>
         </div>
-
-        <div className="logo">
-            <img src={window.location.origin + '/images/UN_emblem_blue.png'} height={100} alt="logoImage" />
-        </div>
-
+        
         <div className= "top">
         {/* <h2 className="welcomeHeader1">Welcome to United Nations</h2> */}
         <div className="welcomeHeader1">
+        <img src={window.location.origin + '/images/UN_emblem_blue.png'} height={100} alt="logoImage" />
+
           <Typography variant="h6">Welcome to Mac-UN!</Typography>
         </div>
         </div>
 
         <div className="logins">
-            <form className="container1">
+            <form className="homecontainer">
             <div className="heading"> 
                 <h1 className="diasAndDelegateHeader">Dias Login</h1>
-                <img src={window.location.origin + '/images/lecturer.png'} width={45} height={65} alt="lecturerImage" />
+                <img className="loginimage"  src={window.location.origin + '/images/dias.png'} alt="lecturerImage" />
             </div>
                     <div className="usernameLabel">
                         <h6 className="header6">Username</h6> 
@@ -118,6 +149,7 @@ const Home=()=>{
                             required
                             value = {username}
                             onChange={(e) => setUsername(e.target.value)}
+                            id="diasUser"
                             />
                         </div>
                         <GavelIcon style={{ color: "white" }}/>
@@ -130,6 +162,7 @@ const Home=()=>{
                             required 
                             value = {password}
                             onChange={(e) => setPassword(e.target.value)}
+                            id="diasPass"
                             />
                         </div>
                         <LockIcon style={{ color: "white" }}/>
@@ -141,15 +174,15 @@ const Home=()=>{
                     </div>
             </form>
 
-            <div className="container2">
+            <div className="homecontainer">
             <div className="heading">   
             <h1 className="diasAndDelegateHeader">Delegate Login</h1>
-            <img src={window.location.origin + '/images/delegate.png'} width={45} height={63} alt="lecturerImage" />
+            <img className="loginimage" src={window.location.origin + '/images/delegate.png'} alt="lecturerImage" />
             </div>
                
-            <div className="countryLabel">
+            <div className=" usernameLabel">
               <h6 className="header6">Country</h6>
-                <select name="countries" id="countries">
+                <select className="input-box" name="countries" id="countries">
                 <option value="choice"></option>
                 {generateCountryOptions()}
                 </select>
@@ -157,7 +190,7 @@ const Home=()=>{
             </div>
 
                 
-                <div className="sessionLabel">
+                <div className=" passwordLabel">
                     <h6 className="header6">Session ID</h6>
                     <div className="input-box">
                         <input type="text" required  id="sessionId"/>

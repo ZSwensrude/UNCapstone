@@ -21,9 +21,9 @@ export const dmCollection = new Mongo.Collection('DMs');
 
 // Define allow/deny rules for the dmCollection
 dmCollection.allow({
-  update(userId, doc, fields, modifier) {
+  update() {
     // Allow updating if the user is logged in
-    return !!userId;
+    return true;
   }
 });
 

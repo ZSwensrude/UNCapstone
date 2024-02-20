@@ -29,19 +29,24 @@ const Notification = ({ notification, readNotification}) => {
     if (dmDocument) {
       // Extract the working group's _id from the DM document
       const WGid = dmDocument.groupId;
-  
-      // Update the working group in the database
-      workingGroupCollection.update(
-        { _id: WGid }, // Update the working group with the corresponding _id
-        { $push: { countries: { country: user.country, name: user.countryName, flagPath: user.flagPath } } }, // Push the user's country to the countries array
-        (error, result) => {
-          if (error) {
-            console.error('Error updating working group:', error);
-          } else {
-            //console.log('Successfully joined the group:', result);
+
+      // check if user is already in group
+      const group = workingGroupCollection.findOne({_id: WGid});
+      // if they are not, let them join
+      if (!group.countries.some(item => item.country === user.country)){
+        // Update the working group in the database
+        workingGroupCollection.update(
+          { _id: WGid }, // Update the working group with the corresponding _id
+          { $push: { countries: { country: user.country, name: user.countryName, flagPath: user.flagPath } } }, // Push the user's country to the countries array
+          (error, result) => {
+            if (error) {
+              console.error('Error updating working group:', error);
+            } else {
+              //console.log('Successfully joined the group:', result);
+            }
           }
-        }
-      );
+        );
+      }  
     } else {
       console.error('DM document not found for notification ID:', notification._id);
     }

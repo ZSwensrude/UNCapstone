@@ -12,7 +12,7 @@ const CurrentMotion = ({ motion, country, abstain, user}) => {
   return (
     <>
       {isMotion && (
-        <Paper id="motion">
+        <Paper className="motionbox">
           <Typography className='motionText' variant='h2'>
             Vote on Current Motion
           </Typography>

@@ -1,8 +1,14 @@
 .waitingbox{
-    margin-top: 8em;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+        /* margin-top: 8em; */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        z-index: -1;
+        position: absolute;
+        top: 10em;
+        align-content: center;
+        left: 0px;
+        right: 0;
 }
 li.presentCountries{
     float: none;

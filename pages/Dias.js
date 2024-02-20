@@ -102,32 +102,28 @@ const accounts = [];
   return (
     <div className="fullPage">
         
-        <Dialog open={openConference} onClose={handleToCloseConference}>
-            <DialogTitle>{"Create Conference"}</DialogTitle>
-            <DialogContent>
+        <Dialog className="createConfDialog" open={openConference} onClose={handleToCloseConference}>
+            <DialogTitle className="creatdialogtitle">{"Create Conference"}</DialogTitle>
+            <DialogContent >
             <div className='firstPart'>
-                <div className="TitleLabel">
-                  <h6 className="header1">Title:</h6> 
+                <div className="Title ULabel">
+                  <span className="header1">Title:</span> 
                     <div className="inputBox">
                         <input id="conferenceTitle" type="text" required />
                     </div>
                 </div>
-                <div className="ComiteeLabel">
-                  <h6 className="header1">Commitee:</h6> 
+                <div className="Comitee ULabel">
+                  <span className="header1">Commitee:</span> 
                   <div className="inputBox">
                     <input id="conferenceCommitee" type="text" required />
                   </div>
                 </div>
-                <div className='smallLineBox'>
-                  <div className="smallLine"></div>
-                </div>
+
             </div>
 
             <div className='secondPart'>
 
-                    <div className='PresetLocationsTitleBlock'>
-                        <div className='title2'>Preset Locations</div>       
-                    </div>
+                        <span className='presetLoc'>Preset Locations</span>       
 
                     <div className="locationBoxBlock">
                         <div className='locationBox'>
@@ -140,9 +136,6 @@ const accounts = [];
                                 <CoolButton buttonText={"Add"} buttonColor={'#FF9728'} textColor='white' />
                             </div>
 
-                            <div className='smallerLineBox'>
-                                <div className="smallerLine"></div>
-                            </div>
 
                             {conferenceLocations.map( (conferenceLocation, index) => (
                             <PriorLocations key={conferenceLocation.cLocation + index} version={"dias"} conferenceLocation={conferenceLocation}/>
@@ -152,53 +145,37 @@ const accounts = [];
                     </div>
                 </div>
 
-                <div className='thirdPart'>
-                    <div className='smallLineBox'>
-                        <div className="smallLine"></div>
-                    </div>
+                    
                     <div className='createConfButtons'>
                         <CoolButton buttonText={"Cancel"} onClick={handleToCloseConference} buttonColor={'#800000'} textColor='white' />
                         <CoolButton buttonText={"Create"} onClick={toDiasHome} buttonColor={'#FF9728'} textColor='white' />
                     </div>
-                </div>
-
               
             </DialogContent>
         </Dialog>
         
         <Header version={'dias'}/>
+          <h6 className="myConference">My Conferences</h6>
 
-        <div className="headerBar">
-            <h6 className="myConference">My Conferences</h6>
-        </div>
-
-        <div className="mainBox">
-          <div className="container">
+          <div className="confContainer">
 
           {conferenceGroups.map( (conferenceGroup, index) => (
               <MyConference key={conferenceGroup.conferenceName + index} conferenceGroup={conferenceGroup}/>
             ))}
-
-            <div className="lineBlock">
-              <div className="line">
-              </div>
-            
               <div className="buttonBlock">
               <CoolButton buttonText={"New"} onClick={handleClickToOpenConference} buttonColor={'#FF9728'} textColor='white' />
               </div>
-            </div>
             
           </div>
-        </div>
+          <div className="initialBtnBox">
         <CoolButton buttonText={"Initialize DB"} onClick={initializeDB}/>
+        </div>
 
     </div>
   );
 }
 
 export default Dias;
-
-
 
 /*
 

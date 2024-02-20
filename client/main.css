@@ -2,17 +2,29 @@ body {
   background-color: #EFEFEF;
   display: flex;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  margin:0;
+  padding: 0;
 }
 
 
 .default {
+  /* position: absolute;
+  width: 99%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: -10; */
   position: absolute;
   width: 99%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  z-index: -10;
+  /* height: 93%; */
+  height: 53em;
 
 }
+
 
 .conferenceTest form{
 display: flex;
@@ -23,9 +35,195 @@ img{
   border: solid 0.5px black;
   margin: 1px;
 }
+img.loginimage{
+  height: 50px;
+}
 img#un,
 .logins img, 
 .logo img
 {
   border: none;
+}
+
+@media screen and (max-width: 1750px) {
+
+
+}
+
+@media screen and (max-width: 1550px) {
+  .homecontainer {
+    width: 45%;
+  }
+
+}
+
+
+
+@media screen and (max-width: 1360px) {
+  /* delegate informal  */
+  .delegateHome{
+    flex-direction: column-reverse;
+  }
+  #speakers{
+    margin-bottom: 2em;
+    width: 60%;
+  }
+  #motion{
+    width: 60%;
+    margin-bottom: 1em;
+  }
+  #bottomButton {
+    margin-bottom: 2em;
+  }
+  .modalContent{
+    width: 80%;
+  }
+  .notifications {
+    position: absolute;
+    right: 2em;
+    top: 120px;
+  }
+  #groupHolder{
+    min-width: 23em;
+    margin-bottom: 2em;
+  }
+  #notificationContent{
+    min-height: 25em;
+    right: 0;
+  }
+/* dias */
+  .FormalBlock{
+    flex-direction: column;
+    align-items: center;  
+  }
+  #Formal{
+    margin-top: 54em ;
+  }
+  .MotionsBlock, .SpeakerListBlock{
+    width: 80%;
+  }
+  .motionBlock{
+    width: 90%;
+    height: 30em;
+  }
+  .motionsAdded{
+    height: 290px;
+  }
+
+  .InformalBlock{
+    flex-direction: column;
+    justify-content: unset;
+    align-items: center;
+  }
+  .DeadlinesAndTimerBlock{
+    width: 80%;
+  }
+  .WorkingGroupsBlock, .LocationsAndPresentationBlock{
+    width: 80%;
+  }
+  .HomePageDias #logoutButton{
+    left: 3px;
+      top: 116px;
+  }
+  .WorkingGroupBlock2 {
+    width: unset; 
+    height: 39em; 
+  }
+  .tabcontent#Informal{
+    margin-top: 15em;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .homecontainer {
+    width: 60%;
+  }
+  .homecontainer:first-of-type{
+    margin-bottom: 2em;
+  }
+  .logins{
+    flex-direction: column;
+    align-items: center;
+  }
+  .waitingList{
+    column-count: unset;
+  }
+  .statusButton{
+    top: 122px;
+    height: 37px;  }
+    
+    .tabcontent#NotesDias {
+      margin-top: 250px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .usernameLabel, .passwordLabel{
+    flex-direction: column;
+  }  
+  .homecontainer svg{
+    display: none;
+  }
+  .confContainer {
+    width: 80%;
+  }
+  #un{
+    height: 50px;
+  }
+
+}
+
+@media screen and (max-width: 800px) {
+  #Formal{
+    margin-top: 14em
+  }
+  .FormalBlock{
+    justify-content: unset;
+  }
+  .currentlySpeakingAndControl{
+    flex-direction: column;
+    align-items: center;
+    justify-content: unset;
+  }
+  #logoutButton{
+    left: 3px;
+    top: 116px;
+  }
+  .motionBlock{
+
+  }
+}
+
+
+@media screen and (max-width: 700px) {
+  /* delegate informal  */
+  #speakers{
+    width: 80%;
+  }
+  #motion{
+    width: 80%;
+  }
+  #bottomButton{
+    flex-direction: column;
+    align-items: center;
+  }
+  #notificationContent{
+    max-width: 23em;
+  }
+  .ULabel{
+    flex-direction: column;
+    align-items: center;
+  }
+  .createConfDialog .ULabel span{
+    text-align: center;
+  }
+  .firstPart{
+    width: 388px;
+  }
+
+}
+
+@media screen and (max-width: 600px) {
+  .homecontainer {
+    width: 80%;
+  }
 }

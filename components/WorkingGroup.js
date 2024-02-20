@@ -4,26 +4,28 @@ import CoolButton from "./CoolButton";
 import './components.css'
 import flagsData from '../flags.json';
 
-
-
-const WorkingGroup = ({ workingGroup, chooseGroup, isInUserCountry }) => {
+const WorkingGroup = ({ workingGroup, chooseGroup, isInUserCountry, Dias }) => {
   // Function to get the flag path for a given country code
-const getFlagPath = (countryCode) => {
-  if (!countryCode || !countryCode.country) return null; // Ensure countryCode is valid
-  const country = flagsData.countries.find(country => country.country.toLowerCase() === countryCode.country.toLowerCase());
-  return country ? country.flagPath : null;
-};
+  const getFlagPath = (countryCode) => {
+    if (!countryCode || !countryCode.country) return null; // Ensure countryCode is valid
+    const country = flagsData.countries.find(country => country.country.toLowerCase() === countryCode.country.toLowerCase());
+    return country ? country.flagPath : null;
+  };
 
-const getFlagName = (countryCode) => {
-  if (!countryCode || !countryCode.country) return null; // Ensure countryCode is valid
-  const country = flagsData.countries.find(country => country.country.toLowerCase() === countryCode.country.toLowerCase());
-  return country ? country.name : null;
-};
+  const getFlagName = (countryCode) => {
+    if (!countryCode || !countryCode.country) return null; // Ensure countryCode is valid
+    const country = flagsData.countries.find(country => country.country.toLowerCase() === countryCode.country.toLowerCase());
+    return country ? country.name : null;
+  };
 
   // Handles when the user clicks on the "view group" button
   const onClick = () => {
-    //console.log("Viewing group:", workingGroup?.name);
-    chooseGroup(workingGroup ?? {});
+    // If Dias is true, call chooseGroup with the workingGroup and 'Dias' as arguments
+    if (Dias) {
+      chooseGroup(workingGroup, 'Dias');
+    } else {
+      chooseGroup(workingGroup);
+    }
   };
 
   return (
@@ -37,7 +39,8 @@ const getFlagName = (countryCode) => {
       ))}
 
       <div className="workingGroupButton">
-        <CoolButton textColor={'white'} buttonText={'View'} buttonColor={'#00DB89'} onClick={onClick} />
+        {/* If Dias is true, show 'View Dias' button, else show 'View' button */}
+        <CoolButton textColor={'white'} buttonText={Dias ? 'Edit' : 'View'} buttonColor={'#00DB89'} onClick={onClick} />
       </div>
     </Paper>
   );
