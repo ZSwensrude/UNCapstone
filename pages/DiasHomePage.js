@@ -169,6 +169,7 @@ const DiasHome = () => {
   const [openStatus, setOpenStatus] = React.useState(false);
   const [rollCallButton, setRollCallButton] = React.useState('');
  
+  // opens the status popup
   const handleClickToOpenStatus = () => {
       setOpenStatus(true);
   };
@@ -177,6 +178,7 @@ const DiasHome = () => {
       setOpenStatus(false);
   };
 
+  //opens the merge selected button pop up
   const [openMerge, setOpenMerge] = React.useState(false);
  
   const handleClickToOpenMerge = () => {
@@ -187,11 +189,12 @@ const DiasHome = () => {
       setOpenMerge(false);
   };
 
+
   const navigate = useNavigate();
 
-    const toInformalPresentation = () => {
+    const toFormalPresentation = () => {
         // Navigate to a different route
-        navigate('/informal-presentation');
+        navigate('/formal-presentation');
     };
 
     const [openSpkClear, setopenSpkClear] = React.useState(false);
@@ -565,7 +568,7 @@ const [searchTerm, setSearchTerm] = useState('');
                     </div>
 
                     <div className="presentationButtonBlock">
-                        <CoolButton onClick={toInformalPresentation} buttonText={"Presentation"} buttonColor={'#00DB89'} textColor='white' />
+                        <CoolButton onClick={toFormalPresentation} buttonText={"Presentation"} buttonColor={'#00DB89'} textColor='white' />
                     </div>
 
                 </div>
@@ -627,7 +630,7 @@ const [searchTerm, setSearchTerm] = useState('');
                             ))}
                     </div>
                     <div className="presentationButtonBlock">
-                        <CoolButton onClick={toInformalPresentation} buttonText={"Presentation"} buttonColor={'#00DB89'} textColor='white' />
+                        <CoolButton onClick={toFormalPresentation} buttonText={"Presentation"} buttonColor={'#00DB89'} textColor='white' />
                     </div>  
                 </div>
             </div>
