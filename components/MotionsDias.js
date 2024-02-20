@@ -19,13 +19,14 @@ const MotionsDias = ({ aMotionDias }) => {
     };
 
     return (
-        <Paper id={'oneMotion'} elevation={0}>
-            <Typography>{aMotionDias?.content ?? "Motion"}</Typography>
-            {/* Add a button to toggle the active state */}
+        <Paper id={'oneMotion'} elevation={0}> 
             <Button onClick={handleSetActiveMotion}>
                 {aMotionDias.active ? "Active" : "Inactive"}
             </Button>
-            <button onClick={handleRemoveMotion}>X</button>
+
+            <Typography className="motionContent">{aMotionDias?.content ?? "Motion"}</Typography>
+           
+            <button className="DeleteMotion" onClick={handleRemoveMotion}>X</button>
         </Paper>
     );
 }

@@ -11,7 +11,7 @@ import { workingGroupCollection } from "../imports/api/workingGroups";
 import flagsData from '../flags.json';
 
 
-const WorkingGroupsList = ({ openNotification, setOpenNotification }) => {
+const WorkingGroupsList = ({ openNotification, setOpenNotification, Dias}) => {
   // Function to retrieve user information from localStorage
   const getUserFromLocalStorage = () => {
     const userString = localStorage.getItem('loggedInUser');
@@ -96,6 +96,7 @@ const WorkingGroupsList = ({ openNotification, setOpenNotification }) => {
     if (group._id) { // Check if group id exists
       // Get the id of the working group
       const WGid = group._id;
+      console.log("WGID: ",WGid);
   
       // Update the working group in the database
       workingGroupCollection.update(
@@ -140,19 +141,21 @@ const getCountryInfo = (countryCode) => {
 };
 
 
+
   return (
     <>
       <div id='groups'>
-        <Paper id='groupsTop' elevation={4}>
+        <span id='groupsTop' elevation={4}>
           <Typography variant='h4'>
             Working Groups
           </Typography>
-        </Paper>
-        <Paper id='groupsBody' elevation={4}>
+        </span>
+        <div id='groupsBody' elevation={4}>
           
           <div className="groupHolder">
           {workingGroupsDB.map((workingGroup, index) => (
             <WorkingGroup 
+            Dias ={true}
               key={ index + "wg" + workingGroup._id} // Assuming `_id` is a unique identifier for each working group
               workingGroup={workingGroup} 
               chooseGroup={chooseGroup}
@@ -161,11 +164,10 @@ const getCountryInfo = (countryCode) => {
           ))}
 
           </div>
-
-          <div id='joinButton'>
+        </div> 
+        <div id='joinButton'>
             <CreateGroup />
           </div>
-        </Paper>
       </div>
 
       <div>
@@ -190,7 +192,12 @@ const getCountryInfo = (countryCode) => {
               <Typography >Location: {group.location}</Typography>
               <Typography >Topic: {group.topic}</Typography>
               <div className="groupMessage">
-                <MessageGroup onClick={sendMessage} countries={group.countries} groupname={group.name} />
+              <MessageGroup
+                  onClick={sendMessage}
+                  countries={group.countries}
+                  fromname={user.country}
+                  groupname={group.name}
+                />                
                 {/* Show the invite button only if the user's country is in the group */}
                 {isInUserCountry(group) && (
                   <>
@@ -207,7 +214,8 @@ const getCountryInfo = (countryCode) => {
             </Paper>
           </>
         ) }
-      </div>
+
+      </div>      
     </>
   );
 };

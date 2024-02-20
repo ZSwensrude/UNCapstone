@@ -10,7 +10,7 @@ body {
 
 .logo {
   position: fixed;
-  top: 12vh;
+  top: 12px;
   left: 50%;
   transform: translateX(-50%);
   display: block;
@@ -22,93 +22,102 @@ body {
   background-color:#009edb;
 
 }
+.top{
+  height: 17em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+}
 .welcomeHeader1 {
   display: flex;
   justify-content: center;
-  font-size:  9vh;
+  flex-direction: column;
+  align-items: center;
+  font-size:  9px;
   font-weight: 400;
-  margin-block-start: 27vh;
-  margin-block-end: 01vh;
+  margin-block-start: 27px;
+  margin-block-end: 01px;
+}
+.welcomeHeader1 img{
+  border: none;
+}
+.input-box
+{
+
+}
+.usernameLabel input,
+.passwordLabel input, 
+.usernameLabel select{
+  font-size: 20px;
+  height: 100%;
+  padding: 6px 5px 5px 9px;
 }
 
-.usernameLabel input,.passwordLabel input, 
-.countryLabel select, .sessionLabel input {
-  font-size: 17px;
-  height: 100%;
+.usernameLabel, 
+.passwordLabel
+{
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 85%;
+  display: flex;
+  margin: 6px 0;
+
 }
 
 .logins {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 
-.container1, .container2 {
-    /* width: 75vh;
-    height: 39vh; */
-    min-width: 40%;
-    background: #009edb;
-    color: black;
-    display:flow;
-    justify-content: center;
-    align-items: center;
-    border-style: solid;
-    border-color:#009edb;
-    border-radius: 30px;
-    margin: 5vh;
+.homecontainer {
+  width: 35%;
+  background: #009edb;
+  color: black;
+  border-style: solid;
+  border-color: #009edb;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 25px 20px;
   }
 
-  .usernameLabel .input-box{
-    margin-left: -7px;
-  }
-  .usernameLabel, .passwordLabel {
-    display:flex;
-    justify-content:space-evenly;
-    margin-bottom: 15px;
-  }
-
-  .sessionLabel, .countryLabel {
-    display:flex;
-    justify-content: space-evenly;
-    margin-bottom: 1vh;
-
-  }
-  select#countries{
-    margin-right: -24px;
-    min-height: 41px;
-    min-width: 215px;
-  }
   .diasAndDelegateHeader {
-    display:flex;
-    font-size:5vh;
-    color: white;
-    justify-content: center;
-    align-items: center;
-    margin-top: 3vh;
-    margin-bottom: 5vh;
+    color: #ffff;
+    margin: 0 21px 0 0;
 }
 
 .header6 {
   font-weight: bold;
-  font-size: 3vh;
+  font-size: 23px;
   color: white;
-  margin:0vh;
+  margin:0px;
+  width: 120px;
 }
 
+.header{
+  position: relative;
+  margin-bottom: 115px;
+}
 .diasButtons {
-  margin: 2vh;
-  display:flex;
+  display: flex;
   justify-content: space-between;
+  width: 86%;
 }
 
 .submitButton {
   display: flex;
-  margin: 2vh;
+  margin: 2px;
   justify-content: flex-end;
 }
 
 .heading {
-  margin-top: 2vh;
-  display:flex;
-  align-items: stretch;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
   justify-content: center;
 }
+

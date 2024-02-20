@@ -45,9 +45,7 @@ const DiasSpeakersList = () => {
             <Country countryName={currentSpeaker.country } />
           )}
         </div>
-        <div className="lineABlock">
-            <div className="lineA"></div>
-        </div>
+  
         <div className="controlTitleBlock">
             <h2 className="controlTitle">In Queue:</h2>
         </div>
@@ -58,9 +56,6 @@ const DiasSpeakersList = () => {
 
         </div>
 
-        <div className="lineABlock">
-            <div className="lineA"></div>
-        </div>
 
     </div>
   );

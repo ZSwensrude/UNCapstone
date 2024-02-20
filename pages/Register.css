@@ -1,19 +1,17 @@
 
 .regContainer {
   position: relative;
-  width: 30vw;
-  height: 60vh;
-  /* left: 35vw;
-  right: 35vw; */
-  top: 20vh;
+  width: 34em;
   background: #009edb;
   color: black;
-  display:flex;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   border-style: solid;
-  border-color:#009edb;
+  border-color: #009edb;
   border-radius: 10px;
+  top: 11em;
+  padding: 0 0 51px 0;
   }
 
 .inputRegister {
@@ -28,8 +26,9 @@
 .inputBoxRegister {
   display: flex;
   width: 50%;
-  height: 60%;
-  margin-top:1%;
+  height: 32px;
+  margin-top: 1%;
+  font-size: 20px;
 }
 
 .regHeader1 {
@@ -56,4 +55,6 @@
   display: flex;
   bottom: 0%;
   margin: auto;
+  margin-top: 15px;
+
 }

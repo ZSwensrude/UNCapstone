@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal, Paper, Typography, TextField } from "@mui/material";
+import { Modal, Paper, Typography, TextField, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import CoolButton from "./CoolButton";
 import './components.css';
 import countriesData from '../flags.json'  
@@ -11,6 +11,7 @@ const CreateGroup = () => {
   const [open, setOpen] = useState(false);
   // remove the default value from this when getting from database
   const [countries, setCountries] = useState(countriesData.countries);
+  const [popupOpen, setPopupOpen] = useState(false); // State to manage the popup
   const [selectedCountries, setSelectedCountries] = useState([]);
   const [location, setLocation] = useState(""); // State to store location
   const [topic, setTopic] = useState(""); // State to store topic
@@ -28,7 +29,9 @@ const CreateGroup = () => {
   const handleClose = () => {
     setOpen(false);
   }
-
+  const handlePopupClose = () => {
+    setPopupOpen(false);
+  };
   // when country flag is clicked
   const onSelect = (country) => {
     setSelectedCountries([...selectedCountries, country])
@@ -52,39 +55,37 @@ const CreateGroup = () => {
     };
 
   // create button
-  const create = async () => {
-    //console.log("create pressed");
-    //console.log("countries chosen: ", selectedCountries);
-    //console.log("Location: ", location); // Logging location value
-    //console.log("Topic: ", topic); // Logging topic value
-    //console.log("name:", groupname );
   
+  const create = async () => {
     try {
-      // Add that new group to the database
-      // Create the working group with selected countries, location, and topic
       const groupId = await insertWG({
         location: location,
         topic: topic,
         name: groupname,
-        // countries: selectedCountries
       });
-      //console.log("groupID: ", groupId);
-  
-      // Insert a direct message for each country in the selected countries array
-      selectedCountries.forEach(country => {
-        insertDM({
-          type: "invite",
-          from: groupname,
-          to: country.country, // Specify the country to send the invite to
-          content: "Please join our group!",
-          read: "false",
-          groupId: groupId // Pass the groupId obtained from the insertWG function
+
+      if (groupId !== "error") {
+        console.log("GroupID:", groupId);
+
+        selectedCountries.forEach((country) => {
+          insertDM({
+            type: "invite",
+            from: groupname,
+            to: country.country,
+            content: "Please join our group!",
+            read: "false",
+            groupId: groupId,
+          });
         });
-      });
-  
-      handleClose();
+
+        handleClose();
+      } else {
+        console.error("Error: Group with the same name already exists.");
+        // Show the popup if a group with the same name already exists
+        setPopupOpen(true);
+      }
     } catch (error) {
-      console.error('Error creating group:', error);
+      console.error("Error creating group:", error);
     }
   };
   
@@ -92,7 +93,7 @@ const CreateGroup = () => {
     <div>
       <CoolButton onClick={handleOpen} buttonColor={'#FF9728'} textColor={'white'} buttonText={'create group'}/>
       <Modal className="modalWindow" open={open} onClose={handleClose}>
-        <Paper className="modalContent" style={{borderRadius:'30px', height:'60vh'}}>
+        <Paper className="modalContent" style={{borderRadius:'30px'}}>
           <Typography variant="h2">
             Create Working Group
           </Typography>
@@ -156,6 +157,17 @@ const CreateGroup = () => {
           </div>
         </Paper>
       </Modal>
+      <Dialog open={popupOpen} onClose={handlePopupClose}>
+        <DialogTitle>Error</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Group with the same name already exists.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <CoolButton onClick={handlePopupClose} buttonColor={'#FF9728'} textColor={'white'} buttonText={'Okay'} />
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };

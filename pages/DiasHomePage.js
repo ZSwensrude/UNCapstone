@@ -16,6 +16,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import DeadlineDias from "../components/DeadlinesDias.js";
 import PriorLocations from "../components/PriorLocations.js";
 import NotesToDias from "../components/NotesToDias.js";
+import WorkingGroupsListDIAS from "../components/WorkingGroupsListDIAS.js";
 import { useNavigate  } from 'react-router-dom';
 import DiasSpeakersList from '../components/DiasSpeakersList.js';
 import { motionCollection, insertMotion, removeMotion, switchActiveMotion} from "../imports/api/motions.js";
@@ -26,6 +27,10 @@ import VoteCountChart from "../components/VoteCountBox.js";
 import Countdown from 'react-countdown';
 import LogoutButton from "../components/LogoutButton.js";
 import { delCollection } from "../imports/api/delegates.js";
+import { dmCollection, insertDM, updateDMReadStatus } from "../imports/api/dm";
+import BellIcon from '@mui/icons-material/Notifications';
+
+
 
 
 function openTab(evt, tabName) {
@@ -50,7 +55,7 @@ function openTab(evt, tabName) {
   }
 // Placeholder for Dias screen
 const DiasHome = () => {
-        
+
     const countries = [
         { position: 1, countryName: 'Country A', flagPath: '/path/to/flagA.png' },
         { position: 2, countryName: 'Country B', flagPath: '/path/to/flagB.png' },
@@ -58,15 +63,7 @@ const DiasHome = () => {
     ];
     
 
-    // const delegates = [
-    //     {
-    //     "countryName": "Argentina"
-    //     },
-    //     {
-    //     "countryName": "Canada"
-    //     }
-    // ]
-
+    
     //DB Communication - live pull on any change in table
     const { delegatesListDias = [] } = useTracker(() => {
         const handler = Meteor.subscribe('delegates');
@@ -83,17 +80,61 @@ const DiasHome = () => {
         activeMotion = motionCollection.find({ active: true }).fetch();
         return { motionsListDias };
     });
-//console.log(activeMotion);
 
 
-  const DeadlineListDias = [
-    {
-        "deadlineAdded": "Working Paper Third Draft: 2pm"
-    },
-    {
-        "deadlineAdded": "Amendment Form Due: 4pm"
-    }
-  ]
+    const DeadlineListDias = [
+        {
+            "deadlineAdded": "Working Paper Third Draft: 2pm"
+        },
+        {
+            "deadlineAdded": "Working Paper Third Draft: 2pm"
+        },
+        {
+            "deadlineAdded": "Working Paper Third Draft: 2pm"
+        },
+        {
+            "deadlineAdded": "Working Paper Third Draft: 2pm"
+        },
+        {
+            "deadlineAdded": "Working Paper Third Draft: 2pm"
+        },
+        {
+            "deadlineAdded": "Working Paper Third Draft: 2pm"
+        },
+        {
+            "deadlineAdded": "Working Paper Third Draft: 2pm"
+        },
+        {
+            "deadlineAdded": "Working Paper Third Draft: 2pm"
+        },
+        {
+            "deadlineAdded": "Working Paper Third Draft: 2pm"
+        },
+        {
+            "deadlineAdded": "a"
+        },
+        {
+            "deadlineAdded": "b"
+        },
+        {
+            "deadlineAdded": "c"
+        },
+        {
+            "deadlineAdded": "d"
+        },
+        {
+            "deadlineAdded": "e"
+        },
+        {
+            "deadlineAdded": "f"
+        },
+        {
+            "deadlineAdded": "Working Paper Third Draft: 2pm"
+        },
+        {
+            "deadlineAdded": "Amendment Form Due: 4pm"
+        }
+      ]
 
   const conferenceLocations = [
     {
@@ -110,19 +151,21 @@ const DiasHome = () => {
     }
   ]
 
-  const notesToDiasGroups = [
-    {
-      "noteCountry": "China",
-      "noteFromCountry": "Just saying Hi!",
-      "status": "read"
-    },
-    {
-        "noteCountry": "Canada",
-        "noteFromCountry": "Not Happy!",
-        "status": "unread"
-    }
-  ]
+  const [unreadMessages, setUnreadMessages] = useState(false);
+  const { dms } = useTracker(() => {
+    const handler = Meteor.subscribe('DMs');
+    const dmData = dmCollection.find({ type: "dias" }, { sort: { createdAt: -1 } }).fetch(); // Filter by dias type
+   
+    return { dms: dmData };
+    });
+    const countUnreadMessages = (dms) => { // Change parameter name to dmData
+            return dms.filter(dm => dm.read === "false").length;
+        }; 
 
+        useEffect(() => {
+        // Update unread messages count
+        setUnreadMessages(dms.filter(dm => dm.read === "false").length > 0);
+    }, [dms]);
   const [openStatus, setOpenStatus] = React.useState(false);
   const [rollCallButton, setRollCallButton] = React.useState('');
  
@@ -159,7 +202,6 @@ const DiasHome = () => {
       
     const handleClearConfirmed = () => {
         setopenSpkClear(false); // Close the confirmation dialog
-        //console.log("clear pressed!!!!!!"); // Perform the clear operation
         const handler = Meteor.subscribe('speakers');
         const speakersData = speakerCollection.find().fetch(); 
         speakersData.forEach(speaker => {
@@ -168,7 +210,6 @@ const DiasHome = () => {
     };
 
     const handleSpkNext = () => {
-        //console.log("next speaker pressed!!!!!!"); // Perform the clear operation
         const handler = Meteor.subscribe('speakers');
         const speakersData = speakerCollection.find().fetch(); 
         removeSpeaker({ _id: speakersData[0]._id }); // remove current speaker
@@ -176,14 +217,12 @@ const DiasHome = () => {
 
     const handleClearCancelled = () => {
         setopenSpkClear(false); // Close the confirmation dialog
-        //console.log("clear cancelled"); // Log that the clear operation was cancelled
     };
 
     // Define state variables for searchTerm and searchResults
 const [searchTerm, setSearchTerm] = useState('');
 
     const addtolist = (searchTerm) =>{
-        //console.log("Selected country:", searchTerm);
     
         // Insert the speaker with the selected country
         insertSpeaker({ country: searchTerm });
@@ -196,7 +235,6 @@ const [searchTerm, setSearchTerm] = useState('');
          const handler = Meteor.subscribe('conference');
          const data = conferenceCollection.findOne();
          setConferenceData(data); // Update conference data in state
-         console.log(data);
      }, []);
      
  //update later to get sessionID and corresponding record in conference table
@@ -209,7 +247,14 @@ const [searchTerm, setSearchTerm] = useState('');
             updateConferenceActiveStatus({ conferenceId: _id, activeSpeakerList: updatedActiveStatus });
          }
      };
+    // Update button text based on activeSpeakerList value
+    useEffect(() => {
+        if (conferenceData) {
+            setButtonText(conferenceData.activeSpeakerList ? "Close Speaker List" : "Open Speaker List");
+        }
+    }, [conferenceData?.activeSpeakerList]);
 
+    const [buttonText, setButtonText] = useState("");
      const updateRollCallActive = () => {
         if (conferenceData) {
             const { _id, rollCallOpen } = conferenceData;
@@ -302,7 +347,10 @@ const [searchTerm, setSearchTerm] = useState('');
                 <button className="tablinks" onClick={() => openTab(Event,'Formal')}>Formal</button>
                 <button className="tablinks" onClick={() => openTab(Event,'Informal')}>Informal</button>
                 <button className="tablinks" onClick={() => openTab(Event,'VotingProcedure')}>Voting Procedure</button>
-                <button className="tablinks" onClick={() => openTab(Event,'NotesDias')}>Notes to the Dias</button>
+                <button className="tablinks" onClick={() => openTab(Event,'NotesDias')}>
+                    Notes to the Dias
+                    {unreadMessages && <BellIcon className="bellIcon" />} {/* Render the bell icon conditionally */}
+                </button>            
             </div>
             
             <button className="statusButton" onClick={handleClickToOpenStatus}>Status</button>
@@ -348,32 +396,35 @@ const [searchTerm, setSearchTerm] = useState('');
         </Dialog>
 
         <div id="RollCall" className="tabcontent" style={{display:"block"}}>
+        <div className="buttonBlock1">
+                <div className="firstBlock">
+                <CoolButton onClick={updateRollCallActive} buttonText={rollCallButton} buttonColor={'#FF9728'} textColor='white' />
+                <CoolButton buttonText={"Reset"} buttonColor={'#FF9728'} textColor='white' />
+                </div>
+                <div className="secondBlock">
+                <CoolButton buttonText={"Export"} buttonColor={'#00DB89'} textColor='white' />
+                </div>
+            </div>
             <div className="RollCallBlock">
                 <div className="RollCallList">
                     <div className="searchBlock">
-                            <input className="searchBox" placeholder="Search" type="text" />
+                        <input className="searchBox" placeholder="Search" type="text" />
                     </div>
-                    <div className="titleBlock">
-                        <h5 className="titles">Member State</h5>
-                        <h5 className="titles">Absent</h5>
-                        <h5 className="titles">Present</h5>
-                        <h5 className="titles">Present & Voting</h5>
-                    </div>
-                    <div className="presentAbsentBlock">
-                    {delegatesListDias && delegatesListDias.map( (delegate, index) => (
-                        <PresentAbsentList key={delegate?.country + index + "palist"} delegate={delegate}/>
-                    ))}
-                    </div>
-                </div>
-            </div>
-
-            <div className="buttonBlock1">
-                <div className="firstBlock">
-                <CoolButton onClick={updateRollCallActive} buttonText={rollCallButton} buttonColor={'#FF9728'} textColor='white' />
-                <CoolButton buttonText={"Export"} buttonColor={'#00DB89'} textColor='white' />
-                </div>
-                <div className="secondBlock">
-                <CoolButton buttonText={"Reset"} buttonColor={'#FF9728'} textColor='white' />
+                    <table className="rollCallTable">
+                        <thead>
+                            <tr className="titleBlock">
+                                <th className="titles">Member State</th>
+                                <th className="titles">Absent</th>
+                                <th className="titles">Present</th>
+                                <th className="titles">Present &amp; Voting</th>
+                            </tr>
+                        </thead>
+                        <tbody className="presentAbsentBlock">
+                            {delegatesListDias && delegatesListDias.map((delegate, index) => (
+                                <PresentAbsentList key={delegate?.country + index + "palist"} delegate={delegate} />
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -387,25 +438,7 @@ const [searchTerm, setSearchTerm] = useState('');
                     <div className="currentlySpeakingAndControl">
                         <div className="currentlySpeaking">
                             <DiasSpeakersList />
-                            <div className="controlTitleBlock">
-                                <h2 className="controlTitle">Speaker Timer:</h2>
-                            </div>
-
-                            <div className="TimeBlock">
-                                <div className="Timer">
-                                <Countdown date={Date.now() + 10000}
-                                        renderer={renderer}
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="clearAndCloseButtonBlock">   
-                                <CoolButton buttonText={"Reset"} buttonColor={'#FF9728'} textColor='white' />
-                                <CoolButton buttonText={"Pause"} buttonColor={'#FF9728'} textColor='white' />
-                                <CoolButton buttonText={"Next"} buttonColor={'#FF9728'} textColor='white' onClick={handleSpkNext} />
-                            </div>
-
-
+                        
                         </div>
                         <div className="control">
                             <div className="controlTitleBlock">
@@ -429,32 +462,36 @@ const [searchTerm, setSearchTerm] = useState('');
                                 {/* <CoolButton buttonText={"Add to queue"} buttonColor={'#FF9728'} textColor='white' onClick={addtolist}/> */}
                             </div>
 
-                            {/* <div className="lineABlock">
-                                <div className="lineA"></div>
-                            </div> */}
 
-                            {/* <div className="controlList diasSpkSrch">
-                                <ul>
-                                {searchResults.map((country, index) => (
-                                    <Country key={index} countryName={country.country} />
-                                ))}
-                                </ul>
-                            </div> */}
-
-                            <div className="lineABlock">
-                                <div className="lineA"></div>
-                            </div>
 
                             <div className="clearAndCloseButtonBlock">   
                                 <CoolButton buttonText={"Clear List"} buttonColor={'#FF9728'} textColor='white' onClick={clearSpkList} />
-                                <CoolButton 
-                                    buttonText={"Close/Open Speaker List"} 
-                                    buttonColor={'#FF9728'} 
-                                    textColor='white' 
-                                    onClick={updateSpkerlistactive} // Add onClick event handler
-                                />                            
+                                <CoolButton
+                                    buttonText={buttonText}
+                                    buttonColor={'#FF9728'}
+                                    textColor='white'
+                                    onClick={updateSpkerlistactive}
+                                />                           
                                 </div>
+                                <div className="controlTitleBlock">
+                                <h2 className="controlTitle last">Speaker Timer:</h2>
+                            </div>
+
+                            <div className="TimeBlock">
+                                <div className="Timer">
+                                <Countdown date={Date.now() + 10000}
+                                        renderer={renderer}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="clearAndCloseButtonBlock">   
+                                <CoolButton buttonText={"Reset"} buttonColor={'#FF9728'} textColor='white' />
+                                <CoolButton buttonText={"Pause"} buttonColor={'#FF9728'} textColor='white' />
+                                <CoolButton buttonText={"Next"} buttonColor={'#FF9728'} textColor='white' onClick={handleSpkNext} />
+                            </div>
                         </div>
+                        
                     </div>
                 </div>
 
@@ -485,9 +522,7 @@ const [searchTerm, setSearchTerm] = useState('');
                             {motionError && <div className="error">{motionError}</div>}
                         </div>
 
-                        <div className="lineABlock">
-                                <div className="lineB"></div>
-                        </div>
+                        
 
                         <div className="motionsAdded">
                         {motionsListDias &&
@@ -495,9 +530,6 @@ const [searchTerm, setSearchTerm] = useState('');
                             <MotionsDias key={aMotionDias?.motionChosen + index + "motions"} aMotionDias={aMotionDias} /> ))}
                         </div>
 
-                        <div className="lineABlock">
-                                <div className="lineB"></div>
-                        </div>
                         
                         <div className="clearAndCloseButtonBlock">   
                         <CoolButton buttonText={"Clear All"} buttonColor={'#FF9728'} textColor='white' onClick={openClearConfirmationDialog} />                                {/* <CoolButton buttonText={"Send"} buttonColor={'#00DB89'} textColor='white' /> */}
@@ -517,14 +549,11 @@ const [searchTerm, setSearchTerm] = useState('');
 
                     <div className="MotionSummaryBlock">
                         <div className="motion content">
-                        {console.log("ACTIVE MOTION: ", activeMotion)}
                         {activeMotion && activeMotion.length > 0 && (
                             activeMotion[0].content
                         )}
                         </div>
                         <div className="motions voteCount">
-                            {/* {console.log("votes: ", activeMotion[0].votes)} */}
-                            {/* <VoteCountChart votes={activeMotion[0].votes} />*/}
                             {activeMotion && activeMotion.length > 0 && (
                             <VoteCountChart votes={activeMotion[0].votes} abstain={activeMotion[0].abstain} /> 
                         )}
@@ -563,13 +592,8 @@ const [searchTerm, setSearchTerm] = useState('');
                             {DeadlineListDias.map( (aDeadlineDias, index) => (
                             <DeadlineDias key={aDeadlineDias?.deadlineAdded + index + 'deadline'} version={"diasHome"} aDeadlineDias={aDeadlineDias}/>
                             ))}
-                        </div>
-                        <div className="lineABlock">
-                            <div className="lineC"></div>
-                        </div>
-                        <div className="addDeadlinesBox">
+                        </div>                        
                             <input className="DeadlineInput" placeholder="Type here..." type="text" />
-                        </div>
                         <div className="DeadlineButtons">   
                             <CoolButton buttonText={"Clear All"} buttonColor={'#FF9728'} textColor='white' />
                             <CoolButton buttonText={"Add"} buttonColor={'#FF9728'} textColor='white' />
@@ -584,7 +608,7 @@ const [searchTerm, setSearchTerm] = useState('');
                     </div>
                     <div className="WorkingGroupBlock2">
                         <div className="WorkingGroupsDatabase">
-
+                        <WorkingGroupsListDIAS />
                         </div>
                         <div className="WorkingGroupButtons">   
                             <CoolButton buttonText={"Add"} buttonColor={'#FF9728'} textColor='white' />
@@ -613,13 +637,19 @@ const [searchTerm, setSearchTerm] = useState('');
             <h3 className="head">Voting Procedure</h3>
         </div>
 
-        <div id="NotesDias" className="tabcontent" style={{display:"none"}}>
+        <div id="NotesDias" className="tabcontent" style={{ display: "none" }}>
             <div className="NotesDiasBlock">
-                <div className="NotesDiasList">
-                    {notesToDiasGroups.map( (aDiasNote, index) => (
-                        <NotesToDias key={index + "note"} aDiasNote={aDiasNote}/>
-                        ))}
-                </div>
+                {dms.length > 0 ? (
+                    <table>
+                        <tbody>
+                            {dms.map((dm, index) => (
+                                <NotesToDias key={index + "note"} aDiasNote={dm} />
+                            ))}
+                        </tbody>
+                    </table>
+                ) : (
+                    <Typography>No notes to display</Typography>
+                )}
             </div>
         </div>
     </div>

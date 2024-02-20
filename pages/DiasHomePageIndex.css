@@ -1,31 +1,42 @@
+#settings{
+  display: none;
+}
 body {
     display:flex;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     background-color: #EFEFEF;
   }
+  .HomePageDias{
+    height: 100%;
+    width: 100%;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
   
   .diasBar {
-    position: fixed;
+    position: absolute;
     display: flex;
     top: 0;
     left: 0;
     width: 100%;
     background-color: #009EDB;
     color: white;
-    height: 8vh;
-    padding: 1vh;
+    height: 7em;
+    padding: 1px;
   }
 
   .diasTabs{
-    width: 185vh;
+    width: 80%;
     display: flex;
-    justify-content: center;
+    /* justify-content: space-evenly; */
   }
 
   /* Style the tab */
 .tab {
     overflow: hidden;
-    border: 1vh solid #009edb;
+    border: 1px solid #009edb;
     background-color: #009edb;
   }
   
@@ -37,9 +48,10 @@ body {
     border: none;
     outline: none;
     cursor: pointer;
-    padding: 2.5vh 5vh;
+    padding: 2.5px 5px;
     transition: 0.3s;
-    font-size: 3vh;
+    font-size: 20px;
+    width: 10em;
   }
   
   /* Change background color of buttons on hover */
@@ -54,94 +66,89 @@ body {
   
   .tabcontent {
     display:none;
+    height: 100%;
+    margin-top: 127px;
+    }
+
+  .statusButton{
+    background: #00DBD4;
+    border-radius: 30px;
+    border: 1px solid black;
+    height: 79px;
+    top: 11%;
+    position: absolute;
+    right: 2%;
+    width: 86px;
+    font-size: 19px;
   }
 
-  /* Style the tab content */
-  .RollCall.tabcontent {
+  /* Style the tab content */    
+  /* roll call page */
+ 
+
+  .rollCallTable{
+    width: 80%;
+    margin-top: 5px;
+    background: #ffff;
+    border-radius: 30px;
+  }  
+  .searchBox{
+    height: 30px;
+    font-size: 20px;
+    width: 60%;
+  }
+  .searchBlock{
+    width: 80%;
+    height: 40px;
+    padding-top: 11px;
+  }
+  .RollCallList{
+    text-align: center;
     display: flex;
-    justify-content: center;
-    padding: 3vh 5vh;
+    flex-direction: column;
+    align-items: center;
   }
-
-  .statusButton {
-      background-color: #00DBD4;
-      border-radius: 30px;
+  .rollCallTable tr:nth-child(even){
+    background: #ebebeb;
   }
-
-  .RollCallBlock, .NotesDiasBlock {
+  .rollCallTable td{
+    padding:0;
+    margin:0;
+  }
+  .titles{
+    padding: 0;
+    border-spacing: 0;
+    font-size: 20px;
+    text-decoration: underline;
+  } 
+  .RCcountryInfo{
     display: flex;
-    justify-content: center;
-    margin-block-start: 11vh;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+  .countryFlagContainer {
+    display: flex;
+    align-items: center; 
   }
 
-  .RollCallList, .NotesDiasList {
-    width: 170vh;
-    height: 70vh;
-    display:block;
-    background: white;
-    border-style: solid;
-    border-color: #009edb;
+  .countryFlagRC {
+    width: 20px; 
+    height: auto; 
+    margin-right: 5px; 
   }
-
-  .searchBlock {
-    height: 8vh;
-    display:flex;
-    background: white;
-    border-bottom-style: solid;
-    border-bottom-color: #009edb;
-    justify-content: center;
+  .buttonBlock1{    
+    /* width: 100%; */
+    display: flex;
+    justify-content: space-around;
   }
-
-  .searchBox {
-    width: 160vh;
-    height: 5vh;
-    background: #E8E8E8;
-    margin-top: 4px;
-    border-color: #E8E8E8;
-  }
-
-  .titleBlock {
-    height: 6vh;
-    display:flex;
-    background: white;
-    border-bottom-style: solid;
-    border-bottom-color: #009edb;
-    justify-content: center;
-    
-  }
-
-  .titles {
-        font-weight: lighter;
-        display:flex;
-        margin-top: 1vh;
-        margin-bottom: 1vh;
-        margin-left: 3vh;
-        margin-right: 3vh;
-        width: 40vh;
-        justify-content: center;   
-  }
-
-  .presentAbsentBlock {
-    height: 40vh;
-    background: white;
-  }
-
-  .firstBlock {
-    width: 170vh;
-    display:flex;
-    justify-content: space-between;
-    margin-top: 2vh;
-    margin-bottom: 2vh;
-    margin-left: 0vh;
-  }
+  .firstBlock{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    }
 
   .secondBlock {
-    width: 170vh;
-    display:flex;
-    justify-content: flex-start;
-    margin-top: 2vh;
-    margin-bottom: 2vh;
-    margin-left: 0vh;
+    
   }
 
   .logos, .Formal.tabcontent, .SpeakerListButtonBlock, .currentlySpeakingAndControl, .controlTitleBlock, .BackInSessionBlock{
@@ -150,162 +157,233 @@ body {
   }
 
   .FormalBlock, .InformalBlock {
-    display:flex;
-    margin-block-start: 11vh;
+    display: flex;
+    margin-block-start: 11px;
+    justify-content: space-evenly;
+    height: 100%;
   }
-
+#diasspeakers{
+  overflow:hidden;
+}
+.MotionsBlock{
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+}
   .MotionsBlock, .SpeakerListBlock {
     display:block;
-    margin-bottom: 2vh;
+    margin-bottom: 2px;
+    width: 42%;
   }
 
-  .SpeakersListButton, .DeadlinesTitle, .WorkingGroupTitle, .LocationTitle {
+  .SpeakersListButton, .DeadlinesTitle, .WorkingGroupTitle, .LocationTitle, .MotionsButton {
     background: #009edb;
     color: white;
     border-radius: 30px;
     border-color: #009edb;
-    width: 25vh;
+    width: 211px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: medium;
-    height: 7vh;
+    font-size: 24px;
+    height: 2em;
   } 
 
-  .currentlySpeaking, .control {
-    width: 60vh;
-    height: 75vh;
-    display:block;
+  .currentlySpeaking, .control {    
+    width: 100%;
+    height: 38em;
+    display: block;
     background: #009edb;
     border-radius: 30px;
     border-style: solid;
     border-color: #009edb;
-    margin: 1.5vh;
+    margin: 1.5px;
+    padding-top: 18px;
   }
 
   .SpeakerTimerBlock, .TimeBlock {
     display:flex;
     justify-content: center;
-    margin-block-start: 1vh;
+    margin-block-start: 1px;
+  }
+  .TimeBlock{
+    height: 6em;
+    width: 100%;
   }
 
-  .Timer {
-    width: 50vh;
-    height:20vh;
+  .Timer, .timerBlock2{
+    width: 100%;
+    height: 5em;
     background-color: white;
     border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
-
+.Timer span{
+  font-size: 35px;
+}
   .controlTitle {
-    margin-block-start: 1vh;
-    color:white;
-    font-size: medium;
+    margin-block-start: 1px;
+    color: white;
+    font-size: 21px;
+    font-weight: 500;
+  }
+  .controlTitle.last{
+    margin-bottom: 1px;
   }
 
 .BackInSessionTitle {
-    margin-block-start: 1vh;
+    margin-block-start: 1px;
     color:black;
     font-size: medium;
     font-weight: bold;
 }
-
-  .lineABlock,.controlInputBox, .addMotionBox, .addButtonBlock, .MotionsButtonBlock, 
+.addButtonBlock{
+  margin-bottom: 10px;
+}
+  .controlInputBox, .addMotionBox, .addButtonBlock, .MotionsButtonBlock, 
   .DeadlinesTitleBlock, .addDeadlinesBox, .WorkingGroupTitleBlock, .LocationTitleBlock {
     display: flex;
     justify-content: center;
-    margin-block-start: 1.5vh;
+    margin-block-start: 1.5px;
   }
-
+  .addMotionBox{
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+  }
+  .MotionsButtonBlock{
+    margin-bottom: 2px;
+  }
+  .MotionInput{
+    width: 73%;
+    height: 30px;
+    font-size: 16px;
+  }
   .controlInput {
-    height: 4vh;
-    min-width: 50vh;
-    max-width: 50vh;
-    background-color:lightgrey;
+    height: 35px;
+    min-width: 90%;
+    max-width: 50px;
+    background-color: #fff;
   }
 
   .lineA {
-    min-width: 55vh;
-    max-width: 55vh;
-    height: 0.3vh;
+    min-width: 55px;
+    max-width: 55px;
+    height: 0.3px;
     background: black;
   }
   
   .clearAndCloseButtonBlock, .timerBlock2Buttons, .DeadlineButtons,.WorkingGroupButtons {
     display:flex;
     justify-content: space-evenly;
-    margin-block-start: 1.5vh;
+    margin-block-start: 1.5px;
+  }
+  .DeadlineButtons{
+    width: 80%;
+  }
+  .clearAndCloseButtonBlock{
+    margin-bottom: 15em ;
+  }
+  .clearAndCloseButtonBlock #button{
+    font-size: 10px;
+  }
+  .WorkingGroupButtons{
+    margin-top: -36px;
   }
 
-  .MotionsButton {
-    background: #009edb;
-    color: white;
-    border-radius: 30px;
-    border-color: #009edb;
-    width: 25vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: medium;
-    height: 7vh;
-  }
+
 
   .motionBlock {
-    width: 78vh;
-    height: 43vh;
+    width: 72%;
+    height: 23em;
     display:block;
     background: #009edb;
     border-radius: 30px;
     border-style: solid;
     border-color: #009edb;
-    margin-left: 1vh;
-    margin-bottom: 1.5vh;
+    margin-left: 1px;
+    margin-bottom: 1.5px;
+  }
+  .DeleteMotion, .DeleteSpeaker{
+    height: 38px;
+    color: red;
+    background: none;
+    border: none;
+    font-size: 31px;
+    font-weight: bold;
+    float: right;    
   }
 
   .DeadlinesBlock {
-    width: 60vh;
-    height: 35vh;
+    width: 100%;
+    height: 26.81em;
     display:block;
     background: #009edb;
     border-radius: 30px;
-    border-style: solid;
-    border-color: #009edb;
-    margin-block-start: 2vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 9px;
+    margin-top: 4px;
+  }
+  .Deadlines{
+    width: 85%;
+    height: 66%;
+    overflow-y: scroll;
+  }
+  .Deadlines::-webkit-scrollbar {
+    display: none;
   }
 
   .WorkingGroupBlock2 {
-    width: 75vh;
-    height: 68vh;
-    display:block;
+    width: 100%;
+    height: 38em;
+    display: block;
     background: #009edb;
     border-radius: 30px;
-    border-style: solid;
-    border-color: #009edb;
-    margin-block-start: 2vh;
-    margin-left:10vh;
+    margin-top: 5px;
   }
+  .WorkingGroupsDatabase #groups{
+    width: 100%;
+    height: 36em;
+  } 
+  .WorkingGroupsDatabase #joinButton{
+    display: none;
+  }
+  .dialogWG .MuiPaper-root{
+    width: 35em;
+  }
+  .groupName{
+    font-size: 29px !important;
+  }
+  .WGbuttons{
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between !important;
+  }
+
 
   .LocationsBlock2 {
-    width: 50vh;
-    height: 68vh;
-    display:block;
+    width: 100%;
+    height: 38em;
+    display: block;
     background: #009edb;
     border-radius: 30px;
-    border-style: solid;
-    border-color: #009edb;
-    margin-block-start: 2vh;
-    margin-left:2vh;
-    margin-bottom: 2vh;
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
   }
 
-  /* .MotionInput {
-    height: 4vh;
-    min-width: 70vh;
-    max-width: 70vh;
-    background-color:lightgrey;
-  } */
   .motionsAdded{
     overflow-y: scroll;
-    height: 190px;
+    height: 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   .motionsAdded::-webkit-scrollbar{
     display: none;
@@ -314,52 +392,46 @@ body {
     color: red;
   }
   .DeadlineInput {
-    height: 4vh;
-    min-width: 58vh;
-    max-width: 58vh;
-    background-color:lightgrey;
+    height: 60px;
+    background: #fff;
+    margin: 14px 0 0 0;
+    border: none;
+    width: 76%;
   }
 
   .lineB {
-    min-width: 72vh;
-    max-width: 72vh;
-    height: 0.3vh;
+    min-width: 72px;
+    max-width: 72px;
+    height: 0.3px;
     background: black;
   }
 
   .lineC {
-    min-width: 59vh;
-    max-width: 59vh;
-    height: 0.3vh;
+    min-width: 59px;
+    max-width: 59px;
+    height: 0.3px;
     background: black;
   }
 
   .MotionSummaryBlock {
-    width: 78vh;
-    height: 30vh;
-    display:block;
+    width: 60%;
+    height: 12em;
+    display: flex;
     background: white;
     border-radius: 30px;
     border-style: solid;
     border-color: white;
-    margin-left: 1vh;
-    margin-bottom:1.5vh;
+    margin: 8px 0 0 0;
+    flex-direction: column;
+    align-items: center;
   }
+.motion.content{
+  font-size: 20px;
+}
 
-  .timerBlock2 {
-    width: 60vh;
-    height: 25vh;
-    display:block;
-    background: white;
-    border-radius: 30px;
-    border-style: solid;
-    border-color: white;
-    margin-bottom:1.5vh;
-    margin-block-start: 2vh;
-  }
 
   .speakerTimerTitle {
-    margin-block-start: 1vh;
+    margin-block-start: 1px;
     color:black;
     font-size: medium;
   }
@@ -367,7 +439,9 @@ body {
   .timerLogos, .DeadlinesAndTimerBlock, .WorkingGroupsBlock, .LocationsAndPresentationBlock {
     display: block;
   }
-
+  .DeadlinesAndTimerBlock, .WorkingGroupsBlock, .LocationsAndPresentationBlock{
+    width: 30%;
+  }
   .presentationButtonBlock {
     display: flex;
     justify-content: flex-end;
@@ -385,6 +459,58 @@ body {
     max-height: 16rem;
     overflow-y: scroll;
   }
+  
   .diasspeakers #speakersListCountry::-webkit-scrollbar {
     display: none; /* Hide scrollbar in WebKit browsers (Chrome, Safari, etc.) */
+  }
+
+
+  /* #NotesDias */
+  .tabcontent#NotesDias{
+    margin-top:10em;
+  } 
+  .NotesDiasBlock{    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .NotesDiasBlock table{
+    width: 60%;
+    background: #fff;
+    border: 2px solid #009EDB;
+  }
+  .NotesDiasBlock td{
+    border-bottom: 2px solid #009EDB;
+  }
+  .NotesDiasBlock tr:last-of-type td{
+    border-bottom: none;
+  }
+  .NotesDiasBlock .firstTD{
+    border-right: 2px solid #009EDB;
+
+  }
+  .NotesDiasBlock span{
+    font-size: 20px;
+    
+  }
+  .NotesDiasBlock .messageTD span{   
+    overflow: hidden;
+    text-overflow: ellipsis; 
+  }
+
+  .TDicons{
+    text-align: end;
+    min-width: 5em;
+  }
+  .messageTD{ 
+    margin-left: 2px;
+    text-overflow: ellipsis;
+  } 
+  .DMflagCont{
+
+  }
+  .countryFlagDM {
+    height: 30px; 
+    margin-right: 5px; 
   }

@@ -24,7 +24,8 @@ export const insertWG = async ({ countries, location, topic, name }) => {
     }
   } catch (error) {
     console.error('Error inserting/updating working group:', error);
-    throw error; // Re-throw the error to handle it in the calling code if necessary
+    //throw error; // Re-throw the error to handle it in the calling code if necessary
+    return "error";
   }
 };
   
@@ -45,17 +46,28 @@ export const updateWG = async ({ groupId, name, topic, location }) => {
     throw error;
   }
 };
+export const deleteWG = async (groupId) => {
+  try {
+    // Delete the working group with the provided ID
+    workingGroupCollection.remove({ _id: groupId });
+    //console.log(`Deleted working group with ID ${groupId}`);
+  } catch (error) {
+    console.error('Error deleting working group:', error);
+    throw error;
+  }
+};
 
 export const workingGroupCollection = new Mongo.Collection('workingGroups');
 // Define allow/deny rules for the workingGroups collection
 workingGroupCollection.allow({
-  // Allow updates if the user is logged in
-  update(userId, doc, fieldNames, modifier) {
-    return !!userId; // Return true if the user is logged in
-  }
+  // Allow updates without any permission check
+  update() {
+    return true;
+  },
+  remove(){
+    return true;
+  },
 });
-
-
 // {
 //   "_id": "E9do2XCGcHcuY8KCn",
 //   "location": "invite lco",

@@ -2,34 +2,46 @@
 #oneConference {
     position:relative;
     border-radius: 30px;
-    padding:1vh;
+    padding:1px;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     flex-wrap: wrap;
-    margin-top: 1vh;
-    margin-bottom: 1vh;
-    padding-right: 10vh;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    padding-right: 10px;
     }
 
-    #onePriorLocation, #oneMotion, #oneDeadline, #oneNote {
+    #onePriorLocation, #oneMotion, #oneDeadline {
         position:relative;
         border-radius: 30px;
-        margin-top: 1vh;
+        margin-top: 1px;
         display:flex;
         justify-content: center;
     }
 
+    #oneMotion{
+        width: 90%;
+        margin: 2px 0;
+        width: 90%;
+        margin: 2px 0;
+        padding: 3px 21px;        
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
     #oneCountry {
         position:relative;
         display:flex;
         justify-content: space-evenly;
         background-color: white;
     }
-
+    .motionContent{
+        margin: 0 29px !important;
+    }
     .statusButtons {
         display:flex;
         justify-content: space-around;
-        margin-top: 1vh;
-        margin-bottom: 1vh;
+        margin-top: 1px;
+        margin-bottom: 1px;
     }

@@ -88,50 +88,26 @@ const Delegate = () => {
    // Get the country name from the flags.json file
    const countryName = getCountryName(user.country);
 
-   //Use useTracker to reactively fetch data from the collection
-const { SpeakersListActive } = useTracker(() => {
-  const handler = Meteor.subscribe('conference');
-  const conferenceData = conferenceCollection.find().fetch(); //add .find for filter by session id later
-  
-  // Log conferenceData to check its structure
-  //console.log("conferenceData: ", conferenceData);
-
-  // Check if conferenceData is defined before accessing its properties
-  const activeSpeakerList = conferenceData && conferenceData.length > 0 ? conferenceData[0].activeSpeakerList : false;
-
-  return { SpeakersListActive: activeSpeakerList };
-});
-
-
-
   return (
-    <div id="container">      
+    <div className="containerDelegate">
       <Header version={'delegate'} country={(user.country)} />
       {/* <Header version={'delegate'} country={countryName} /> */}
-
-      <div id="main">
         <div id="toggleButton">
           <DelegateToggle formal={formal} onClick={toggleClick} />
         </div>
+      <div id="main " className="delegateHome">
+       
         {formal ? (
           // this will be the formal delegate dashboard
           <>
-            {SpeakersListActive ? (
               <SpeakersList />
-            ) : (
-              <h3>Speakers list is closed</h3>
-            )}            
+                   
             {/* Conditionally render CurrentMotion if there is an active motion */}
             <div id="motion">
               {/* <CurrentMotion motion={motionfromDB} country={countryName} abstain={true} /> */}
               <CurrentMotion motion={motionfromDB} country={countryName} abstain={motionfromDB?.abstain} user={user.country} />
             </div>
-            <div id="bottomButton">
-              <CoolButton buttonColor={'#00DBD4'} textColor={'white'} buttonText={'view presentation screen'} />
-            </div>
-            <div id="rightButton">
-              <MessageDias />
-            </div>
+          
           </>
         ) : (
           // and here is the informal
@@ -152,6 +128,12 @@ const { SpeakersListActive } = useTracker(() => {
           </>
         )}
       </div>
+      <div id="bottomButton">
+              <CoolButton buttonColor={'#00DBD4'} textColor={'white'} buttonText={'view presentation screen'} />
+            {/* </div> */}
+            {/* <div id="rightButton"> */}
+              <MessageDias />
+            </div>
     </div>
   );
 };

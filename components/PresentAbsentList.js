@@ -7,6 +7,7 @@ import { updateDelRoll } from "../imports/api/delegates";
 const PresentAbsentList = ({ delegate }) => {
     const [selectedValue, setSelectedValue] = useState('');
     const [countryName, setCountryName] = useState(delegate.country);
+    const [flagPath, setFlagPath] = useState('');
 
     const handleChange = (event) => {
         setSelectedValue(event.target.value);
@@ -14,46 +15,55 @@ const PresentAbsentList = ({ delegate }) => {
     };
 
     // get nicer name cause its not stored in delegate DB
-    useEffect( ()=> {
-        const countryFromList = flagsData.countries.find( (country) => country.country === delegate.country )
-        setCountryName(countryFromList.name);
-    }, []) // useEffect with [] means it runs once on component load
+    useEffect(() => {
+        const countryFromList = flagsData.countries.find(country => country.country === delegate.country);
+        setCountryName(countryFromList?.name ?? "Name");
+        setFlagPath(countryFromList?.flagPath ?? "");
+    }, [delegate.country]);
 
-    useEffect( () => {
+    useEffect(() => {
         setSelectedValue(delegate.roleCall === '' ? 'absent' : delegate.roleCall);
-    }, [delegate.roleCall])
+    }, [delegate.roleCall]);
 
     return (
-        <Paper id={'oneCountry'} elevation={0}>
-            <Typography>{countryName ?? "Name"}</Typography>
-            <Divider orientation="vertical"  flexItem sx={{ marginRight:'10px', marginLeft:'10px' }} />
-            <Radio
-                checked={selectedValue === 'absent'}
-                onChange={handleChange}
-                value="absent"
-                name="radio-buttons"
-                inputProps={{ 'aria-label': 'absent' }}
-                color="orange"
-            />
-            <Divider orientation="vertical"  flexItem sx={{ marginRight:'10px', marginLeft:'10px' }} />
-            <Radio
-                checked={selectedValue === 'present'}
-                onChange={handleChange}
-                value="present"
-                name="radio-buttons"
-                inputProps={{ 'aria-label': 'present' }}
-                color="orange"
-            />
-            <Divider orientation="vertical"  flexItem sx={{ marginRight:'10px', marginLeft:'10px' }} />
-            <Radio
-                checked={selectedValue === 'presentAndVoting'}
-                onChange={handleChange}
-                value="presentAndVoting"
-                name="radio-buttons"
-                inputProps={{ 'aria-label': 'presentAndVoting' }}
-                color="orange"
-            />
-        </Paper>
+        <tr >
+            <td className="RCcountryInfo">
+                <Typography>{countryName}</Typography>
+                <div className="countryFlagContainer">
+                    {flagPath && <img className="countryFlagRC" src={window.location.origin + flagPath} alt={countryName} title={countryName} />}
+                </div>            
+        </td>
+            <td>
+                <Radio
+                    checked={selectedValue === 'absent'}
+                    onChange={handleChange}
+                    value="absent"
+                    name="radio-buttons"
+                    inputProps={{ 'aria-label': 'absent' }}
+                    color="orange"
+                />
+            </td>
+            <td>
+                <Radio
+                    checked={selectedValue === 'present'}
+                    onChange={handleChange}
+                    value="present"
+                    name="radio-buttons"
+                    inputProps={{ 'aria-label': 'present' }}
+                    color="orange"
+                />
+            </td>
+            <td>
+                <Radio
+                    checked={selectedValue === 'presentAndVoting'}
+                    onChange={handleChange}
+                    value="presentAndVoting"
+                    name="radio-buttons"
+                    inputProps={{ 'aria-label': 'presentAndVoting' }}
+                    color="orange"
+                />
+            </td>
+        </tr>
     );
 }
 
