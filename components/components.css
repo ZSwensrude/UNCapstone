@@ -322,8 +322,8 @@ p.motionText {
   min-height: 53px;
   border-radius: 30px;
   margin: 9px 0;
-  padding:0px 79px 3px 21px;  
-}
+
+  padding: 0px 86px 3px 22px;}
 .userInWorkingGroup{
   /* border: 5px solid #00DBD4; */
   background: #00DBD4 !important;
@@ -464,6 +464,7 @@ p.motionText {
   max-height: 42em;
   overflow-y: scroll;
   scrollbar-width: none;
+  min-height: 10em;
 }
 
 #notificationContent::-webkit-scrollbar {
