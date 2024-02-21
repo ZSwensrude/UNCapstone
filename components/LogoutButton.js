@@ -8,6 +8,7 @@ const LogoutButton = () => {
   const onLogout = () => {
     // remove from db if we wanna
     navigate('/');
+    Meteor.logout()
   }
 
   return(

@@ -25,6 +25,7 @@ import LogoutButton from "../components/LogoutButton.js";
 import { delCollection } from "../imports/api/delegates.js";
 import { dmCollection } from "../imports/api/dm";
 import BellIcon from '@mui/icons-material/Notifications';
+import auth from "../components/auth.js";
 
 
 
@@ -344,6 +345,13 @@ const [searchTerm, setSearchTerm] = useState('');
     const handleStatusChange = (event) => {
         setConfStatus(event.target.value);
     }
+    
+  auth().then(() => {
+    console.log('Hello!')
+  })
+  .catch(() => {
+    navigate("/")
+  });
 
   return (
     <div className="HomePageDias">
