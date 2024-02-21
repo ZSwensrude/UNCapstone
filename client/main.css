@@ -6,7 +6,6 @@ body {
   padding: 0;
 }
 
-
 .default {
   /* position: absolute;
   width: 99%;
@@ -152,7 +151,7 @@ img#un,
     height: 37px;  }
     
     .tabcontent#NotesDias {
-      margin-top: 250px;
+      /* margin-top: 250px; */
   }
 }
 

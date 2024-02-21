@@ -170,7 +170,7 @@ const getCountryInfo = (countryCode) => {
           </div>
       </div>
 
-      <div>
+      <div className="WGpopup">
         { Object.keys(group).length > 0 && (
           <>
            <Paper id='groupHolder' className={isInUserCountry(group) ? 'userInWorkingGroup' : ''}>              

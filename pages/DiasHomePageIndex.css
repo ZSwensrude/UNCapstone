@@ -66,8 +66,11 @@ body {
   
   .tabcontent {
     display:none;
-    height: 100%;
-    margin-top: 127px;
+    /* height: 100%; */
+    /* margin-top: 127px; */
+    top: 130px;
+    position: absolute;
+    width: 100%;
     }
 
   .statusButton{
@@ -293,7 +296,10 @@ body {
     margin-top: -36px;
   }
 
-
+.WGpopup{
+  display: flex;
+  flex-direction: column;
+  align-items: center;}
 
   .motionBlock {
     width: 72%;
@@ -467,7 +473,7 @@ body {
 
   /* #NotesDias */
   .tabcontent#NotesDias{
-    margin-top:10em;
+    /* margin-top:10em; */
   } 
   .NotesDiasBlock{    
     display: flex;
