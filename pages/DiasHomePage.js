@@ -29,6 +29,7 @@ import LogoutButton from "../components/LogoutButton.js";
 import { delCollection } from "../imports/api/delegates.js";
 import { dmCollection, insertDM, updateDMReadStatus } from "../imports/api/dm";
 import BellIcon from '@mui/icons-material/Notifications';
+import auth from "../components/auth.js";
 
 
 
@@ -333,6 +334,13 @@ const [searchTerm, setSearchTerm] = useState('');
               return <span>{hours}:{minutes}:{seconds}</span>;
             }
           };
+
+  auth().then(() => {
+    console.log('Hello!')
+  })
+  .catch(() => {
+    navigate("/")
+  });
 
   return (
     <div className="HomePageDias">
