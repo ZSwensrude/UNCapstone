@@ -52,7 +52,11 @@ const Presentation = () => {
         </div>
       ) : status === 'informal' ? (
         <div className="presentationBody">   
-
+          {/* put informal presentation screen here */}
+        </div>
+      ) : status === 'votingProcedure' ? (
+        <div className="presentationBody">   
+          {/* put voting procedure presentation screen here */}
         </div>
       ) : (
         <div id="intructions">
