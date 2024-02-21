@@ -68,7 +68,7 @@ body {
     display:none;
     /* height: 100%; */
     /* margin-top: 127px; */
-    top: 130px;
+    top: 166px;
     position: absolute;
     width: 100%;
     }
@@ -299,7 +299,8 @@ body {
 .WGpopup{
   display: flex;
   flex-direction: column;
-  align-items: center;}
+  align-items: center;
+}
 
   .motionBlock {
     width: 72%;
@@ -485,6 +486,7 @@ body {
     width: 60%;
     background: #fff;
     border: 2px solid #009EDB;
+    margin-bottom: 2em;
   }
   .NotesDiasBlock td{
     border-bottom: 2px solid #009EDB;
