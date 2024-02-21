@@ -180,9 +180,9 @@ const DiasHome = () => {
 
   const navigate = useNavigate();
 
-    const toInformalPresentation = () => {
-        // Navigate to a different route
-        navigate('/informal-presentation');
+    const toPresentation = () => {
+        // open new window with presentation screen
+        window.open('/presentation')
     };
 
     const [openSpkClear, setopenSpkClear] = React.useState(false);
@@ -345,7 +345,7 @@ const [searchTerm, setSearchTerm] = useState('');
     const handleStatusChange = (event) => {
         setConfStatus(event.target.value);
     }
-    
+
   auth().then(() => {
     console.log('Hello!')
   })
@@ -586,7 +586,7 @@ const [searchTerm, setSearchTerm] = useState('');
                     </div>
 
                     <div className="presentationButtonBlock">
-                        <CoolButton onClick={toInformalPresentation} buttonText={"Presentation"} buttonColor={'#00DB89'} textColor='white' />
+                        <CoolButton onClick={toPresentation} buttonText={"Presentation"} buttonColor={'#00DB89'} textColor='white' />
                     </div>
 
                 </div>
@@ -648,7 +648,7 @@ const [searchTerm, setSearchTerm] = useState('');
                             ))}
                     </div>
                     <div className="presentationButtonBlock">
-                        <CoolButton onClick={toInformalPresentation} buttonText={"Presentation"} buttonColor={'#00DB89'} textColor='white' />
+                        <CoolButton onClick={toPresentation} buttonText={"Presentation"} buttonColor={'#00DB89'} textColor='white' />
                     </div>  
                 </div>
             </div>
