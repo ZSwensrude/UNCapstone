@@ -76,7 +76,7 @@
 .upcomingSpeakers{
   overflow-y: scroll;
   height: 68%;
-  padding: 0 26px;
+  padding: 0 41px 0 0;
   width: 74%;
 
 }
@@ -133,7 +133,7 @@
 
 #toggleBack {
   background-color: black;
-  padding: 5px 4px;
+  padding: 7px 5px;
   border-radius: 30px;
   display: flex;
   justify-content: center;
