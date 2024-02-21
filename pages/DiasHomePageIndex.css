@@ -355,6 +355,7 @@ body {
   .WorkingGroupsDatabase #groups{
     width: 100%;
     height: 36em;
+    min-width: unset;
   } 
   .WorkingGroupsDatabase #joinButton{
     display: none;
