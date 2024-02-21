@@ -19,10 +19,8 @@ const CurrentSpeaker = ({ confCode }) => {
   }, []);
 
   useEffect( () => {
-    console.log("speakers", speakers);
     if (speakers.length > 0) { 
       setCountryObject(flagsData.countries.find(country => country.country === speakers[0].country));
-      console.log("countryObject", countryObject);
     } else {
       setCountryObject({});
     }

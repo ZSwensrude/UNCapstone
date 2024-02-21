@@ -6,13 +6,9 @@ import { useState } from "react";
 import './DiasHomePageIndex.css';
 import '../components/components.css';
 import CoolButton from "../components/CoolButton";
-import Country from '../components/Country';
 import SettingsIcon from '@mui/icons-material/Settings';
 import PresentAbsentList from "../components/PresentAbsentList";
 import MotionsDias from "../components/MotionsDias.js";
-import CheckIcon from '@mui/icons-material/Check';
-import CloseIcon from '@mui/icons-material/Close';
-import RemoveIcon from '@mui/icons-material/Remove';
 import DeadlineDias from "../components/DeadlinesDias.js";
 import PriorLocations from "../components/PriorLocations.js";
 import NotesToDias from "../components/NotesToDias.js";
@@ -22,12 +18,12 @@ import DiasSpeakersList from '../components/DiasSpeakersList.js';
 import { motionCollection, insertMotion, removeMotion, switchActiveMotion} from "../imports/api/motions.js";
 import { speakerCollection, removeSpeaker, insertSpeaker } from "../imports/api/speakers.js";
 import flagData from '../flags.json';
-import { insertConference, updateConferenceActiveStatus, conferenceCollection, updateRollCallStatus, updateConfStatus} from "../imports/api/conference.js";
+import { updateConferenceActiveStatus, conferenceCollection, updateRollCallStatus, updateConfStatus} from "../imports/api/conference.js";
 import VoteCountChart from "../components/VoteCountBox.js";
 import Countdown from 'react-countdown';
 import LogoutButton from "../components/LogoutButton.js";
 import { delCollection } from "../imports/api/delegates.js";
-import { dmCollection, insertDM, updateDMReadStatus } from "../imports/api/dm";
+import { dmCollection } from "../imports/api/dm";
 import BellIcon from '@mui/icons-material/Notifications';
 
 
@@ -237,7 +233,6 @@ const [searchTerm, setSearchTerm] = useState('');
          if (conferenceData) {
              const { _id, activeSpeakerList } = conferenceData;
              const updatedActiveStatus = !activeSpeakerList;
-            console.log("trying to update SpeakerList: ", activeSpeakerList, "setting: ", updatedActiveStatus);
             updateConferenceActiveStatus({ conferenceId: _id, activeSpeakerList: updatedActiveStatus });
          }
      };
@@ -253,7 +248,6 @@ const [searchTerm, setSearchTerm] = useState('');
         if (conferenceData) {
             const { _id, rollCallOpen } = conferenceData;
             const updatedRollCall = !rollCallOpen;
-            console.log("trying to update rollCall: ", rollCallOpen, "setting: ", updatedRollCall);
             updateRollCallStatus(_id, updatedRollCall );
         }
     };
@@ -338,19 +332,16 @@ const [searchTerm, setSearchTerm] = useState('');
         if (reason && reason === "backdropClick") 
             return;
         setOpenStatus(false);
-        console.log("setting back to: ", conferenceData.status)
         setConfStatus(conferenceData.status);
     };
 
     const handleSetStatus = () => {
-        console.log("setting status to: ", confStatus)
         const { _id } = conferenceData;
         updateConfStatus(_id, confStatus)
         setOpenStatus(false);
     }
 
     const handleStatusChange = (event) => {
-        console.log("status", event.target.value);
         setConfStatus(event.target.value);
     }
 

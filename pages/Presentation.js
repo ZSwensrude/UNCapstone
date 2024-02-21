@@ -29,10 +29,6 @@ const Presentation = () => {
     return { motionsListDias };
   });
 
-  useEffect( () => {
-    console.log("status", status);
-  }, [status]);
-
   return (
     <div className="presentationTop">
       <Header version={'blank'}/>
