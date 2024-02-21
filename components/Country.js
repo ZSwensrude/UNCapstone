@@ -5,7 +5,7 @@ import { Meteor } from 'meteor/meteor';
 import { removeSpeaker } from '../imports/api/speakers'; // Import the removeSpeaker function
 import { speakerCollection } from '../imports/api/speakers';
 // Define the Country component
-const Country = ({ position, countryName }) => {
+const Country = ({ position, countryName, blank }) => {
   // Function to retrieve user information from localStorage
   const getUserFromLocalStorage = () => {
     const userString = localStorage.getItem('loggedInUser');
@@ -31,7 +31,7 @@ const Country = ({ position, countryName }) => {
   const isCurrentUser = user && countryObject.country === user.country;
   
    // Check if the user is of type 'dias'
-   const isDiasUser = user && user.userType === 'dias';
+   let isDiasUser = user && user.userType === 'dias';
 
    //get speaker._id record where countryObject.country == speaker.country
    // Retrieve the documents from the cursor as an array
@@ -55,6 +55,10 @@ const handleRemoveCountry = () => {
 
   // Define classNames based on conditions
   const classNames = isCurrentUser ? 'currentUser' : '';
+
+  if (blank) {
+    isDiasUser = false;
+  }
 
   // Render the component
   return (
