@@ -5,15 +5,19 @@ import Header from "../components/Header";
 import './presentation.css';
 import { conferenceCollection } from "../imports/api/conference";
 import SpeakersList from "../components/SpeakersList";
+import CurrentSpeaker from "../components/CurrentSpeaker";
 
 const Presentation = () => {
   const [status, setStatus] = useState(true);
+  const [code, setCode] = useState('');
 
   useTracker(() => {
     const handler = Meteor.subscribe('conference');
     const data = conferenceCollection.findOne();
-    if(data)
+    if(data) {
       setStatus(data.status);
+      setCode(data.sessionID);
+    }
   }, []);
 
   useEffect( () => {
@@ -30,6 +34,7 @@ const Presentation = () => {
       { status === 'formal' ? (
         <div className="presentationBody">
           <SpeakersList blank={true} />
+          <CurrentSpeaker confCode={code} />
         </div>
       ) : (
         <div className="presentationBody">   

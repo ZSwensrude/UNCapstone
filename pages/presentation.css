@@ -5,3 +5,33 @@
 .presentationBody {
   display: flex;
 }
+
+#presentationPaper {
+  background: #009EDB;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+
+.presentationCountry {
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+  padding-top: 20px;
+  align-items: center;
+  width: 300px;
+}
+
+#presentationFlag {
+  width: 300px;
+}
+
+#confID {
+  position: fixed;
+  bottom: 10px;
+  text-align: center;
+}
