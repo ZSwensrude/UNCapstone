@@ -41,7 +41,7 @@ let theme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#009edb', // Blue color for primary elements
+      main: '#ff0000', // RED????
     },
     secondary: {
       main: '#800000', // Pink color for secondary elements
