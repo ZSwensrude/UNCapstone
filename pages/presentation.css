@@ -52,3 +52,22 @@
 #presentationMotions::-webkit-scrollbar {
   display: none; /* Hide scrollbar in WebKit browsers (Chrome, Safari, etc.) */
 }
+
+#intructions {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+#instructionPaper {
+  background: #009EDB;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 30px;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  margin-bottom: 200px;
+}
