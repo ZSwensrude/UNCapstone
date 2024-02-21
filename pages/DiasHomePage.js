@@ -22,7 +22,7 @@ import DiasSpeakersList from '../components/DiasSpeakersList.js';
 import { motionCollection, insertMotion, removeMotion, switchActiveMotion} from "../imports/api/motions.js";
 import { speakerCollection, removeSpeaker, insertSpeaker } from "../imports/api/speakers.js";
 import flagData from '../flags.json';
-import { insertConference, updateConferenceActiveStatus, conferenceCollection, updateRollCallStatus} from "../imports/api/conference.js";
+import { insertConference, updateConferenceActiveStatus, conferenceCollection, updateRollCallStatus, updateConfStatus} from "../imports/api/conference.js";
 import VoteCountChart from "../components/VoteCountBox.js";
 import Countdown from 'react-countdown';
 import LogoutButton from "../components/LogoutButton.js";
@@ -167,16 +167,9 @@ const DiasHome = () => {
         // Update unread messages count
         setUnreadMessages(dms.filter(dm => dm.read === "false").length > 0);
     }, [dms]);
-  const [openStatus, setOpenStatus] = React.useState(false);
   const [rollCallButton, setRollCallButton] = React.useState('');
  
-  const handleClickToOpenStatus = () => {
-      setOpenStatus(true);
-  };
-
-  const handleToCloseStatus = () => {
-      setOpenStatus(false);
-  };
+  
 
   const [openMerge, setOpenMerge] = React.useState(false);
  
@@ -334,6 +327,33 @@ const [searchTerm, setSearchTerm] = useState('');
             }
           };
 
+    const [openStatus, setOpenStatus] = React.useState(false);
+    const [confStatus, setConfStatus] = useState("waiting");
+
+    const handleClickToOpenStatus = () => {
+        setOpenStatus(true);
+    };
+  
+    const handleToCloseStatus = (event, reason) => {
+        if (reason && reason === "backdropClick") 
+            return;
+        setOpenStatus(false);
+        console.log("setting back to: ", conferenceData.status)
+        setConfStatus(conferenceData.status);
+    };
+
+    const handleSetStatus = () => {
+        console.log("setting status to: ", confStatus)
+        const { _id } = conferenceData;
+        updateConfStatus(_id, confStatus)
+        setOpenStatus(false);
+    }
+
+    const handleStatusChange = (event) => {
+        console.log("status", event.target.value);
+        setConfStatus(event.target.value);
+    }
+
   return (
     <div className="HomePageDias">
       <LogoutButton />
@@ -380,18 +400,19 @@ const [searchTerm, setSearchTerm] = useState('');
             <DialogContent>
                 <RadioGroup
                     aria-labelledby="radio-buttons-group-label"
-                    defaultValue="Roll Call"
-                    name="radio-buttons-group"
+                    value={confStatus}
+                    name="controlled-radio-buttons-group"
+                    onChange={handleStatusChange}
                 >
-                    <FormControlLabel value="RollCall" control={<Radio />} label="Roll Call" />
-                    <FormControlLabel value="Formal" control={<Radio />} label="Formal" />
-                    <FormControlLabel value="Informal" control={<Radio />} label="Informal" />
-                    <FormControlLabel value="VotingProcedure" control={<Radio />} label="Voting Procedure" />
+                    <FormControlLabel value="waiting" control={<Radio />} label="Waiting" />
+                    <FormControlLabel value="formal" control={<Radio />} label="Formal" />
+                    <FormControlLabel value="informal" control={<Radio />} label="Informal" />
+                    <FormControlLabel value="votingProcedure" control={<Radio />} label="Voting Procedure" />
                 </RadioGroup>
             
                 <div className='statusButtons'>
                         <CoolButton buttonText={"Cancel"} onClick={handleToCloseStatus} buttonColor={'#800000'} textColor='white' />
-                        <CoolButton buttonText={"Change"} buttonColor={'#FF9728'} textColor='white' />
+                        <CoolButton buttonText={"Change"} onClick={handleSetStatus} buttonColor={'#FF9728'} textColor='white' />
                 </div>
                 </DialogContent>
         </Dialog>

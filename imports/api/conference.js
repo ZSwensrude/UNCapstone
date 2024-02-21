@@ -59,6 +59,15 @@ export const updateRollCallStatus = async ( conferenceId, openRollCall ) => {
   );
 };
 
+export const updateConfStatus = async ( conferenceId, newStatus ) => {
+  await conferenceCollection.update(
+    { _id: conferenceId },
+    {
+      $set: { status: newStatus }
+    }
+  );
+};
+
 export const getRollCallStatus = async ( conferenceId ) => {
   const conference = conferenceCollection.findOne( {_id: conferenceId} )
   if (conference) {
