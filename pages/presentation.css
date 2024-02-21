@@ -1,9 +1,10 @@
 .presentationTop {
-  margin-top: 100px;
+  margin-top: 90px;
 }
 
 .presentationBody {
   display: flex;
+  gap: 75px;
 }
 
 #presentationPaper {
@@ -27,11 +28,27 @@
 }
 
 #presentationFlag {
-  width: 300px;
+  width: 350px;
 }
 
 #confID {
   position: fixed;
   bottom: 10px;
   text-align: center;
+}
+
+#presentationMotions {
+  background: #009EDB;
+  padding: 50px;
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 30px;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+#presentationMotions::-webkit-scrollbar {
+  display: none; /* Hide scrollbar in WebKit browsers (Chrome, Safari, etc.) */
 }
