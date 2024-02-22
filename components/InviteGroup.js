@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useTracker } from 'meteor/react-meteor-data';
 import { Modal, Paper, Typography, TextField } from "@mui/material";
 import CoolButton from "./CoolButton";
 import './components.css';
@@ -6,6 +7,8 @@ import countriesData from '../flags.json'
 import CountryFlag from "./CountryFlag";
 import { workingGroupCollection, updateWG } from "../imports/api/workingGroups";
 import { insertDM } from "../imports/api/dm";
+import { delCollection } from "../imports/api/delegates";
+
 
 const InviteGroup = ({ onInvite, group }) => {
     const [open, setOpen] = useState(false);
@@ -14,8 +17,32 @@ const InviteGroup = ({ onInvite, group }) => {
     const [location, setLocation] = useState(group ? group.location : "");
     const [topic, setTopic] = useState(group ? group.topic : "");
     const [groupname, setGroupname] = useState(group ? group.name : "");
-    const [countries, setCountries] = useState(countriesData.countries);
+    //const [countries, setCountries] = useState(countriesData.countries);
+    const [filteredCountries, setCountries] = useState([]);
+
+
+
+     //DB Communication - live pull on any change in table
+     useTracker(() => {
+      const handler = Meteor.subscribe('delegates');
+      const delegatesListDias = delCollection.find().fetch();
+      const filteredCountries = countriesData.countries.filter(countryData => {
+        // Check if the country's name exists in delegatesListDias
+        return delegatesListDias.some(delegate => delegate.country === countryData.country);
+      });
+      setCountries(filteredCountries);
+    }, []);
   
+    // Log filtered countries
+    useEffect(() => {
+      console.log("filtered LIST", filteredCountries);
+    }, [filteredCountries]);
+  
+    // Set countries after filtering
+    useEffect(() => {
+      setCountries(filteredCountries);
+    }, [filteredCountries]);
+
     // Function to handle opening and closing modal window
     const handleOpen = () => {
       setOpen(true);
@@ -134,17 +161,12 @@ const InviteGroup = ({ onInvite, group }) => {
               />
             </div>
             <hr className="blackLine" />
+            <Typography>Select countries to invite:</Typography>
   
             <div className="flagList">
-              {countries.map((country, index) => (
-                <CountryFlag
-                  key={country.country + index}
-                  country={country}
-                  onSelect={onSelect}
-                  onDeselect={onDeselect}
-                  selected={selectedCountries.some(selectedCountry => selectedCountry.country === country.country)}
-                />
-              ))}
+            {filteredCountries && filteredCountries.map((country, index) => (
+              <CountryFlag country={country} key={country.country + index} onSelect={onSelect} onDeselect={onDeselect} />
+            ))}
             </div>
             
             <div className="buttonContainer">

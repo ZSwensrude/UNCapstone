@@ -93,6 +93,7 @@
   width: fit-content;
   margin-top: 5px;
   margin-bottom: 5px;
+  z-index: 1;
 }
 #jjoinButton #button{
 
@@ -226,7 +227,7 @@ p.motionText {
 
 .modalContent {
   border-radius: 30px;
-  height: 30em;
+  height: 32em;
   width: 45em;
   display: flex;
   flex-direction: column;
@@ -407,6 +408,7 @@ p.motionText {
 
 .groupMessage {
   display: flex;
+  gap: 10px;
   justify-content: center;
   align-items: center;
 }
@@ -465,6 +467,7 @@ p.motionText {
   overflow-y: scroll;
   scrollbar-width: none;
   min-height: 10em;
+  z-index: 15;
 }
 
 #notificationContent::-webkit-scrollbar {

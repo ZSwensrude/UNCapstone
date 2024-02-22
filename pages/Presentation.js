@@ -34,21 +34,29 @@ const Presentation = () => {
       <Header version={'blank'}/>
       <div className="welcomeHeader1">
         <img src={window.location.origin + '/images/UN_emblem_blue.png'} height={100} alt="logoImage" />
-        <Typography style={{ marginTop:'-10px' }} variant="h6">Welcome to Mac-UN!</Typography>
+        <Typography variant="h6">Welcome to Mac-UN!</Typography>
       </div>
       { status === 'formal' ? (
-        <div className="presentationBody">
-          <SpeakersList blank={true} />
-          <CurrentSpeaker confCode={code} />
+        <div className=" presentationBody">
+          <div className="formalbox">
+            <SpeakersList blank={true} />
+          </div>         
+          <div className="formalbox">
+            <CurrentSpeaker confCode={code} />
+          </div>
+          <div className="formalbox " >
+            <div id='presentationMotionsBox'>
+              <Typography variant="h4">Current Motions:</Typography>
+              <div id='presentationMotions'>
+              {motionsListDias &&
+                motionsListDias.map((aMotionDias, index) => (
+                  <MotionsDias blank={true} key={`${index}motions`} aMotionDias={aMotionDias} /> 
+                ))
+              }
+              </div>            
+            </div>
 
-          <Paper id='presentationMotions'>
-            <Typography style={{ marginBottom:'20px' }} variant="h4">Current Motions:</Typography>
-            {motionsListDias &&
-              motionsListDias.map((aMotionDias, index) => (
-                <MotionsDias blank={true} key={`${index}motions`} aMotionDias={aMotionDias} /> 
-              ))
-            }
-          </Paper>
+          </div>
         </div>
       ) : status === 'informal' ? (
         <div className="presentationBody">   
@@ -62,8 +70,8 @@ const Presentation = () => {
         <div id="intructions">
           <Paper id="instructionPaper" >
             <Typography variant="h4">Go to Mac-UN.space to join!</Typography>
-            <Typography variant="h4">Choose your delegate country and enter the following</Typography>
-            <Typography variant="h4" >conference code: {code}</Typography>
+            <Typography variant="h4">Choose your delegate country and enter the</Typography>
+            <Typography variant="h4">following conference code: {code}</Typography>
             <br />
             <br />
             <br />

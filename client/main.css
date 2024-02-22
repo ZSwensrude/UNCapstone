@@ -55,7 +55,22 @@ img#un,
   }
 
 }
+@media screen and (max-width: 1400px) {
+  .presentationBody {
+    display: flex;
+    gap: unset;
+    flex-direction: column;
+    align-items: center;
+  }
+  #confID{
+    position: relative;
+    bottom: unset;
+  }
+  #presentationMotionsBox {
+    margin-bottom: 3em;
+  }
 
+}
 
 
 @media screen and (max-width: 1360px) {
