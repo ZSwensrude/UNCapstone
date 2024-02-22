@@ -563,7 +563,7 @@ const [searchTerm, setSearchTerm] = useState('');
                         <div className="motionsAdded">
                         {motionsListDias &&
                             motionsListDias.map((aMotionDias, index) => (
-                            <MotionsDias key={aMotionDias?.motionChosen + index + "motions"} aMotionDias={aMotionDias} /> ))}
+                            <MotionsDias key={`${index}-motions`} aMotionDias={aMotionDias} /> ))}
                         </div>
 
                         
@@ -675,7 +675,7 @@ const [searchTerm, setSearchTerm] = useState('');
 
         <div id="NotesDias" className="tabcontent" style={{ display: "none" }}>
             <div className="NotesDiasBlock">
-                <div style={{display:'flex'}}>
+                <div style={{display:'flex', gap:'16px'}}>
                     <MessageDias dias={true} />
                     <CoolButton textColor={'white'} buttonColor={'#989898'} buttonText={'mark my message as read'} onClick={markAsRead} />
                     <CoolButton textColor={'white'} buttonColor={'#cb0000'} buttonText={'delete my messages'} onClick={deleteSentMessages} />
