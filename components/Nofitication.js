@@ -77,7 +77,7 @@ const Notification = ({ notification, readNotification}) => {
   }, [notification])
 
   return (
-    <Paper id={classname} elevation={3} >
+    <Paper id={classname} className={notification.type === 'global' ? 'globalNotification' : ''} elevation={3} >
       <div id="singleNotification1">
         <Typography>From: {notification.from}</Typography>
         {notification.read === "false" && (notification.type !== 'global') && (

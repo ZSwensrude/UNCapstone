@@ -479,7 +479,7 @@ p.motionText {
   margin-bottom: 5px;
 }
 
-#globalNotification {
+.globalNotification {
   width: 90%;
   border-radius: 30px;
   padding: 8px;
