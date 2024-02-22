@@ -39,22 +39,24 @@ const Presentation = () => {
       { status === 'formal' ? (
         <div className=" presentationBody">
           <div className="formalbox">
-          <SpeakersList blank={true} />
+            <SpeakersList blank={true} />
           </div>         
-           <div className="formalbox">
-              <CurrentSpeaker confCode={code} />
+          <div className="formalbox">
+            <CurrentSpeaker confCode={code} />
+          </div>
+          <div className="formalbox " >
+            <div id='presentationMotionsBox'>
+              <Typography variant="h4">Current Motions:</Typography>
+              <div id='presentationMotions'>
+              {motionsListDias &&
+                motionsListDias.map((aMotionDias, index) => (
+                  <MotionsDias blank={true} key={`${index}motions`} aMotionDias={aMotionDias} /> 
+                ))
+              }
+              </div>            
             </div>
-          <Paper className="formalbox " id='presentationMotionsBox'>
-            
-            <Typography variant="h4">Current Motions:</Typography>
-            <div id='presentationMotions'>
-            {motionsListDias &&
-              motionsListDias.map((aMotionDias, index) => (
-                <MotionsDias blank={true} key={`${index}motions`} aMotionDias={aMotionDias} /> 
-              ))
-            }
-            </div>
-          </Paper>
+
+          </div>
         </div>
       ) : status === 'informal' ? (
         <div className="presentationBody">   
