@@ -34,20 +34,26 @@ const Presentation = () => {
       <Header version={'blank'}/>
       <div className="welcomeHeader1">
         <img src={window.location.origin + '/images/UN_emblem_blue.png'} height={100} alt="logoImage" />
-        <Typography style={{ marginTop:'-10px' }} variant="h6">Welcome to Mac-UN!</Typography>
+        <Typography variant="h6">Welcome to Mac-UN!</Typography>
       </div>
       { status === 'formal' ? (
-        <div className="presentationBody">
+        <div className=" presentationBody">
+          <div className="formalbox">
           <SpeakersList blank={true} />
-          <CurrentSpeaker confCode={code} />
-
-          <Paper id='presentationMotions'>
-            <Typography style={{ marginBottom:'20px' }} variant="h4">Current Motions:</Typography>
+          </div>         
+           <div className="formalbox">
+              <CurrentSpeaker confCode={code} />
+            </div>
+          <Paper className="formalbox " id='presentationMotionsBox'>
+            
+            <Typography variant="h4">Current Motions:</Typography>
+            <div id='presentationMotions'>
             {motionsListDias &&
               motionsListDias.map((aMotionDias, index) => (
                 <MotionsDias blank={true} key={`${index}motions`} aMotionDias={aMotionDias} /> 
               ))
             }
+            </div>
           </Paper>
         </div>
       ) : status === 'informal' ? (
