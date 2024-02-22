@@ -4,7 +4,7 @@ import { switchActiveMotion, removeMotion} from "../imports/api/motions.js";
 
 import './DiasComponents.css';
 
-const MotionsDias = ({ aMotionDias }) => {
+const MotionsDias = ({ aMotionDias, blank }) => {
 
     const handleSetActiveMotion = () => {
         // Call the setActiveMotion function passed from the parent component
@@ -20,13 +20,16 @@ const MotionsDias = ({ aMotionDias }) => {
 
     return (
         <Paper id={'oneMotion'} elevation={0}> 
+        {!blank && (
             <Button onClick={handleSetActiveMotion}>
                 {aMotionDias.active ? "Active" : "Inactive"}
             </Button>
+        )}
 
             <Typography className="motionContent">{aMotionDias?.content ?? "Motion"}</Typography>
-           
+           {!blank && ( 
             <button className="DeleteMotion" onClick={handleRemoveMotion}>X</button>
+           )}
         </Paper>
     );
 }

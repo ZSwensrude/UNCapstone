@@ -50,6 +50,11 @@ const Delegate = () => {
     return { dms: dmData };
   });
 
+  const toPresentation = () => {
+    // open new window with presentation screen
+    window.open('/presentation')
+  };
+
   // handles when read notification is pressed, updates notification in the database
   const readNotification = (id) => {
     // Update the read status in the database
@@ -129,7 +134,7 @@ const Delegate = () => {
         )}
       </div>
       <div id="bottomButton">
-              <CoolButton buttonColor={'#00DBD4'} textColor={'white'} buttonText={'view presentation screen'} />
+              <CoolButton onClick={toPresentation} buttonColor={'#00DBD4'} textColor={'white'} buttonText={'view presentation screen'} />
             {/* </div> */}
             {/* <div id="rightButton"> */}
               <MessageDias />

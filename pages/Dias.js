@@ -11,6 +11,7 @@ import PriorLocations from "../components/PriorLocations";
 import countries from '../flags.json';
 import { Accounts } from "meteor/accounts-base";
 import bcrypt from 'bcryptjs';
+import auth from "../components/auth";
 
 // Placeholder for Dias screen
 const Dias = () => {
@@ -99,6 +100,14 @@ const accounts = [];
       }
     });
   }
+
+  auth().then(() => {
+    console.log('Hello!')
+  })
+  .catch(() => {
+    navigate("/")
+  });
+
   return (
     <div className="fullPage">
         
