@@ -482,15 +482,6 @@ p.motionText {
   margin-bottom: 5px;
 }
 
-.globalNotification {
-  width: 90%;
-  border-radius: 30px;
-  padding: 8px;
-  margin: auto;
-  background:#00DB89;
-  margin-bottom: 5px;
-}
-
 #unreadNotification {
   width: 90%;
   border-radius: 30px;

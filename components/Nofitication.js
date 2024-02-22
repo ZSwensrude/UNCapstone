@@ -15,6 +15,7 @@ const Notification = ({ notification, readNotification}) => {
   // Get user information from localStorage
   const user = getUserFromLocalStorage();
   const [classname, setclassname] = useState("unreadNotification");
+  const [bgColor, setBGColor] = useState("#FFFFFF");
 
   // will join the group in the database
   const joinGroup = () => {
@@ -74,10 +75,12 @@ const Notification = ({ notification, readNotification}) => {
   // checks if a notification is read or not and updates its class if it is
   useEffect(() => {
     setclassname(notification.read === "true" ? "singleNotification" : "unreadNotification");
+    setBGColor(notification.type === 'global' ? "#00DB89" : "#FFFFFF");
   }, [notification])
 
+
   return (
-    <Paper id={classname} className={notification.type === 'global' ? 'globalNotification' : ''} elevation={3} >
+    <Paper id={classname} style={{background:bgColor}} elevation={3} >
       <div id="singleNotification1">
         <Typography>From: {notification.from}</Typography>
         {notification.read === "false" && (notification.type !== 'global') && (
