@@ -59,7 +59,7 @@ const MessageGroup = ({ countries = [], fromname, groupname}) => {
             Message to Group
           </Typography>
           <Typography variant="subtitle1">
-            You are messaging the following countries: {countries.map(country => country.name).join(', ')}
+            You are messaging ALL members
           </Typography>
           <TextField
             className="textBox"

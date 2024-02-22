@@ -39,6 +39,7 @@
 #bottomButton {
   display: flex;
   justify-content: center;
+  z-index: -1;
 }
 #bottomButton #button{
   margin: 0 10px;
