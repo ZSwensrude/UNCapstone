@@ -21,6 +21,13 @@ const CreateGroup = () => {
   const [topic, setTopic] = useState(""); // State to store topic
   const [groupname, setName] = useState(""); // State to store name
 
+
+  const getUserFromLocalStorage = () => {
+    const userString = localStorage.getItem('loggedInUser');
+    return userString ? JSON.parse(userString) : null;
+  };
+  // Get user information from localStorage
+  const user = getUserFromLocalStorage();
       //DB Communication - live pull on any change in table
       useTracker(() => {
         const handler = Meteor.subscribe('delegates');
@@ -41,6 +48,8 @@ const CreateGroup = () => {
       useEffect(() => {
         setCountries(filteredCountries);
       }, [filteredCountries]);
+
+
 
   // opening and closing modal window
   const handleOpen = () => {
@@ -85,6 +94,7 @@ const CreateGroup = () => {
         location: location,
         topic: topic,
         name: groupname,
+        countries: [{country: user.country}],
       });
 
       if (groupId !== "error") {
