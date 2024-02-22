@@ -8,7 +8,7 @@ import { conferenceCollection } from "../imports/api/conference";
 
 
 
-const SpeakersList = () => {
+const SpeakersList = ({ blank }) => {
   
   // Function to retrieve user information from localStorage
   const getUserFromLocalStorage = () => {
@@ -37,7 +37,7 @@ const SpeakersList = () => {
   };
 
     // Check if the user's country is in the speakers list
-    const isUserInQueue = speakers.some(speaker => speaker.country === user?.country);
+    let isUserInQueue = speakers.some(speaker => speaker.country === user?.country);
 
    //Use useTracker to reactively fetch data from the collection
    const { SpeakersListActive } = useTracker(() => {
@@ -49,6 +49,11 @@ const SpeakersList = () => {
     return { SpeakersListActive: activeSpeakerList };
   });
 
+  // if we want a blank list we have to convince the list to display no buttons
+  if (blank) {
+    isUserInQueue = true;
+  }
+
   return (
     <div id='speakers'>
       {/* <div id='top' elevation={4}> */}
@@ -58,7 +63,7 @@ const SpeakersList = () => {
         <Typography variant='h5'>Currently Speaking:</Typography>
         <div id='speakersListCountry'>
           {Object.keys(currentSpeaker).length > 0 && (
-            <Country countryName={currentSpeaker.country} />
+            <Country countryName={currentSpeaker.country} blank={blank} />
           )}
         </div>
         <hr id='whiteLine' />
@@ -66,7 +71,7 @@ const SpeakersList = () => {
         <div className='upcomingSpeakers'>
           <ul className='countryItemList'>
         {speakers.slice(1).map((speaker, index) => (
-            <Country key={index + 1} countryName={speaker.country} position={index + 2} />
+            <Country key={index + 1} countryName={speaker.country} position={index + 2} blank={blank} />
           ))}
           </ul>
         </div>

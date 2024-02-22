@@ -1,0 +1,73 @@
+.presentationTop {
+  margin-top: 90px;
+}
+
+.presentationBody {
+  display: flex;
+  gap: 75px;
+}
+
+#presentationPaper {
+  background: #009EDB;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+
+.presentationCountry {
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+  padding-top: 20px;
+  align-items: center;
+  width: 300px;
+}
+
+#presentationFlag {
+  width: 350px;
+}
+
+#confID {
+  position: fixed;
+  bottom: 10px;
+  text-align: center;
+}
+
+#presentationMotions {
+  background: #009EDB;
+  padding: 50px;
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 30px;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+#presentationMotions::-webkit-scrollbar {
+  display: none; /* Hide scrollbar in WebKit browsers (Chrome, Safari, etc.) */
+}
+
+#intructions {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+#instructionPaper {
+  background: #009EDB;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 30px;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  margin-bottom: 200px;
+}
