@@ -64,8 +64,12 @@ const Presentation = () => {
             <Typography variant="h4">Go to Mac-UN.space to join!</Typography>
             <Typography variant="h4">Choose your delegate country and enter the following</Typography>
             <Typography variant="h4" >conference code: {code}</Typography>
+            <br />
+            <br />
+            <br />
+            <Typography variant="h2">Chrome and Firefox are the only browsers supported</Typography>
+            <Typography variant="h2">The conference will begin shortly</Typography>
           </Paper>
-          <Typography>The conference will begin shortly</Typography>
         </div>
       )}
 
