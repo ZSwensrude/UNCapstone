@@ -23,7 +23,7 @@ import VoteCountChart from "../components/VoteCountBox.js";
 import Countdown from 'react-countdown';
 import LogoutButton from "../components/LogoutButton.js";
 import { delCollection } from "../imports/api/delegates.js";
-import { dmCollection } from "../imports/api/dm";
+import { dmCollection, updateDMReadStatus } from "../imports/api/dm";
 import BellIcon from '@mui/icons-material/Notifications';
 import auth from "../components/auth.js";
 import MessageDias from "../components/MessageDias.js";
@@ -354,6 +354,14 @@ const [searchTerm, setSearchTerm] = useState('');
     navigate("/")
   });
 
+  const markAsRead = () => {
+    let diasMessages = dmCollection.find({ to: 'delegates' }, { sort: { createdAt: -1 } }).fetch();
+    diasMessages.forEach(message => {
+        updateDMReadStatus(message._id, "true");
+    })
+    console.log("mark my db as read", diasMessages);
+  };
+
   return (
     <div className="HomePageDias">
       <LogoutButton />
@@ -661,7 +669,10 @@ const [searchTerm, setSearchTerm] = useState('');
 
         <div id="NotesDias" className="tabcontent" style={{ display: "none" }}>
             <div className="NotesDiasBlock">
-                <MessageDias dias={true} />
+                <div style={{display:'flex'}}>
+                    <MessageDias dias={true} />
+                    <CoolButton textColor={'white'} buttonColor={'#989898'} buttonText={'mark my message as read'} onClick={markAsRead} />
+                </div>
                 <br />
                 {dms.length > 0 ? (
                     <table>

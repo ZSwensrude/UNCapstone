@@ -73,7 +73,7 @@ const Notification = ({ notification, readNotification}) => {
 
   // checks if a notification is read or not and updates its class if it is
   useEffect(() => {
-    setclassname(notification.type === 'global' ? "globalNotification" : notification.read === "true" ? "singleNotification" : "unreadNotification");
+    setclassname(notification.read === "true" ? "singleNotification" : "unreadNotification");
   }, [notification])
 
   return (
