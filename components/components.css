@@ -227,7 +227,7 @@ p.motionText {
 
 .modalContent {
   border-radius: 30px;
-  height: 30em;
+  height: 32em;
   width: 45em;
   display: flex;
   flex-direction: column;

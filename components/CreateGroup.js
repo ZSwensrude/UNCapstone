@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
+import { useTracker } from 'meteor/react-meteor-data';
 import { Modal, Paper, Typography, TextField, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import CoolButton from "./CoolButton";
 import './components.css';
@@ -6,19 +7,41 @@ import countriesData from '../flags.json'
 import CountryFlag from "./CountryFlag";
 import { insertWG, workingGroupCollection } from "../imports/api/workingGroups";
 import { insertDM } from "../imports/api/dm";
+import { delCollection } from "../imports/api/delegates";
 
 const CreateGroup = () => {
   const [open, setOpen] = useState(false);
   // remove the default value from this when getting from database
-  const [countries, setCountries] = useState(countriesData.countries);
+ 
+  //const [countries, setCountries] = useState(countriesData.countries);
+  const [filteredCountries, setCountries] = useState([]);
   const [popupOpen, setPopupOpen] = useState(false); // State to manage the popup
   const [selectedCountries, setSelectedCountries] = useState([]);
   const [location, setLocation] = useState(""); // State to store location
   const [topic, setTopic] = useState(""); // State to store topic
   const [groupname, setName] = useState(""); // State to store name
 
-  
-  
+      //DB Communication - live pull on any change in table
+      useTracker(() => {
+        const handler = Meteor.subscribe('delegates');
+        const delegatesListDias = delCollection.find().fetch();
+        const filteredCountries = countriesData.countries.filter(countryData => {
+          // Check if the country's name exists in delegatesListDias
+          return delegatesListDias.some(delegate => delegate.country === countryData.country);
+        });
+        setCountries(filteredCountries);
+      }, []);
+    
+      // Log filtered countries
+      useEffect(() => {
+        //console.log("filtered LIST", filteredCountries);
+      }, [filteredCountries]);
+    
+      // Set countries after filtering
+      useEffect(() => {
+        setCountries(filteredCountries);
+      }, [filteredCountries]);
+
   // opening and closing modal window
   const handleOpen = () => {
     // we need to get the array of present countries here so we can show the flags
@@ -65,7 +88,7 @@ const CreateGroup = () => {
       });
 
       if (groupId !== "error") {
-        console.log("GroupID:", groupId);
+        // /console.log("GroupID:", groupId);
 
         selectedCountries.forEach((country) => {
           insertDM({
@@ -127,14 +150,14 @@ const CreateGroup = () => {
               onChange={handleTopicChange} // Handling change event
             />
           </div>
+          <Typography>Click on the country's flag that you want to invite: </Typography>
           <hr className="blackLine" />
 
           <div className="flagList">
-            {countries.map( (country, index) => (
+            {filteredCountries && filteredCountries.map((country, index) => (
               <CountryFlag country={country} key={country.country + index} onSelect={onSelect} onDeselect={onDeselect} />
             ))}
           </div>
-          
           <div className="buttonContainer">
             <div className="button-wrapper">
               <CoolButton 
