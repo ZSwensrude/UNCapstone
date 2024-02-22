@@ -21,6 +21,7 @@
 }
 .formalbox #oneMotion{
   max-width: 17em;
+  min-width: 17em;
 }
 
 
@@ -81,8 +82,8 @@ text-align: center;
 
 #intructions {
   margin-top: 100px;
+  justify-content: center;
   display: flex;
-  flex-direction: column;
   text-align: center;
 }
 
@@ -96,4 +97,5 @@ text-align: center;
   overflow-y: scroll;
   scrollbar-width: none;
   margin-bottom: 200px;
+  max-width: 70em;
 }

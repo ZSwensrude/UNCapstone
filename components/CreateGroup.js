@@ -160,8 +160,8 @@ const CreateGroup = () => {
               onChange={handleTopicChange} // Handling change event
             />
           </div>
-          <Typography>Click on the country's flag that you want to invite: </Typography>
           <hr className="blackLine" />
+          <Typography>Select countries to invite: </Typography>
 
           <div className="flagList">
             {filteredCountries && filteredCountries.map((country, index) => (

@@ -70,8 +70,8 @@ const Presentation = () => {
         <div id="intructions">
           <Paper id="instructionPaper" >
             <Typography variant="h4">Go to Mac-UN.space to join!</Typography>
-            <Typography variant="h4">Choose your delegate country and enter the following</Typography>
-            <Typography variant="h4" >conference code: {code}</Typography>
+            <Typography variant="h4">Choose your delegate country and enter the</Typography>
+            <Typography variant="h4">following conference code: {code}</Typography>
             <br />
             <br />
             <br />
