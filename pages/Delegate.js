@@ -46,7 +46,11 @@ const Delegate = () => {
   //Use useTracker to reactively fetch data from the collection
   const { dms } = useTracker(() => {
     const handler = Meteor.subscribe('DMs');
-    const dmData = dmCollection.find({ to: user.country }, { sort: { createdAt: -1 } }).fetch(); // Filter by country
+    let dmData = dmCollection.find({ to: user.country }, { sort: { createdAt: -1 } }).fetch(); // Filter by country
+    let diasDms = dmCollection.find({ to: 'delegates' }, { sort: { createdAt: -1 } }).fetch();
+    if (diasDms.length > 0 ) {
+      dmData = [...diasDms, ...dmData]; // add global dms
+    }
     return { dms: dmData };
   });
 

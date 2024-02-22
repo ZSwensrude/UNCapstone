@@ -26,6 +26,7 @@ import { delCollection } from "../imports/api/delegates.js";
 import { dmCollection } from "../imports/api/dm";
 import BellIcon from '@mui/icons-material/Notifications';
 import auth from "../components/auth.js";
+import MessageDias from "../components/MessageDias.js";
 
 
 
@@ -660,6 +661,8 @@ const [searchTerm, setSearchTerm] = useState('');
 
         <div id="NotesDias" className="tabcontent" style={{ display: "none" }}>
             <div className="NotesDiasBlock">
+                <MessageDias dias={true} />
+                <br />
                 {dms.length > 0 ? (
                     <table>
                         <tbody>
