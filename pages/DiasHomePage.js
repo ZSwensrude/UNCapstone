@@ -79,18 +79,21 @@ const DiasHome = () => {
         activeMotion = motionCollection.find({ active: true }).fetch();
         return { motionsListDias };
     });
-
+    
     // CONFERENCE DATA 
     // Define state variable to store conference data
     const [conferenceData, setConferenceData] = useState(null);
     const [deadlines, setDeadlines] = useState([]);
     const [newDeadline, setNewDeadline] = useState(""); 
-
+    const [openStatus, setOpenStatus] = useState(false);
+    const [confStatus, setConfStatus] = useState("");
+    
     // Fetch conference data using useTracker hook
     useTracker(() => {
         const handler = Meteor.subscribe('conference');
         const data = conferenceCollection.findOne();
         setDeadlines(data?.deadlines);
+        setConfStatus(data?.status);
         setConferenceData(data); // Update conference data in state
     }, []);
 
@@ -109,6 +112,27 @@ const DiasHome = () => {
         setNewDeadline("");
     };
 
+
+    const handleClickToOpenStatus = () => {
+        setOpenStatus(true);
+    };
+  
+    const handleToCloseStatus = (event, reason) => {
+        if (reason && reason === "backdropClick") 
+            return;
+        setOpenStatus(false);
+        setConfStatus(conferenceData.status);
+    };
+
+    const handleSetStatus = () => {
+        const { _id } = conferenceData;
+        updateConfStatus(_id, confStatus)
+        setOpenStatus(false);
+    }
+
+    const handleStatusChange = (event) => {
+        setConfStatus(event.target.value);
+    }
 
 
   const conferenceLocations = [
@@ -290,30 +314,6 @@ const [searchTerm, setSearchTerm] = useState('');
               return <span>{hours}:{minutes}:{seconds}</span>;
             }
           };
-
-    const [openStatus, setOpenStatus] = React.useState(false);
-    const [confStatus, setConfStatus] = useState("waiting");
-
-    const handleClickToOpenStatus = () => {
-        setOpenStatus(true);
-    };
-  
-    const handleToCloseStatus = (event, reason) => {
-        if (reason && reason === "backdropClick") 
-            return;
-        setOpenStatus(false);
-        setConfStatus(conferenceData.status);
-    };
-
-    const handleSetStatus = () => {
-        const { _id } = conferenceData;
-        updateConfStatus(_id, confStatus)
-        setOpenStatus(false);
-    }
-
-    const handleStatusChange = (event) => {
-        setConfStatus(event.target.value);
-    }
 
   auth().then(() => {
     console.log('Hello!')
