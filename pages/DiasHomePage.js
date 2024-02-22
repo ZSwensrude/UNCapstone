@@ -1,5 +1,5 @@
 //DiasHomePage.js
-import { Typography, Paper, Dialog, DialogContent, DialogActions, DialogTitle, Radio, RadioGroup, FormGroup, FormControlLabel, Checkbox } from "@mui/material";
+import { Typography, Paper, Dialog, DialogContent, DialogActions, DialogTitle, Radio, RadioGroup, FormGroup, FormControlLabel, Checkbox, TextField } from "@mui/material";
 import React, { useEffect } from "react";
 import { useTracker } from 'meteor/react-meteor-data';
 import { useState } from "react";
@@ -18,7 +18,7 @@ import DiasSpeakersList from '../components/DiasSpeakersList.js';
 import { motionCollection, insertMotion, removeMotion, switchActiveMotion} from "../imports/api/motions.js";
 import { speakerCollection, removeSpeaker, insertSpeaker } from "../imports/api/speakers.js";
 import flagData from '../flags.json';
-import { updateConferenceActiveStatus, conferenceCollection, updateRollCallStatus, updateConfStatus} from "../imports/api/conference.js";
+import { updateConferenceActiveStatus, conferenceCollection, updateRollCallStatus, updateConfStatus, removeDeadlineFromConf, addDeadlineToConf} from "../imports/api/conference.js";
 import VoteCountChart from "../components/VoteCountBox.js";
 import Countdown from 'react-countdown';
 import LogoutButton from "../components/LogoutButton.js";
@@ -80,60 +80,36 @@ const DiasHome = () => {
         return { motionsListDias };
     });
 
+    // CONFERENCE DATA 
+    // Define state variable to store conference data
+    const [conferenceData, setConferenceData] = useState(null);
+    const [deadlines, setDeadlines] = useState([]);
+    const [newDeadline, setNewDeadline] = useState(""); 
 
-    const DeadlineListDias = [
-        {
-            "deadlineAdded": "Working Paper Third Draft: 2pm"
-        },
-        {
-            "deadlineAdded": "Working Paper Third Draft: 2pm"
-        },
-        {
-            "deadlineAdded": "Working Paper Third Draft: 2pm"
-        },
-        {
-            "deadlineAdded": "Working Paper Third Draft: 2pm"
-        },
-        {
-            "deadlineAdded": "Working Paper Third Draft: 2pm"
-        },
-        {
-            "deadlineAdded": "Working Paper Third Draft: 2pm"
-        },
-        {
-            "deadlineAdded": "Working Paper Third Draft: 2pm"
-        },
-        {
-            "deadlineAdded": "Working Paper Third Draft: 2pm"
-        },
-        {
-            "deadlineAdded": "Working Paper Third Draft: 2pm"
-        },
-        {
-            "deadlineAdded": "a"
-        },
-        {
-            "deadlineAdded": "b"
-        },
-        {
-            "deadlineAdded": "c"
-        },
-        {
-            "deadlineAdded": "d"
-        },
-        {
-            "deadlineAdded": "e"
-        },
-        {
-            "deadlineAdded": "f"
-        },
-        {
-            "deadlineAdded": "Working Paper Third Draft: 2pm"
-        },
-        {
-            "deadlineAdded": "Amendment Form Due: 4pm"
-        }
-      ]
+    // Fetch conference data using useTracker hook
+    useTracker(() => {
+        const handler = Meteor.subscribe('conference');
+        const data = conferenceCollection.findOne();
+        setDeadlines(data?.deadlines);
+        setConferenceData(data); // Update conference data in state
+    }, []);
+
+    const removeDeadline = (deadline) => {
+        removeDeadlineFromConf( conferenceData._id, deadline.deadlineAdded );
+    };
+
+    const removeAllDeadlines = () => {
+        deadlines.forEach(deadline => {
+            removeDeadlineFromConf( conferenceData._id, deadline.deadlineAdded );
+        });
+    };
+
+    const addDeadline = () => {
+        addDeadlineToConf( conferenceData._id, newDeadline );
+        setNewDeadline("");
+    };
+
+
 
   const conferenceLocations = [
     {
@@ -219,15 +195,7 @@ const [searchTerm, setSearchTerm] = useState('');
         // Insert the speaker with the selected country
         insertSpeaker({ country: searchTerm });
     };
-     // Define state variable to store conference data
-     const [conferenceData, setConferenceData] = useState(null);
-
-     // Fetch conference data using useTracker hook
-     useTracker(() => {
-         const handler = Meteor.subscribe('conference');
-         const data = conferenceCollection.findOne();
-         setConferenceData(data); // Update conference data in state
-     }, []);
+     
      
  //update later to get sessionID and corresponding record in conference table
      // Function to update speaker list active status
@@ -625,14 +593,22 @@ const [searchTerm, setSearchTerm] = useState('');
                     </div>
                     <div className="DeadlinesBlock">
                         <div className="Deadlines">
-                            {DeadlineListDias.map( (aDeadlineDias, index) => (
-                            <DeadlineDias key={aDeadlineDias?.deadlineAdded + index + 'deadline'} version={"diasHome"} aDeadlineDias={aDeadlineDias}/>
+                            {deadlines?.map( (deadline, index) => (
+                            <DeadlineDias key={deadline?.deadlineAdded + index + 'deadline'} removeDeadline={removeDeadline} version={"diasHome"} deadline={deadline}/>
                             ))}
                         </div>                        
-                            <input className="DeadlineInput" placeholder="Type here..." type="text" />
+                            <TextField 
+                                id="outlined-controlled"
+                                className="DeadlineInput" 
+                                placeholder="New Deadline: Time"
+                                value={newDeadline}
+                                onChange={(event) => {
+                                    setNewDeadline(event.target.value);
+                                }}
+                            />
                         <div className="DeadlineButtons">   
-                            <CoolButton buttonText={"Clear All"} buttonColor={'#FF9728'} textColor='white' />
-                            <CoolButton buttonText={"Add"} buttonColor={'#FF9728'} textColor='white' />
+                            <CoolButton buttonText={"Clear All"} buttonColor={'#FF9728'} textColor='white' onClick={removeAllDeadlines} />
+                            <CoolButton buttonText={"Add"} buttonColor={'#FF9728'} textColor='white' onClick={addDeadline} />
                         </div>
                     </div>
 
