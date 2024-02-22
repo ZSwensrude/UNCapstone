@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Paper, Typography } from "@mui/material";
 import CoolButton from "./CoolButton";
 import './components.css';
-import {updateDMReadStatus, dmCollection} from "../imports/api/dm";
+import {updateDMReadStatus, dmCollection, deleteDMFromDB} from "../imports/api/dm";
 import { workingGroupCollection } from "../imports/api/workingGroups";
 
 const Notification = ({ notification, readNotification}) => {
@@ -66,6 +66,11 @@ const Notification = ({ notification, readNotification}) => {
       });
   };
 
+  const deleteNotif = () => {
+    // Update the database
+    deleteDMFromDB(notification._id);
+  };
+
   // checks if a notification is read or not and updates its class if it is
   useEffect(() => {
     setclassname(notification.type === 'global' ? "globalNotification" : notification.read === "true" ? "singleNotification" : "unreadNotification");
@@ -78,6 +83,9 @@ const Notification = ({ notification, readNotification}) => {
         {notification.read === "false" && (notification.type !== 'global') && (
           <CoolButton textColor={'white'} buttonColor={'#989898'} buttonText={'mark as read'} onClick={markAsRead} />
         )}
+        { notification.type !== 'global' && ( 
+         <CoolButton textColor={'white'} buttonColor={'#cb0000'} buttonText={'delete'} onClick={deleteNotif} />
+        ) }
       </div>
       <Paper id="singleNotificationMsg" elevation={0}>
         <Typography>{notification.content}</Typography>
