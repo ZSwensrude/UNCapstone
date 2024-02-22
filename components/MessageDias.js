@@ -37,7 +37,7 @@ const MessageDias = ({ dias }) => {
             from: "Dias",
             to: "delegates",
             content: messageContent,
-            read:"false"
+            read:"true"
           })
         } else { 
           insertDM({ type:"dias", to: "Dias", from: user.country, content: messageContent, read:"false" });

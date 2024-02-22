@@ -68,14 +68,14 @@ const Notification = ({ notification, readNotification}) => {
 
   // checks if a notification is read or not and updates its class if it is
   useEffect(() => {
-    setclassname(notification.read === "true" ? "singleNotification" : "unreadNotification");
+    setclassname(notification.type === 'global' ? "globalNotification" : notification.read === "true" ? "singleNotification" : "unreadNotification");
   }, [notification])
 
   return (
     <Paper id={classname} elevation={3} >
       <div id="singleNotification1">
         <Typography>From: {notification.from}</Typography>
-        {notification.read === "false" && (
+        {notification.read === "false" && (notification.type !== 'global') && (
           <CoolButton textColor={'white'} buttonColor={'#989898'} buttonText={'mark as read'} onClick={markAsRead} />
         )}
       </div>
