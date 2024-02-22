@@ -15,8 +15,8 @@ const DeadlineDias = ({ deadline, version, removeDeadline}) => {
         </IconButton>
       </Paper>
       ) : (
-        <Paper id={'oneDeadline'} elevation={0}>
-          <Typography>{deadline?.deadlineAdded ?? "Deadline"}</Typography>
+        <Paper id={'presentationDeadline'} elevation={0}>
+          <Typography variant="h2" style={{ fontSize:'2rem' }}>{deadline?.deadlineAdded ?? "Deadline"}</Typography>
         </Paper>
       )}
     </>

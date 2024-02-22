@@ -21,6 +21,16 @@
         align-items: center;
     }
 
+    #presentationDeadline {
+        position:relative;
+        border-radius: 30px;
+        margin-top: 4px;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 50px;
+    }
+
     #oneMotion{
         width: 90%;
         margin: 2px 0;
