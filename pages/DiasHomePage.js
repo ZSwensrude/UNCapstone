@@ -23,7 +23,7 @@ import VoteCountChart from "../components/VoteCountBox.js";
 import Countdown from 'react-countdown';
 import LogoutButton from "../components/LogoutButton.js";
 import { delCollection } from "../imports/api/delegates.js";
-import { dmCollection, updateDMReadStatus } from "../imports/api/dm";
+import { deleteDMFromDB, dmCollection, updateDMReadStatus } from "../imports/api/dm";
 import BellIcon from '@mui/icons-material/Notifications';
 import auth from "../components/auth.js";
 import MessageDias from "../components/MessageDias.js";
@@ -358,8 +358,14 @@ const [searchTerm, setSearchTerm] = useState('');
     let diasMessages = dmCollection.find({ to: 'delegates' }, { sort: { createdAt: -1 } }).fetch();
     diasMessages.forEach(message => {
         updateDMReadStatus(message._id, "true");
-    })
-    console.log("mark my db as read", diasMessages);
+    });
+  };
+
+  const deleteSentMessages = () => {
+    let diasMessages = dmCollection.find({ to: 'delegates' }, { sort: { createdAt: -1 } }).fetch();
+    diasMessages.forEach(message => {
+        deleteDMFromDB(message._id);
+    });
   };
 
   return (
@@ -672,6 +678,7 @@ const [searchTerm, setSearchTerm] = useState('');
                 <div style={{display:'flex'}}>
                     <MessageDias dias={true} />
                     <CoolButton textColor={'white'} buttonColor={'#989898'} buttonText={'mark my message as read'} onClick={markAsRead} />
+                    <CoolButton textColor={'white'} buttonColor={'#cb0000'} buttonText={'delete my messages'} onClick={deleteSentMessages} />
                 </div>
                 <br />
                 {dms.length > 0 ? (

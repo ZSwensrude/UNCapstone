@@ -48,7 +48,7 @@ const MessageDias = ({ dias }) => {
 
   return (
     <div>
-      <CoolButton onClick={handleOpen} buttonColor={'#999999'} textColor={'white'} buttonText={dias ? 'message all delegates' : 'send message to dias'} message={true} className="messageDias" />
+      <CoolButton onClick={handleOpen} buttonColor={dias ? "#00DB89" : '#999999'} textColor={'white'} buttonText={dias ? 'message all delegates' : 'send message to dias'} message={true} className="messageDias" />
       <Modal className="modalWindow" open={open} onClose={handleClose}>
         <Paper className="modalContent" style={{borderRadius:'30px'}}>
           <Typography variant="h2">
