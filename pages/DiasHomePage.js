@@ -27,6 +27,7 @@ import { deleteDMFromDB, dmCollection, updateDMReadStatus } from "../imports/api
 import BellIcon from '@mui/icons-material/Notifications';
 import auth from "../components/auth.js";
 import MessageDias from "../components/MessageDias.js";
+import showScreens from "../client/showScreens.js";
 
 
 
@@ -344,7 +345,7 @@ const [searchTerm, setSearchTerm] = useState('');
                 <button className="tablinks" onClick={() => openTab(Event,'RollCall')}>Roll Call</button>
                 <button className="tablinks" onClick={() => openTab(Event,'Formal')}>Formal</button>
                 <button className="tablinks" onClick={() => openTab(Event,'Informal')}>Informal</button>
-                <button className="tablinks" onClick={() => openTab(Event,'VotingProcedure')}>Voting Procedure</button>
+                {showScreens && <button className="tablinks" onClick={() => openTab(Event,'VotingProcedure')}>Voting Procedure</button> }
                 <button className="tablinks" onClick={() => openTab(Event,'NotesDias')}>
                     Notes to the Dias
                     {unreadMessages && <BellIcon className="bellIcon" />} {/* Render the bell icon conditionally */}
@@ -401,7 +402,7 @@ const [searchTerm, setSearchTerm] = useState('');
                 <CoolButton buttonText={"Reset"} buttonColor={'#FF9728'} textColor='white' />
                 </div>
                 <div className="secondBlock">
-                <CoolButton buttonText={"Export"} buttonColor={'#00DB89'} textColor='white' />
+                {showScreens && <CoolButton buttonText={"Export"} buttonColor={'#00DB89'} textColor='white' />}
                 </div>
             </div>
             <div className="RollCallBlock">
@@ -617,22 +618,22 @@ const [searchTerm, setSearchTerm] = useState('');
                         <div className="WorkingGroupsDatabase">
                         <WorkingGroupsListDIAS />
                         </div>
-                        <div className="WorkingGroupButtons">   
+                        {showScreens && <div className="WorkingGroupButtons">   
                             <CoolButton buttonText={"Add"} buttonColor={'#FF9728'} textColor='white' />
                             <CoolButton buttonText={"Merge Selected"}  onClick={handleClickToOpenMerge} buttonColor={'#00DB89'} textColor='white' />
-                        </div>
+                        </div> }
                     </div>
                 </div>
 
                 <div className="LocationsAndPresentationBlock">          
-                    <div className="LocationTitleBlock">
-                        <div className="LocationTitle">Locations</div>
-                    </div>
-                    <div className="LocationsBlock2">
-                            {conferenceLocations.map( (conferenceLocation, index) => (
-                            <PriorLocations key={conferenceLocation?.cLocation + index + "prior"} version={"diasHome"} conferenceLocation={conferenceLocation}/>
-                            ))}
-                    </div>
+                  {showScreens && <div className="LocationTitleBlock">
+                    <div className="LocationTitle">Locations</div>
+                  </div>}
+                  {showScreens && <div className="LocationsBlock2">
+                    {conferenceLocations.map( (conferenceLocation, index) => (
+                    <PriorLocations key={conferenceLocation?.cLocation + index + "prior"} version={"diasHome"} conferenceLocation={conferenceLocation}/>
+                    ))}
+                  </div>}
                     <div className="presentationButtonBlock">
                         <CoolButton onClick={toPresentation} buttonText={"Presentation"} buttonColor={'#00DB89'} textColor='white' />
                     </div>  
