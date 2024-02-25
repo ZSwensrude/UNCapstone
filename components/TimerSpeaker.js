@@ -2,23 +2,23 @@ import React, { useState , useRef } from "react";
 import CoolButton from './CoolButton';
 import Countdown from 'react-countdown';
 
-const TimerSession = ({version}) => {
+const TimerSpeaker = () => {
 
-const [timeSession, setTimeSession] = useState("");
-let numInSecondsSession = Number(timeSession) * 60000;
+const [timeSpeaker, setTimeSpeaker] = useState("");
+let numInSecondsSpeaker = Number(timeSpeaker) * 60000;
 const ref= useRef();
-state = { date: Date.now() + numInSecondsSession}
+state = { date: Date.now() + numInSecondsSpeaker}
 
 //handlers for both speaker and session timers
-handleStartClickSession = (e) => {
+handleStartClickSpeaker = (e) => {
     ref.current?.start();
   };
 
-  handlePauseClickSession = (e) => {
+  handlePauseClickSpeaker = (e) => {
     ref.current?.pause();
   }
 
-  handleResetClickSession =(e) => {
+  handleResetClickSpeaker =(e) => {
     ref.current?.stop();
   }
 
@@ -44,12 +44,9 @@ handleStartClickSession = (e) => {
           };
 
 return (
-        <>
-        { version === 'diasHome' && (
-            <>
     <div className="SessionTimerBlock">
             <div className="BackInSessionBlock">
-                <h2 className="BackInSessionTitle">Back In Session In:</h2>
+                <h2 className="BackInSessionTitle">Speaker Timer:</h2>
             </div>
         <div className="Timer">
             <Countdown 
@@ -61,34 +58,18 @@ return (
             />
             <div className="inputForTime">
                 <h4 className="timeLabelMins">Enter the time in minutes:</h4>
-                <input id="BackInSessionTime" type="number" value={timeSession} onChange={(e) => setTimeSession(e.target.value)} onKeyDown={handleKeyDown}/>
+                <input id="BackInSessionTime" type="number" value={timeSpeaker} onChange={(e) => setTimeSpeaker(e.target.value)} onKeyDown={handleKeyDown}/>
             </div>
         </div>
 
 
         <div className="timerBlock2Buttons">   
-            <CoolButton buttonText={"Restart"} buttonColor={'#FF9728'} textColor='white' onClick={handleResetClickSession}/>
-            <CoolButton buttonText={"Start"} buttonColor={'#FF9728'} textColor='white' onClick={handleStartClickSession}/>
-            <CoolButton buttonText={"Pause"} buttonColor={'#FF9728'} textColor='white' onClick={handlePauseClickSession}/>
+            <CoolButton buttonText={"Restart"} buttonColor={'#FF9728'} textColor='white' onClick={handleResetClickSpeaker}/>
+            <CoolButton buttonText={"Start"} buttonColor={'#FF9728'} textColor='white' onClick={handleStartClickSpeaker}/>
+            <CoolButton buttonText={"Pause"} buttonColor={'#FF9728'} textColor='white' onClick={handlePauseClickSpeaker}/>
         </div>
-    </div>
-            </>
-        ) }
-
-        { version === 'Presentation' && (
-        <>
-        <Countdown 
-            key={this.state.date}
-            ref={ref}
-            date={this.state.date}
-            renderer={renderer}
-            autoStart={false}
-            />
-        </>
-        )
-        }
-        </>
+</div>
 );
 };
 
-export default TimerSession;
+export default TimerSpeaker;

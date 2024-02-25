@@ -28,6 +28,7 @@ import BellIcon from '@mui/icons-material/Notifications';
 import auth from "../components/auth.js";
 import MessageDias from "../components/MessageDias.js";
 import TimerSession from "../components/TimerSession.js";
+import TimerSpeaker from "../components/TimerSpeaker.js";
 
 
 
@@ -309,62 +310,6 @@ const [searchTerm, setSearchTerm] = useState('');
             });
         };
 
-        /*
-        //Countdown timer
-        const [timeSession, setTimeSession] = useState("");
-        const [timeSpeaker, setTimeSpeaker] = useState("");
-        let numInSecondsSession = Number(timeSession) * 60000; //converting to seconds
-        let numInSecondsSpeaker = Number(timeSession) * 60000;
-        const ref= useRef();
-        state = { date: Date.now() + numInSecondsSession, date1: Date.now() + numInSecondsSpeaker};
-        
-        //handlers for both speaker and session timers
-        handleStartClickSpeaker = (e) => {
-            ref.current?.start();
-          };
-
-          handlePauseClickSpeaker = (e) => {
-            ref.current?.pause();
-          }
-
-          handleResetClickSpeaker =(e) => {
-            ref.current?.stop();
-          }
-       
-          handleStartClickSession = (e) => {
-            ref.current?.start();
-          };
-
-          handlePauseClickSession = (e) => {
-            ref.current?.pause();
-          }
-
-          handleResetClickSession =(e) => {
-            ref.current?.stop();
-          }
-        
-        
-        const Completionist = () => <span>Time's Up!</span>;
-
-        //used to obtain input from user
-        const handleKeyDown = event => {
-            console.log(event.key);
-        
-            if (event.key === 'Enter') {
-              event.preventDefault();
-    }
-  };
-
-        const renderer = ({ hours, minutes, seconds, completed }) => {
-            if (completed) {
-              // Render a completed state
-              return <Completionist />;
-            } else {
-              // Render a countdown
-              return <span>{hours}:{minutes}:{seconds}</span>;
-            }
-          }; */
-
   auth().then(() => {
     console.log('Hello!')
   })
@@ -521,30 +466,14 @@ const [searchTerm, setSearchTerm] = useState('');
                             <div className="clearAndCloseButtonBlock">   
                                 <CoolButton buttonText={"Clear List"} buttonColor={'#FF9728'} textColor='white' onClick={clearSpkList} />
                                 <CoolButton
-                                    buttonText={buttonText}
+                                    buttonText={"Close Speaker List"}
                                     buttonColor={'#FF9728'}
                                     textColor='white'
                                     onClick={updateSpkerlistactive}
-                                />                           
+                                />   
+                                <CoolButton buttonText={"Next Speaker"} buttonColor={'#FF9728'} textColor='white' onClick={handleSpkNext} />                        
                                 </div>
-                                <div className="controlTitleBlock">
-                                <h2 className="controlTitle last">Speaker Timer:</h2>
-                            </div>
-
-                            <div className="TimeBlock">
-                                <div className="Timer">
-                                    <div className="inputForTime">
-                                        <h4 className="timeLabelMins">Enter the time in minutes:</h4>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="clearAndCloseButtonBlock">   
-                                <CoolButton buttonText={"Restart"} buttonColor={'#FF9728'} textColor='white'/>
-                                <CoolButton buttonText={"Start"} buttonColor={'#FF9728'} textColor='white' />
-                                <CoolButton buttonText={"Pause"} buttonColor={'#FF9728'} textColor='white' />
-                                <CoolButton buttonText={"Next"} buttonColor={'#FF9728'} textColor='white' onClick={handleSpkNext} />
-                            </div>
+                               <TimerSpeaker />
                         </div>
                         
                     </div>
@@ -630,7 +559,8 @@ const [searchTerm, setSearchTerm] = useState('');
         <div id="Informal" className="tabcontent" style={{display:"none"}}>
             <div className="InformalBlock">
                 <div className="DeadlinesAndTimerBlock">
-                    <TimerSession />
+                    <TimerSession version={"diasHome"}/>
+
                     <div className="DeadlinesTitleBlock">
                         <div className="DeadlinesTitle">Deadlines</div>
                     </div>
@@ -717,27 +647,4 @@ const [searchTerm, setSearchTerm] = useState('');
     );
 }
 
-/*<div className="BackInSessionBlock">
-                        <h2 className="BackInSessionTitle">Back In Session In:</h2>
-                    </div>
-                    <div className="Timer">
-                        <Countdown 
-                        key={this.state.date}
-                        ref={ref}
-                        date={this.state.date}
-                        renderer={renderer}
-                        autoStart={false}
-                        />
-                        <div className="inputForTime">
-                            <h4 className="timeLabelMins">Enter the time in minutes:</h4>
-                            <input id="BackInSessionTime" type="number" value={timeSession} onChange={(e) => setTimeSession(e.target.value)} onKeyDown={handleKeyDown}/>
-                        </div>
-                    </div>
-                    
-
-                    <div className="timerBlock2Buttons">   
-                        <CoolButton buttonText={"Restart"} buttonColor={'#FF9728'} textColor='white' onClick={handleResetClickSession}/>
-                        <CoolButton buttonText={"Start"} buttonColor={'#FF9728'} textColor='white' onClick={handleStartClickSession}/>
-                        <CoolButton buttonText={"Pause"} buttonColor={'#FF9728'} textColor='white' onClick={handlePauseClickSession}/>
-                    </div> */
 export default DiasHome;

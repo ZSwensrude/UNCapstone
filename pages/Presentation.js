@@ -10,6 +10,7 @@ import CurrentSpeaker from "../components/CurrentSpeaker";
 import { motionCollection } from "../imports/api/motions.js";
 import MotionsDias from "../components/MotionsDias";
 import DeadlineDias from "../components/DeadlinesDias.js";
+import TimerSession from "../components/TimerSession.js";
 
 const Presentation = () => {
   const [status, setStatus] = useState(true);
@@ -78,7 +79,7 @@ const Presentation = () => {
             <Typography variant="h2">Back in Session in:</Typography>
             <Paper id="instructionPaper" style={{ background:'white' }}>
               {/* TODO: Put timer here once ayesha done */}
-              <Typography variant="h2">PUT TIMER HERE</Typography>
+              <TimerSession version={"Presentation"}/>
             </Paper>
           </div>
           <div id='confID' >
