@@ -67,7 +67,7 @@ const Presentation = () => {
           <div className="formalbox"> 
             <div className="DeadlinesBlock">
               <Typography variant="h4" style={{ fontSize:'2.5rem' }}>Deadlines:</Typography>
-              <div className="Deadlines">
+              <div className="DeadlinesPresentation">
                 {deadlines?.map( (deadline, index) => (
                   <DeadlineDias key={deadline?.deadlineAdded + index + 'deadline'} version={"presentation"} deadline={deadline}/>
                 ))}
