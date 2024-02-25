@@ -15,7 +15,7 @@ const NotesToDias = ({ aDiasNote }) => {
             const countryFromList = flagsData.countries.find(country => country.country === aDiasNote.from);
             setCountryName(countryFromList?.name ?? "Name");
             setFlagPath(countryFromList?.flagPath ?? "");
-        }, []);
+        }, [aDiasNote]);
 
 
     const handleClick = () => {    
