@@ -39,7 +39,11 @@ handleStartClickSession = (e) => {
               return <Completionist />;
             } else {
               // Render a countdown
-              return <span>{hours}:{minutes}:{seconds}</span>;
+              if (hours > 0) {
+                return <span>{hours}:{minutes < 10 ? '0' + minutes : minutes}:{seconds < 10 ? '0' + seconds : seconds}</span>;
+              } else {
+                return <span>{minutes}:{seconds < 10 ? '0' + seconds : seconds}</span>;
+              }
             }
           };
 
@@ -85,9 +89,9 @@ return (
             autoStart={false}
             />
         </>
-        )
-        }
-        </>
+      )
+    }
+  </>
 );
 };
 
