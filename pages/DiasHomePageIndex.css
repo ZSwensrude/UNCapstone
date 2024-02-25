@@ -341,7 +341,15 @@ body {
     height: 66%;
     overflow-y: scroll;
   }
+  .DeadlinesPresentation{
+    width: 90%;
+    height: 90%;
+    overflow-y: scroll;
+  }
   .Deadlines::-webkit-scrollbar {
+    display: none;
+  }
+  .DeadlinesPresentation::-webkit-scrollbar {
     display: none;
   }
 
