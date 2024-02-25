@@ -3,9 +3,9 @@ import { Mongo } from 'meteor/mongo';
 
 
 export const insertConference = async ({ sessionID,delegates,dias,DMs,motions,
-    speakers,workingGroups,status, activeSpeakerList, rollCallOpen }) => {
+    speakers,workingGroups,status, activeSpeakerList, rollCallOpen, deadlines }) => {
      conferenceCollection.insert({ sessionID,delegates,dias,DMs,motions,
-      speakers,workingGroups,status, activeSpeakerList, rollCallOpen });
+      speakers,workingGroups,status, activeSpeakerList, rollCallOpen, deadlines });
   };
   // Example usage of conference:
   // const conference = insertConference({
@@ -41,6 +41,20 @@ export const insertConference = async ({ sessionID,delegates,dias,DMs,motions,
   
 export const conferenceCollection = new Mongo.Collection('conference');
 
+export const addDeadlineToConf = async ( conferenceID, deadlineToAdd ) => {
+  await conferenceCollection.update(
+    { _id: conferenceID },
+    { $push: { deadlines: { deadlineAdded: deadlineToAdd } } }
+  )
+}
+
+export const removeDeadlineFromConf = async ( conferenceID, deadlineToRemove ) => {
+  await conferenceCollection.update(
+    { _id: conferenceID },
+    { $pull: { deadlines: { deadlineAdded: deadlineToRemove } } }
+  )
+}
+
 export const updateConferenceActiveStatus = async ({ conferenceId, activeSpeakerList }) => {
   await conferenceCollection.update(
     { _id: conferenceId },
@@ -55,6 +69,15 @@ export const updateRollCallStatus = async ( conferenceId, openRollCall ) => {
     { _id: conferenceId },
     {
       $set: { rollCallOpen: openRollCall }
+    }
+  );
+};
+
+export const updateConfStatus = async ( conferenceId, newStatus ) => {
+  await conferenceCollection.update(
+    { _id: conferenceId },
+    {
+      $set: { status: newStatus }
     }
   );
 };

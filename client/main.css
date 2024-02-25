@@ -6,7 +6,6 @@ body {
   padding: 0;
 }
 
-
 .default {
   /* position: absolute;
   width: 99%;
@@ -56,7 +55,22 @@ img#un,
   }
 
 }
+@media screen and (max-width: 1400px) {
+  .presentationBody {
+    display: flex;
+    gap: unset;
+    flex-direction: column;
+    align-items: center;
+  }
+  #confID{
+    position: relative;
+    bottom: unset;
+  }
+  #presentationMotionsBox {
+    margin-bottom: 3em;
+  }
 
+}
 
 
 @media screen and (max-width: 1360px) {
@@ -97,7 +111,7 @@ img#un,
     align-items: center;  
   }
   #Formal{
-    margin-top: 54em ;
+    /* margin-top: 54em ; */
   }
   .MotionsBlock, .SpeakerListBlock{
     width: 80%;
@@ -130,7 +144,7 @@ img#un,
     height: 39em; 
   }
   .tabcontent#Informal{
-    margin-top: 15em;
+    /* margin-top: 15em; */
   }
 }
 @media screen and (max-width: 1200px) {
@@ -152,7 +166,7 @@ img#un,
     height: 37px;  }
     
     .tabcontent#NotesDias {
-      margin-top: 250px;
+      /* margin-top: 250px; */
   }
 }
 
@@ -169,12 +183,18 @@ img#un,
   #un{
     height: 50px;
   }
+  .bellIcon {
+      font-size: 19px !important;
+  }
+  .tablinks{
+    font-size:17px ;
+  }
 
 }
 
 @media screen and (max-width: 800px) {
   #Formal{
-    margin-top: 14em
+    /* margin-top: 14em */
   }
   .FormalBlock{
     justify-content: unset;

@@ -155,7 +155,7 @@ const getCountryInfo = (countryCode) => {
           <div className="groupHolder">
           {workingGroupsDB.map((workingGroup, index) => (
             <WorkingGroup 
-            Dias ={true}
+            Dias ={false}
               key={ index + "wg" + workingGroup._id} // Assuming `_id` is a unique identifier for each working group
               workingGroup={workingGroup} 
               chooseGroup={chooseGroup}
@@ -170,7 +170,7 @@ const getCountryInfo = (countryCode) => {
           </div>
       </div>
 
-      <div>
+      <div className="WGpopup">
         { Object.keys(group).length > 0 && (
           <>
            <Paper id='groupHolder' className={isInUserCountry(group) ? 'userInWorkingGroup' : ''}>              

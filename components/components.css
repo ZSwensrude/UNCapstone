@@ -76,7 +76,7 @@
 .upcomingSpeakers{
   overflow-y: scroll;
   height: 68%;
-  padding: 0 26px;
+  padding: 0 41px 0 0;
   width: 74%;
 
 }
@@ -93,6 +93,7 @@
   width: fit-content;
   margin-top: 5px;
   margin-bottom: 5px;
+  z-index: 1;
 }
 #jjoinButton #button{
 
@@ -133,10 +134,7 @@
 
 #toggleBack {
   background-color: black;
-  padding-top: .5px;
-  padding-bottom: .5px;
-  padding-left: .5px;
-  padding-right: .5px;
+  padding: 7px 5px;
   border-radius: 30px;
   display: flex;
   justify-content: center;
@@ -229,7 +227,7 @@ p.motionText {
 
 .modalContent {
   border-radius: 30px;
-  height: 30em;
+  height: 32em;
   width: 45em;
   display: flex;
   flex-direction: column;
@@ -323,11 +321,10 @@ p.motionText {
   margin-bottom: 1px;
   padding-right: 10px;
   min-height: 53px;
-  border-radius: 11px;
+  border-radius: 30px;
   margin: 9px 0;
-  padding: 0 12px;
-  
-}
+
+  padding: 0px 86px 3px 22px;}
 .userInWorkingGroup{
   /* border: 5px solid #00DBD4; */
   background: #00DBD4 !important;
@@ -401,6 +398,7 @@ p.motionText {
   align-items: center;
   flex-wrap: wrap;
   margin-top: 10px;
+  padding: 0 16px;
 }
 
 #extraDetails {
@@ -410,6 +408,7 @@ p.motionText {
 
 .groupMessage {
   display: flex;
+  gap: 10px;
   justify-content: center;
   align-items: center;
 }
@@ -467,6 +466,8 @@ p.motionText {
   max-height: 42em;
   overflow-y: scroll;
   scrollbar-width: none;
+  min-height: 10em;
+  z-index: 15;
 }
 
 #notificationContent::-webkit-scrollbar {
@@ -566,7 +567,7 @@ ul.countryItemList{
 #logoutButton {
   position: absolute;
   left: 24px;
-  bottom: 0;
+  top: 117px;
   z-index: 10;
 }
 

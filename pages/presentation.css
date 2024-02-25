@@ -1,0 +1,101 @@
+.presentationTop {
+  margin-top: 28px;
+  width: 100%;
+}
+.presentationTop #headerbar{
+  width: 100%;
+  height: 3em;
+}
+
+.presentationBody {
+  display: flex;
+  /* gap: 75px; */
+  justify-content: space-evenly
+}
+.formalbox {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 24em;
+}
+.formalbox #oneMotion{
+  max-width: 17em;
+  min-width: 17em;
+}
+
+
+.formalbox #speakers{
+  
+}
+#presentationPaper {
+  background: #009EDB;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+
+.presentationCountry {
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+  padding-top: 0;
+  align-items: center;
+}
+.presentationCountry h1{
+text-align: center;
+}
+#presentationFlag {
+  width: 350px;
+}
+
+#confID {
+  position: fixed;
+  bottom: 10px;
+  text-align: center;
+}
+
+#presentationMotionsBox {
+ background: #009EDB;
+  padding: 10px 0 10px;  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 30px;
+  width: 25em;
+    /* max-width: 30%; */
+  height: 37.5em;
+}
+#presentationMotions{ 
+  
+   overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+#presentationMotions::-webkit-scrollbar {
+  display: none; /* Hide scrollbar in WebKit browsers (Chrome, Safari, etc.) */
+}
+
+#intructions {
+  margin-top: 100px;
+  justify-content: center;
+  display: flex;
+  text-align: center;
+}
+
+#instructionPaper {
+  background: #009EDB;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 30px;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  margin-bottom: 200px;
+  max-width: 70em;
+}
