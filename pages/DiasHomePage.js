@@ -326,7 +326,7 @@ const [searchTerm, setSearchTerm] = useState('');
         };
 
         const [time, setTime] = useState("");
-        const numInSeconds = (Number(time) * 60000)
+        const numInSeconds = 0;
 
         const Completionist = () => <span>Time's Up!</span>;
 
@@ -335,8 +335,11 @@ const [searchTerm, setSearchTerm] = useState('');
         
             if (event.key === 'Enter') {
               event.preventDefault();
+        
+        //numInSeconds = (Number(time) * 60000)
 
         console.log(time);
+        //console.log(numInSeconds);
 
         console.log('User pressed Enter ✅');
     }
@@ -597,7 +600,7 @@ const [searchTerm, setSearchTerm] = useState('');
                     </div>
                     <div className="timerBlock2">
                         <input id="BackInSessionTime" type="number" value={time} onChange={(e) => setTime(e.target.value)} onKeyDown={handleKeyDown}/>
-                        <Countdown date={Date.now() + numInSeconds}
+                        <Countdown date={Date.now() + 10000}
                         zeroPadTime={3}
                         renderer={renderer}
                         />
