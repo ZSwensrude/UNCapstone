@@ -53,6 +53,7 @@ function openTab(evt, tabName) {
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " active";
   }
+  
 // Placeholder for Dias screen
 const DiasHome = () => {
 
@@ -62,7 +63,7 @@ const DiasHome = () => {
         // Add more countries as needed
     ];
     
-
+    
     
     //DB Communication - live pull on any change in table
     const { delegatesListDias = [] } = useTracker(() => {
@@ -324,7 +325,22 @@ const [searchTerm, setSearchTerm] = useState('');
             });
         };
 
+        const [time, setTime] = useState("");
+        const numInSeconds = (Number(time) * 60000)
+
         const Completionist = () => <span>Time's Up!</span>;
+
+        const handleKeyDown = event => {
+            console.log(event.key);
+        
+            if (event.key === 'Enter') {
+              event.preventDefault();
+
+        console.log(time);
+
+        console.log('User pressed Enter ✅');
+    }
+  };
 
         const renderer = ({ hours, minutes, seconds, completed }) => {
             if (completed) {
@@ -482,9 +498,7 @@ const [searchTerm, setSearchTerm] = useState('');
 
                             <div className="TimeBlock">
                                 <div className="Timer">
-                                <Countdown date={Date.now() + 10000}
-                                        renderer={renderer}
-                                    />
+                                
                                 </div>
                             </div>
 
@@ -582,9 +596,16 @@ const [searchTerm, setSearchTerm] = useState('');
                         <h2 className="BackInSessionTitle">Back In Session In:</h2>
                     </div>
                     <div className="timerBlock2">
+                        <input id="BackInSessionTime" type="number" value={time} onChange={(e) => setTime(e.target.value)} onKeyDown={handleKeyDown}/>
+                        <Countdown date={Date.now() + numInSeconds}
+                        zeroPadTime={3}
+                        renderer={renderer}
+                        />
                     </div>
+
                     <div className="timerBlock2Buttons">   
                         <CoolButton buttonText={"Restart"} buttonColor={'#FF9728'} textColor='white' />
+                        <CoolButton buttonText={"Start"} buttonColor={'#FF9728'} textColor='white' />
                         <CoolButton buttonText={"Pause"} buttonColor={'#FF9728'} textColor='white' />
                     </div>
                     <div className="DeadlinesTitleBlock">
@@ -659,5 +680,7 @@ const [searchTerm, setSearchTerm] = useState('');
     );
 }
 
-
+//<Countdown date={Date.now() + numInSeconds}
+//renderer={renderer}
+///>
 export default DiasHome;
