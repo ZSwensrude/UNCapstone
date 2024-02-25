@@ -1,6 +1,6 @@
 //DiasHomePage.js
 import { Typography, Paper, Dialog, DialogContent, DialogActions, DialogTitle, Radio, RadioGroup, FormGroup, FormControlLabel, Checkbox } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect , useRef } from "react";
 import { useTracker } from 'meteor/react-meteor-data';
 import { useState } from "react";
 import './DiasHomePageIndex.css';
@@ -10,9 +10,6 @@ import Country from '../components/Country';
 import SettingsIcon from '@mui/icons-material/Settings';
 import PresentAbsentList from "../components/PresentAbsentList";
 import MotionsDias from "../components/MotionsDias.js";
-import CheckIcon from '@mui/icons-material/Check';
-import CloseIcon from '@mui/icons-material/Close';
-import RemoveIcon from '@mui/icons-material/Remove';
 import DeadlineDias from "../components/DeadlinesDias.js";
 import PriorLocations from "../components/PriorLocations.js";
 import NotesToDias from "../components/NotesToDias.js";
@@ -29,6 +26,7 @@ import LogoutButton from "../components/LogoutButton.js";
 import { delCollection } from "../imports/api/delegates.js";
 import { dmCollection, insertDM, updateDMReadStatus } from "../imports/api/dm";
 import BellIcon from '@mui/icons-material/Notifications';
+import TimerSession from "../components/TimerSession.js";
 
 
 
@@ -54,6 +52,7 @@ function openTab(evt, tabName) {
     evt.currentTarget.className += " active";
   }
   
+
 // Placeholder for Dias screen
 const DiasHome = () => {
 
@@ -325,23 +324,49 @@ const [searchTerm, setSearchTerm] = useState('');
             });
         };
 
-        const [time, setTime] = useState("");
-        const numInSeconds = 0;
+        /*
+        //Countdown timer
+        const [timeSession, setTimeSession] = useState("");
+        const [timeSpeaker, setTimeSpeaker] = useState("");
+        let numInSecondsSession = Number(timeSession) * 60000; //converting to seconds
+        let numInSecondsSpeaker = Number(timeSession) * 60000;
+        const ref= useRef();
+        state = { date: Date.now() + numInSecondsSession, date1: Date.now() + numInSecondsSpeaker};
+        
+        //handlers for both speaker and session timers
+        handleStartClickSpeaker = (e) => {
+            ref.current?.start();
+          };
 
+          handlePauseClickSpeaker = (e) => {
+            ref.current?.pause();
+          }
+
+          handleResetClickSpeaker =(e) => {
+            ref.current?.stop();
+          }
+       
+          handleStartClickSession = (e) => {
+            ref.current?.start();
+          };
+
+          handlePauseClickSession = (e) => {
+            ref.current?.pause();
+          }
+
+          handleResetClickSession =(e) => {
+            ref.current?.stop();
+          }
+        
+        
         const Completionist = () => <span>Time's Up!</span>;
 
+        //used to obtain input from user
         const handleKeyDown = event => {
             console.log(event.key);
         
             if (event.key === 'Enter') {
               event.preventDefault();
-        
-        //numInSeconds = (Number(time) * 60000)
-
-        console.log(time);
-        //console.log(numInSeconds);
-
-        console.log('User pressed Enter ✅');
     }
   };
 
@@ -353,7 +378,7 @@ const [searchTerm, setSearchTerm] = useState('');
               // Render a countdown
               return <span>{hours}:{minutes}:{seconds}</span>;
             }
-          };
+          }; */
 
   return (
     <div className="HomePageDias">
@@ -501,12 +526,15 @@ const [searchTerm, setSearchTerm] = useState('');
 
                             <div className="TimeBlock">
                                 <div className="Timer">
-                                
+                                    <div className="inputForTime">
+                                        <h4 className="timeLabelMins">Enter the time in minutes:</h4>
+                                    </div>
                                 </div>
                             </div>
 
                             <div className="clearAndCloseButtonBlock">   
-                                <CoolButton buttonText={"Reset"} buttonColor={'#FF9728'} textColor='white' />
+                                <CoolButton buttonText={"Restart"} buttonColor={'#FF9728'} textColor='white'/>
+                                <CoolButton buttonText={"Start"} buttonColor={'#FF9728'} textColor='white' />
                                 <CoolButton buttonText={"Pause"} buttonColor={'#FF9728'} textColor='white' />
                                 <CoolButton buttonText={"Next"} buttonColor={'#FF9728'} textColor='white' onClick={handleSpkNext} />
                             </div>
@@ -595,22 +623,7 @@ const [searchTerm, setSearchTerm] = useState('');
         <div id="Informal" className="tabcontent" style={{display:"none"}}>
             <div className="InformalBlock">
                 <div className="DeadlinesAndTimerBlock">
-                    <div className="BackInSessionBlock">
-                        <h2 className="BackInSessionTitle">Back In Session In:</h2>
-                    </div>
-                    <div className="timerBlock2">
-                        <input id="BackInSessionTime" type="number" value={time} onChange={(e) => setTime(e.target.value)} onKeyDown={handleKeyDown}/>
-                        <Countdown date={Date.now() + 10000}
-                        zeroPadTime={3}
-                        renderer={renderer}
-                        />
-                    </div>
-
-                    <div className="timerBlock2Buttons">   
-                        <CoolButton buttonText={"Restart"} buttonColor={'#FF9728'} textColor='white' />
-                        <CoolButton buttonText={"Start"} buttonColor={'#FF9728'} textColor='white' />
-                        <CoolButton buttonText={"Pause"} buttonColor={'#FF9728'} textColor='white' />
-                    </div>
+                    <TimerSession />
                     <div className="DeadlinesTitleBlock">
                         <div className="DeadlinesTitle">Deadlines</div>
                     </div>
@@ -683,7 +696,27 @@ const [searchTerm, setSearchTerm] = useState('');
     );
 }
 
-//<Countdown date={Date.now() + numInSeconds}
-//renderer={renderer}
-///>
+/*<div className="BackInSessionBlock">
+                        <h2 className="BackInSessionTitle">Back In Session In:</h2>
+                    </div>
+                    <div className="Timer">
+                        <Countdown 
+                        key={this.state.date}
+                        ref={ref}
+                        date={this.state.date}
+                        renderer={renderer}
+                        autoStart={false}
+                        />
+                        <div className="inputForTime">
+                            <h4 className="timeLabelMins">Enter the time in minutes:</h4>
+                            <input id="BackInSessionTime" type="number" value={timeSession} onChange={(e) => setTimeSession(e.target.value)} onKeyDown={handleKeyDown}/>
+                        </div>
+                    </div>
+                    
+
+                    <div className="timerBlock2Buttons">   
+                        <CoolButton buttonText={"Restart"} buttonColor={'#FF9728'} textColor='white' onClick={handleResetClickSession}/>
+                        <CoolButton buttonText={"Start"} buttonColor={'#FF9728'} textColor='white' onClick={handleStartClickSession}/>
+                        <CoolButton buttonText={"Pause"} buttonColor={'#FF9728'} textColor='white' onClick={handlePauseClickSession}/>
+                    </div> */
 export default DiasHome;

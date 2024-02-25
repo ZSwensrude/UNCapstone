@@ -147,10 +147,6 @@ body {
     align-items: center;
     }
 
-  .secondBlock {
-    
-  }
-
   .logos, .Formal.tabcontent, .SpeakerListButtonBlock, .currentlySpeakingAndControl, .controlTitleBlock, .BackInSessionBlock{
     display:flex;
     justify-content: center;
@@ -162,6 +158,19 @@ body {
     justify-content: space-evenly;
     height: 100%;
   }
+
+  .inputForTime {
+    display: flex;
+    margin-block-start: 10px;
+    justify-content: space;
+    height: 25px;
+  }
+
+  .timeLabelMins {
+    margin:2px;
+    font-weight: light;
+  }
+
 #diasspeakers{
   overflow:hidden;
 }
@@ -213,7 +222,7 @@ body {
 
   .Timer, .timerBlock2{
     width: 100%;
-    height: 5em;
+    height: 3em;
     background-color: white;
     border-radius: 30px;
     display: flex;
@@ -275,11 +284,18 @@ body {
     background: black;
   }
   
-  .clearAndCloseButtonBlock, .timerBlock2Buttons, .DeadlineButtons,.WorkingGroupButtons {
+  .clearAndCloseButtonBlock, .DeadlineButtons,.WorkingGroupButtons {
     display:flex;
     justify-content: space-evenly;
     margin-block-start: 1.5px;
   }
+
+  .timerBlock2Buttons {
+    display:flex;
+    justify-content: space-evenly;
+    margin-block-start: 32px;
+  }
+
   .DeadlineButtons{
     width: 80%;
   }
