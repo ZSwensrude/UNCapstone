@@ -21,6 +21,9 @@ diasCollection.allow({
 dmCollection.allow({
   insert: () => true,
 });
+dmCollection.allow({
+  remove: () => true,
+});
 motionCollection.allow({
   insert: () => true,
 });

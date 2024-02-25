@@ -1,5 +1,5 @@
 //DiasHomePage.js
-import { Typography, Paper, Dialog, DialogContent, DialogActions, DialogTitle, Radio, RadioGroup, FormGroup, FormControlLabel, Checkbox } from "@mui/material";
+import { Typography, Paper, Dialog, DialogContent, DialogActions, DialogTitle, Radio, RadioGroup, FormGroup, FormControlLabel, Checkbox, TextField } from "@mui/material";
 import React, { useEffect } from "react";
 import { useTracker } from 'meteor/react-meteor-data';
 import { useState } from "react";
@@ -18,14 +18,15 @@ import DiasSpeakersList from '../components/DiasSpeakersList.js';
 import { motionCollection, insertMotion, removeMotion, switchActiveMotion} from "../imports/api/motions.js";
 import { speakerCollection, removeSpeaker, insertSpeaker } from "../imports/api/speakers.js";
 import flagData from '../flags.json';
-import { updateConferenceActiveStatus, conferenceCollection, updateRollCallStatus, updateConfStatus} from "../imports/api/conference.js";
+import { updateConferenceActiveStatus, conferenceCollection, updateRollCallStatus, updateConfStatus, removeDeadlineFromConf, addDeadlineToConf} from "../imports/api/conference.js";
 import VoteCountChart from "../components/VoteCountBox.js";
 import Countdown from 'react-countdown';
 import LogoutButton from "../components/LogoutButton.js";
 import { delCollection } from "../imports/api/delegates.js";
-import { dmCollection } from "../imports/api/dm";
+import { deleteDMFromDB, dmCollection, updateDMReadStatus } from "../imports/api/dm";
 import BellIcon from '@mui/icons-material/Notifications';
 import auth from "../components/auth.js";
+import MessageDias from "../components/MessageDias.js";
 
 
 
@@ -78,61 +79,61 @@ const DiasHome = () => {
         activeMotion = motionCollection.find({ active: true }).fetch();
         return { motionsListDias };
     });
+    
+    // CONFERENCE DATA 
+    // Define state variable to store conference data
+    const [conferenceData, setConferenceData] = useState(null);
+    const [deadlines, setDeadlines] = useState([]);
+    const [newDeadline, setNewDeadline] = useState(""); 
+    const [openStatus, setOpenStatus] = useState(false);
+    const [confStatus, setConfStatus] = useState("");
+    
+    // Fetch conference data using useTracker hook
+    useTracker(() => {
+        const handler = Meteor.subscribe('conference');
+        const data = conferenceCollection.findOne();
+        setDeadlines(data?.deadlines);
+        setConfStatus(data?.status);
+        setConferenceData(data); // Update conference data in state
+    }, []);
+
+    const removeDeadline = (deadline) => {
+        removeDeadlineFromConf( conferenceData._id, deadline.deadlineAdded );
+    };
+
+    const removeAllDeadlines = () => {
+        deadlines.forEach(deadline => {
+            removeDeadlineFromConf( conferenceData._id, deadline.deadlineAdded );
+        });
+    };
+
+    const addDeadline = () => {
+        addDeadlineToConf( conferenceData._id, newDeadline );
+        setNewDeadline("");
+    };
 
 
-    const DeadlineListDias = [
-        {
-            "deadlineAdded": "Working Paper Third Draft: 2pm"
-        },
-        {
-            "deadlineAdded": "Working Paper Third Draft: 2pm"
-        },
-        {
-            "deadlineAdded": "Working Paper Third Draft: 2pm"
-        },
-        {
-            "deadlineAdded": "Working Paper Third Draft: 2pm"
-        },
-        {
-            "deadlineAdded": "Working Paper Third Draft: 2pm"
-        },
-        {
-            "deadlineAdded": "Working Paper Third Draft: 2pm"
-        },
-        {
-            "deadlineAdded": "Working Paper Third Draft: 2pm"
-        },
-        {
-            "deadlineAdded": "Working Paper Third Draft: 2pm"
-        },
-        {
-            "deadlineAdded": "Working Paper Third Draft: 2pm"
-        },
-        {
-            "deadlineAdded": "a"
-        },
-        {
-            "deadlineAdded": "b"
-        },
-        {
-            "deadlineAdded": "c"
-        },
-        {
-            "deadlineAdded": "d"
-        },
-        {
-            "deadlineAdded": "e"
-        },
-        {
-            "deadlineAdded": "f"
-        },
-        {
-            "deadlineAdded": "Working Paper Third Draft: 2pm"
-        },
-        {
-            "deadlineAdded": "Amendment Form Due: 4pm"
-        }
-      ]
+    const handleClickToOpenStatus = () => {
+        setOpenStatus(true);
+    };
+  
+    const handleToCloseStatus = (event, reason) => {
+        if (reason && reason === "backdropClick") 
+            return;
+        setOpenStatus(false);
+        setConfStatus(conferenceData.status);
+    };
+
+    const handleSetStatus = () => {
+        const { _id } = conferenceData;
+        updateConfStatus(_id, confStatus)
+        setOpenStatus(false);
+    }
+
+    const handleStatusChange = (event) => {
+        setConfStatus(event.target.value);
+    }
+
 
   const conferenceLocations = [
     {
@@ -218,15 +219,7 @@ const [searchTerm, setSearchTerm] = useState('');
         // Insert the speaker with the selected country
         insertSpeaker({ country: searchTerm });
     };
-     // Define state variable to store conference data
-     const [conferenceData, setConferenceData] = useState(null);
-
-     // Fetch conference data using useTracker hook
-     useTracker(() => {
-         const handler = Meteor.subscribe('conference');
-         const data = conferenceCollection.findOne();
-         setConferenceData(data); // Update conference data in state
-     }, []);
+     
      
  //update later to get sessionID and corresponding record in conference table
      // Function to update speaker list active status
@@ -322,36 +315,26 @@ const [searchTerm, setSearchTerm] = useState('');
             }
           };
 
-    const [openStatus, setOpenStatus] = React.useState(false);
-    const [confStatus, setConfStatus] = useState("waiting");
-
-    const handleClickToOpenStatus = () => {
-        setOpenStatus(true);
-    };
-  
-    const handleToCloseStatus = (event, reason) => {
-        if (reason && reason === "backdropClick") 
-            return;
-        setOpenStatus(false);
-        setConfStatus(conferenceData.status);
-    };
-
-    const handleSetStatus = () => {
-        const { _id } = conferenceData;
-        updateConfStatus(_id, confStatus)
-        setOpenStatus(false);
-    }
-
-    const handleStatusChange = (event) => {
-        setConfStatus(event.target.value);
-    }
-
   auth().then(() => {
     console.log('Hello!')
   })
   .catch(() => {
     navigate("/")
   });
+
+  const markAsRead = () => {
+    let diasMessages = dmCollection.find({ to: 'delegates' }, { sort: { createdAt: -1 } }).fetch();
+    diasMessages.forEach(message => {
+        updateDMReadStatus(message._id, "true");
+    });
+  };
+
+  const deleteSentMessages = () => {
+    let diasMessages = dmCollection.find({ to: 'delegates' }, { sort: { createdAt: -1 } }).fetch();
+    diasMessages.forEach(message => {
+        deleteDMFromDB(message._id);
+    });
+  };
 
   return (
     <div className="HomePageDias">
@@ -548,7 +531,7 @@ const [searchTerm, setSearchTerm] = useState('');
                         <div className="motionsAdded">
                         {motionsListDias &&
                             motionsListDias.map((aMotionDias, index) => (
-                            <MotionsDias key={aMotionDias?.motionChosen + index + "motions"} aMotionDias={aMotionDias} /> ))}
+                            <MotionsDias key={`${index}-motions`} aMotionDias={aMotionDias} /> ))}
                         </div>
 
                         
@@ -610,14 +593,22 @@ const [searchTerm, setSearchTerm] = useState('');
                     </div>
                     <div className="DeadlinesBlock">
                         <div className="Deadlines">
-                            {DeadlineListDias.map( (aDeadlineDias, index) => (
-                            <DeadlineDias key={aDeadlineDias?.deadlineAdded + index + 'deadline'} version={"diasHome"} aDeadlineDias={aDeadlineDias}/>
+                            {deadlines?.map( (deadline, index) => (
+                            <DeadlineDias key={deadline?.deadlineAdded + index + 'deadline'} removeDeadline={removeDeadline} version={"diasHome"} deadline={deadline}/>
                             ))}
                         </div>                        
-                            <input className="DeadlineInput" placeholder="Type here..." type="text" />
+                            <TextField 
+                                id="outlined-controlled"
+                                className="DeadlineInput" 
+                                placeholder="New Deadline: Time"
+                                value={newDeadline}
+                                onChange={(event) => {
+                                    setNewDeadline(event.target.value);
+                                }}
+                            />
                         <div className="DeadlineButtons">   
-                            <CoolButton buttonText={"Clear All"} buttonColor={'#FF9728'} textColor='white' />
-                            <CoolButton buttonText={"Add"} buttonColor={'#FF9728'} textColor='white' />
+                            <CoolButton buttonText={"Clear All"} buttonColor={'#FF9728'} textColor='white' onClick={removeAllDeadlines} />
+                            <CoolButton buttonText={"Add"} buttonColor={'#FF9728'} textColor='white' onClick={addDeadline} />
                         </div>
                     </div>
 
@@ -660,6 +651,12 @@ const [searchTerm, setSearchTerm] = useState('');
 
         <div id="NotesDias" className="tabcontent" style={{ display: "none" }}>
             <div className="NotesDiasBlock">
+                <div style={{display:'flex', gap:'16px'}}>
+                    <MessageDias dias={true} />
+                    <CoolButton textColor={'white'} buttonColor={'#989898'} buttonText={'mark my message as read'} onClick={markAsRead} />
+                    <CoolButton textColor={'white'} buttonColor={'#cb0000'} buttonText={'delete my messages'} onClick={deleteSentMessages} />
+                </div>
+                <br />
                 {dms.length > 0 ? (
                     <table>
                         <tbody>

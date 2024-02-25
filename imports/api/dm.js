@@ -15,6 +15,11 @@ export const updateDMReadStatus = async (dmId, newReadStatus) => {
   return true;
 };
 
+export const deleteDMFromDB = async (dmId) => {
+  dmCollection.remove({_id: dmId});
+  return true;
+};
+
 
 
 export const dmCollection = new Mongo.Collection('DMs');

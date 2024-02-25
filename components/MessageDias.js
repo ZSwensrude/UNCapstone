@@ -3,10 +3,9 @@ import { Modal, Paper, Typography, TextField } from "@mui/material";
 import CoolButton from "./CoolButton";
 import './components.css';
 import {dmCollection, insertDM} from '../imports/api/dm';
+import flagData from '../flags.json';
 
-
-
-const MessageDias = () => {
+const MessageDias = ({ dias }) => {
   const [open, setOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
   
@@ -32,23 +31,33 @@ const MessageDias = () => {
   const sendMessage = () => {
       if (inputValue.length > 0) {
         const messageContent = inputValue.slice(0, 250); // Limiting the message to 250 characters
-        insertDM({ type:"dias", to: "Dias", from: user.country, content: messageContent, read:"false" });
+        if (dias) {
+          insertDM({
+            type: "global",
+            from: "Dias",
+            to: "delegates",
+            content: messageContent,
+            read:"false"
+          })
+        } else { 
+          insertDM({ type:"dias", to: "Dias", from: user.country, content: messageContent, read:"false" });
+        }
       }
       handleClose();
   }
 
   return (
     <div>
-      <CoolButton onClick={handleOpen} buttonColor={'#999999'} textColor={'white'} buttonText={'send message to dias'} message={true} className="messageDias" />
+      <CoolButton onClick={handleOpen} buttonColor={dias ? "#00DB89" : '#999999'} textColor={'white'} buttonText={dias ? 'message all delegates' : 'send message to dias'} message={true} className="messageDias" />
       <Modal className="modalWindow" open={open} onClose={handleClose}>
         <Paper className="modalContent" style={{borderRadius:'30px'}}>
           <Typography variant="h2">
-            Message Dias
+            {dias ? 'Messsage Delegates' : 'Message Dias'}
           </Typography>
           <TextField
             className="textBox"
             id="filled-multiline-static"
-            label='Message to Dias - 250chars max'
+            label={dias ? 'Message to Delegates - 250chars max' : 'Message to Dias - 250chars max'}
             multiline
             rows={5}
             placeholder="Type here..."

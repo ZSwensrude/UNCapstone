@@ -3,15 +3,18 @@ import { useTracker } from 'meteor/react-meteor-data';
 import { Paper, Typography } from "@mui/material";
 import Header from "../components/Header";
 import './presentation.css';
+import './DiasHomePageIndex.css';
 import { conferenceCollection } from "../imports/api/conference";
 import SpeakersList from "../components/SpeakersList";
 import CurrentSpeaker from "../components/CurrentSpeaker";
 import { motionCollection } from "../imports/api/motions.js";
 import MotionsDias from "../components/MotionsDias";
+import DeadlineDias from "../components/DeadlinesDias.js";
 
 const Presentation = () => {
   const [status, setStatus] = useState(true);
   const [code, setCode] = useState('');
+  const [deadlines, setDeadlines] = useState([]);
 
   useTracker(() => {
     const handler = Meteor.subscribe('conference');
@@ -19,6 +22,7 @@ const Presentation = () => {
     if(data) {
       setStatus(data.status);
       setCode(data.sessionID);
+      setDeadlines(data?.deadlines);
     }
   }, []);
 
@@ -59,8 +63,28 @@ const Presentation = () => {
           </div>
         </div>
       ) : status === 'informal' ? (
-        <div className="presentationBody">   
-          {/* put informal presentation screen here */}
+        <div className="presentationBody">
+          <div className="formalbox"> 
+            <div className="DeadlinesBlock">
+              <Typography variant="h4" style={{ fontSize:'2.5rem' }}>Deadlines:</Typography>
+              <div className="Deadlines">
+                {deadlines?.map( (deadline, index) => (
+                  <DeadlineDias key={deadline?.deadlineAdded + index + 'deadline'} version={"presentation"} deadline={deadline}/>
+                ))}
+              </div>    
+            </div>
+          </div>
+          <div className="formalbox" style={{ justifyContent:'center' }}>
+            <Typography variant="h2">Back in Session in:</Typography>
+            <Paper id="instructionPaper" style={{ background:'white' }}>
+              {/* TODO: Put timer here once ayesha done */}
+              <Typography variant="h2">PUT TIMER HERE</Typography>
+            </Paper>
+          </div>
+          <div id='confID' >
+            <Typography variant="h1" >Conference code:</Typography>
+            <Typography variant="h1" >{code}</Typography>
+          </div>
         </div>
       ) : status === 'votingProcedure' ? (
         <div className="presentationBody">   
