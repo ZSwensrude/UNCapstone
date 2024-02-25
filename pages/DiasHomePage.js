@@ -363,7 +363,7 @@ const [searchTerm, setSearchTerm] = useState('');
               // Render a countdown
               return <span>{hours}:{minutes}:{seconds}</span>;
             }
-          };
+          }; */
 
   auth().then(() => {
     console.log('Hello!')
