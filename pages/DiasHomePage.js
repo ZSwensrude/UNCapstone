@@ -314,13 +314,8 @@ const [searchTerm, setSearchTerm] = useState('');
               return <span>{hours}:{minutes}:{seconds}</span>;
             }
           };
-
-  auth().then(() => {
-    console.log('Hello!')
-  })
-  .catch(() => {
-    navigate("/")
-  });
+  
+  useEffect (() => {auth().catch(() => {navigate("/")})}, [] );
 
   const markAsRead = () => {
     let diasMessages = dmCollection.find({ to: 'delegates' }, { sort: { createdAt: -1 } }).fetch();
