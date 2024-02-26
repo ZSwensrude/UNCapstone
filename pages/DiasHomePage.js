@@ -559,7 +559,7 @@ const [searchTerm, setSearchTerm] = useState('');
         <div id="Informal" className="tabcontent" style={{display:"none"}}>
             <div className="InformalBlock">
                 <div className="DeadlinesAndTimerBlock">
-                    <TimerSession version={"diasHome"}/>
+                    <TimerSession version={"diasHome"} time={conferenceData?.timer.time} confID={conferenceData?._id}/>
 
                     <div className="DeadlinesTitleBlock">
                         <div className="DeadlinesTitle">Deadlines</div>

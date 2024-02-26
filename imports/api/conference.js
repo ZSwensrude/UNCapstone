@@ -111,6 +111,25 @@ export const removeDeadlineFromConf = async ( conferenceID, deadlineToRemove ) =
   )
 }
 
+export const setTimerTime = async ( conferenceID, time ) => {
+  try {
+
+    await conferenceCollection.update(
+      { _id: conferenceID },
+      { $set: { 'timer.time': time } }
+    )
+  } catch (e) {
+    console.log("error setting time: ", e);
+  }
+}
+
+export const setTimerStatus = async ( conferenceID, status ) => {
+  await conferenceCollection.update(
+    { _id: conferenceID },
+    { $set: { 'timer.status': status } }
+  )
+}
+
 export const updateConferenceActiveStatus = async ({ conferenceId, activeSpeakerList }) => {
   await conferenceCollection.update(
     { _id: conferenceId },

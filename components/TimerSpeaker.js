@@ -26,7 +26,6 @@ handleStartClickSpeaker = (e) => {
 
         //used to obtain input from user
         const handleKeyDown = event => {
-            console.log(event.key);
         
             if (event.key === 'Enter') {
               event.preventDefault();
