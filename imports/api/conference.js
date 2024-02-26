@@ -93,7 +93,7 @@ export const insertConference = async ({ sessionID,delegates,dias,DMs,motions,
 //   "activeSpeakerList": true,
 //   "rollCallOpen": true
 // }
-// );
+//);
   
 export const conferenceCollection = new Mongo.Collection('conference');
 
