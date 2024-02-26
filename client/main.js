@@ -19,6 +19,7 @@ import DiasHome from '../pages/DiasHomePage.js';
 //import RollCall from '../pages/DelRollCall.js';
 import Waiting from '../pages/Waiting.js';
 import Presentation from '../pages/Presentation.js';
+import showScreens from './showScreens.js';
 
 function Main() {
   return (
@@ -28,9 +29,9 @@ function Main() {
           <Routes>
             {/* To add a new page, import the page element, create a new <Route/>, then add the path and element */}
             <Route exact path='/' element={<Home />} />
-            <Route exact path='/dias' element={<Dias />} />
+            {showScreens && <Route exact path='/dias' element={<Dias />} />}
             <Route exact path='/delegate' element={<Delegate />} />
-            <Route exact path='/register' element={<Register />} />
+            {showScreens && <Route exact path='/register' element={<Register />} />}
             <Route exact path='/dias-home-page' element={<DiasHome />} />
             <Route exact path='/waiting' element={<Waiting />} />
             <Route exact path='/presentation' element={<Presentation />} />

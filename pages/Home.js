@@ -12,6 +12,7 @@ import { useNavigate  } from 'react-router-dom';
 import LoginButton from "../components/LoginButton";
 import countriesData from '../flags.json'  
 import { insertDel } from '../imports/api/delegates';
+import showScreens from "../client/showScreens";
 
 //import { LoginForm } from "../components/LoginForm";
 
@@ -39,9 +40,10 @@ const Home=()=>{
       if (error) {
          handleOpen();
       } else {
-      // Store user data in localStorage
-      localStorage.setItem('loggedInUser', JSON.stringify({ username, userType: 'dias' }));
-      navigate('/dias');      }
+        // Store user data in localStorage
+        localStorage.setItem('loggedInUser', JSON.stringify({ username, userType: 'dias' }));
+        if(showScreens){navigate('/dias');}else{navigate('/dias-home-page')};
+      }
    })
 
   };
@@ -169,7 +171,7 @@ const Home=()=>{
                     </div>
 
                     <div className="diasButtons">
-                      <CoolButton onClick={toRegister} buttonColor={'#00DB89'} textColor={'#FFFFFF'} buttonText={'Register'} />
+                      {showScreens && <CoolButton onClick={toRegister} buttonColor={'#00DB89'} textColor={'#FFFFFF'} buttonText={'Register'} />}
                       <LoginButton loginFunc={diasLogin} errors={{'error':'Username or Password is Incorrect'}} buttonText='Login' buttonColor={'#FF9728'} textColor={'#FFFFFF'}/>
                     </div>
             </form>
