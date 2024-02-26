@@ -5,13 +5,14 @@ import { setTimerStatus, setTimerTime } from "../imports/api/conference";
 
 const TimerSession = ({ version, time, status, confID }) => {
   const [timeSession, setTimeSession] = useState("");
-  const numInSecondsSession = time ? Number(time) * 60000 : Number(timeSession) * 60000;
+  const numInSecondsSession = version === 'Presentation' ? time : Number(timeSession) * 60000;
   const ref = useRef();
   const initialTimerStatus = useRef(''); // Store initial timer status
 
   const handleStartClickSession = () => {
     setTimerStatus(confID, 'start'); // Update timer status in the database
     initialTimerStatus.current = 'start'; // Update initial timer status
+
     ref.current?.start(); // Start the timer
   };
 
@@ -28,16 +29,29 @@ const TimerSession = ({ version, time, status, confID }) => {
 
   useEffect( () => {
     if(version === 'Presentation' && time > 0){
-      if (status === 'start') 
+      if (status === 'start') {
         ref.current?.start();
-      else
+        setTimerStatus(confID, 'running'); // Update timer status in the database
+      }
+      else if (status === 'restart') {
         ref.current?.stop();
+        setTimerStatus(confID, 'running'); // Update timer status in the database
+      }
     }
   }, [status]);
 
   useEffect(() => {
-    setTimerTime(confID, timeSession);
+    if (version !== 'Presentation')
+      // setTimerTime(confID, timeSession);
+      setTimerTime(confID, Date.now() + numInSecondsSession);
   }, [timeSession]);
+
+  useEffect(() => {
+    if (version === 'Presentation' && status === 'running') {
+      ref.current?.start(); 
+      setTimerStatus(confID, 'running'); // Update timer status in the database
+    }
+  }, []);
 
   const Completionist = () => <span>Time's Up!</span>;
 
@@ -48,13 +62,16 @@ const TimerSession = ({ version, time, status, confID }) => {
   };
 
   const renderer = ({ hours, minutes, seconds, completed }) => {
-    if (completed) {
-      return <Completionist />;
-    } else {
-      if (hours > 0) {
-        return <span>{hours}:{minutes < 10 ? '0' + minutes : minutes}:{seconds < 10 ? '0' + seconds : seconds}</span>;
+    if (version === 'Presentation') {
+      if (completed) {
+        return <Completionist />;
       } else {
-        return <span>{minutes}:{seconds < 10 ? '0' + seconds : seconds}</span>;
+        // console.log("minutes, seconds,", minutes, seconds,)
+        if (hours > 0) {
+          return <span>{hours}:{minutes < 10 ? '0' + minutes : minutes}:{seconds < 10 ? '0' + seconds : seconds}</span>;
+        } else {
+          return <span>{minutes}:{seconds < 10 ? '0' + seconds : seconds}</span>;
+        }
       }
     }
   };
@@ -68,22 +85,24 @@ const TimerSession = ({ version, time, status, confID }) => {
               <h2 className="BackInSessionTitle">Back In Session In:</h2>
             </div>
             <div className="Timer">
-              <Countdown
-                key={numInSecondsSession}
-                ref={ref}
-                date={Date.now() + numInSecondsSession}
-                renderer={renderer}
-                autoStart={false}
-              />
+              <div className="TimerPresentation">
+                <Countdown
+                  key={numInSecondsSession}
+                  ref={ref}
+                  date={Date.now() + numInSecondsSession}
+                  renderer={renderer}
+                  autoStart={false}
+                />
+              </div>
               <div className="inputForTime">
                 <h4 className="timeLabelMins">Enter the time in minutes:</h4>
                 <input id="BackInSessionTime" type="number" value={timeSession} onChange={(e) => setTimeSession(e.target.value)} onKeyDown={handleKeyDown} />
               </div>
-            </div>
-            <div className="timerBlock2Buttons">
-              <CoolButton buttonText={"Restart"} buttonColor={'#FF9728'} textColor='white' onClick={handleResetClickSession} />
-              <CoolButton buttonText={"Start"} buttonColor={'#FF9728'} textColor='white' onClick={handleStartClickSession} />
-              {/* <CoolButton buttonText={"Pause"} buttonColor={'#FF9728'} textColor='white' onClick={handlePauseClickSession} /> */}
+                <div className="timerBlock2Buttons">
+                  {/* <CoolButton buttonText={"Restart"} buttonColor={'#FF9728'} textColor='white' onClick={handleResetClickSession} /> */}
+                  <CoolButton buttonText={"Start"} buttonColor={'#FF9728'} textColor='white' onClick={handleStartClickSession} />
+                  {/* <CoolButton buttonText={"Pause"} buttonColor={'#FF9728'} textColor='white' onClick={handlePauseClickSession} /> */}
+                </div>
             </div>
           </div>
         </>
@@ -94,7 +113,7 @@ const TimerSession = ({ version, time, status, confID }) => {
           <Countdown
             key={numInSecondsSession}
             ref={ref}
-            date={Date.now() + numInSecondsSession}
+            date={version === 'Presentation' ? time : Date.now() + numInSecondsSession}
             renderer={renderer}
             autoStart={false}
           />

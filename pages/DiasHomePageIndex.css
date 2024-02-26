@@ -225,12 +225,22 @@ body {
 
   .Timer, .timerBlock2{
     width: 100%;
-    height: 3em;
+    height: 8em;
     background-color: white;
     border-radius: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 1em;
+  }
+  #TimerPresentation{
+    width: 100%;
+    background-color: white;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 35px;
   }
 .Timer span{
   font-size: 35px;

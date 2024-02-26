@@ -86,7 +86,7 @@ const Presentation = () => {
             <Typography variant="h2">Back in Session in:</Typography>
             <Paper id="instructionPaper" style={{ background:'white' }}>
               {/* TODO: Put timer here once ayesha done */}
-              <div className="Timer">
+              <div id="TimerPresentation">
                 <TimerSession version={"Presentation"} time={time} status={timerStatus} confID={confID} />
               </div>
             </Paper>
