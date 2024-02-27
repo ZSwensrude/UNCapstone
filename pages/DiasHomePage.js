@@ -1,6 +1,6 @@
 //DiasHomePage.js
 import { Typography, Paper, Dialog, DialogContent, DialogActions, DialogTitle, Radio, RadioGroup, FormGroup, FormControlLabel, Checkbox, TextField } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect , useRef } from "react";
 import { useTracker } from 'meteor/react-meteor-data';
 import { useState } from "react";
 import './DiasHomePageIndex.css';
@@ -27,6 +27,9 @@ import { deleteDMFromDB, dmCollection, updateDMReadStatus } from "../imports/api
 import BellIcon from '@mui/icons-material/Notifications';
 import auth from "../components/auth.js";
 import MessageDias from "../components/MessageDias.js";
+import TimerSession from "../components/TimerSession.js";
+import TimerSpeaker from "../components/TimerSpeaker.js";
+import showScreens from "../client/showScreens.js";
 
 
 
@@ -52,6 +55,8 @@ function openTab(evt, tabName) {
     if (evt.currentTarget)
         evt.currentTarget.className += " active";
   }
+  
+
 // Placeholder for Dias screen
 const DiasHome = () => {
 
@@ -61,7 +66,7 @@ const DiasHome = () => {
         // Add more countries as needed
     ];
     
-
+    
     
     //DB Communication - live pull on any change in table
     const { delegatesListDias = [] } = useTracker(() => {
@@ -167,8 +172,10 @@ const DiasHome = () => {
     }, [dms]);
   const [rollCallButton, setRollCallButton] = React.useState('');
  
+  // opens the status popup
   
 
+  //opens the merge selected button pop up
   const [openMerge, setOpenMerge] = React.useState(false);
  
   const handleClickToOpenMerge = () => {
@@ -178,6 +185,7 @@ const DiasHome = () => {
   const handleToCloseMerge = () => {
       setOpenMerge(false);
   };
+
 
   const navigate = useNavigate();
 
@@ -303,24 +311,9 @@ const [searchTerm, setSearchTerm] = useState('');
             });
         };
 
-        const Completionist = () => <span>Time's Up!</span>;
+  
+  useEffect (() => {auth().catch(() => {navigate("/")})}, [] );
 
-        const renderer = ({ hours, minutes, seconds, completed }) => {
-            if (completed) {
-              // Render a completed state
-              return <Completionist />;
-            } else {
-              // Render a countdown
-              return <span>{hours}:{minutes}:{seconds}</span>;
-            }
-          };
-
-  auth().then(() => {
-    console.log('Hello!')
-  })
-  .catch(() => {
-    navigate("/")
-  });
 
   const markAsRead = () => {
     let diasMessages = dmCollection.find({ to: 'delegates' }, { sort: { createdAt: -1 } }).fetch();
@@ -349,7 +342,7 @@ const [searchTerm, setSearchTerm] = useState('');
                 <button className="tablinks" onClick={() => openTab(Event,'RollCall')}>Roll Call</button>
                 <button className="tablinks" onClick={() => openTab(Event,'Formal')}>Formal</button>
                 <button className="tablinks" onClick={() => openTab(Event,'Informal')}>Informal</button>
-                <button className="tablinks" onClick={() => openTab(Event,'VotingProcedure')}>Voting Procedure</button>
+                {showScreens && <button className="tablinks" onClick={() => openTab(Event,'VotingProcedure')}>Voting Procedure</button> }
                 <button className="tablinks" onClick={() => openTab(Event,'NotesDias')}>
                     Notes to the Dias
                     {unreadMessages && <BellIcon className="bellIcon" />} {/* Render the bell icon conditionally */}
@@ -406,7 +399,7 @@ const [searchTerm, setSearchTerm] = useState('');
                 <CoolButton buttonText={"Reset"} buttonColor={'#FF9728'} textColor='white' />
                 </div>
                 <div className="secondBlock">
-                <CoolButton buttonText={"Export"} buttonColor={'#00DB89'} textColor='white' />
+                {showScreens && <CoolButton buttonText={"Export"} buttonColor={'#00DB89'} textColor='white' />}
                 </div>
             </div>
             <div className="RollCallBlock">
@@ -471,29 +464,14 @@ const [searchTerm, setSearchTerm] = useState('');
                             <div className="clearAndCloseButtonBlock">   
                                 <CoolButton buttonText={"Clear List"} buttonColor={'#FF9728'} textColor='white' onClick={clearSpkList} />
                                 <CoolButton
-                                    buttonText={buttonText}
+                                    buttonText={"Close Speaker List"}
                                     buttonColor={'#FF9728'}
                                     textColor='white'
                                     onClick={updateSpkerlistactive}
-                                />                           
+                                />   
+                                <CoolButton buttonText={"Next Speaker"} buttonColor={'#FF9728'} textColor='white' onClick={handleSpkNext} />                        
                                 </div>
-                                <div className="controlTitleBlock">
-                                <h2 className="controlTitle last">Speaker Timer:</h2>
-                            </div>
-
-                            <div className="TimeBlock">
-                                <div className="Timer">
-                                <Countdown date={Date.now() + 10000}
-                                        renderer={renderer}
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="clearAndCloseButtonBlock">   
-                                <CoolButton buttonText={"Reset"} buttonColor={'#FF9728'} textColor='white' />
-                                <CoolButton buttonText={"Pause"} buttonColor={'#FF9728'} textColor='white' />
-                                <CoolButton buttonText={"Next"} buttonColor={'#FF9728'} textColor='white' onClick={handleSpkNext} />
-                            </div>
+                               <TimerSpeaker />
                         </div>
                         
                     </div>
@@ -579,15 +557,8 @@ const [searchTerm, setSearchTerm] = useState('');
         <div id="Informal" className="tabcontent" style={{display:"none"}}>
             <div className="InformalBlock">
                 <div className="DeadlinesAndTimerBlock">
-                    <div className="BackInSessionBlock">
-                        <h2 className="BackInSessionTitle">Back In Session In:</h2>
-                    </div>
-                    <div className="timerBlock2">
-                    </div>
-                    <div className="timerBlock2Buttons">   
-                        <CoolButton buttonText={"Restart"} buttonColor={'#FF9728'} textColor='white' />
-                        <CoolButton buttonText={"Pause"} buttonColor={'#FF9728'} textColor='white' />
-                    </div>
+                    <TimerSession version={"diasHome"} time={conferenceData?.timer.time} confID={conferenceData?._id}/>
+
                     <div className="DeadlinesTitleBlock">
                         <div className="DeadlinesTitle">Deadlines</div>
                     </div>
@@ -622,22 +593,22 @@ const [searchTerm, setSearchTerm] = useState('');
                         <div className="WorkingGroupsDatabase">
                         <WorkingGroupsListDIAS />
                         </div>
-                        <div className="WorkingGroupButtons">   
+                        {showScreens && <div className="WorkingGroupButtons">   
                             <CoolButton buttonText={"Add"} buttonColor={'#FF9728'} textColor='white' />
                             <CoolButton buttonText={"Merge Selected"}  onClick={handleClickToOpenMerge} buttonColor={'#00DB89'} textColor='white' />
-                        </div>
+                        </div> }
                     </div>
                 </div>
 
                 <div className="LocationsAndPresentationBlock">          
-                    <div className="LocationTitleBlock">
-                        <div className="LocationTitle">Locations</div>
-                    </div>
-                    <div className="LocationsBlock2">
-                            {conferenceLocations.map( (conferenceLocation, index) => (
-                            <PriorLocations key={conferenceLocation?.cLocation + index + "prior"} version={"diasHome"} conferenceLocation={conferenceLocation}/>
-                            ))}
-                    </div>
+                  {showScreens && <div className="LocationTitleBlock">
+                    <div className="LocationTitle">Locations</div>
+                  </div>}
+                  {showScreens && <div className="LocationsBlock2">
+                    {conferenceLocations.map( (conferenceLocation, index) => (
+                    <PriorLocations key={conferenceLocation?.cLocation + index + "prior"} version={"diasHome"} conferenceLocation={conferenceLocation}/>
+                    ))}
+                  </div>}
                     <div className="presentationButtonBlock">
                         <CoolButton onClick={toPresentation} buttonText={"Presentation"} buttonColor={'#00DB89'} textColor='white' />
                     </div>  
@@ -673,6 +644,5 @@ const [searchTerm, setSearchTerm] = useState('');
     </div>
     );
 }
-
 
 export default DiasHome;

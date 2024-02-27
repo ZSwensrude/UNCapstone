@@ -101,13 +101,8 @@ const accounts = [];
     });
   }
 
-  auth().then(() => {
-    console.log('Hello!')
-  })
-  .catch(() => {
-    navigate("/")
-  });
-
+  useEffect (() => {auth().catch(() => {navigate("/")})}, [] );
+  
   return (
     <div className="fullPage">
         

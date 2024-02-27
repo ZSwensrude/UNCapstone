@@ -14,14 +14,19 @@ export const removeMotion  = async ({ _id }) => {
 export const switchActiveMotion = async (motionId) => {
   // Get the current active motion
   const activeMotion = motionCollection.findOne({ active: true });
+  const currentMotion = motionCollection.findOne({ _id: motionId });
+  const activeStatus = !currentMotion.active;
 
   // If there is an active motion and it's different from the selected motionId, update its active status
   if (activeMotion && activeMotion._id !== motionId) {
       motionCollection.update({ _id: activeMotion._id }, { $set: { active: false } });
-  }
 
-  // Update the selected motion's active status
-  motionCollection.update({ _id: motionId }, { $set: { active: true } });
+      // Update the selected motion's active status
+      motionCollection.update({ _id: motionId }, { $set: { active: true } });
+  } else {
+    motionCollection.update({ _id: motionId }, { $set: { active: activeStatus } });
+  };
+
 };
 
 // Define allow rules
