@@ -203,7 +203,7 @@ body {
 
   .currentlySpeaking, .control {    
     width: 100%;
-    height: 38em;
+    height: 36em;
     display: block;
     background: #009edb;
     border-radius: 30px;
@@ -225,13 +225,13 @@ body {
 
   .Timer, .timerBlock2{
     width: 100%;
-    height: 8em;
+    height: 6em;
     background-color: white;
     border-radius: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 1em;
+    margin-bottom: 0.5em;
   }
   #TimerPresentation{
     width: 100%;
@@ -306,7 +306,7 @@ body {
   .timerBlock2Buttons {
     display:flex;
     justify-content: space-evenly;
-    margin-block-start: 32px;
+    margin-block-start: 1px;
   }
 
   .DeadlineButtons{

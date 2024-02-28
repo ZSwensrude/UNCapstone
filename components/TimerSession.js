@@ -37,6 +37,10 @@ const TimerSession = ({ version, time, status, confID }) => {
         ref.current?.stop();
         setTimerStatus(confID, 'running'); // Update timer status in the database
       }
+      else if (status === 'pause') {
+        ref.current?.pause();
+        setTimerStatus(confID, 'paused'); // Update timer status in the database
+      }
     }
   }, [status]);
 
@@ -49,6 +53,10 @@ const TimerSession = ({ version, time, status, confID }) => {
   useEffect(() => {
     if (version === 'Presentation' && status === 'running') {
       ref.current?.start(); 
+      setTimerStatus(confID, 'running'); // Update timer status in the database
+    }
+    else if (version === 'Presentation' && status === 'paused') {
+      ref.current?.pause(); 
       setTimerStatus(confID, 'running'); // Update timer status in the database
     }
   }, []);
@@ -101,7 +109,7 @@ const TimerSession = ({ version, time, status, confID }) => {
                 <div className="timerBlock2Buttons">
                   {/* <CoolButton buttonText={"Restart"} buttonColor={'#FF9728'} textColor='white' onClick={handleResetClickSession} /> */}
                   <CoolButton buttonText={"Start"} buttonColor={'#FF9728'} textColor='white' onClick={handleStartClickSession} />
-                  {/* <CoolButton buttonText={"Pause"} buttonColor={'#FF9728'} textColor='white' onClick={handlePauseClickSession} /> */}
+                   <CoolButton buttonText={"Pause"} buttonColor={'#FF9728'} textColor='white' onClick={handlePauseClickSession} />
                 </div>
             </div>
           </div>
