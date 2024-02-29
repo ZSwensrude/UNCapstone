@@ -59,6 +59,10 @@ const Delegate = () => {
     window.open('/presentation')
   };
 
+  const toFeedbackForm = () => {
+    window.open('https://docs.google.com/forms/d/e/1FAIpQLSfxTM55mIYjlHyE0rPgtVEPv-q1r0mF4qprj9EUdsoMeBU4cw/viewform?usp=sf_link')
+  };
+
   // handles when read notification is pressed, updates notification in the database
   const readNotification = (id) => {
     // Update the read status in the database
@@ -142,6 +146,7 @@ const Delegate = () => {
             {/* </div> */}
             {/* <div id="rightButton"> */}
               <MessageDias />
+              <CoolButton onClick={toFeedbackForm} buttonColor={'#6600DB'} textColor={'white'} buttonText={"give feedback! :)"} />
             </div>
     </div>
   );
