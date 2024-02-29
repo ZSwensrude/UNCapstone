@@ -93,6 +93,14 @@ const Delegate = () => {
     return { motionfromDB };
   });
 
+  const { feedback } = useTracker(() => {
+    const handler = Meteor.subscribe('conference');
+    const data = conferenceCollection.findOne();
+    const feedback = (data === undefined)? false: data.feedback; 
+    console.log(data);
+    return { feedback };
+  });
+
   // Function to get the country name from flags.json
   const getCountryName = (countryCode) => {
     const country = flags.countries.find(c => c.country === countryCode);
@@ -146,7 +154,7 @@ const Delegate = () => {
             {/* </div> */}
             {/* <div id="rightButton"> */}
               <MessageDias />
-              <CoolButton onClick={toFeedbackForm} buttonColor={'#6600DB'} textColor={'white'} buttonText={"give feedback! :)"} />
+              {feedback && <CoolButton onClick={toFeedbackForm} buttonColor={'#6600DB'} textColor={'white'} buttonText={"give feedback! :)"} />}
             </div>
     </div>
   );
