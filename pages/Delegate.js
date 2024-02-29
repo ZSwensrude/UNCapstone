@@ -97,7 +97,6 @@ const Delegate = () => {
     const handler = Meteor.subscribe('conference');
     const data = conferenceCollection.findOne();
     const feedback = (data === undefined)? false: data.feedback; 
-    console.log(data);
     return { feedback };
   });
 
