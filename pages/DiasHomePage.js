@@ -382,7 +382,7 @@ const [searchTerm, setSearchTerm] = useState('');
                     <FormControlLabel value="waiting" control={<Radio />} label="Waiting" />
                     <FormControlLabel value="formal" control={<Radio />} label="Formal" />
                     <FormControlLabel value="informal" control={<Radio />} label="Informal" />
-                    <FormControlLabel value="votingProcedure" control={<Radio />} label="Voting Procedure" />
+                    {showScreens && <FormControlLabel value="votingProcedure" control={<Radio />} label="Voting Procedure" />}
                 </RadioGroup>
             
                 <div className='statusButtons'>
