@@ -382,7 +382,7 @@ const [searchTerm, setSearchTerm] = useState('');
                     <FormControlLabel value="waiting" control={<Radio />} label="Waiting" />
                     <FormControlLabel value="formal" control={<Radio />} label="Formal" />
                     <FormControlLabel value="informal" control={<Radio />} label="Informal" />
-                    <FormControlLabel value="votingProcedure" control={<Radio />} label="Voting Procedure" />
+                    {showScreens && <FormControlLabel value="votingProcedure" control={<Radio />} label="Voting Procedure" />}
                 </RadioGroup>
             
                 <div className='statusButtons'>
@@ -396,7 +396,7 @@ const [searchTerm, setSearchTerm] = useState('');
         <div className="buttonBlock1">
                 <div className="firstBlock">
                 <CoolButton onClick={updateRollCallActive} buttonText={rollCallButton} buttonColor={'#FF9728'} textColor='white' />
-                <CoolButton buttonText={"Reset"} buttonColor={'#FF9728'} textColor='white' />
+                {showScreens && <CoolButton buttonText={"Reset"} buttonColor={'#FF9728'} textColor='white' />}
                 </div>
                 <div className="secondBlock">
                 {showScreens && <CoolButton buttonText={"Export"} buttonColor={'#00DB89'} textColor='white' />}
@@ -404,9 +404,9 @@ const [searchTerm, setSearchTerm] = useState('');
             </div>
             <div className="RollCallBlock">
                 <div className="RollCallList">
-                    <div className="searchBlock">
+                    {showScreens && <div className="searchBlock">
                         <input className="searchBox" placeholder="Search" type="text" />
-                    </div>
+                    </div>}
                     <table className="rollCallTable">
                         <thead>
                             <tr className="titleBlock">

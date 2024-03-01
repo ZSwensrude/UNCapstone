@@ -59,6 +59,10 @@ const Delegate = () => {
     window.open('/presentation')
   };
 
+  const toFeedbackForm = () => {
+    window.open('https://docs.google.com/forms/d/e/1FAIpQLSfxTM55mIYjlHyE0rPgtVEPv-q1r0mF4qprj9EUdsoMeBU4cw/viewform?usp=sf_link')
+  };
+
   // handles when read notification is pressed, updates notification in the database
   const readNotification = (id) => {
     // Update the read status in the database
@@ -87,6 +91,13 @@ const Delegate = () => {
     const motionfromDB = motionCollection.findOne({ active: true }); // Fetch the active motion
     //console.log("The motionfrom DB: ", motionfromDB)
     return { motionfromDB };
+  });
+
+  const { feedback } = useTracker(() => {
+    const handler = Meteor.subscribe('conference');
+    const data = conferenceCollection.findOne();
+    const feedback = (data === undefined)? false: data.feedback; 
+    return { feedback };
   });
 
   // Function to get the country name from flags.json
@@ -142,6 +153,7 @@ const Delegate = () => {
             {/* </div> */}
             {/* <div id="rightButton"> */}
               <MessageDias />
+              {feedback && <CoolButton onClick={toFeedbackForm} buttonColor={'#6600DB'} textColor={'white'} buttonText={"give feedback! :)"} />}
             </div>
     </div>
   );
