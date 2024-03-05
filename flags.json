@@ -626,9 +626,9 @@
       "flagPath": "/images/flags/nigeria.png"
     },
     {
-      "country": "northkorea",
-      "name": "North Korea",
-      "flagPath": "/images/flags/northkorea.png"
+      "country": "democraticpeoplesrepublicofkorea",
+      "name": "Democratic People's Republic of Korea",
+      "flagPath": "/images/flags/democraticpeoplesrepublicofkorea.png"
     },
     {
       "country": "northmacedonia",
@@ -791,9 +791,9 @@
       "flagPath": "/images/flags/southafrica.png"
     },
     {
-      "country": "southkorea",
-      "name": "South Korea",
-      "flagPath": "/images/flags/southkorea.png"
+      "country": "republicofkorea",
+      "name": "Republic of Korea",
+      "flagPath": "/images/flags/republicofkorea.png"
     },
     {
       "country": "southsudan",
