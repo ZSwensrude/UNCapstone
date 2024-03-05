@@ -4,9 +4,17 @@ import { Mongo } from 'meteor/mongo';
 export const speakerCollection = new Mongo.Collection('speakers');
 
 export const insertSpeaker = async ({ country }) => {
-  const createdAt = new Date();
-  speakerCollection.insert({ country, createdAt });
-  return true;
+  let currentDate = null;
+  fetch('https://worldtimeapi.org/api/timezone/Europe/London')
+  .then(response => response.json())
+  .then(data => {
+    currentDate = new Date(data.datetime);
+    speakerCollection.insert({ country, createdAt: currentDate });
+    return true;
+  })
+  .catch(error => {
+    console.error('Error fetching time:', error);
+  });
 };
 
 export const removeSpeaker = async ({ _id }) => {
