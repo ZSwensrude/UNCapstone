@@ -55,7 +55,7 @@ const WorkingGroupsList = ({ openNotification, setOpenNotification, Dias}) => {
   
   // Use useTracker to reactively fetch data from the speakers collection
   useTracker(() => {
-    const handler = Meteor.subscribe('workingGroups');
+    const handler = Meteor.subscribe('conference');
     const data = conferenceCollection.findOne({ sessionID: user.confID });
 
     const workingGroupData = (data === undefined) ? [] : data.workingGroups;
