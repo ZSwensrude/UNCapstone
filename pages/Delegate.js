@@ -11,8 +11,7 @@ import WorkingGroupsList from "../components/WorkingGroupsList";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import Notifications from "../components/Notifications";
-import { motionCollection, insertMotion } from "../imports/api/motions";
-import { dmCollection, insertDM, updateDMReadStatus } from "../imports/api/dm";
+import { updateDMReadStatus } from "../imports/api/dm";
 import flags from '../flags.json';
 import { conferenceCollection } from "../imports/api/conference";
 
@@ -42,17 +41,29 @@ const Delegate = () => {
     setOpenNotification(!openNotification);
   };
 
-  //get notifications from DMs
-  //Use useTracker to reactively fetch data from the collection
-  const { dms } = useTracker(() => {
-    const handler = Meteor.subscribe('DMs');
-    let dmData = dmCollection.find({ to: user.country }, { sort: { createdAt: -1 } }).fetch(); // Filter by country
-    let diasDms = dmCollection.find({ to: 'delegates' }, { sort: { createdAt: -1 } }).fetch();
-    if (diasDms.length > 0 ) {
-      dmData = [...diasDms, ...dmData]; // add global dms
-    }
-    return { dms: dmData };
-  });
+  const [feedback, setFeedback] = useState(false);
+  const [motionfromDB, setMotionFromDB] = useState(null);
+  const [dms, setDms] = useState([]);
+  
+  //DB Communication - live pull on any change in table
+  useTracker(() => {
+    const handler = Meteor.subscribe('conference');
+    const data = conferenceCollection.findOne({ sessionID: user.confID });
+    
+    const dbFeedback = (data === undefined) ? false : data.feedback; 
+    const motion = (data === undefined) ? null : data.motions.find((motion) => motion.active === true);
+    const dbDms = (data === undefined) ? null : data.DMs.filter((dm) => (dm.to === user.country) || (dm.to === 'delegates'));
+
+    setFeedback(dbFeedback);
+    setMotionFromDB(motion);
+    setDms(dbDms?.sort((a, b) => a.createdAt - b.createdAt));
+    // checks if there are any unread notifications, is used to update the notification icon
+    setUnreadNotifications(dbDms?.some(notification => notification.read === "false"));
+  }, []);
+
+  useEffect( () => {
+    console.log("unreadNotifications", unreadNotifications);
+  }, [unreadNotifications]);
 
   const toPresentation = () => {
     // open new window with presentation screen
@@ -80,25 +91,7 @@ const Delegate = () => {
         console.error('Error updating notification read status:', error);
       });
   }
-  // checks if there are any unread notifications, is used to update the notification icon
-  useEffect(() => {
-    setUnreadNotifications(dms.some(notification => notification.read === "false"));
-  }, [dms]);
 
-  const [feedback, setFeedback] = useState(false);
-  const [motionfromDB, setMotionFromDB] = useState(null);
-  
-  //DB Communication - live pull on any change in table
-  useTracker(() => {
-    const handler = Meteor.subscribe('conference');
-    const data = conferenceCollection.findOne({ sessionID: user.confID });
-    
-    const dbFeedback = (data === undefined) ? false : data.feedback; 
-    const motion = (data === undefined) ? null : data.motions.find((motion) => motion.active === true);
-
-    setFeedback(dbFeedback);
-    setMotionFromDB(motion);
-  }, []);
 
   // Function to get the country name from flags.json
   const getCountryName = (countryCode) => {
