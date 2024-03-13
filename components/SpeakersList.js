@@ -17,14 +17,6 @@ const SpeakersList = ({ blank }) => {
   };
 
   const user = getUserFromLocalStorage();
-
-  // Use useTracker to reactively fetch data from the speakers collection
-  const { speakers } = useTracker(() => {
-    const handler = Meteor.subscribe('speakers');
-    const speakersData = speakerCollection.find({}, { sort: { createdAt: 1 } }).fetch(); // Sort by createdAt in ascending order
-    return { speakers: speakersData };
-  });
-
   
   const onClick = () => {
     if (user && user.country) {
@@ -35,8 +27,8 @@ const SpeakersList = ({ blank }) => {
     }
   };
   
-  
-  
+
+  // The following is the new implementation of reading speakers list from conference, rather than speakers
   const [SpeakersListActive, setSpeakersListActive] = useState(false);
   const [speakersOnList, setSpeakersOnList] = useState([]);
   
@@ -48,17 +40,18 @@ const SpeakersList = ({ blank }) => {
     // Check if conferenceData is defined before accessing its properties
     const activeSpeakerList = conferenceData && conferenceData.length > 0 ? conferenceData[0].activeSpeakerList : false;
     const currentSpeakers = conferenceData && conferenceData.length > 0 ? conferenceData[0].speakers : [];
-    
-    console.log(currentSpeakers);
-    setSpeakersOnList(currentSpeakers);
-    setSpeakersListActive(activeSpeakerList);
-    
+  
+    // sort by date
+    setSpeakersOnList(currentSpeakers.sort((a, b) => a.createdAt - b.createdAt));
+    setSpeakersListActive(activeSpeakerList);  
   }, []);
+
   // set current speaker
   const currentSpeaker = speakersOnList.length > 0 ? speakersOnList[0] : {};
   // Check if the user's country is in the speakers list
   let isUserInQueue = speakersOnList.some(speaker => speaker.country === user?.country);
   
+
   // if we want a blank list we have to convince the list to display no buttons
   if (blank) {
     isUserInQueue = true;
