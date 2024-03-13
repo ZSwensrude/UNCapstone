@@ -69,7 +69,7 @@ const Home=()=>{
     // the username is made from country + sessionid so if its right the password is
     if (country) {
       // Store user data in localStorage
-      localStorage.setItem('loggedInUser', JSON.stringify({ username, password, userType: 'delegate', country: selectedCountry }));
+      localStorage.setItem('loggedInUser', JSON.stringify({ username, password, confID: sessionId, userType: 'delegate', country: selectedCountry }));
 
       // Insert delegate information into MongoDB
       const success = insertDel({ country: selectedCountry, roleCall: '' });
