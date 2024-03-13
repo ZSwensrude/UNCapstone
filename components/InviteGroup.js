@@ -34,9 +34,9 @@ const InviteGroup = ({ onInvite, group }) => {
     }, []);
   
     // Log filtered countries
-    useEffect(() => {
-      console.log("filtered LIST", filteredCountries);
-    }, [filteredCountries]);
+    // useEffect(() => {
+    //   console.log("filtered LIST", filteredCountries);
+    // }, [filteredCountries]);
   
     // Set countries after filtering
     useEffect(() => {
