@@ -85,21 +85,19 @@ const Delegate = () => {
     setUnreadNotifications(dms.some(notification => notification.read === "false"));
   }, [dms]);
 
-  //DB Communication - live pull on any change in table
-  const { motionfromDB } = useTracker(() => {
-    const handler = Meteor.subscribe('motions');
-    const motionfromDB = motionCollection.findOne({ active: true }); // Fetch the active motion
-    //console.log("The motionfrom DB: ", motionfromDB)
-    return { motionfromDB };
-  });
-
   const [feedback, setFeedback] = useState(false);
-
+  const [motionfromDB, setMotionFromDB] = useState(null);
+  
+  //DB Communication - live pull on any change in table
   useTracker(() => {
     const handler = Meteor.subscribe('conference');
     const data = conferenceCollection.findOne({ sessionID: user.confID });
-    const dbFeedback = (data === undefined)? false: data.feedback; 
+    
+    const dbFeedback = (data === undefined) ? false : data.feedback; 
+    const motion = (data === undefined) ? null : data.motions.find((motion) => motion.active === true);
+
     setFeedback(dbFeedback);
+    setMotionFromDB(motion);
   }, []);
 
   // Function to get the country name from flags.json
