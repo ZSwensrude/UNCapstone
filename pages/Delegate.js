@@ -93,12 +93,14 @@ const Delegate = () => {
     return { motionfromDB };
   });
 
-  const { feedback } = useTracker(() => {
+  const [feedback, setFeedback] = useState(false);
+
+  useTracker(() => {
     const handler = Meteor.subscribe('conference');
-    const data = conferenceCollection.findOne();
-    const feedback = (data === undefined)? false: data.feedback; 
-    return { feedback };
-  });
+    const data = conferenceCollection.findOne({ sessionID: user.confID });
+    const dbFeedback = (data === undefined)? false: data.feedback; 
+    setFeedback(dbFeedback);
+  }, []);
 
   // Function to get the country name from flags.json
   const getCountryName = (countryCode) => {
