@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useTracker } from 'meteor/react-meteor-data';
 import Header from "../components/Header";
 import './delegate.css'
@@ -14,8 +14,6 @@ import Notifications from "../components/Notifications";
 import { updateDMReadStatus } from "../imports/api/dm";
 import flags from '../flags.json';
 import { conferenceCollection } from "../imports/api/conference";
-
-
 
 // Placeholder for delegate screen
 const Delegate = () => {
@@ -41,6 +39,7 @@ const Delegate = () => {
     setOpenNotification(!openNotification);
   };
 
+  // state vars for reading from DB
   const [feedback, setFeedback] = useState(false);
   const [motionfromDB, setMotionFromDB] = useState(null);
   const [dms, setDms] = useState([]);
@@ -60,10 +59,6 @@ const Delegate = () => {
     // checks if there are any unread notifications, is used to update the notification icon
     setUnreadNotifications(dbDms?.some(notification => notification.read === "false"));
   }, []);
-
-  useEffect( () => {
-    console.log("unreadNotifications", unreadNotifications);
-  }, [unreadNotifications]);
 
   const toPresentation = () => {
     // open new window with presentation screen
@@ -104,7 +99,6 @@ const Delegate = () => {
   return (
     <div className="containerDelegate">
       <Header version={'delegate'} country={(user.country)} />
-      {/* <Header version={'delegate'} country={countryName} /> */}
         <div id="toggleButton">
           <DelegateToggle formal={formal} onClick={toggleClick} />
         </div>
@@ -117,7 +111,6 @@ const Delegate = () => {
                    
             {/* Conditionally render CurrentMotion if there is an active motion */}
             <div id="motion">
-              {/* <CurrentMotion motion={motionfromDB} country={countryName} abstain={true} /> */}
               <CurrentMotion motion={motionfromDB} country={countryName} abstain={motionfromDB?.abstain} user={user.country} />
             </div>
           
@@ -142,12 +135,10 @@ const Delegate = () => {
         )}
       </div>
       <div id="bottomButton">
-              <CoolButton onClick={toPresentation} buttonColor={'#00DBD4'} textColor={'white'} buttonText={'view presentation screen'} />
-            {/* </div> */}
-            {/* <div id="rightButton"> */}
-              <MessageDias />
-              {feedback && <CoolButton onClick={toFeedbackForm} buttonColor={'#6600DB'} textColor={'white'} buttonText={"give feedback! :)"} />}
-            </div>
+        <CoolButton onClick={toPresentation} buttonColor={'#00DBD4'} textColor={'white'} buttonText={'view presentation screen'} />
+        <MessageDias />
+        {feedback && <CoolButton onClick={toFeedbackForm} buttonColor={'#6600DB'} textColor={'white'} buttonText={"give feedback! :)"} />}
+      </div>
     </div>
   );
 };
