@@ -96,13 +96,16 @@ export const updateWG = async ({ groupId, name, topic, location }) => {
 };
 
 Meteor.methods({
-  'users.createAllDelegates': function (users) {
+  'users.createAllDelegates': function (users, confID) {
     const bulkInsertOperations = users.map(user => ({
-      insertOne: { document: user },
+      updateOne: {
+        filter: { sessionID: confID }, 
+        update: {$push: {delLogins: user } } 
+      },
     }));
 
     try {
-      const result = Meteor.users.rawCollection().bulkWrite(bulkInsertOperations);
+      const result = conferenceCollection.rawCollection().bulkWrite(bulkInsertOperations);
       //console.log('Users inserted successfully:', result.insertedCount);
       return result.insertedCount;
     } catch (error) {
