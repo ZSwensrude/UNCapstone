@@ -13,8 +13,11 @@ import LoginButton from "../components/LoginButton";
 import countriesData from '../flags.json'  
 import { insertDel } from '../imports/api/delegates';
 import showScreens from "../client/showScreens";
+import { conferenceCollection } from "../imports/api/conference";
 
 //import { LoginForm } from "../components/LoginForm";
+
+Meteor.subscribe("conference")
 
 const Home=()=>{
   const [username, setUsername] = useState("");
@@ -62,9 +65,9 @@ const Home=()=>{
     const sessionId = document.getElementById('sessionId').value;
     const username = selectedCountry + sessionId;
     const password = sessionId;
-
-    const country = Meteor.users.findOne({username: username});
     
+    const country = conferenceCollection.findOne({"delLogins.username": username});
+
     // we dont actually need to check the passwords anymore (huge waste of time)
     // the username is made from country + sessionid so if its right the password is
     if (country) {

@@ -1,6 +1,7 @@
 // conference.js
 import { Mongo } from 'meteor/mongo';
 
+export const conferenceCollection = new Mongo.Collection('conference');
 
 export const insertConference = async ({ sessionID,delegates,dias,DMs,motions,
     speakers,workingGroups,status, activeSpeakerList, rollCallOpen, deadlines }) => {
@@ -8,7 +9,6 @@ export const insertConference = async ({ sessionID,delegates,dias,DMs,motions,
       speakers,workingGroups,status, activeSpeakerList, rollCallOpen, deadlines });
   };
   
-export const conferenceCollection = new Mongo.Collection('conference');
 
 export const addDeadlineToConf = async ( conferenceID, deadlineToAdd ) => {
   await conferenceCollection.update(
