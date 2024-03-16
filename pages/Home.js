@@ -38,6 +38,7 @@ const Home=()=>{
 
   const diasLogin = (modal, user = username, pass = password) => {
 
+    // leaving this as normal meteor login, meaning that it uses the "user" db collection
     Meteor.loginWithPassword(user, pass, function(error) {
 
       if (error) {

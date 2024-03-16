@@ -1,6 +1,6 @@
 //DiasHomePage.js
 import { Typography, Paper, Dialog, DialogContent, DialogActions, DialogTitle, Radio, RadioGroup, FormGroup, FormControlLabel, Checkbox, TextField } from "@mui/material";
-import React, { useEffect , useRef } from "react";
+import React, { useEffect } from "react";
 import { useTracker } from 'meteor/react-meteor-data';
 import { useState } from "react";
 import './DiasHomePageIndex.css';
@@ -20,7 +20,6 @@ import { speakerCollection, removeSpeaker, insertSpeaker } from "../imports/api/
 import flagData from '../flags.json';
 import { updateConferenceActiveStatus, conferenceCollection, updateRollCallStatus, updateConfStatus, removeDeadlineFromConf, addDeadlineToConf} from "../imports/api/conference.js";
 import VoteCountChart from "../components/VoteCountBox.js";
-import Countdown from 'react-countdown';
 import LogoutButton from "../components/LogoutButton.js";
 import { delCollection } from "../imports/api/delegates.js";
 import { deleteDMFromDB, dmCollection, updateDMReadStatus } from "../imports/api/dm";
@@ -75,15 +74,6 @@ const DiasHome = () => {
         
         return { delegatesListDias };
     });
-
-    var activeMotion = null;
-    //DB Communication - live pull on any change in table
-    const { motionsListDias = [] } = useTracker(() => {
-        const handler = Meteor.subscribe('motions');
-        const motionsListDias = motionCollection.find().fetch();
-        activeMotion = motionCollection.find({ active: true }).fetch();
-        return { motionsListDias };
-    });
     
     // CONFERENCE DATA 
     // Define state variable to store conference data
@@ -92,13 +82,17 @@ const DiasHome = () => {
     const [newDeadline, setNewDeadline] = useState(""); 
     const [openStatus, setOpenStatus] = useState(false);
     const [confStatus, setConfStatus] = useState("");
-    
+    const [motionsListDias, setMotionsListDias] = useState([]);
+    var activeMotion = null;
+        
     // Fetch conference data using useTracker hook
     useTracker(() => {
         const handler = Meteor.subscribe('conference');
         const data = conferenceCollection.findOne();
         setDeadlines(data?.deadlines);
         setConfStatus(data?.status);
+        setMotionsListDias(data?.motions);
+        activeMotion = data?.motions.find((motion) =>  motion.active === true );
         setConferenceData(data); // Update conference data in state
     }, []);
 
