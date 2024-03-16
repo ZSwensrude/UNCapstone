@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Typography, Paper } from '@mui/material';
 import CoolButton from './CoolButton';
 import Country from './Country';
 import { speakerCollection, insertSpeaker } from '../imports/api/speakers';
+import { conferenceCollection } from '../imports/api/conference';
 import { useTracker } from 'meteor/react-meteor-data';
 
-const DiasSpeakersList = () => {
+const DiasSpeakersList = ({ confID }) => {
   
   // Function to retrieve user information from localStorage
   const getUserFromLocalStorage = () => {
@@ -15,14 +16,15 @@ const DiasSpeakersList = () => {
 
   const user = getUserFromLocalStorage();
 
+  const [speakers, setSpeakers] = useState([]);
   // Use useTracker to reactively fetch data from the speakers collection
-  const { speakers } = useTracker(() => {
-    const handler = Meteor.subscribe('speakers');
-    const speakersData = speakerCollection.find({}, { sort: { createdAt: 1 } }).fetch(); // Sort by createdAt in ascending order
-    return { speakers: speakersData };
-  });
+  useTracker(() => {
+    const handler = Meteor.subscribe('conference');
+    const data = conferenceCollection.findOne({ sessionID: confID }); // Sort by createdAt in ascending order
+    setSpeakers(data?.speakers?.sort((a, b) => a.createdAt - b.createdAt));
+  }, []);
 
-  const currentSpeaker = speakers.length > 0 ? speakers[0] : {};
+  const currentSpeaker = speakers?.length > 0 ? speakers[0] : {};
 
   const onClick = () => {
     if (user && user.country) {
@@ -34,7 +36,7 @@ const DiasSpeakersList = () => {
   };
 
     // Check if the user's country is in the speakers list
-    const isUserInQueue = speakers.some(speaker => speaker.country === user?.country);
+    const isUserInQueue = speakers?.some(speaker => speaker.country === user?.country);
   return (
     <div id='diasspeakers'>
         <div className="controlTitleBlock">
@@ -50,7 +52,7 @@ const DiasSpeakersList = () => {
             <h2 className="controlTitle">In Queue:</h2>
         </div>
         <div className="queuebox" id="speakersListCountry">
-        {speakers.slice(1).map((speaker, index) => (
+        {speakers?.slice(1).map((speaker, index) => (
           <Country key={speaker._id} countryName={speaker.country} position={index + 2} showclose={true} />
         ))}
 

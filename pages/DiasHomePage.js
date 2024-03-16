@@ -55,14 +55,11 @@ function openTab(evt, tabName) {
 
 // Placeholder for Dias screen
 const DiasHome = () => {
-
-    // const { dms } = useTracker(() => {
-    //     const handler = Meteor.subscribe('DMs');
-    //     const dmData = dmCollection.find({ type: "dias" }, { sort: { createdAt: -1 } }).fetch(); // Filter by dias type
-
-    //     return { dms: dmData };
-    // });
-    
+    const getUserFromLocalStorage = () => {
+        const userString = localStorage.getItem('loggedInUser');
+        return userString ? JSON.parse(userString) : null;
+    };
+    const user = getUserFromLocalStorage();
 
     // CONFERENCE DATA 
     // Define state variable to store conference data
@@ -80,7 +77,7 @@ const DiasHome = () => {
     // Fetch conference data using useTracker hook
     useTracker(() => {
         const handler = Meteor.subscribe('conference');
-        const data = conferenceCollection.findOne();
+        const data = conferenceCollection.findOne({ sessionID: user.confID }); // make this figure out the conf code from db
         const allDms = data?.DMs?.filter((dm) => dm.type === 'dias');
         setDeadlines(data?.deadlines);
         setConfStatus(data?.status);
@@ -417,7 +414,7 @@ const DiasHome = () => {
                         </div>
                         <div className="currentlySpeakingAndControl">
                             <div className="currentlySpeaking">
-                                <DiasSpeakersList />
+                                <DiasSpeakersList confID={user?.confID} />
 
                             </div>
                             <div className="control">

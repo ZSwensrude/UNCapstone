@@ -45,7 +45,8 @@ const Home=()=>{
          handleOpen();
       } else {
         // Store user data in localStorage
-        localStorage.setItem('loggedInUser', JSON.stringify({ username, userType: 'dias' }));
+        // NOTE: BRANT MAKE SURE YOU CHANGE THIS SO THAT IT SETS THE confID LATER ON WHEN THE DIAS CHOSES A CONFERENCE!!
+        localStorage.setItem('loggedInUser', JSON.stringify({ username, userType: 'dias', confID: "xyz" }));
         if(showScreens){navigate('/dias');}else{navigate('/dias-home-page')};
       }
    })
