@@ -1,25 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { useTracker } from 'meteor/react-meteor-data';
 import '../pages/presentation.css';
-import { speakerCollection } from "../imports/api/speakers";
 import flagsData from '../flags.json';
 import { Paper, Typography } from "@mui/material";
+import { conferenceCollection } from "../imports/api/conference";
 
 const CurrentSpeaker = ({ confCode }) => {
+  const getUserFromLocalStorage = () => {
+    const userString = localStorage.getItem('loggedInUser');
+    return userString ? JSON.parse(userString) : null;
+  };
+  // Get user information from localStorage
+  const user = getUserFromLocalStorage();
+
   const [speakers, setSpeakers] = useState([]);
   const [countryObject, setCountryObject] = useState({});
 
   // Fetch speakers using useTracker hook
   useTracker(() => {
-    const handler = Meteor.subscribe('speakers');
-    const data = speakerCollection.find({}, { sort: { createdAt: 1 } }).fetch();
-    if(data)
-      setSpeakers(data);
-    //setOpenRollCall(data.rollCallOpen); // Update conference data in state
+    const handler = Meteor.subscribe('conference');
+    const data = conferenceCollection.findOne({ sessionID: user.confID });
+    if (data)
+      setSpeakers(data.speakers?.sort((a, b) => a.createdAt - b.createdAt));
   }, []);
 
-  useEffect( () => {
-    if (speakers.length > 0) { 
+  useEffect(() => {
+    if (speakers.length > 0) {
       setCountryObject(flagsData.countries.find(country => country.country === speakers[0].country));
     } else {
       setCountryObject({});
