@@ -21,7 +21,6 @@ import flagData from '../flags.json';
 import { updateConferenceActiveStatus, conferenceCollection, updateRollCallStatus, updateConfStatus, removeDeadlineFromConf, addDeadlineToConf} from "../imports/api/conference.js";
 import VoteCountChart from "../components/VoteCountBox.js";
 import LogoutButton from "../components/LogoutButton.js";
-import { delCollection } from "../imports/api/delegates.js";
 import { deleteDMFromDB, dmCollection, updateDMReadStatus } from "../imports/api/dm";
 import BellIcon from '@mui/icons-material/Notifications';
 import auth from "../components/auth.js";
@@ -29,8 +28,6 @@ import MessageDias from "../components/MessageDias.js";
 import TimerSession from "../components/TimerSession.js";
 import TimerSpeaker from "../components/TimerSpeaker.js";
 import showScreens from "../client/showScreens.js";
-
-
 
 
 function openTab(evt, tabName) {
@@ -58,22 +55,6 @@ function openTab(evt, tabName) {
 
 // Placeholder for Dias screen
 const DiasHome = () => {
-
-    const countries = [
-        { position: 1, countryName: 'Country A', flagPath: '/path/to/flagA.png' },
-        { position: 2, countryName: 'Country B', flagPath: '/path/to/flagB.png' },
-        // Add more countries as needed
-    ];
-    
-    
-    
-    //DB Communication - live pull on any change in table
-    const { delegatesListDias = [] } = useTracker(() => {
-        const handler = Meteor.subscribe('delegates');
-        const delegatesListDias = delCollection.find().fetch();
-        
-        return { delegatesListDias };
-    });
     
     // CONFERENCE DATA 
     // Define state variable to store conference data
@@ -84,6 +65,7 @@ const DiasHome = () => {
     const [confStatus, setConfStatus] = useState("");
     const [motionsListDias, setMotionsListDias] = useState([]);
     var activeMotion = null;
+    const [delegatesListDias, setDelegatesListDias] = useState([]);
         
     // Fetch conference data using useTracker hook
     useTracker(() => {
@@ -92,7 +74,8 @@ const DiasHome = () => {
         setDeadlines(data?.deadlines);
         setConfStatus(data?.status);
         setMotionsListDias(data?.motions);
-        activeMotion = data?.motions.find((motion) =>  motion.active === true );
+        activeMotion = data?.motions?.find((motion) =>  motion.active === true );
+        setDelegatesListDias(data?.delegates);
         setConferenceData(data); // Update conference data in state
     }, []);
 
