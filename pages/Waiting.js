@@ -17,13 +17,27 @@ const Waiting = () => {
   const [openRollCall, setOpenRollCall] = useState(false);
   const testing = false;
 
+  // Function to retrieve user information from localStorage
+  const getUserFromLocalStorage = () => {
+    const userString = localStorage.getItem('loggedInUser');
+    return userString ? JSON.parse(userString) : null;
+  };
+  // Get user information from localStorage
+  const user = getUserFromLocalStorage();
+
+  const [countriesFromDB, setCountriesFromDB] = useState([]);
+  const [filteredCountries, setFilteredCountries] = useState([]);
+
   // Fetch conference data using useTracker hook
   useTracker(() => {
     const handler = Meteor.subscribe('conference');
-    const data = conferenceCollection.findOne();
-    if(data)
+    const data = conferenceCollection.findOne({ sessionID: user.confID });
+    if(data) {
       setOpenRollCall(data.rollCallOpen);
-    //setOpenRollCall(data.rollCallOpen); // Update conference data in state
+      setCountriesFromDB(data.delegates);
+      setFilteredCountries(data.delegates);
+    }
+    
   }, []);
 
   // tracks whether roll call should be open or not and opens/closes it
@@ -33,7 +47,6 @@ const Waiting = () => {
     if (!openRollCall)
       closeRollCall();
   }, [openRollCall]);
-  
 
   const toRollCall = () => {
     if(showRollCall===false){
@@ -48,22 +61,6 @@ const Waiting = () => {
   const closeRollCall= () => {
     setShowRollCall(false);
   };
-    
-  const { countriesFromDB } = useTracker(() => {
-    const handler = Meteor.subscribe('delegates');
-    const countriesFromDB = delCollection.find().fetch();
-    return { countriesFromDB };
-  });
-
-  // Filter countries based on roleCall
-  const filteredCountries = countriesFromDB;
-  // Function to retrieve user information from localStorage
-  const getUserFromLocalStorage = () => {
-    const userString = localStorage.getItem('loggedInUser');
-    return userString ? JSON.parse(userString) : null;
-  };
-  // Get user information from localStorage
-  const user = getUserFromLocalStorage();
   
   
   return (

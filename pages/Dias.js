@@ -70,11 +70,16 @@ Accounts.createUser(info, function(error) {
 
 Accounts.createUser({username: 'Irelandxyz', password: 'xyz', country: 'Ireland', conference: 'xyz'})
 */
+
+// NOTE TO BRANT !!!!!!
+// I already updated this to add to the delCollection in conference db object, you just need
+// to make sure you give it the right conferenceID before you initilize when making a new
+// conference. you can see it hardcoded below as conferenceId
 const accounts = [];
 
   const initializeDB = () => {
     // update this later and give it the actual conference ID of the conference created
-    const conferenceId = 'xyz';
+    const conferenceId = 'xyz';  // <-- here
     countries.countries.forEach(country => {
       let pass = bcrypt.hashSync(conferenceId, 1);
 
@@ -92,7 +97,7 @@ const accounts = [];
         conference: `${conferenceId}`});
     });
     
-    Meteor.call('users.createAllDelegates', accounts, (error, result) => {
+    Meteor.call('users.createAllDelegates', accounts, conferenceId, (error, result) => {
       if (error) {
         console.error('Failed to insert users:', error);
       } else {
