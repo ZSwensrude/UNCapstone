@@ -3,11 +3,15 @@ import { Mongo } from 'meteor/mongo';
 
 export const conferenceCollection = new Mongo.Collection('conference');
 
-export const insertConference = async ({ sessionID,delegates,dias,DMs,motions,
-    speakers,workingGroups,status, activeSpeakerList, rollCallOpen, deadlines }) => {
-     conferenceCollection.insert({ sessionID,delegates,dias,DMs,motions,
-      speakers,workingGroups,status, activeSpeakerList, rollCallOpen, deadlines });
-  };
+export const insertConference = async ({ sessionID, dias, title, committee }) => {
+  conferenceCollection.insert({ sessionID: sessionID, title: title, committee: committee,
+  delegates: [], DMs: [], motions: [], speakers: [], workingGroups: [], deadlines: [], 
+  status: 'waiting', activeSpeakerList: false, rollCallOpen: false,
+  timer: {
+    status: 'paused',
+    timer: 0
+  }, feedback: false, dias});
+};
   
 
 export const addDeadlineToConf = async ( conferenceID, deadlineToAdd ) => {

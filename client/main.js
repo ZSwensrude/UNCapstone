@@ -29,7 +29,7 @@ function Main() {
           <Routes>
             {/* To add a new page, import the page element, create a new <Route/>, then add the path and element */}
             <Route exact path='/' element={<Home />} />
-            {showScreens && <Route exact path='/dias' element={<Dias />} />}
+            <Route exact path='/dias' element={<Dias />} />
             <Route exact path='/delegate' element={<Delegate />} />
             {showScreens && <Route exact path='/register' element={<Register />} />}
             <Route exact path='/dias-home-page' element={<DiasHome />} />

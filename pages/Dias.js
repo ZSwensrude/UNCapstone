@@ -12,28 +12,31 @@ import countries from '../flags.json';
 import { Accounts } from "meteor/accounts-base";
 import bcrypt from 'bcryptjs';
 import auth from "../components/auth";
+import { insertConference } from "../imports/api/conference";
 
 // Placeholder for Dias screen
 const Dias = () => {
 
   const navigate = useNavigate();
 
-    const toDiasHome = () => {
-        // Navigate to a different route
-        navigate('/dias-home-page');
-    };
+  const createConference = () => {
+    insertConference({sessionID: 'abc', dias: 'me', title: 'title', committee: 'UNEA'});
+    
+    // Navigate to a different route
+    // navigate('/dias-home-page');
+  };
 
-    const conferenceLocations = [
-        {
-          "cLocation": "SA-214k"
-        },
-        {
-            "cLocation": "Northwest Center"
-        },
-        {
-            "cLocation": "SA-214b",
-        }
-      ]
+  const conferenceLocations = [
+      {
+        "cLocation": "SA-214k"
+      },
+      {
+          "cLocation": "Northwest Center"
+      },
+      {
+          "cLocation": "SA-214b",
+      }
+  ];
 
   const conferenceGroups = [
     {
@@ -75,7 +78,7 @@ Accounts.createUser({username: 'Irelandxyz', password: 'xyz', country: 'Ireland'
 // I already updated this to add to the delCollection in conference db object, you just need
 // to make sure you give it the right conferenceID before you initilize when making a new
 // conference. you can see it hardcoded below as conferenceId
-const accounts = [];
+  const accounts = [];
 
   const initializeDB = () => {
     // update this later and give it the actual conference ID of the conference created
@@ -157,7 +160,7 @@ const accounts = [];
                     
                     <div className='createConfButtons'>
                         <CoolButton buttonText={"Cancel"} onClick={handleToCloseConference} buttonColor={'#800000'} textColor='white' />
-                        <CoolButton buttonText={"Create"} onClick={toDiasHome} buttonColor={'#FF9728'} textColor='white' />
+                        <CoolButton buttonText={"Create"} onClick={createConference} buttonColor={'#FF9728'} textColor='white' />
                     </div>
               
             </DialogContent>
