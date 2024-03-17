@@ -16,15 +16,25 @@ import { insertConference } from "../imports/api/conference";
 
 // Placeholder for Dias screen
 const Dias = () => {
+  const makeSessionID = () => {
+    const length = 5
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    let counter = 0;
+    while (counter < length) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      counter += 1;
+    }
+    return result;
+  }
+
+  const [title, setTitle] = useState('')
+  const [committee, setCommittee] = useState('')
+  const [sessionID, setSessionID] = useState(makeSessionID())
+  const dias = Meteor.userId()
 
   const navigate = useNavigate();
-
-  const createConference = () => {
-    insertConference({sessionID: 'abc', dias: 'me', title: 'title', committee: 'UNEA'});
-    
-    // Navigate to a different route
-    // navigate('/dias-home-page');
-  };
 
   const conferenceLocations = [
       {
@@ -80,9 +90,9 @@ Accounts.createUser({username: 'Irelandxyz', password: 'xyz', country: 'Ireland'
 // conference. you can see it hardcoded below as conferenceId
   const accounts = [];
 
-  const initializeDB = () => {
+  const initializeDB = ({id}) => {
     // update this later and give it the actual conference ID of the conference created
-    const conferenceId = 'xyz';  // <-- here
+    const conferenceId = id;  // <-- here
     countries.countries.forEach(country => {
       let pass = bcrypt.hashSync(conferenceId, 1);
 
@@ -109,6 +119,14 @@ Accounts.createUser({username: 'Irelandxyz', password: 'xyz', country: 'Ireland'
     });
   }
 
+  const createConference = () => {
+    insertConference({sessionID: sessionID, dias: dias, title: title, committee: committee});
+
+    initializeDB({id: sessionID});
+    
+    // navigate('/dias-home-page');
+  };
+
   useEffect (() => {auth().catch(() => {navigate("/")})}, [] );
   
   return (
@@ -117,17 +135,38 @@ Accounts.createUser({username: 'Irelandxyz', password: 'xyz', country: 'Ireland'
         <Dialog className="createConfDialog" open={openConference} onClose={handleToCloseConference}>
             <DialogTitle className="creatdialogtitle">{"Create Conference"}</DialogTitle>
             <DialogContent >
-            <div className='firstPart'>
+              <div className='firstPart'>
+                <div className="Session ULabel">
+                  <span className="header1">Session ID:</span> 
+                  <div className="inputBox">
+                    <input id="conferenceSession" 
+                      type="text" 
+                      required 
+                      value={sessionID} 
+                      onChange={(e) => setSessionID(e.target.value)} 
+                    />
+                  </div>
+                </div>
                 <div className="Title ULabel">
                   <span className="header1">Title:</span> 
                     <div className="inputBox">
-                        <input id="conferenceTitle" type="text" required />
+                        <input id="conferenceTitle" 
+                          type="text" 
+                          required 
+                          value={title} 
+                          onChange={(e) => setTitle(e.target.value)} 
+                        />
                     </div>
                 </div>
                 <div className="Comitee ULabel">
                   <span className="header1">Commitee:</span> 
                   <div className="inputBox">
-                    <input id="conferenceCommitee" type="text" required />
+                    <input id="conferenceCommitee" 
+                      type="text" 
+                      required 
+                      value={committee} 
+                      onChange={(e) => setCommittee(e.target.value)} 
+                    />
                   </div>
                 </div>
 
