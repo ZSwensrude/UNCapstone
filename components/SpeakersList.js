@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Typography, Paper } from '@mui/material';
 import CoolButton from './CoolButton';
 import Country from './Country';
-import { speakerCollection, insertSpeaker } from '../imports/api/speakers';
+//import { speakerCollection, insertSpeaker } from '../imports/api/speakers';
 import { useTracker } from 'meteor/react-meteor-data';
-import { conferenceCollection } from "../imports/api/conference";
+import { conferenceCollection,insertSpeaker} from "../imports/api/conference";
 
 
 
@@ -21,7 +21,7 @@ const SpeakersList = ({ blank }) => {
   const onClick = () => {
     if (user && user.country) {
       //console.log("added to speaker DB:", user.country);
-      insertSpeaker({ country: user.country });
+      insertSpeaker({ country: user.country, sessionId: user.confID });
     } else {
       console.error("User or country is undefined.");
     }

@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import { Typography, Dialog, DialogTitle, DialogContent, Radio, RadioGroup, FormControlLabel, Button } from "@mui/material";
 import { useNavigate } from "react-router";
 import { Meteor } from 'meteor/meteor';
-import { delCollection } from "../imports/api/delegates";
+import { conferenceCollection,updateDelRole  } from "../imports/api/conference";
 
 const DelRollCall = () => {
   const [open, setOpen] = React.useState(true);
@@ -15,32 +15,19 @@ const DelRollCall = () => {
   };
 
   const handleSave = () => {
-    // Get the current user
-      // Function to retrieve user information from localStorage
       const getUserFromLocalStorage = () => {
-        const userString = localStorage.getItem('loggedInUser');
-        return userString ? JSON.parse(userString) : null;
-      };
+      const userString = localStorage.getItem('loggedInUser');
+      return userString ? JSON.parse(userString) : null;
+    };
       // Get user information from localStorage
-      const user = getUserFromLocalStorage();
+    const user = getUserFromLocalStorage();
     if (user) {
-      // Find the corresponding record in the delegates table and update the roll call value
-      const existingDelegate = delCollection.findOne({ country: user.country });
-
-      if (existingDelegate) {
-        // Update the roll call value
-        delCollection.update(existingDelegate._id, { $set: { roleCall: selectedOption } });
-        setOpen(false);
-        navigate('/delegate');
-      } else {
-        // If the user is not found in the delegates table, you may want to handle this case
-        console.error('User not found in delegates table');
-      }
-
-      
+      var updated = updateDelRole(user.country, selectedOption, user.confID);
+      setOpen(false);
+      navigate('/delegate');    
     } else {
-      // Handle the case where the current user is not available
-      console.error('Current user not available');
+    // Handle the case where the current user is not available
+    console.error('Current user not available');
     }
   };
 

@@ -7,9 +7,8 @@ import WorkingGroup from "./WorkingGroup";
 import MessageGroup from "./MessageGroup";
 import CreateGroup from "./CreateGroup";
 import InviteGroup from './InviteGroup';
-import { workingGroupCollection } from "../imports/api/workingGroups";
 import flagsData from '../flags.json';
-import { conferenceCollection } from "../imports/api/conference";
+import { conferenceCollection, joinWG,removeFromWG } from "../imports/api/conference";
 
 
 const WorkingGroupsList = ({ openNotification, setOpenNotification, Dias}) => {
@@ -64,26 +63,18 @@ const WorkingGroupsList = ({ openNotification, setOpenNotification, Dias}) => {
   }, []);
 
   const removeFromGroup = () => {
-  
-    if (group._id) { // Check if group id exists
-      // Get the id of the working group
+    if (group._id) {
       const WGid = group._id;
   
-      // Update the working group in the database to remove the user's country
-      workingGroupCollection.update(
-        { _id: WGid },
-        { $pull: { countries: { country: user.country } } }, // Remove the user's country from the countries array
-        (error, result) => {
-          if (error) {
-            console.error('Error removing from working group:', error);
-          }
-        }
-      );
+      const result = removeFromWG({ sessionId: user.confID, groupId: WGid, user }); // Call the removeFromWG function
+  
+      if (result === "error") {
+        console.error('Failed to remove from the group');
+      }
     } else {
       console.error('Group id not found');
     }
     setGroup({});
-
   };
   const handleInvite = (group) => {
     // Logic to handle inviting users to the group
@@ -91,28 +82,18 @@ const WorkingGroupsList = ({ openNotification, setOpenNotification, Dias}) => {
     // You can perform any additional actions here, such as opening a modal or sending notifications
   };
 
-  
   const joinGroup = () => {
-    //console.log("Join the group: ", group.name);
-    
-    if (group._id) { // Check if group id exists
-      // Get the id of the working group
+    if (group._id) {
       const WGid = group._id;
-      console.log("WGID: ",WGid);
+      console.log("WGID: ", WGid);
   
-      // Update the working group in the database
-      workingGroupCollection.update(
-        { _id: WGid },
-        { $push: { countries: { country: user.country, name: user.countryName, flagPath: user.flagPath } } },
-        (error, result) => {
-          if (error) {
-            console.error('Error updating working group:', error);
-          } else {
-            //console.log('Successfully joined the group:', result);
-            // Optional: You can add any additional logic here after successfully joining the group
-          }
-        }
-      );
+      const result = joinWG({ sessionId: user.confID, groupId: WGid, user }); // Call the joinWG function
+  
+      if (result === "error") {
+        console.error('Failed to join the group');
+      } else {
+        // Optional: You can add any additional logic here after successfully joining the group
+      }
     } else {
       console.error('Group id not found');
     }

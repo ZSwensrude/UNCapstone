@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Modal, Paper, Typography, TextField } from "@mui/material";
 import CoolButton from "./CoolButton";
 import './components.css';
-import {dmCollection, insertDM} from '../imports/api/dm';
+//import {dmCollection, insertDM} from '../imports/api/dm';
+import { insertDM } from "../imports/api/conference";
 import flagData from '../flags.json';
 
 const MessageDias = ({ dias }) => {
@@ -33,6 +34,7 @@ const MessageDias = ({ dias }) => {
         const messageContent = inputValue.slice(0, 250); // Limiting the message to 250 characters
         if (dias) {
           insertDM({
+            sessionId: user.confID,
             type: "global",
             from: "Dias",
             to: "delegates",
@@ -40,7 +42,13 @@ const MessageDias = ({ dias }) => {
             read:"false"
           })
         } else { 
-          insertDM({ type:"dias", to: "Dias", from: user.country, content: messageContent, read:"false" });
+          insertDM({
+            sessionId: user.confID,
+            type:"dias", 
+            to: "Dias", 
+            from: user.country, 
+            content: messageContent, 
+            read:"false" });
         }
       }
       handleClose();
