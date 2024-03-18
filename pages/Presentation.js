@@ -11,6 +11,7 @@ import { motionCollection } from "../imports/api/motions.js";
 import MotionsDias from "../components/MotionsDias";
 import DeadlineDias from "../components/DeadlinesDias.js";
 import TimerSession from "../components/TimerSession.js";
+import { PieChart } from '@mui/x-charts';
 
 const Presentation = () => {
   const [status, setStatus] = useState(true);
@@ -100,7 +101,40 @@ const Presentation = () => {
         <div className="presentationBody">   
           {/* put voting procedure presentation screen here */}
         </div>
-      ) : (
+      ) 
+      : status === 'motions' ? (
+        <div className="motionBox">   
+          <div className="countryVotes">
+            <div className="VCMButtonBlock">
+              <div className="VCMButton">Votes</div>
+            </div>
+            <div className="countryVotesBlock">
+            </div>
+          </div>
+
+          <div className="motionAndPieBox">
+            <div className="VCMButtonBlock">
+              <div className="VCMButton">Current Motion</div>
+            </div>
+            <div className="currentMotionWhiteBlock">
+            </div>
+            <PieChart
+              series={[
+                {
+                  data: [
+                    { id: 0, value: 10, label: 'series A' },
+                    { id: 1, value: 15, label: 'series B' },
+                    { id: 2, value: 20, label: 'series C' },
+                  ],
+                },
+              ]}
+              width={400}
+              height={200}
+            />
+          </div>
+        </div>
+      ) 
+      : (
         <div id="intructions">
           <Paper id="instructionPaper" >
             <Typography variant="h4">Go to Mac-UN.space to join!</Typography>

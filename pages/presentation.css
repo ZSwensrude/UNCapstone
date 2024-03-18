@@ -28,6 +28,7 @@
 .formalbox #speakers{
   
 }
+
 #presentationPaper {
   background: #009EDB;
   padding: 10px;
@@ -98,4 +99,56 @@ text-align: center;
   scrollbar-width: none;
   margin-bottom: 200px;
   max-width: 70em;
+}
+
+.motionBox {
+  display: flex;
+}
+
+.countryVotes, .motionAndPieBox {
+  display: block;
+  margin: 10px;
+}
+
+.VCMButtonBlock {
+  display:flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.VCMButton {
+  background: #009edb;
+    color: white;
+    border-radius: 30px;
+    border-color: #009edb;
+    width: 211px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    height: 2em;
+}
+
+.countryVotesBlock {
+  background: #009edb;
+  border-radius: 30px;
+  border-color: #009edb;
+  width: 800px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30em;
+}
+
+.currentMotionWhiteBlock {
+  background: white;
+  color:black;
+  border-radius: 30px;
+  border-color: white;
+  width: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  height: 4em;
 }
