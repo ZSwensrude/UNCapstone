@@ -11,7 +11,7 @@ import { motionCollection } from "../imports/api/motions.js";
 import MotionsDias from "../components/MotionsDias";
 import DeadlineDias from "../components/DeadlinesDias.js";
 import TimerSession from "../components/TimerSession.js";
-import { PieChart } from '@mui/x-charts';
+import { PieChart, pieArcLabelClasses } from '@mui/x-charts';
 import { green } from "@mui/material/colors";
 import CountryVotesMotion from "../components/CountryVotesMotion.js";
 
@@ -59,6 +59,7 @@ const Presentation = () => {
   let voteYes = 0;
   let voteNo = 0;
   let voteAbstain = 0;
+  let total = 0;
   const votesArray = [];
 
   motionfromDB?.votes.forEach(function (item) {
@@ -67,7 +68,7 @@ const Presentation = () => {
 
   motionfromDB?.votes.forEach(function (item) {
     //console.log(item?.vote);
-    
+    total++;
     if (item?.vote == "Yes") {
         voteYes++;
     }
@@ -78,6 +79,14 @@ const Presentation = () => {
         voteAbstain++;
     }
   });
+
+
+
+  const  data = [
+    { id: 0, value: (voteYes/total) * 100, label: 'Yes', color: 'green' },
+    { id: 1, value: (voteNo/total) * 100, label: 'No', color: 'red' },
+    { id: 2, value: (voteAbstain/total) * 100, label: 'Abstain', color: 'yellow' },
+  ];
 
   console.log("The motionfrom DB: ", motionfromDB)
   console.log("The db array: ", motionfromDB?.votes)
@@ -151,8 +160,8 @@ const Presentation = () => {
             </div>
             <div className="countryVotesBlock">
             {votesArray?.map( (countryName, index) => (
-              <CountryVotesMotion key={countryName?.countryInfo + index + 'country'} countryName={countryName}/>
-              ))}
+            <CountryVotesMotion key={countryName?.countryInfo + index} countryName={countryName}/>
+            ))}
             </div>
           </div>
 
@@ -166,13 +175,17 @@ const Presentation = () => {
             <PieChart
               series={[
                 {
-                  data: [
-                    { id: 0, value: voteYes, label: 'Yes', color: 'green' },
-                    { id: 1, value: voteNo, label: 'No', color: 'red' },
-                    { id: 2, value: voteAbstain, label: 'Abstain', color: 'yellow' },
-                  ],
+                  arcLabel: (item) => `${item.value}%`,
+                  arcLabelMinAngle: 10,
+                  data,
                 },
               ]}
+              sx={{
+                [`& .${pieArcLabelClasses.root}`]: {
+                  fill: 'black',
+                  fontWeight: 'bold',
+                },
+              }}
               width={400}
               height={250}
             />
