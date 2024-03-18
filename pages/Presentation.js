@@ -12,6 +12,7 @@ import MotionsDias from "../components/MotionsDias";
 import DeadlineDias from "../components/DeadlinesDias.js";
 import TimerSession from "../components/TimerSession.js";
 import { PieChart } from '@mui/x-charts';
+import { green } from "@mui/material/colors";
 
 const Presentation = () => {
   const [status, setStatus] = useState(true);
@@ -40,6 +41,36 @@ const Presentation = () => {
     const motionsListDias = motionCollection.find().fetch();
     activeMotion = motionCollection.find({ active: true }).fetch();
     return { motionsListDias };
+  });
+
+  /* pie chart and motion vote stuff */
+
+  //reading from database
+  const { motionfromDB } = useTracker(() => {
+    const handler = Meteor.subscribe('motions');
+    const motionfromDB = motionCollection.findOne({ active: true }); // Fetch the active motion
+    //console.log("The motionfrom DB: ", motionfromDB)
+    //console.log("motion name:", motionfromDB?.content)
+    return { motionfromDB };
+  });
+
+  //counting for pie chart 
+  let voteYes = 0;
+  let voteNo = 0;
+  let voteAbstain = 0;
+  //const votesArray = motionfromDB?.votes;
+
+  motionfromDB?.votes.forEach(function (item) {
+    console.log(item?.vote);
+    if (item?.vote == "Yes") {
+        voteYes++;
+    }
+    else if (item?.vote == "No") {
+        voteNo++;
+    }
+    else {
+        voteAbstain++;
+    }
   });
 
   return (
@@ -117,19 +148,20 @@ const Presentation = () => {
               <div className="VCMButton">Current Motion</div>
             </div>
             <div className="currentMotionWhiteBlock">
+              {motionfromDB?.content}
             </div>
             <PieChart
               series={[
                 {
                   data: [
-                    { id: 0, value: 10, label: 'series A' },
-                    { id: 1, value: 15, label: 'series B' },
-                    { id: 2, value: 20, label: 'series C' },
+                    { id: 0, value: voteYes, label: 'Yes', color: 'green' },
+                    { id: 1, value: voteNo, label: 'No', color: 'red' },
+                    { id: 2, value: voteAbstain, label: 'Abstain', color: 'yellow' },
                   ],
                 },
               ]}
               width={400}
-              height={200}
+              height={250}
             />
           </div>
         </div>
