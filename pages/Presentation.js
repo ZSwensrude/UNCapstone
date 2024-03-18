@@ -13,6 +13,7 @@ import DeadlineDias from "../components/DeadlinesDias.js";
 import TimerSession from "../components/TimerSession.js";
 import { PieChart } from '@mui/x-charts';
 import { green } from "@mui/material/colors";
+import CountryVotesMotion from "../components/CountryVotesMotion.js";
 
 const Presentation = () => {
   const [status, setStatus] = useState(true);
@@ -58,10 +59,15 @@ const Presentation = () => {
   let voteYes = 0;
   let voteNo = 0;
   let voteAbstain = 0;
-  //const votesArray = motionfromDB?.votes;
+  const votesArray = [];
 
   motionfromDB?.votes.forEach(function (item) {
-    console.log(item?.vote);
+    votesArray.push(item);
+  })
+
+  motionfromDB?.votes.forEach(function (item) {
+    //console.log(item?.vote);
+    
     if (item?.vote == "Yes") {
         voteYes++;
     }
@@ -72,6 +78,10 @@ const Presentation = () => {
         voteAbstain++;
     }
   });
+
+  console.log("The motionfrom DB: ", motionfromDB)
+  console.log("The db array: ", motionfromDB?.votes)
+  console.log("The votes: ", votesArray)
 
   return (
     <div className="presentationTop">
@@ -140,6 +150,9 @@ const Presentation = () => {
               <div className="VCMButton">Votes</div>
             </div>
             <div className="countryVotesBlock">
+            {votesArray?.map( (countryName, index) => (
+              <CountryVotesMotion key={countryName?.countryInfo + index + 'country'} countryName={countryName}/>
+              ))}
             </div>
           </div>
 
@@ -185,4 +198,7 @@ const Presentation = () => {
   );
 };
 
+/*        {votesArray?.map( (countriesV, index) => (
+  <CountryVotesMotion key={countriesV?.countryInfo + index} CountryVotesMotion={CountryVotesMotion}/>
+  ))} */
 export default Presentation;

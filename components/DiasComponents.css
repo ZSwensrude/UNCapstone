@@ -12,7 +12,7 @@
     padding-right: 10px;
     }
 
-    #onePriorLocation, #oneMotion, #oneDeadline {
+    #onePriorLocation, #oneMotion, #oneDeadline, #oneCountry {
         position:relative;
         border-radius: 30px;
         margin-top: 1px;
