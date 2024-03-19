@@ -7,8 +7,7 @@ import WorkingGroup from "./WorkingGroup";
 import MessageGroup from "./MessageGroup";
 import CreateGroup from "./CreateGroup";
 import InviteGroup from './InviteGroup';
-import { workingGroupCollection, deleteWG, updateWG } from "../imports/api/workingGroups";
-import { conferenceCollection } from "../imports/api/conference";
+import { conferenceCollection, deleteWG, updateWG } from "../imports/api/conference";
 import flagsData from '../flags.json';
 
 
@@ -49,14 +48,13 @@ const WorkingGroupsListDIAS = ({ }) => {
     //console.log("Invite users to the group: ", group.name);
     // You can perform any additional actions here, such as opening a modal or sending notifications
   };
-
   const deleteGroup = () => {
     if (group._id) { // Check if group id exists
       const groupId = group._id;
       console.log("Deleting group with ID: ", groupId);
 
       // Call the deleteWG function from workingGroupCollection
-      deleteWG(groupId)
+      deleteWG(user.confID, groupId)
         .then((result) => {
           console.log('Successfully deleted the group:', result);
           // Additional logic after successful deletion
@@ -68,7 +66,8 @@ const WorkingGroupsListDIAS = ({ }) => {
       console.error('Group id not found');
     }
     setGroup({});
-  };
+};
+
 
 
   // Function to get the country name and flag path based on the country code

@@ -470,6 +470,26 @@ export const removeFromWG = ({ sessionId, groupId, user }) => {
     return "error";
   }
 };
+export const deleteWG = async (sessionId, groupId) => {
+  try {
+    const conference = conferenceCollection.findOne({ sessionID: sessionId });
+
+    if (!conference) {
+      console.error('Conference not found.');
+      return;
+    }
+    const updatedworkingGroups= conference.workingGroups.filter(wg => wg._id !== groupId);
+  
+    conferenceCollection.update(
+      { _id: conference._id },
+      { $set: { workingGroups: updatedworkingGroups } }
+    );
+  } catch (error) {
+    console.error('Error deleting working group:', error);
+    throw error;
+  }
+};
+
 //end WGs ----------------------------------------------------------------------------------
 
 
