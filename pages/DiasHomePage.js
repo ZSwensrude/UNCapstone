@@ -21,7 +21,7 @@ import VoteCountChart from "../components/VoteCountBox.js";
 import LogoutButton from "../components/LogoutButton.js";
 
 
-import { insertSpeaker,removeSpeaker,deleteDMFromDB,updateDMReadStatus, updateConferenceActiveStatus, conferenceCollection, updateRollCallStatus, updateConfStatus, removeDeadlineFromConf, addDeadlineToConf, insertMotion, removeMotion, clearallMotions } from "../imports/api/conference.js";
+import { insertSpeaker,removeSpeaker,deleteDMFromDB,deleteSentMessagesDIAS, markAsReadDIAS, updateConferenceActiveStatus, conferenceCollection, updateRollCallStatus, updateConfStatus, removeDeadlineFromConf, addDeadlineToConf, insertMotion, clearallMotions } from "../imports/api/conference.js";
 
 
 import BellIcon from '@mui/icons-material/Notifications';
@@ -136,7 +136,9 @@ const DiasHome = () => {
         setConfStatus(event.target.value);
     }
 
-
+const handleDIASreadAll = () => {  
+    markAsReadDIAS(user.confID)
+}
     const conferenceLocations = [
         {
             "cLocation": "SA-214k",
@@ -304,19 +306,8 @@ const handleClearAllMotions = () => {
     useEffect(() => { auth().catch(() => { navigate("/") }) }, []);
 
 
-    const markAsRead = () => {
-        let diasMessages = dmCollection.find({ to: 'delegates' }, { sort: { createdAt: -1 } }).fetch();
-        diasMessages.forEach(message => {
-            updateDMReadStatus(message._id, "true");
-        });
-    };
 
-    const deleteSentMessages = () => {
-        let diasMessages = dmCollection.find({ to: 'delegates' }, { sort: { createdAt: -1 } }).fetch();
-        diasMessages.forEach(message => {
-            deleteDMFromDB(message._id);
-        });
-    };
+
 
     return (
         <div className="HomePageDias">
@@ -613,8 +604,9 @@ const handleClearAllMotions = () => {
                 <div className="NotesDiasBlock">
                     <div style={{ display: 'flex', gap: '16px' }}>
                         <MessageDias dias={true} />
-                        <CoolButton textColor={'white'} buttonColor={'#989898'} buttonText={'mark my message as read'} onClick={markAsRead} />
-                        <CoolButton textColor={'white'} buttonColor={'#cb0000'} buttonText={'delete my messages'} onClick={deleteSentMessages} />
+                        <CoolButton textColor={'white'} buttonColor={'#989898'} buttonText={'mark my message as read'} onClick={handleDIASreadAll} />
+                        <CoolButton textColor={'white'} buttonColor={'#cb0000'} buttonText={'delete my messages'} onClick={() => deleteSentMessagesDIAS(user.confID)} />
+
                     </div>
                     <br />
                     {dms?.length > 0 ? (

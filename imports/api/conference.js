@@ -314,6 +314,38 @@ export const deleteDMFromDB = async (sessionId, dmId) => {
   
   return true;
 };
+export const markAsReadDIAS = async (sessionId) => {
+  try {
+    const conference = conferenceCollection.findOne({ sessionID: sessionId });
+    if (!conference) {
+      console.error('Conference not found.');
+      return "error";
+    }
+    
+    const diasMessages = conference.DMs.filter(message => message.to === 'Dias');
+    
+    diasMessages.forEach(message => {
+      updateDMReadStatus(sessionId, message._id, true);
+    });
+    
+    console.log('Successfully marked all messages as read.');
+  } catch (error) {
+    console.error('Error marking messages as read:', error);
+    return "error";
+  }
+};
+export const deleteSentMessagesDIAS = (sessionId) => {
+  const conference = conferenceCollection.findOne({ sessionID: sessionId });
+  if (!conference) {
+      console.error('Conference not found.');
+      return;
+  }
+  const diasMessages = conference.DMs.filter(message => message.to === 'delegates');
+  diasMessages.forEach(message => {
+      deleteDMFromDB(sessionId, message._id);
+  });
+};
+
 //end dms ----------------------------------------------------------------------------------
 
 //start WGs ----------------------------------------------------------------------------------
