@@ -15,13 +15,15 @@ import NotesToDias from "../components/NotesToDias.js";
 import WorkingGroupsListDIAS from "../components/WorkingGroupsListDIAS.js";
 import { useNavigate } from 'react-router-dom';
 import DiasSpeakersList from '../components/DiasSpeakersList.js';
-import { motionCollection, insertMotion, removeMotion, switchActiveMotion } from "../imports/api/motions.js";
-import { speakerCollection, removeSpeaker, insertSpeaker } from "../imports/api/speakers.js";
+
 import flagData from '../flags.json';
-import { updateConferenceActiveStatus, conferenceCollection, updateRollCallStatus, updateConfStatus, removeDeadlineFromConf, addDeadlineToConf } from "../imports/api/conference.js";
 import VoteCountChart from "../components/VoteCountBox.js";
 import LogoutButton from "../components/LogoutButton.js";
-import { deleteDMFromDB, dmCollection, updateDMReadStatus } from "../imports/api/dm";
+
+
+import { insertSpeaker,removeSpeaker,deleteDMFromDB,updateDMReadStatus, updateConferenceActiveStatus, conferenceCollection, updateRollCallStatus, updateConfStatus, removeDeadlineFromConf, addDeadlineToConf, insertMotion, removeMotion, clearallMotions } from "../imports/api/conference.js";
+
+
 import BellIcon from '@mui/icons-material/Notifications';
 import auth from "../components/auth.js";
 import MessageDias from "../components/MessageDias.js";
@@ -182,18 +184,21 @@ const DiasHome = () => {
 
     const handleClearConfirmed = () => {
         setopenSpkClear(false); // Close the confirmation dialog
-        const handler = Meteor.subscribe('speakers');
-        const speakersData = speakerCollection.find().fetch();
-        speakersData.forEach(speaker => {
-            removeSpeaker({ _id: speaker._id }); // Pass _id to removeSpeaker
+        const conference = conferenceCollection.findOne({ sessionID: user.confID });
+        const speakers = conference ? conference.speakers : [];
+        speakers.forEach(speaker => {
+            removeSpeaker({ sessionId: user.confID, _idspeaker: speaker._id }); // Pass _id to removeSpeaker
         });
     };
-
+    
     const handleSpkNext = () => {
-        const handler = Meteor.subscribe('speakers');
-        const speakersData = speakerCollection.find().fetch();
-        removeSpeaker({ _id: speakersData[0]._id }); // remove current speaker
+        const conference = conferenceCollection.findOne({ sessionID: user.confID });
+        const speakers = conference ? conference.speakers : [];
+        if (speakers.length > 0) {
+            removeSpeaker({ sessionId: user.confID, _idspeaker: speakers[0]._id }); // remove current speaker
+        }
     };
+    
 
     const handleClearCancelled = () => {
         setopenSpkClear(false); // Close the confirmation dialog
@@ -205,7 +210,7 @@ const DiasHome = () => {
     const addtolist = (searchTerm) => {
 
         // Insert the speaker with the selected country
-        insertSpeaker({ country: searchTerm });
+        insertSpeaker({ country: searchTerm, sessionId: user.confID });
     };
 
 
@@ -260,7 +265,7 @@ const DiasHome = () => {
         }
 
         // Insert motion into the motions table with active set to false
-        insertMotion({ content: motionContent, abstain: abstain });
+        insertMotion({ sessionId: user.confID ,content: motionContent, abstain: abstain });
 
         // Clear motion content and abstain status
         setMotionContent('');
@@ -280,16 +285,20 @@ const DiasHome = () => {
         setOpenClearConfirmation(false);
     };
     // Function to handle clearing all motions when confirmed
-    const handleClearAllMotions = () => {
-        // Close the confirmation dialog
-        setOpenClearConfirmation(false);
-        // Perform the clear operation
-        const handler = Meteor.subscribe('motions');
-        const motionData = motionCollection.find().fetch();
-        motionData.forEach(motion => {
-            removeMotion({ _id: motion._id });
-        });
-    };
+// Function to handle clearing all motions when confirmed
+const handleClearAllMotions = () => {
+    // Close the confirmation dialog
+    setOpenClearConfirmation(false);
+
+    try {
+        // Call the clearallMotions function to remove all motions
+        clearallMotions(user.confID);
+        console.log('All motions cleared successfully.');
+    } catch (error) {
+        console.error('Error clearing all motions:', error);
+    }
+};
+
 
 
     useEffect(() => { auth().catch(() => { navigate("/") }) }, []);

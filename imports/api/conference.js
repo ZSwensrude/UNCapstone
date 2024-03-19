@@ -78,6 +78,7 @@ export const getRollCallStatus = async ( conferenceId ) => {
   }
   return null;
 } 
+//start delegates ----------------------------------------------------------------------------------
 
 export const insertDel = async ({ country, roleCall, sessionId }) => {
   const conference = conferenceCollection.findOne({ sessionID: sessionId });
@@ -127,6 +128,9 @@ export const updateDelRole = async (countryToUpdate, roleCall, sessionId) => {
     return false; // Indicate delegate not found
   }
 };
+//end delegates ----------------------------------------------------------------------------------
+
+//start speakers ----------------------------------------------------------------------------------
 
 export const insertSpeaker = async ({ country, sessionId }) => {
   let currentDate = null;
@@ -145,6 +149,21 @@ export const insertSpeaker = async ({ country, sessionId }) => {
     console.error('Error fetching time:', error);
   });
 };
+
+
+
+export const removeSpeaker = async ({ sessionId, _idspeaker }) => {
+  const conference = conferenceCollection.findOne({ sessionID: sessionId });
+  const updatedspeakers = conference.speakers.filter(speaker => speaker._id !== _idspeaker);
+
+  conferenceCollection.update(
+    { _id: conference._id },
+    { $set: { speakers: updatedspeakers } }
+  );};
+
+//end speakers ----------------------------------------------------------------------------------
+
+//start motions ----------------------------------------------------------------------------------
 
 export const addMotionVote = async (motionId, userCountry, vote, sessionId) => {
   const conference = conferenceCollection.findOne({ sessionID: sessionId });
@@ -178,6 +197,85 @@ export const addMotionVote = async (motionId, userCountry, vote, sessionId) => {
   return true;
 };
 
+export const insertMotion = async ({ sessionId, content, abstain }) => {
+  const conference = conferenceCollection.findOne({ sessionID: sessionId });
+  if (conference) {
+    const motionId = uuidv4(); // Generate a unique ID for the motion
+    const newMotion = {
+      _id: motionId,
+      active: false,
+      content,
+      votes: [],
+      abstain
+    };
+    conferenceCollection.update(
+      { _id: conference._id },
+      { $push: { motions: newMotion } }
+    );
+  } else {
+    console.error('Conference not found.');
+  }
+};
+
+export const removeMotion = async ({ sessionId, motionId }) => {
+  const conference = conferenceCollection.findOne({ sessionID: sessionId });
+
+  if (!conference) {
+    console.error('Conference not found.');
+    return;
+  }
+  const updatedMotions = conference.motions.filter(motion => motion._id !== motionId);
+
+  conferenceCollection.update(
+    { _id: conference._id },
+    { $set: { motions: updatedMotions } }
+  );};
+export const clearallMotions = async (sessionId) => {
+  const conference = conferenceCollection.findOne({ sessionID: sessionId });
+  conferenceCollection.update(
+    { _id: conference._id },
+    { $set: { motions: [] } }
+  );
+};
+
+export const switchActiveMotion = async (sessionId, motionId) => {
+  try {
+    // Find the conference with the given sessionId
+    const conference = conferenceCollection.findOne({ sessionID: sessionId });
+
+    // Check if the conference exists
+    if (!conference) {
+      console.error('Conference not found.');
+      return "error";
+    }
+
+    // Find the index of the selected motion within the conference's motions array
+    const selectedMotionIndex = conference.motions.findIndex(motion => motion._id === motionId);
+
+    // Update the motions array to set all motions' active status to false except the selected motion
+    const updatedMotions = conference.motions.map((motion, index) => ({
+      ...motion,
+      active: index === selectedMotionIndex // Set active status to true only for the selected motion
+    }));
+
+    // Update the conference's motions array
+    conferenceCollection.update(
+      { _id: conference._id },
+      { $set: { motions: updatedMotions } }
+    );
+
+    console.log(`Updated motion with ID ${motionId}`);
+  } catch (error) {
+    console.error('Error switching active motion:', error);
+    return "error";
+  }
+};
+
+
+//end motions ----------------------------------------------------------------------------------
+
+//start dms ----------------------------------------------------------------------------------
+
 export const insertDM = async ({ sessionId, type, to, from, content, read, groupId}) => {
   const conference = conferenceCollection.findOne({ sessionID: sessionId });
   const dmId = uuidv4();
@@ -205,6 +303,20 @@ export const updateDMReadStatus = async (sessionId, dmId, newReadStatus) => {
 
   return true;
 };
+export const deleteDMFromDB = async (sessionId, dmId) => {
+  const conference = conferenceCollection.findOne({ sessionID: sessionId });
+  const updatedDMs = conference.DMs.filter(dm => dm._id !== dmId);
+
+      conferenceCollection.update(
+        { _id: conference._id },
+        { $set: { DMs: updatedDMs } }
+      );
+  
+  return true;
+};
+//end dms ----------------------------------------------------------------------------------
+
+//start WGs ----------------------------------------------------------------------------------
 
 export const insertWG = async ({ sessionId, countries, location, topic, name }) => {
   try {
@@ -358,17 +470,7 @@ export const removeFromWG = ({ sessionId, groupId, user }) => {
     return "error";
   }
 };
-export const deleteDMFromDB = async (sessionId, dmId) => {
-  const conference = conferenceCollection.findOne({ sessionID: sessionId });
-  const updatedDMs = conference.DMs.filter(dm => dm._id !== dmId);
-
-      conferenceCollection.update(
-        { _id: conference._id },
-        { $set: { DMs: updatedDMs } }
-      );
-  
-  return true;
-};
+//end WGs ----------------------------------------------------------------------------------
 
 
 // Define allow rules for the update method on the conferenceCollection
