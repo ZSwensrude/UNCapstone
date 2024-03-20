@@ -238,7 +238,7 @@ Accounts.createUser({username: 'Irelandxyz', password: 'xyz', country: 'Ireland'
           <div className="confContainer">
 
           {conferenceData.map( (conference, index) => (
-              <MyConference key={conference.title + index} title={conference.title} date={conference.date}/>
+              <MyConference key={conference.title + index} sessionID={conference.sessionID} title={conference.title} date={conference.date}/>
             ))}
               <div className="buttonBlock">
               <CoolButton buttonText={"New"} onClick={handleClickToOpenConference} buttonColor={'#FF9728'} textColor='white' />
