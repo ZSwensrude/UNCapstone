@@ -12,7 +12,7 @@ import countries from '../flags.json';
 import { Accounts } from "meteor/accounts-base";
 import bcrypt from 'bcryptjs';
 import auth from "../components/auth";
-import { insertConference } from "../imports/api/conference";
+import { conferenceCollection, insertConference } from "../imports/api/conference";
 
 // Placeholder for Dias screen
 const Dias = () => {
@@ -26,6 +26,8 @@ const Dias = () => {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
       counter += 1;
     }
+
+
     return result;
   }
 
@@ -119,12 +121,24 @@ Accounts.createUser({username: 'Irelandxyz', password: 'xyz', country: 'Ireland'
     });
   }
 
-  const createConference = () => {
-    insertConference({sessionID: sessionID, dias: dias, title: title, committee: committee});
+  const checkInsertConference = (id) => {
+    return new Promise((resolve, reject) => {
+      const duplicate = conferenceCollection.findOne({sessionID: id}, {sessionID});
+      console.log(duplicate);
+      console.log(id);
+      if (duplicate) { reject(); } else { resolve(); }
+    });
+  }
 
-    initializeDB({id: sessionID});
-    
-    // navigate('/dias-home-page');
+  const createConference = () => {
+    console.log('creating!');
+    checkInsertConference(sessionID)
+      .then(() => {
+        insertConference({sessionID: sessionID, dias: dias, title: title, committee: committee});
+        initializeDB({id: sessionID});
+        // navigate('/dias-home-page');
+      })
+      .catch(() => {console.log('duplicate session ID')});
   };
 
   useEffect (() => {auth().catch(() => {navigate("/")})}, [] );
