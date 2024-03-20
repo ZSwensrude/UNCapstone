@@ -140,14 +140,19 @@ Accounts.createUser({username: 'Irelandxyz', password: 'xyz', country: 'Ireland'
     });
   }
 
+  const [selectedConference, setSelectedConference] = useState(false)
   const createConference = () => {
     checkInsertConference(sessionID)
       .then(() => {
         insertConference({sessionID: sessionID, dias: dias, title: title, committee: committee});
         initializeDB({id: sessionID});
-        // navigate('/dias-home-page');
+        localStorage.setItem('loggedInUser', JSON.stringify({ userType: 'dias', confID: sessionID }));
+        setSelectedConference(true);
       });
   };
+
+  useEffect (() => {
+    if(selectedConference){navigate('/dias-home-page')}}, [selectedConference]);
 
   useEffect (() => {auth().catch(() => {navigate("/")})}, [] );
   
