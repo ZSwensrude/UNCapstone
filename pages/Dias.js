@@ -136,7 +136,7 @@ Accounts.createUser({username: 'Irelandxyz', password: 'xyz', country: 'Ireland'
   const checkInsertConference = (id) => {
     return new Promise((resolve, reject) => {
       const duplicate = conferenceCollection.findOne({sessionID: id}, {sessionID});
-      if (duplicate) { reject(); } else { resolve(); }
+      if (!duplicate) { resolve(); }
     });
   }
 
@@ -245,10 +245,6 @@ Accounts.createUser({username: 'Irelandxyz', password: 'xyz', country: 'Ireland'
               </div>
             
           </div>
-          <div className="initialBtnBox">
-        <CoolButton buttonText={"Initialize DB"} onClick={initializeDB}/>
-        </div>
-
     </div>
   );
 }
