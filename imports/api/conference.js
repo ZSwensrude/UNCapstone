@@ -10,7 +10,7 @@ export const insertConference = async ({ sessionID, dias, title, committee }) =>
   timer: {
     status: 'paused',
     timer: 0
-  }, feedback: false, dias});
+  }, feedback: false, dias, date: new Date()});
 };
   
 

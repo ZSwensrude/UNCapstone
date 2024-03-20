@@ -13,6 +13,7 @@ import { Accounts } from "meteor/accounts-base";
 import bcrypt from 'bcryptjs';
 import auth from "../components/auth";
 import { conferenceCollection, insertConference } from "../imports/api/conference";
+import { useTracker } from 'meteor/react-meteor-data';
 
 // Placeholder for Dias screen
 const Dias = () => {
@@ -34,6 +35,7 @@ const Dias = () => {
   const [title, setTitle] = useState('')
   const [committee, setCommittee] = useState('')
   const [sessionID, setSessionID] = useState(makeSessionID())
+  const [conferenceData, setConferenceData] = useState([])
   const dias = Meteor.userId()
 
   const navigate = useNavigate();
@@ -62,6 +64,13 @@ const Dias = () => {
       "dateCreated": "24/03/01"
     }
   ]
+
+  useTracker(() => {
+    const handler = Meteor.subscribe('conference');
+    const conferences = conferenceCollection.find({ dias: dias }).fetch()
+    setConferenceData(conferences.sort((a, b) => b.date - a.date));
+  }, []);
+
   const [openConference, setOpenConference] = React.useState(false);
  
   const handleClickToOpenConference = () => {
@@ -69,7 +78,10 @@ const Dias = () => {
   };
 
   const handleToCloseConference = () => {
-      setOpenConference(false);
+    setOpenConference(false);
+    setSessionID(makeSessionID);
+    setTitle('')
+    setCommittee('')
   };
   
 /*
@@ -124,21 +136,17 @@ Accounts.createUser({username: 'Irelandxyz', password: 'xyz', country: 'Ireland'
   const checkInsertConference = (id) => {
     return new Promise((resolve, reject) => {
       const duplicate = conferenceCollection.findOne({sessionID: id}, {sessionID});
-      console.log(duplicate);
-      console.log(id);
       if (duplicate) { reject(); } else { resolve(); }
     });
   }
 
   const createConference = () => {
-    console.log('creating!');
     checkInsertConference(sessionID)
       .then(() => {
         insertConference({sessionID: sessionID, dias: dias, title: title, committee: committee});
         initializeDB({id: sessionID});
         // navigate('/dias-home-page');
-      })
-      .catch(() => {console.log('duplicate session ID')});
+      });
   };
 
   useEffect (() => {auth().catch(() => {navigate("/")})}, [] );
@@ -224,8 +232,8 @@ Accounts.createUser({username: 'Irelandxyz', password: 'xyz', country: 'Ireland'
 
           <div className="confContainer">
 
-          {conferenceGroups.map( (conferenceGroup, index) => (
-              <MyConference key={conferenceGroup.conferenceName + index} conferenceGroup={conferenceGroup}/>
+          {conferenceData.map( (conference, index) => (
+              <MyConference key={conference.title + index} title={conference.title} date={conference.date}/>
             ))}
               <div className="buttonBlock">
               <CoolButton buttonText={"New"} onClick={handleClickToOpenConference} buttonColor={'#FF9728'} textColor='white' />
