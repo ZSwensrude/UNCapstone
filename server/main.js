@@ -11,6 +11,7 @@ import { workingGroupCollection } from '/imports/api/workingGroups';
 // Allow statements for each collection
 conferenceCollection.allow({
   insert: () => true,
+  update: () => true,
 });
 delCollection.allow({
   insert: () => true,

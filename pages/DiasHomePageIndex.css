@@ -298,6 +298,7 @@ body {
   }
   
   .clearAndCloseButtonBlock, .DeadlineButtons,.WorkingGroupButtons {
+    text-align: center;
     display:flex;
     justify-content: space-evenly;
     margin-block-start: 1.5px;

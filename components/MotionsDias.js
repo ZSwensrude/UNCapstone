@@ -1,21 +1,27 @@
 import React from "react";
 import { Paper, Typography, Button } from "@mui/material";
-import { switchActiveMotion, removeMotion} from "../imports/api/motions.js";
+import { switchActiveMotion, removeMotion} from "../imports/api/conference.js";
 
 import './DiasComponents.css';
 
 const MotionsDias = ({ aMotionDias, blank }) => {
+    const getUserFromLocalStorage = () => {
+        const userString = localStorage.getItem('loggedInUser');
+        return userString ? JSON.parse(userString) : null;
+    };
+    const user = getUserFromLocalStorage();
+
 
     const handleSetActiveMotion = () => {
         // Call the setActiveMotion function passed from the parent component
         //console.log(aMotionDias._id);
-        switchActiveMotion(aMotionDias._id);
+        switchActiveMotion(user.confID, aMotionDias._id);
     };
     
     // Define a handler function to remove the country
     const handleRemoveMotion = () => {
         //console.log("Remove motion:", aMotionDias.content);
-        removeMotion({ _id: aMotionDias._id }); // Call the removeSpeaker function with the correct _id
+        removeMotion({sessionId: user.confID, motionId: aMotionDias._id }); // Call the removeSpeaker function with the correct _id
     };
 
     return (

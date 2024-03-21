@@ -3,64 +3,51 @@ import React, { useEffect, useState } from "react";
 import { Paper, Typography } from "@mui/material";
 import CoolButton from "./CoolButton";
 import './components.css';
-import {updateDMReadStatus, dmCollection, deleteDMFromDB} from "../imports/api/dm";
-import { workingGroupCollection } from "../imports/api/workingGroups";
+import { updateDMReadStatus, deleteDMFromDB, conferenceCollection } from "../imports/api/conference"; // Update imports
 
-const Notification = ({ notification, readNotification}) => {
-  // Function to retrieve user information from localStorage
+const Notification = ({ notification, readNotification }) => {
   const getUserFromLocalStorage = () => {
     const userString = localStorage.getItem('loggedInUser');
     return userString ? JSON.parse(userString) : null;
   };
-  // Get user information from localStorage
+
   const user = getUserFromLocalStorage();
   const [classname, setclassname] = useState("unreadNotification");
   const [bgColor, setBGColor] = useState("#FFFFFF");
 
-  // will join the group in the database
   const joinGroup = () => {
-    //console.log("accepted invite to join ", notification.from);
-    //console.log("notification._id: ", notification._id);
+    const conference = conferenceCollection.findOne({ sessionID: user.confID });
+    if (!conference) {
+      console.error('Conference not found.');
+      return;
+    }
 
-    //console.log("test: ",dmCollection.findOne({ _id: notification._id }));
-  
-    // Find the corresponding DM document in the dmCollection
-    const dmDocument = dmCollection.findOne({ _id: notification._id });
-  
-    if (dmDocument) {
-      // Extract the working group's _id from the DM document
-      const WGid = dmDocument.groupId;
+    const DM = conference.DMs.find(dm => dm._id === notification._id);
+    if (DM) {
+      const WGid = DM.groupId;
 
-      // check if user is already in group
-      const group = workingGroupCollection.findOne({_id: WGid});
-      // if they are not, let them join
-      if (!group.countries.some(item => item.country === user.country)){
-        // Update the working group in the database
-        workingGroupCollection.update(
-          { _id: WGid }, // Update the working group with the corresponding _id
-          { $push: { countries: { country: user.country, name: user.countryName, flagPath: user.flagPath } } }, // Push the user's country to the countries array
+      if (!conference.workingGroups.some(group => group._id === WGid && group.countries.some(item => item.country === user.country))) {
+        conferenceCollection.update(
+          { _id: conference._id, 'workingGroups._id': WGid },
+          { $push: { 'workingGroups.$.countries': { country: user.country, name: user.countryName, flagPath: user.flagPath } } },
           (error, result) => {
             if (error) {
               console.error('Error updating working group:', error);
             } else {
-              //console.log('Successfully joined the group:', result);
+              console.log('Successfully joined the group:', result);
             }
           }
         );
-      }  
+      }
     } else {
       console.error('DM document not found for notification ID:', notification._id);
     }
   };
-  
 
-  // sends id of read notification to Delegate.js
-   // Function to mark the notification as read
-   const markAsRead = () => {
-    // Update the database
-    updateDMReadStatus(notification._id, "true")
+  const markAsRead = () => {
+    updateDMReadStatus(user.confID, notification._id, "true")
       .then(() => {
-        readNotification(notification._id); // Update the local state after successful update
+        readNotification(notification._id);
       })
       .catch(error => {
         console.error('Error updating DM read status:', error);
@@ -68,27 +55,24 @@ const Notification = ({ notification, readNotification}) => {
   };
 
   const deleteNotif = () => {
-    // Update the database
-    deleteDMFromDB(notification._id);
+    deleteDMFromDB(user.confID,notification._id);
   };
 
-  // checks if a notification is read or not and updates its class if it is
   useEffect(() => {
     setclassname(notification.read === "true" ? "singleNotification" : "unreadNotification");
     setBGColor(notification.type === 'global' ? "#00DB89" : "#FFFFFF");
-  }, [notification])
-
+  }, [notification]);
 
   return (
-    <Paper id={classname} style={{background:bgColor}} elevation={3} >
+    <Paper id={classname} style={{ background: bgColor }} elevation={3} >
       <div id="singleNotification1">
         <Typography>From: {notification.from}</Typography>
         {notification.read === "false" && (notification.type !== 'global') && (
           <CoolButton textColor={'white'} buttonColor={'#989898'} buttonText={'mark as read'} onClick={markAsRead} />
         )}
-        { notification.type !== 'global' && ( 
-         <CoolButton textColor={'white'} buttonColor={'#cb0000'} buttonText={'delete'} onClick={deleteNotif} />
-        ) }
+        {notification.type !== 'global' && (
+          <CoolButton textColor={'white'} buttonColor={'#cb0000'} buttonText={'delete'} onClick={deleteNotif} />
+        )}
       </div>
       <Paper id="singleNotificationMsg" elevation={0}>
         <Typography>{notification.content}</Typography>

@@ -11,9 +11,8 @@ import WorkingGroupsList from "../components/WorkingGroupsList";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import Notifications from "../components/Notifications";
-import { updateDMReadStatus } from "../imports/api/dm";
 import flags from '../flags.json';
-import { conferenceCollection } from "../imports/api/conference";
+import { conferenceCollection, updateDMReadStatus} from "../imports/api/conference";
 
 // Placeholder for delegate screen
 const Delegate = () => {
@@ -72,7 +71,7 @@ const Delegate = () => {
   // handles when read notification is pressed, updates notification in the database
   const readNotification = (id) => {
     // Update the read status in the database
-    updateDMReadStatus(id, "true")
+    updateDMReadStatus(user.confID, id, "true")
       .then(() => {
         // Update the local state after successful update
         setNotifications(notifications.map(notification => {
