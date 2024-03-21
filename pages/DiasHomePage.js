@@ -20,7 +20,6 @@ import { speakerCollection, removeSpeaker, insertSpeaker } from "../imports/api/
 import flagData from '../flags.json';
 import { updateConferenceActiveStatus, conferenceCollection, updateRollCallStatus, updateConfStatus, removeDeadlineFromConf, addDeadlineToConf} from "../imports/api/conference.js";
 import VoteCountChart from "../components/VoteCountBox.js";
-import Countdown from 'react-countdown';
 import LogoutButton from "../components/LogoutButton.js";
 import { delCollection } from "../imports/api/delegates.js";
 import { deleteDMFromDB, dmCollection, updateDMReadStatus } from "../imports/api/dm";
@@ -30,9 +29,6 @@ import MessageDias from "../components/MessageDias.js";
 import TimerSession from "../components/TimerSession.js";
 import TimerSpeaker from "../components/TimerSpeaker.js";
 import showScreens from "../client/showScreens.js";
-
-
-
 
 function openTab(evt, tabName) {
     // Declare all variables
@@ -136,6 +132,7 @@ const DiasHome = () => {
     }
 
     const handleStatusChange = (event) => {
+
         setConfStatus(event.target.value);
     }
 
@@ -262,6 +259,12 @@ const [searchTerm, setSearchTerm] = useState('');
     const [motionContent, setMotionContent] = useState('');
     const [abstain, setAbstain] = useState(false);
     const [motionError, setMotionError] = useState('');
+    const [showVotes, setShowVotes] = useState(false);
+
+    const handleVoteChange = (event) => {
+        setShowVotes(event.target.checked);
+        console.log(showVotes)
+    };
 
     const handleAbstainChange = (event) => {
         setAbstain(event.target.checked);
@@ -541,9 +544,6 @@ const [searchTerm, setSearchTerm] = useState('');
                             <VoteCountChart votes={activeMotion[0].votes} abstain={activeMotion[0].abstain} /> 
                         )}
                         </div>
-                        <div className="motions totals">
-
-                        </div>
 
                     </div>
 
@@ -646,4 +646,11 @@ const [searchTerm, setSearchTerm] = useState('');
     );
 }
 
+
+                            
+                           /* 
+                                              <FormControlLabel
+                                control={<Checkbox checked={showVotes} onChange={handleVoteChange} />}
+                                label="Show Votes?"
+                            />*/
 export default DiasHome;

@@ -106,7 +106,7 @@ const TimerSession = ({ version, time, status, confID }) => {
                 <h4 className="timeLabelMins">Enter the time in minutes:</h4>
                 <input id="BackInSessionTime" type="number" value={timeSession} onChange={(e) => setTimeSession(e.target.value)} onKeyDown={handleKeyDown} />
               </div>
-                <div className="timerBlock2Buttons">
+                <div className="timerBlock2ButtonsSession">
                   {/* <CoolButton buttonText={"Restart"} buttonColor={'#FF9728'} textColor='white' onClick={handleResetClickSession} /> */}
                   <CoolButton buttonText={"Start"} buttonColor={'#FF9728'} textColor='white' onClick={handleStartClickSession} />
                    <CoolButton buttonText={"Pause"} buttonColor={'#FF9728'} textColor='white' onClick={handlePauseClickSession} />
