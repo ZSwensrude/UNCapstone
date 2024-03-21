@@ -5,9 +5,10 @@ import CoolButton from "./CoolButton";
 import './components.css';
 import countriesData from '../flags.json'  
 import CountryFlag from "./CountryFlag";
-import { workingGroupCollection, updateWG } from "../imports/api/workingGroups";
-import { insertDM } from "../imports/api/dm";
-import { delCollection } from "../imports/api/delegates";
+// import { workingGroupCollection, updateWG } from "../imports/api/workingGroups";
+// import { insertDM } from "../imports/api/dm";
+// import { delCollection } from "../imports/api/delegates";
+import { updateWG, insertDM, conferenceCollection } from "../imports/api/conference";
 
 
 const InviteGroup = ({ onInvite, group }) => {
@@ -24,13 +25,17 @@ const InviteGroup = ({ onInvite, group }) => {
 
      //DB Communication - live pull on any change in table
      useTracker(() => {
-      const handler = Meteor.subscribe('delegates');
-      const delegatesListDias = delCollection.find().fetch();
-      const filteredCountries = countriesData.countries.filter(countryData => {
-        // Check if the country's name exists in delegatesListDias
-        return delegatesListDias.some(delegate => delegate.country === countryData.country);
-      });
-      setCountries(filteredCountries);
+      const handler = Meteor.subscribe('conferences');
+      const conference = conferenceCollection.findOne({ /* Add your query criteria here */ });
+    
+      if (conference) {
+        const delegatesListDias = conference.delegates || []; // Ensure delegates list is available
+        const filteredCountries = countriesData.countries.filter(countryData => {
+          // Check if the country's name exists in delegatesListDias
+          return delegatesListDias.some(delegate => delegate.country === countryData.country);
+        });
+        setCountries(filteredCountries);
+      }
     }, []);
   
     // Log filtered countries
@@ -100,10 +105,17 @@ const InviteGroup = ({ onInvite, group }) => {
 
     // Filter out the selected countries that are already in the collection
     const newCountries = selectedCountries.filter(country => !existingCountries.includes(country.country));
+
+    const getUserFromLocalStorage = () => {
+      const userString = localStorage.getItem('loggedInUser');
+      return userString ? JSON.parse(userString) : null;
+    };    const user = getUserFromLocalStorage();
     //console.log("NEW COUTNRIES", newCountries);
+    
     // Insert a direct message for each new country
     newCountries.forEach(country => {
       insertDM({
+        sessionId: user.confID,
         type: "invite",
         from: groupname,
         to: country.country,

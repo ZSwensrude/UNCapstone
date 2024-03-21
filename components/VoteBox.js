@@ -3,12 +3,19 @@ import './components.css';
 import { Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import CoolButton from './CoolButton';
-import { motionCollection } from "../imports/api/motions";
+import { conferenceCollection, addMotionVote } from "../imports/api/conference";
 
 const VoteBox = ({ motion, country, abstain, user }) => {
   const [selectedOption, setSelectedOption] = useState('');
   const [voteSubmitted, setVoteSubmitted] = useState(false);
   const [countryAlreadyVoted, setCountryAlreadyVoted] = useState(false);
+  // Function to retrieve user information from localStorage
+  const getUserFromLocalStorage = () => {
+    const userString = localStorage.getItem('loggedInUser');
+    return userString ? JSON.parse(userString) : null;
+  };
+  // Get user information from localStorage
+  const votinguser = getUserFromLocalStorage();
 
   useEffect(() => {
     // Check if the user's country is in the motion collection
@@ -20,15 +27,18 @@ const VoteBox = ({ motion, country, abstain, user }) => {
     setSelectedOption(option);
   };
 
-  const handleSubmitVote = () => {
+  const handleSubmitVote = async () => {
+    var success = false;
     if (selectedOption) {
-      // Update the motion in the database
-      const updatedVotes = [...motion.votes, { country: user, vote: selectedOption }];
-      motionCollection.update({ _id: motion._id }, { $set: { votes: updatedVotes } });
-      // Reset selectedOption after submitting vote
-      setSelectedOption('');
-      // Set voteSubmitted to true
-      setVoteSubmitted(true);
+         success = addMotionVote(motion._id, votinguser.country, selectedOption, votinguser.confID);
+      if (success) {
+        // Reset selectedOption after submitting vote
+        setSelectedOption('');
+        // Set voteSubmitted to true
+        setVoteSubmitted(true);
+      } else {
+        console.error('Failed to submit vote.');
+      }
     } else {
       console.error('No option selected.');
     }

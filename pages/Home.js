@@ -11,9 +11,9 @@ import Header from "../components/Header";
 import { useNavigate  } from 'react-router-dom';
 import LoginButton from "../components/LoginButton";
 import countriesData from '../flags.json'  
-import { insertDel } from '../imports/api/delegates';
+//import { insertDel } from '../imports/api/delegates';
 import showScreens from "../client/showScreens";
-import { conferenceCollection } from "../imports/api/conference";
+import { conferenceCollection ,insertDel } from "../imports/api/conference";
 
 //import { LoginForm } from "../components/LoginForm";
 
@@ -74,7 +74,7 @@ const Home=()=>{
       localStorage.setItem('loggedInUser', JSON.stringify({ username, password, confID: sessionId, userType: 'delegate', country: selectedCountry }));
 
       // Insert delegate information into MongoDB
-      const success = insertDel({ country: selectedCountry, roleCall: '' });
+      const success = insertDel({ country: selectedCountry, roleCall: '', sessionId});
       if (success) {
         // Insertion was successful
         // Redirect to the delegate page or perform any other actions
@@ -86,10 +86,7 @@ const Home=()=>{
     } else {
       // Check if the country is selected
       handleOpen();
-      // if (selectedCountry === 'choice' || !sessionId) {
-      //   setMessage('Please select a country and enter a session ID.');
-      //   return;
-      // }
+    
     }
   };
   

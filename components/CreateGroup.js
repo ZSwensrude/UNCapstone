@@ -5,9 +5,7 @@ import CoolButton from "./CoolButton";
 import './components.css';
 import countriesData from '../flags.json'  
 import CountryFlag from "./CountryFlag";
-import { insertWG, workingGroupCollection } from "../imports/api/workingGroups";
-import { insertDM } from "../imports/api/dm";
-import { delCollection } from "../imports/api/delegates";
+import { insertWG, insertDM, conferenceCollection} from "../imports/api/conference";
 
 const CreateGroup = () => {
   const [open, setOpen] = useState(false);
@@ -28,27 +26,21 @@ const CreateGroup = () => {
   };
   // Get user information from localStorage
   const user = getUserFromLocalStorage();
-      //DB Communication - live pull on any change in table
-      useTracker(() => {
-        const handler = Meteor.subscribe('delegates');
-        const delegatesListDias = delCollection.find().fetch();
-        const filteredCountries = countriesData.countries.filter(countryData => {
-          // Check if the country's name exists in delegatesListDias
-          return delegatesListDias.some(delegate => delegate.country === countryData.country);
-        });
-        setCountries(filteredCountries);
-      }, []);
-    
-      // Log filtered countries
-      useEffect(() => {
-        //console.log("filtered LIST", filteredCountries);
-      }, [filteredCountries]);
-    
-      // Set countries after filtering
-      useEffect(() => {
-        setCountries(filteredCountries);
-      }, [filteredCountries]);
-
+  //DB Communication - live pull on any change in table
+  useTracker(() => {
+    const handler = Meteor.subscribe('conferences');
+    const conference = conferenceCollection.findOne({ /* Add your query criteria here */ });
+  
+    if (conference) {
+      const delegatesListDias = conference.delegates || []; // Ensure delegates list is available
+      const filteredCountries = countriesData.countries.filter(countryData => {
+        // Check if the country's name exists in delegatesListDias
+        return delegatesListDias.some(delegate => delegate.country === countryData.country);
+      });
+      setCountries(filteredCountries);
+    }
+  }, []);
+  
 
 
   // opening and closing modal window
@@ -91,6 +83,7 @@ const CreateGroup = () => {
   const create = async () => {
     try {
       const groupId = await insertWG({
+        sessionId: user.confID,
         location: location,
         topic: topic,
         name: groupname,
@@ -102,6 +95,7 @@ const CreateGroup = () => {
 
         selectedCountries.forEach((country) => {
           insertDM({
+            sessionId: user.confID,
             type: "invite",
             from: groupname,
             to: country.country,

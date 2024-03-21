@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTracker } from 'meteor/react-meteor-data';
 import { Typography } from "@mui/material";
-import { delCollection } from "../imports/api/delegates";
+//import { delCollection } from "../imports/api/delegates";
 import { useFetcher, useNavigate  } from 'react-router-dom';
 import Header from "../components/Header";
 import Country from "../components/Country"; 
