@@ -24,11 +24,6 @@
   min-width: 17em;
 }
 
-
-.formalbox #speakers{
-  
-}
-
 #presentationPaper {
   background: #009EDB;
   padding: 10px;
@@ -134,13 +129,15 @@ text-align: center;
   border-radius: 30px;
   border-color: #009edb;
   width: 800px;
-  display:flex;
+  display: ruby-text;
   column-count: 3;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   height: 25em;
   padding: 10px;
+  overflow-x: auto;
+  overflow-y: auto;
 }
 
 .currentMotionWhiteBlock {

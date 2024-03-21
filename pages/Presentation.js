@@ -175,7 +175,7 @@ const Presentation = () => {
             <PieChart
               series={[
                 {
-                  arcLabel: (item) => `${item.value}%`,
+                  arcLabel: (item) => `${item.value.toFixed()}%`,
                   arcLabelMinAngle: 10,
                   data,
                 },
