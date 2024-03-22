@@ -275,6 +275,39 @@ export const switchActiveMotion = async (sessionId, motionId) => {
   }
 };
 
+export const setMotionInactive = async (sessionId, motionId) => {
+  try {
+    // Find the conference with the given sessionId
+    const conference = conferenceCollection.findOne({ sessionID: sessionId });
+
+    // Check if the conference exists
+    if (!conference) {
+      console.error('Conference not found.');
+      return "error";
+    }
+
+    // Find the index of the selected motion within the conference's motions array
+    const selectedMotionIndex = conference.motions.findIndex(motion => motion._id === motionId);
+
+    // Update the motions array to set all motions' active status to false except the selected motion
+    const updatedMotions = conference.motions.map((motion, index) => ({
+      ...motion,
+      active: false // Set active status to true only for the selected motion
+    }));
+
+    // Update the conference's motions array
+    conferenceCollection.update(
+      { _id: conference._id },
+      { $set: { motions: updatedMotions } }
+    );
+
+    console.log(`Updated motion with ID ${motionId}`);
+  } catch (error) {
+    console.error('Error switching active motion:', error);
+    return "error";
+  }
+};
+
 
 //end motions ----------------------------------------------------------------------------------
 
