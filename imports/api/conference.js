@@ -268,7 +268,7 @@ export const switchActiveMotion = async (sessionId, motionId) => {
       { $set: { motions: updatedMotions } }
     );
 
-    console.log(`Updated motion with ID ${motionId}`);
+    //console.log(`Updated motion with ID ${motionId}`);
   } catch (error) {
     console.error('Error switching active motion:', error);
     return "error";

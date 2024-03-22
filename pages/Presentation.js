@@ -46,13 +46,6 @@ const Presentation = () => {
     }
   }, []);
 
-  useTracker(() => {
-    const handler = Meteor.subscribe('motions');
-    const motionsListDias = motionCollection.find().fetch();
-    activeMotion = motionCollection.find({ active: true }).fetch();
-    setMotionsListDias(motionsListDias)
-  }, []);
-
   /* pie chart and motion vote stuff */
 
   //counting for pie chart 
