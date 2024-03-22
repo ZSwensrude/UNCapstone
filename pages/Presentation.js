@@ -46,23 +46,14 @@ const Presentation = () => {
     }
   }, []);
 
-  motionsListDias = [] = useTracker(() => {
+  useTracker(() => {
     const handler = Meteor.subscribe('motions');
     const motionsListDias = motionCollection.find().fetch();
     activeMotion = motionCollection.find({ active: true }).fetch();
-    return { motionsListDias };
-  });
+    setMotionsListDias(motionsListDias)
+  }, []);
 
   /* pie chart and motion vote stuff */
-
-  //reading from database
-  const { motionfromDB } = useTracker(() => {
-    const handler = Meteor.subscribe('motions');
-    const motionfromDB = motionCollection.findOne({ active: true }); // Fetch the active motion
-    //console.log("The motionfrom DB: ", motionfromDB)
-    //console.log("motion name:", motionfromDB?.content)
-    return { motionfromDB };
-  });
 
   //counting for pie chart 
   let voteYes = 0;
@@ -70,37 +61,34 @@ const Presentation = () => {
   let voteAbstain = 0;
   let total = 0;
   const votesArray = [];
+  let motionName = "";
 
-  motionfromDB?.votes.forEach(function (item) {
-    votesArray.push(item);
-  })
-
-  motionfromDB?.votes.forEach(function (item) {
-    //console.log(item?.vote);
-    total++;
-    if (item?.vote == "Yes") {
-        voteYes++;
-    }
-    else if (item?.vote == "No") {
-        voteNo++;
-    }
-    else {
-        voteAbstain++;
-    }
-  });
-
-
+  //reading from motions list for active motion and counting for pie chart
+  motionsListDias?.forEach(function (item) {
+    //getting the current active motion
+    if (item?.active == true){
+        motionName = item?.content //getting the motion name
+        //getting the list of countries and counting thier votes
+        item?.votes.forEach(function (item1) { 
+          votesArray.push(item1);
+          total++;
+          if (item1?.vote == "Yes") {
+              voteYes++;
+          }
+          else if (item1?.vote == "No") {
+              voteNo++;
+          }
+          else {
+              voteAbstain++;
+          }
+              })
+  }})
 
   const  data = [
     { id: 0, value: (voteYes/total) * 100, label: 'Yes', color: 'green' },
     { id: 1, value: (voteNo/total) * 100, label: 'No', color: 'red' },
     { id: 2, value: (voteAbstain/total) * 100, label: 'Abstain', color: 'yellow' },
   ];
-
-  //console.log("The motionfrom DB: ", motionfromDB)
-  //console.log("The db array: ", motionfromDB?.votes)
-  //console.log("The votes: ", votesArray)
-
   return (
     <div className="presentationTop">
       <Header version={'blank'}/>
@@ -179,7 +167,7 @@ const Presentation = () => {
               <div className="VCMButton">Current Motion</div>
             </div>
             <div className="currentMotionWhiteBlock">
-              {motionfromDB?.content}
+              {motionName}
             </div>
             <PieChart
               series={[
