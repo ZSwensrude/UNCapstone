@@ -88,9 +88,9 @@ const Presentation = () => {
     { id: 2, value: (voteAbstain/total) * 100, label: 'Abstain', color: 'yellow' },
   ];
 
-  console.log("The motionfrom DB: ", motionfromDB)
-  console.log("The db array: ", motionfromDB?.votes)
-  console.log("The votes: ", votesArray)
+  //console.log("The motionfrom DB: ", motionfromDB)
+  //console.log("The db array: ", motionfromDB?.votes)
+  //console.log("The votes: ", votesArray)
 
   return (
     <div className="presentationTop">

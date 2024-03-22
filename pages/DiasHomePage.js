@@ -261,6 +261,7 @@ const [searchTerm, setSearchTerm] = useState('');
     const [motionError, setMotionError] = useState('');
     const [showVotes, setShowVotes] = useState(false);
 
+    //for the show voting screen
     const handleVoteChange = (event) => {
         setShowVotes(event.target.checked);
         console.log(showVotes)
@@ -385,7 +386,7 @@ const [searchTerm, setSearchTerm] = useState('');
                     <FormControlLabel value="waiting" control={<Radio />} label="Waiting" />
                     <FormControlLabel value="formal" control={<Radio />} label="Formal" />
                     <FormControlLabel value="informal" control={<Radio />} label="Informal" />
-                    <FormControlLabel value="motions" control={<Radio />} label="Motions" />
+                    
                     {showScreens && <FormControlLabel value="votingProcedure" control={<Radio />} label="Voting Procedure" />}
                 </RadioGroup>
             
@@ -499,6 +500,10 @@ const [searchTerm, setSearchTerm] = useState('');
                             <FormControlLabel
                                 control={<Checkbox checked={abstain} onChange={handleAbstainChange} />}
                                 label="Allow abstain?"
+                            />
+                            <FormControlLabel
+                                control={<Checkbox checked={showVotes} onChange={handleVoteChange} />}
+                                label="Show Votes?"
                             />
                         </div>  
                     </div>
@@ -649,8 +654,7 @@ const [searchTerm, setSearchTerm] = useState('');
 
                             
                            /* 
-                                              <FormControlLabel
-                                control={<Checkbox checked={showVotes} onChange={handleVoteChange} />}
-                                label="Show Votes?"
-                            />*/
+                                              
+                            
+                            <FormControlLabel value="motions" control={<Radio />} label="Motions" />*/
 export default DiasHome;
