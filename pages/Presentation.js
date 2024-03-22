@@ -46,7 +46,7 @@ const Presentation = () => {
     }
   }, []);
 
-  const { motionsListDias = [] } = useTracker(() => {
+  motionsListDias = [] = useTracker(() => {
     const handler = Meteor.subscribe('motions');
     const motionsListDias = motionCollection.find().fetch();
     activeMotion = motionCollection.find({ active: true }).fetch();
