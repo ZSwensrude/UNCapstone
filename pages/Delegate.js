@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useTracker } from 'meteor/react-meteor-data';
 import Header from "../components/Header";
 import './delegate.css'
@@ -11,12 +11,8 @@ import WorkingGroupsList from "../components/WorkingGroupsList";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import Notifications from "../components/Notifications";
-import { motionCollection, insertMotion } from "../imports/api/motions";
-import { dmCollection, insertDM, updateDMReadStatus } from "../imports/api/dm";
 import flags from '../flags.json';
-import { conferenceCollection } from "../imports/api/conference";
-
-
+import { conferenceCollection, updateDMReadStatus} from "../imports/api/conference";
 
 // Placeholder for delegate screen
 const Delegate = () => {
@@ -42,17 +38,26 @@ const Delegate = () => {
     setOpenNotification(!openNotification);
   };
 
-  //get notifications from DMs
-  //Use useTracker to reactively fetch data from the collection
-  const { dms } = useTracker(() => {
-    const handler = Meteor.subscribe('DMs');
-    let dmData = dmCollection.find({ to: user.country }, { sort: { createdAt: -1 } }).fetch(); // Filter by country
-    let diasDms = dmCollection.find({ to: 'delegates' }, { sort: { createdAt: -1 } }).fetch();
-    if (diasDms.length > 0 ) {
-      dmData = [...diasDms, ...dmData]; // add global dms
-    }
-    return { dms: dmData };
-  });
+  // state vars for reading from DB
+  const [feedback, setFeedback] = useState(false);
+  const [motionfromDB, setMotionFromDB] = useState(null);
+  const [dms, setDms] = useState([]);
+  
+  //DB Communication - live pull on any change in table
+  useTracker(() => {
+    const handler = Meteor.subscribe('conference');
+    const data = conferenceCollection.findOne({ sessionID: user.confID });
+    
+    const dbFeedback = (data === undefined) ? false : data.feedback; 
+    const motion = (data === undefined) ? null : data.motions.find((motion) => motion.active === true);
+    const dbDms = (data === undefined) ? null : data.DMs.filter((dm) => (dm.to === user.country) || (dm.to === 'delegates'));
+
+    setFeedback(dbFeedback);
+    setMotionFromDB(motion);
+    setDms(dbDms?.sort((a, b) => a.createdAt - b.createdAt));
+    // checks if there are any unread notifications, is used to update the notification icon
+    setUnreadNotifications(dbDms?.some(notification => notification.read === "false"));
+  }, []);
 
   const toPresentation = () => {
     // open new window with presentation screen
@@ -66,7 +71,7 @@ const Delegate = () => {
   // handles when read notification is pressed, updates notification in the database
   const readNotification = (id) => {
     // Update the read status in the database
-    updateDMReadStatus(id, "true")
+    updateDMReadStatus(user.confID, id, "true")
       .then(() => {
         // Update the local state after successful update
         setNotifications(notifications.map(notification => {
@@ -80,25 +85,7 @@ const Delegate = () => {
         console.error('Error updating notification read status:', error);
       });
   }
-  // checks if there are any unread notifications, is used to update the notification icon
-  useEffect(() => {
-    setUnreadNotifications(dms.some(notification => notification.read === "false"));
-  }, [dms]);
 
-  //DB Communication - live pull on any change in table
-  const { motionfromDB } = useTracker(() => {
-    const handler = Meteor.subscribe('motions');
-    const motionfromDB = motionCollection.findOne({ active: true }); // Fetch the active motion
-    //console.log("The motionfrom DB: ", motionfromDB)
-    return { motionfromDB };
-  });
-
-  const { feedback } = useTracker(() => {
-    const handler = Meteor.subscribe('conference');
-    const data = conferenceCollection.findOne();
-    const feedback = (data === undefined)? false: data.feedback; 
-    return { feedback };
-  });
 
   // Function to get the country name from flags.json
   const getCountryName = (countryCode) => {
@@ -111,7 +98,6 @@ const Delegate = () => {
   return (
     <div className="containerDelegate">
       <Header version={'delegate'} country={(user.country)} />
-      {/* <Header version={'delegate'} country={countryName} /> */}
         <div id="toggleButton">
           <DelegateToggle formal={formal} onClick={toggleClick} />
         </div>
@@ -124,7 +110,6 @@ const Delegate = () => {
                    
             {/* Conditionally render CurrentMotion if there is an active motion */}
             <div id="motion">
-              {/* <CurrentMotion motion={motionfromDB} country={countryName} abstain={true} /> */}
               <CurrentMotion motion={motionfromDB} country={countryName} abstain={motionfromDB?.abstain} user={user.country} />
             </div>
           
@@ -149,12 +134,10 @@ const Delegate = () => {
         )}
       </div>
       <div id="bottomButton">
-              <CoolButton onClick={toPresentation} buttonColor={'#00DBD4'} textColor={'white'} buttonText={'view presentation screen'} />
-            {/* </div> */}
-            {/* <div id="rightButton"> */}
-              <MessageDias />
-              {feedback && <CoolButton onClick={toFeedbackForm} buttonColor={'#6600DB'} textColor={'white'} buttonText={"give feedback! :)"} />}
-            </div>
+        <CoolButton onClick={toPresentation} buttonColor={'#00DBD4'} textColor={'white'} buttonText={'view presentation screen'} />
+        <MessageDias />
+        {feedback && <CoolButton onClick={toFeedbackForm} buttonColor={'#6600DB'} textColor={'white'} buttonText={"give feedback! :)"} />}
+      </div>
     </div>
   );
 };

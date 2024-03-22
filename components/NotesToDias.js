@@ -1,8 +1,9 @@
 import { Paper, Typography, Divider } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { useTracker } from 'meteor/react-meteor-data';
 import './DiasComponents.css';
 import { MailOutlined, DraftsOutlined, OpenInNewOutlined } from '@mui/icons-material';
-import { updateDMReadStatus } from "../imports/api/dm";
+import { updateDMReadStatus, conferenceCollection } from "../imports/api/conference";
 import flagsData from '../flags.json';
 
 const NotesToDias = ({ aDiasNote }) => {
@@ -18,21 +19,30 @@ const NotesToDias = ({ aDiasNote }) => {
             setIsRead(aDiasNote.read);
         }, [aDiasNote]);
 
+        const getUserFromLocalStorage = () => {
+            const userString = localStorage.getItem('loggedInUser');
+            return userString ? JSON.parse(userString) : null;
+        };
+        const user = getUserFromLocalStorage();
 
-    const handleClick = () => {    
-    
-        if (isRead=="false") { // If the note is unread, update the read status 
-            console.log("updated read status");
-            updateDMReadStatus(aDiasNote._id,  "true")
-           
-            .then(() => {
-                setIsRead(true); // Update the local state after successful update
-            })
-            .catch(error => {
-                console.error('Error updating DM read status:', error);
-            });
-        }
-    };
+        const handleClick = () => {    
+            if (isRead === "false") { // Check if the note is unread
+                console.log("updated read status");
+                updateDMReadStatus(user.confID, aDiasNote._id, "true")
+                    .then(() => {
+                        setIsRead(true); // Update the local state after successful update
+                    })
+                    .catch(error => {
+                        console.error('Error updating DM read status:', error);
+                    });
+            }
+        };
+        
+   // Subscribe to conference collection for changes in DMs list
+   useTracker(() => {
+    Meteor.subscribe('conference');
+}, []);
+
 
     return (
         <tr>
@@ -49,7 +59,6 @@ const NotesToDias = ({ aDiasNote }) => {
             </td>
             <td className="TDicons" onClick={handleClick}>
                 {aDiasNote.read === "false" ? <MailOutlined style={{ color: "gray" }} fontSize="medium" /> : <DraftsOutlined style={{ color: "gray" }} fontSize="medium" />}
-                
             </td>
         </tr>
     );

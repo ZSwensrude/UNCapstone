@@ -16,16 +16,25 @@ import { green } from "@mui/material/colors";
 import CountryVotesMotion from "../components/CountryVotesMotion.js";
 
 const Presentation = () => {
+  // Function to retrieve user information from localStorage
+  const getUserFromLocalStorage = () => {
+    const userString = localStorage.getItem('loggedInUser');
+    return userString ? JSON.parse(userString) : null;
+  };
+  // Get user information from localStorage
+  const user = getUserFromLocalStorage();
+
   const [status, setStatus] = useState(true);
   const [code, setCode] = useState('');
   const [deadlines, setDeadlines] = useState([]);
   const [time, setTime] = useState('');
   const [timerStatus, setTimerStatus] = useState('');
   const [confID, setConfID] = useState('');
+  const [motionsListDias, setMotionsListDias] = useState([]);
 
   useTracker(() => {
     const handler = Meteor.subscribe('conference');
-    const data = conferenceCollection.findOne();
+    const data = conferenceCollection.findOne({ sessionID: user.confID });
     if(data) {
       setStatus(data.status);
       setCode(data.sessionID);
@@ -33,7 +42,7 @@ const Presentation = () => {
       setTime(data?.timer.time);
       setTimerStatus(data?.timer.status);
       setConfID(data?._id);
-      console.log("test", data?._id)
+      setMotionsListDias(data?.motions);
     }
   }, []);
 

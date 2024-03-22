@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Modal, Paper, Typography, TextField } from "@mui/material";
 import CoolButton from "./CoolButton";
 import './components.css';
-import { insertDM } from "../imports/api/dm";
+import { insertDM } from "../imports/api/conference";
 import flagsData from "../flags.json";
 
 const MessageGroup = ({ countries = [], fromname, groupname}) => {
@@ -44,7 +44,13 @@ const MessageGroup = ({ countries = [], fromname, groupname}) => {
       countries.forEach(country => {
         const properFrom = properFromName();
         console.log(`Sending message from ${properFrom} to ${country.name}: ${inputValue}`);
-        insertDM({ type:"group", to: country.country, from: properFrom,  content: `${groupname}: ${inputValue}`, read:"false" });
+        insertDM({ 
+          sessionId: user.confID,
+          type:"group", 
+          to: country.country, 
+          from: properFrom,  
+          content: `${groupname}: ${inputValue}`, 
+          read:"false" });
       });
     }
     handleClose();

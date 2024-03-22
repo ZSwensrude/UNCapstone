@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Paper, Typography, Divider, Radio} from "@mui/material";
 import './DiasComponents.css';
 import flagsData from '../flags.json';
-import { updateDelRoll } from "../imports/api/delegates";
+import { updateDelRole } from "../imports/api/conference";
 
 const PresentAbsentList = ({ delegate }) => {
     const [selectedValue, setSelectedValue] = useState('');
@@ -11,8 +11,14 @@ const PresentAbsentList = ({ delegate }) => {
 
     const handleChange = (event) => {
         setSelectedValue(event.target.value);
-        updateDelRoll(delegate.country, event.target.value);
+        updateDelRole(delegate.country, event.target.value,user.confID);
     };
+    const getUserFromLocalStorage = () => {
+        const userString = localStorage.getItem('loggedInUser');
+        return userString ? JSON.parse(userString) : null;
+      };
+        // Get user information from localStorage
+      const user = getUserFromLocalStorage();
 
     // get nicer name cause its not stored in delegate DB
     useEffect(() => {

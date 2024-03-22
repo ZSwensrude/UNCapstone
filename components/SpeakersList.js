@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Typography, Paper } from '@mui/material';
 import CoolButton from './CoolButton';
 import Country from './Country';
-import { speakerCollection, insertSpeaker } from '../imports/api/speakers';
+//import { speakerCollection, insertSpeaker } from '../imports/api/speakers';
 import { useTracker } from 'meteor/react-meteor-data';
-import { conferenceCollection } from "../imports/api/conference";
+import { conferenceCollection,insertSpeaker} from "../imports/api/conference";
 
 
 
@@ -17,37 +17,40 @@ const SpeakersList = ({ blank }) => {
   };
 
   const user = getUserFromLocalStorage();
-
-  // Use useTracker to reactively fetch data from the speakers collection
-  const { speakers } = useTracker(() => {
-    const handler = Meteor.subscribe('speakers');
-    const speakersData = speakerCollection.find({}, { sort: { createdAt: 1 } }).fetch(); // Sort by createdAt in ascending order
-    return { speakers: speakersData };
-  });
-
-  const currentSpeaker = speakers.length > 0 ? speakers[0] : {};
-
+  
   const onClick = () => {
     if (user && user.country) {
       //console.log("added to speaker DB:", user.country);
-      insertSpeaker({ country: user.country });
+      insertSpeaker({ country: user.country, sessionId: user.confID });
     } else {
       console.error("User or country is undefined.");
     }
   };
+  
 
-    // Check if the user's country is in the speakers list
-    let isUserInQueue = speakers.some(speaker => speaker.country === user?.country);
-
-   //Use useTracker to reactively fetch data from the collection
-   const { SpeakersListActive } = useTracker(() => {
+  // The following is the new implementation of reading speakers list from conference, rather than speakers
+  const [SpeakersListActive, setSpeakersListActive] = useState(false);
+  const [speakersOnList, setSpeakersOnList] = useState([]);
+  
+  //Use useTracker to reactively fetch data from the collection
+  useTracker(() => {
     const handler = Meteor.subscribe('conference');
-    const conferenceData = conferenceCollection.find().fetch(); //add .find for filter by session id later
+    // session ID stored in users local browser data as confID 
+    const conferenceData = conferenceCollection.find({ sessionID: getUserFromLocalStorage().confID }).fetch(); 
     // Check if conferenceData is defined before accessing its properties
     const activeSpeakerList = conferenceData && conferenceData.length > 0 ? conferenceData[0].activeSpeakerList : false;
+    const currentSpeakers = conferenceData && conferenceData.length > 0 ? conferenceData[0].speakers : [];
   
-    return { SpeakersListActive: activeSpeakerList };
-  });
+    // sort by date
+    setSpeakersOnList(currentSpeakers.sort((a, b) => a.createdAt - b.createdAt));
+    setSpeakersListActive(activeSpeakerList);  
+  }, []);
+
+  // set current speaker
+  const currentSpeaker = speakersOnList.length > 0 ? speakersOnList[0] : {};
+  // Check if the user's country is in the speakers list
+  let isUserInQueue = speakersOnList.some(speaker => speaker.country === user?.country);
+  
 
   // if we want a blank list we have to convince the list to display no buttons
   if (blank) {
@@ -70,7 +73,7 @@ const SpeakersList = ({ blank }) => {
         <Typography variant='h5'>In Queue:</Typography>
         <div className='upcomingSpeakers'>
           <ul className='countryItemList'>
-        {speakers.slice(1).map((speaker, index) => (
+        {speakersOnList.slice(1).map((speaker, index) => (
             <Country key={index + 1} countryName={speaker.country} position={index + 2} blank={blank} />
           ))}
           </ul>

@@ -11,10 +11,13 @@ import Header from "../components/Header";
 import { useNavigate  } from 'react-router-dom';
 import LoginButton from "../components/LoginButton";
 import countriesData from '../flags.json'  
-import { insertDel } from '../imports/api/delegates';
+//import { insertDel } from '../imports/api/delegates';
 import showScreens from "../client/showScreens";
+import { conferenceCollection ,insertDel } from "../imports/api/conference";
 
 //import { LoginForm } from "../components/LoginForm";
+
+Meteor.subscribe("conference")
 
 const Home=()=>{
   const [username, setUsername] = useState("");
@@ -35,13 +38,15 @@ const Home=()=>{
 
   const diasLogin = (modal, user = username, pass = password) => {
 
+    // leaving this as normal meteor login, meaning that it uses the "user" db collection
     Meteor.loginWithPassword(user, pass, function(error) {
 
       if (error) {
          handleOpen();
       } else {
         // Store user data in localStorage
-        localStorage.setItem('loggedInUser', JSON.stringify({ username, userType: 'dias' }));
+        // NOTE: BRANT MAKE SURE YOU CHANGE THIS SO THAT IT SETS THE confID LATER ON WHEN THE DIAS CHOSES A CONFERENCE!!
+        localStorage.setItem('loggedInUser', JSON.stringify({ username, userType: 'dias', confID: "xyz" }));
         if(showScreens){navigate('/dias');}else{navigate('/dias-home-page')};
       }
    })
@@ -62,17 +67,17 @@ const Home=()=>{
     const sessionId = document.getElementById('sessionId').value;
     const username = selectedCountry + sessionId;
     const password = sessionId;
-
-    const country = Meteor.users.findOne({username: username});
     
+    const country = conferenceCollection.findOne({"delLogins.username": username});
+
     // we dont actually need to check the passwords anymore (huge waste of time)
     // the username is made from country + sessionid so if its right the password is
     if (country) {
       // Store user data in localStorage
-      localStorage.setItem('loggedInUser', JSON.stringify({ username, password, userType: 'delegate', country: selectedCountry }));
+      localStorage.setItem('loggedInUser', JSON.stringify({ username, password, confID: sessionId, userType: 'delegate', country: selectedCountry }));
 
       // Insert delegate information into MongoDB
-      const success = insertDel({ country: selectedCountry, roleCall: '' });
+      const success = insertDel({ country: selectedCountry, roleCall: '', sessionId});
       if (success) {
         // Insertion was successful
         // Redirect to the delegate page or perform any other actions
@@ -84,10 +89,7 @@ const Home=()=>{
     } else {
       // Check if the country is selected
       handleOpen();
-      // if (selectedCountry === 'choice' || !sessionId) {
-      //   setMessage('Please select a country and enter a session ID.');
-      //   return;
-      // }
+    
     }
   };
   
