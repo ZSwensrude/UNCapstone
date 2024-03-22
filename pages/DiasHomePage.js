@@ -133,6 +133,7 @@ const DiasHome = () => {
     }
 
     const handleStatusChange = (event) => {
+
         setConfStatus(event.target.value);
     }
 
@@ -249,6 +250,13 @@ const handleDIASreadAll = () => {
     const [motionContent, setMotionContent] = useState('');
     const [abstain, setAbstain] = useState(false);
     const [motionError, setMotionError] = useState('');
+    const [showVotes, setShowVotes] = useState(false);
+
+    //for the show voting screen
+    const handleVoteChange = (event) => {
+        setShowVotes(event.target.checked);
+        console.log(showVotes)
+    };
 
     const handleAbstainChange = (event) => {
         setAbstain(event.target.checked);
@@ -362,6 +370,7 @@ const handleClearAllMotions = () => {
                         <FormControlLabel value="waiting" control={<Radio />} label="Waiting" />
                         <FormControlLabel value="formal" control={<Radio />} label="Formal" />
                         <FormControlLabel value="informal" control={<Radio />} label="Informal" />
+                        <FormControlLabel value="motions" control={<Radio />} label="Motions" />
                         {showScreens && <FormControlLabel value="votingProcedure" control={<Radio />} label="Voting Procedure" />}
                     </RadioGroup>
 
@@ -462,22 +471,26 @@ const handleClearAllMotions = () => {
                             <div className="MotionsButton">Motions</div>
                         </div>
 
-                        <div className="motionBlock">
-                            <div className="addMotionBox">
-                                <input
-                                    className="MotionInput"
-                                    placeholder="Motion Content..."
-                                    type="text"
-                                    value={motionContent}
-                                    onChange={handleMotionContentChange}
-                                />
-                                <div className="abstainCheck">
-                                    <FormControlLabel
-                                        control={<Checkbox checked={abstain} onChange={handleAbstainChange} />}
-                                        label="Allow abstain?"
-                                    />
-                                </div>
-                            </div>
+                    <div className="motionBlock">
+                    <div className="addMotionBox">
+                        <input
+                            className="MotionInput"
+                            placeholder="Motion Content..."
+                            type="text"
+                            value={motionContent}
+                            onChange={handleMotionContentChange}
+                        />
+                        <div className="abstainCheck">
+                            <FormControlLabel
+                                control={<Checkbox checked={abstain} onChange={handleAbstainChange} />}
+                                label="Allow abstain?"
+                            />
+                            <FormControlLabel
+                                control={<Checkbox checked={showVotes} onChange={handleVoteChange} />}
+                                label="Show Votes?"
+                            />
+                        </div>  
+                    </div>
 
                             <div className="addButtonBlock">
                                 <CoolButton buttonText={"Add"} buttonColor={'#FF9728'} textColor='white' onClick={addMotion} />
@@ -626,4 +639,10 @@ const handleClearAllMotions = () => {
     );
 }
 
+
+                            
+                           /* 
+                                              
+                            
+                            */
 export default DiasHome;

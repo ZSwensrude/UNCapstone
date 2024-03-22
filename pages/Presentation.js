@@ -11,6 +11,9 @@ import { motionCollection } from "../imports/api/motions.js";
 import MotionsDias from "../components/MotionsDias";
 import DeadlineDias from "../components/DeadlinesDias.js";
 import TimerSession from "../components/TimerSession.js";
+import { PieChart, pieArcLabelClasses } from '@mui/x-charts';
+import { green } from "@mui/material/colors";
+import CountryVotesMotion from "../components/CountryVotesMotion.js";
 
 const Presentation = () => {
   // Function to retrieve user information from localStorage
@@ -43,6 +46,42 @@ const Presentation = () => {
     }
   }, []);
 
+  /* pie chart and motion vote stuff */
+
+  //counting for pie chart 
+  let voteYes = 0;
+  let voteNo = 0;
+  let voteAbstain = 0;
+  let total = 0;
+  const votesArray = [];
+  let motionName = "";
+
+  //reading from motions list for active motion and counting for pie chart
+  motionsListDias?.forEach(function (item) {
+    //getting the current active motion
+    if (item?.active == true){
+        motionName = item?.content //getting the motion name
+        //getting the list of countries and counting thier votes
+        item?.votes.forEach(function (item1) { 
+          votesArray.push(item1);
+          total++;
+          if (item1?.vote == "Yes") {
+              voteYes++;
+          }
+          else if (item1?.vote == "No") {
+              voteNo++;
+          }
+          else {
+              voteAbstain++;
+          }
+              })
+  }})
+
+  const  data = [
+    { id: 0, value: (voteYes/total) * 100, label: 'Yes', color: 'green' },
+    { id: 1, value: (voteNo/total) * 100, label: 'No', color: 'red' },
+    { id: 2, value: (voteAbstain/total) * 100, label: 'Abstain', color: 'yellow' },
+  ];
   return (
     <div className="presentationTop">
       <Header version={'blank'}/>
@@ -102,7 +141,48 @@ const Presentation = () => {
         <div className="presentationBody">   
           {/* put voting procedure presentation screen here */}
         </div>
-      ) : (
+      ) 
+      : status === 'motions' ? (
+        <div className="motionBox">   
+          <div className="countryVotes">
+            <div className="VCMButtonBlock">
+              <div className="VCMButton">Votes</div>
+            </div>
+            <div className="countryVotesBlock">
+            {votesArray?.map( (countryName, index) => (
+            <CountryVotesMotion key={countryName?.countryInfo + index} countryName={countryName}/>
+            ))}
+            </div>
+          </div>
+
+          <div className="motionAndPieBox">
+            <div className="VCMButtonBlock">
+              <div className="VCMButton">Current Motion</div>
+            </div>
+            <div className="currentMotionWhiteBlock">
+              {motionName}
+            </div>
+            <PieChart
+              series={[
+                {
+                  arcLabel: (item) => `${item.value.toFixed()}%`,
+                  arcLabelMinAngle: 10,
+                  data,
+                },
+              ]}
+              sx={{
+                [`& .${pieArcLabelClasses.root}`]: {
+                  fill: 'black',
+                  fontWeight: 'bold',
+                },
+              }}
+              width={400}
+              height={250}
+            />
+          </div>
+        </div>
+      ) 
+      : (
         <div id="intructions">
           <Paper id="instructionPaper" >
             <Typography variant="h4">Go to Mac-UN.space to join!</Typography>
@@ -121,4 +201,7 @@ const Presentation = () => {
   );
 };
 
+/*        {votesArray?.map( (countriesV, index) => (
+  <CountryVotesMotion key={countriesV?.countryInfo + index} CountryVotesMotion={CountryVotesMotion}/>
+  ))} */
 export default Presentation;

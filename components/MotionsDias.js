@@ -1,6 +1,6 @@
 import React from "react";
 import { Paper, Typography, Button } from "@mui/material";
-import { switchActiveMotion, removeMotion} from "../imports/api/conference.js";
+import { switchActiveMotion, removeMotion, setMotionInactive} from "../imports/api/conference.js";
 
 import './DiasComponents.css';
 
@@ -17,6 +17,12 @@ const MotionsDias = ({ aMotionDias, blank }) => {
         //console.log(aMotionDias._id);
         switchActiveMotion(user.confID, aMotionDias._id);
     };
+
+    const handleSetInactiveMotion = () => {
+        // Call the setActiveMotion function passed from the parent component
+        //console.log(aMotionDias._id);
+        setMotionInactive(user.confID, aMotionDias._id);
+    };
     
     // Define a handler function to remove the country
     const handleRemoveMotion = () => {
@@ -27,7 +33,7 @@ const MotionsDias = ({ aMotionDias, blank }) => {
     return (
         <Paper id={'oneMotion'} elevation={0}> 
         {!blank && (
-            <Button onClick={handleSetActiveMotion}>
+            <Button onClick={aMotionDias.active ? handleSetInactiveMotion : handleSetActiveMotion}>
                 {aMotionDias.active ? "Active" : "Inactive"}
             </Button>
         )}
