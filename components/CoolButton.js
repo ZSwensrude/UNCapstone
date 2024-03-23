@@ -14,7 +14,7 @@ const CoolButton = ({ buttonText, buttonColor, textColor, message, onClick, disa
     <Paper onClick={onClick} id='button' className={wide} elevation={0} style={{backgroundColor:buttonColor, color:textColor}}>
       <Typography>
         {buttonText}
-        {message !== undefined && <MessageIcon id='buttonIcon'/>}
+        {message !== undefined && <MessageIcon style={{ marginBottom:"-6px" }} id='buttonIcon'/>}
       </Typography>
     </Paper>
     
