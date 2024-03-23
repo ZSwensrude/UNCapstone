@@ -21,7 +21,7 @@ import VoteCountChart from "../components/VoteCountBox.js";
 import LogoutButton from "../components/LogoutButton.js";
 
 
-import { insertSpeaker,removeSpeaker,deleteDMFromDB,deleteSentMessagesDIAS, markAsReadDIAS, updateConferenceActiveStatus, conferenceCollection, updateRollCallStatus, updateConfStatus, removeDeadlineFromConf, addDeadlineToConf, insertMotion, clearallMotions } from "../imports/api/conference.js";
+import { insertSpeaker,removeSpeaker,deleteDMFromDB,deleteSentMessagesDIAS, markAsReadDIAS, updateConferenceActiveStatus, conferenceCollection, updateRollCallStatus, updateConfStatus, removeDeadlineFromConf, addDeadlineToConf, insertMotion, clearallMotions, updateConfMotion } from "../imports/api/conference.js";
 
 
 import BellIcon from '@mui/icons-material/Notifications';
@@ -75,6 +75,7 @@ const DiasHome = () => {
     const [delegatesListDias, setDelegatesListDias] = useState([]);
     const [unreadMessages, setUnreadMessages] = useState(false);
     const [dms, setDms] = useState([]);
+    const [displayMotions, setDisplayMotions] = useState(false);
 
     // Fetch conference data using useTracker hook
     useTracker(() => {
@@ -87,8 +88,14 @@ const DiasHome = () => {
         activeMotion = data?.motions?.find((motion) => motion.active === true);
         setDelegatesListDias(data?.delegates);
         setDms(allDms?.sort((a, b) => a.createdAt - b.createdAt));
+        setDisplayMotions(data?.displayMotions);
         setConferenceData(data); // Update conference data in state
     }, []);
+
+    const handleMotionCheck = () => {
+        updateConfMotion(conferenceData._id, !displayMotions);
+        setDisplayMotions(!displayMotions);
+    };
 
     const countUnreadMessages = (dms) => { // Change parameter name to dmData
         return dms?.filter(dm => dm.read === "false").length;
@@ -370,9 +377,9 @@ const handleClearAllMotions = () => {
                         <FormControlLabel value="waiting" control={<Radio />} label="Waiting" />
                         <FormControlLabel value="formal" control={<Radio />} label="Formal" />
                         <FormControlLabel value="informal" control={<Radio />} label="Informal" />
-                        <FormControlLabel value="motions" control={<Radio />} label="Motions" />
                         {showScreens && <FormControlLabel value="votingProcedure" control={<Radio />} label="Voting Procedure" />}
                     </RadioGroup>
+                    <FormControlLabel value="motions" control={<Checkbox checked={displayMotions} onChange={() => handleMotionCheck()} />} label="Automatically present active motion results" />
 
                     <div className='statusButtons'>
                         <CoolButton buttonText={"Cancel"} onClick={handleToCloseStatus} buttonColor={'#800000'} textColor='white' />

@@ -7,7 +7,7 @@ export const conferenceCollection = new Mongo.Collection('conference');
 export const insertConference = async ({ sessionID, dias, title, committee }) => {
   conferenceCollection.insert({ sessionID: sessionID, title: title, committee: committee,
   delegates: [], DMs: [], motions: [], speakers: [], workingGroups: [], deadlines: [], 
-  status: 'waiting', activeSpeakerList: false, rollCallOpen: false,
+  status: 'waiting', activeSpeakerList: false, rollCallOpen: false, displayMotions: false,
   timer: {
     status: 'paused',
     timer: 0
@@ -53,6 +53,16 @@ export const updateConferenceActiveStatus = async ({ conferenceId, activeSpeaker
     { _id: conferenceId },
     {
       $set: { activeSpeakerList }
+    }
+  );
+};
+
+export const updateConfMotion = async ( conferenceId, motionStatus ) => {
+  //console.log("updateConfMotion",conferenceId, motionStatus )
+  await conferenceCollection.update(
+    { _id: conferenceId },
+    {
+      $set: { displayMotions: motionStatus }
     }
   );
 };
@@ -301,7 +311,7 @@ export const setMotionInactive = async (sessionId, motionId) => {
       { $set: { motions: updatedMotions } }
     );
 
-    console.log(`Updated motion with ID ${motionId}`);
+    //console.log(`Updated motion with ID ${motionId}`);
   } catch (error) {
     console.error('Error switching active motion:', error);
     return "error";
@@ -365,7 +375,7 @@ export const markAsReadDIAS = async (sessionId) => {
       updateDMReadStatus(sessionId, message._id, true);
     });
     
-    console.log('Successfully marked all messages as read.');
+    //console.log('Successfully marked all messages as read.');
   } catch (error) {
     console.error('Error marking messages as read:', error);
     return "error";
@@ -410,7 +420,7 @@ export const insertWG = async ({ sessionId, countries, location, topic, name }) 
         { _id: conference._id },
         { $set: { workingGroups: updatedGroups } }
       );
-      console.log(`Updated existing working group: ${name}`);
+      //console.log(`Updated existing working group: ${name}`);
       return existingGroup._id; // Return the ID of the existing group
     } else {
       // If the group does not exist, insert a new document
@@ -419,7 +429,7 @@ export const insertWG = async ({ sessionId, countries, location, topic, name }) 
         { _id: conference._id },
         { $push: { workingGroups: newGroup } }
       );
-      console.log(`Inserted new working group: ${name}`);
+      //console.log(`Inserted new working group: ${name}`);
       return newGroup._id; // Return the ID of the newly inserted group
     }
   } catch (error) {
@@ -455,7 +465,7 @@ export const updateWG = async ({ groupId, name, topic, location }) => {
         { _id: conference._id },
         { $set: { workingGroups: updatedGroups } }
       );
-      console.log(`Updated working group with ID ${groupId}`);
+      //console.log(`Updated working group with ID ${groupId}`);
     } else {
       console.error('Working group not found.');
       return "error";
@@ -494,7 +504,7 @@ export const joinWG = ({ sessionId, groupId, user }) => {
         { _id: conference._id },
         { $set: { workingGroups: updatedGroups } }
       );
-      console.log(`Successfully joined the working group with ID ${groupId}`);
+      //console.log(`Successfully joined the working group with ID ${groupId}`);
     } else {
       console.error('Working group not found.');
       return "error";
@@ -529,7 +539,7 @@ export const removeFromWG = ({ sessionId, groupId, user }) => {
         { _id: conference._id },
         { $set: { workingGroups: updatedGroups } }
       );
-      console.log(`Successfully removed from the working group with ID ${groupId}`);
+      //console.log(`Successfully removed from the working group with ID ${groupId}`);
     } else {
       console.error('Working group not found.');
       return "error";
