@@ -29,7 +29,7 @@ const CreateGroup = () => {
   //DB Communication - live pull on any change in table
   useTracker(() => {
     const handler = Meteor.subscribe('conferences');
-    const conference = conferenceCollection.findOne({ /* Add your query criteria here */ });
+    const conference = conferenceCollection.findOne({ sessionID: user.confID });
   
     if (conference) {
       const delegatesListDias = conference.delegates || []; // Ensure delegates list is available

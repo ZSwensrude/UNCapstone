@@ -21,12 +21,16 @@ const InviteGroup = ({ onInvite, group }) => {
     //const [countries, setCountries] = useState(countriesData.countries);
     const [filteredCountries, setCountries] = useState([]);
 
+    const getUserFromLocalStorage = () => {
+      const userString = localStorage.getItem('loggedInUser');
+      return userString ? JSON.parse(userString) : null;
+    };    const user = getUserFromLocalStorage();
 
 
      //DB Communication - live pull on any change in table
      useTracker(() => {
       const handler = Meteor.subscribe('conferences');
-      const conference = conferenceCollection.findOne({ /* Add your query criteria here */ });
+      const conference = conferenceCollection.findOne({ sessionID: user?.confID });
     
       if (conference) {
         const delegatesListDias = conference.delegates || []; // Ensure delegates list is available
@@ -106,10 +110,7 @@ const InviteGroup = ({ onInvite, group }) => {
     // Filter out the selected countries that are already in the collection
     const newCountries = selectedCountries.filter(country => !existingCountries.includes(country.country));
 
-    const getUserFromLocalStorage = () => {
-      const userString = localStorage.getItem('loggedInUser');
-      return userString ? JSON.parse(userString) : null;
-    };    const user = getUserFromLocalStorage();
+   
     //console.log("NEW COUTNRIES", newCountries);
     
     // Insert a direct message for each new country
