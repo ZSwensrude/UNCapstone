@@ -7,7 +7,7 @@ export const conferenceCollection = new Mongo.Collection('conference');
 export const insertConference = async ({ sessionID, dias, title, committee }) => {
   conferenceCollection.insert({ sessionID: sessionID, title: title, committee: committee,
   delegates: [], DMs: [], motions: [], speakers: [], workingGroups: [], deadlines: [], 
-  status: 'waiting', activeSpeakerList: false, rollCallOpen: false,
+  status: 'waiting', activeSpeakerList: false, rollCallOpen: false, displayMotions: false,
   timer: {
     status: 'paused',
     timer: 0
@@ -53,6 +53,16 @@ export const updateConferenceActiveStatus = async ({ conferenceId, activeSpeaker
     { _id: conferenceId },
     {
       $set: { activeSpeakerList }
+    }
+  );
+};
+
+export const updateConfMotion = async ( conferenceId, motionStatus ) => {
+  console.log("updateConfMotion",conferenceId, motionStatus )
+  await conferenceCollection.update(
+    { _id: conferenceId },
+    {
+      $set: { displayMotions: motionStatus }
     }
   );
 };
