@@ -379,7 +379,7 @@ const handleClearAllMotions = () => {
                         <FormControlLabel value="informal" control={<Radio />} label="Informal" />
                         {showScreens && <FormControlLabel value="votingProcedure" control={<Radio />} label="Voting Procedure" />}
                     </RadioGroup>
-                    <FormControlLabel value="motions" control={<Checkbox checked={displayMotions} onChange={() => handleMotionCheck()} />} label="Motions" />
+                    <FormControlLabel value="motions" control={<Checkbox checked={displayMotions} onChange={() => handleMotionCheck()} />} label="Automatically present active motion results" />
 
                     <div className='statusButtons'>
                         <CoolButton buttonText={"Cancel"} onClick={handleToCloseStatus} buttonColor={'#800000'} textColor='white' />
