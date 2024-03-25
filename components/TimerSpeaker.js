@@ -9,6 +9,20 @@ let numInSecondsSpeaker = Number(timeSpeaker) * 60000;
 const ref= useRef();
 state = { date: Date.now() + numInSecondsSpeaker}
 
+
+/*
+let currentDate = null;
+  fetch('https://worldtimeapi.org/api/timezone/Europe/London')
+  .then(response => response.json())
+  .then(data => {
+    currentDate = new Date(data.datetime);
+  })
+  .catch(error => {
+    console.error('Error fetching time:', error);
+  });
+
+  console.log("date now:", Date.now, "current Date:", currentDate)*/
+
 //handlers for both speaker and session timers
 handleStartClickSpeaker = (e) => {
     ref.current?.start();

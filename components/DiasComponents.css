@@ -12,7 +12,7 @@
     padding-right: 10px;
     }
 
-    #onePriorLocation, #oneMotion, #oneDeadline {
+    #onePriorLocation, #oneMotion, #oneDeadline, #oneCountry {
         position:relative;
         border-radius: 30px;
         margin-top: 1px;
@@ -22,6 +22,17 @@
         padding: 6px;
     }
 
+    #oneCountry
+     {
+        position:relative;
+        border-radius: 30px;
+        margin: 5px;
+        min-width: 240px;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        padding: 6px;
+     }
     #presentationDeadline {
         position:relative;
         border-radius: 30px;
@@ -59,4 +70,8 @@
         justify-content: space-around;
         margin-top: 1px;
         margin-bottom: 1px;
+    }
+
+    .timerBlock2ButtonsSession {
+        display:flex;
     }
