@@ -236,13 +236,15 @@ const handleDIASreadAll = () => {
     // Update button text based on activeSpeakerList value
     useEffect(() => {
         if (conferenceData) {
-            setButtonText(conferenceData.activeSpeakerList ? "Close Speaker List" : "Open Speaker List");
+            const { activeSpeakerList } = conferenceData; // Destructure activeSpeakerList directly
+            setButtonText(activeSpeakerList ? "Close Speaker List" : "Open Speaker List");
         }
-    }, [conferenceData?.activeSpeakerList]);
+    }, [conferenceData]);// Removed activeSpeakerList from dependencies
 
     const [buttonText, setButtonText] = useState("");
+
     const updateRollCallActive = () => {
-        if (conferenceData) {
+        if (conferenceData) {s
             const { _id, rollCallOpen } = conferenceData;
             const updatedRollCall = !rollCallOpen;
             updateRollCallStatus(_id, updatedRollCall);
@@ -460,7 +462,7 @@ const handleClearAllMotions = () => {
                                 <div className="clearAndCloseButtonBlock">
                                     <CoolButton buttonText={"Clear List"} buttonColor={'#FF9728'} textColor='white' onClick={clearSpkList} />
                                     <CoolButton
-                                        buttonText={"Close Speaker List"}
+                                        buttonText={buttonText}
                                         buttonColor={'#FF9728'}
                                         textColor='white'
                                         onClick={updateSpkerlistactive}
