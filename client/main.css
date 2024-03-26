@@ -53,6 +53,9 @@ img#un,
   .homecontainer {
     width: 45%;
   }
+  .motionBox{
+    flex-direction: column;
+  }
 
 }
 @media screen and (max-width: 1400px) {
@@ -168,6 +171,11 @@ img#un,
     .tabcontent#NotesDias {
       /* margin-top: 250px; */
   }
+
+  .countryVotesBlock {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
 }
 
 @media screen and (max-width: 900px) {
@@ -189,7 +197,9 @@ img#un,
   .tablinks{
     font-size:17px ;
   }
-
+  .countryVotesBlock {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media screen and (max-width: 800px) {
@@ -211,6 +221,7 @@ img#un,
   .motionBlock{
 
   }
+
 }
 
 
@@ -245,5 +256,8 @@ img#un,
 @media screen and (max-width: 600px) {
   .homecontainer {
     width: 80%;
+  }
+  .countryVotesBlock {
+    grid-template-columns: repeat(1, 1fr);
   }
 }

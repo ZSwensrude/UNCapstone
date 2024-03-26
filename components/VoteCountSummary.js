@@ -1,6 +1,8 @@
 import React from 'react';
 
-const VoteCountChart = ({ votes ,abstain}) => {
+const VoteCountSummary = ({ votes ,abstain}) => {
+    console.log("votes", votes);
+    console.log("abstain", abstain);
     // If votes data is not available or empty, show a message
     if (!votes || votes.length === 0) {
         return (
@@ -47,4 +49,4 @@ const VoteCountChart = ({ votes ,abstain}) => {
     );
 };
 
-export default VoteCountChart;
+export default VoteCountSummary;
