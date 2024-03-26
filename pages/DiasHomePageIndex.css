@@ -172,6 +172,7 @@ body {
   .timeLabelMins {
     margin:2px;
     font-weight: light;
+    text-align: center;
   }
 
 #diasspeakers{
@@ -221,6 +222,9 @@ body {
   .TimeBlock{
     height: 6em;
     width: 100%;
+  }
+  .Timer{
+    height: 8em !important;
   }
 
   .Timer, .timerBlock2{
@@ -314,7 +318,7 @@ body {
     width: 80%;
   }
   .clearAndCloseButtonBlock{
-    margin-bottom: 15em ;
+    margin-bottom: 11em ;
   }
   .clearAndCloseButtonBlock #button{
     font-size: 10px;
