@@ -62,6 +62,7 @@ const Notification = ({ notification, readNotification }) => {
     setclassname(notification.read === "true" ? "singleNotification" : "unreadNotification");
     setBGColor(notification.type === 'global' ? "#00DB89" : "#FFFFFF");
   }, [notification]);
+    console.log(notification.read === "true" ? "singleNotification" : "unreadNotification");
 
   return (
     <Paper id={classname} style={{ background: bgColor }} elevation={3} >

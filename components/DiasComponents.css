@@ -31,7 +31,9 @@
         display:flex;
         justify-content: center;
         align-items: center;
-        padding: 6px;
+        padding: 6px;       
+        background-color: white;
+        height: 34px;
      }
     #presentationDeadline {
         position:relative;
@@ -56,12 +58,7 @@
     }
 
 
-    #oneCountry {
-        position:relative;
-        display:flex;
-        justify-content: space-evenly;
-        background-color: white;
-    }
+   
     .motionContent{
         margin: 0 29px !important;
     }

@@ -1,9 +1,9 @@
 .presentationTop {
   margin-top: 28px;
-  width: 100%;
+  width: 102%;
 }
 .presentationTop #headerbar{
-  width: 100%;
+  width: 100.7%;
   height: 3em;
 }
 
@@ -50,9 +50,9 @@ text-align: center;
 }
 
 #confID {
-  position: fixed;
-  bottom: 10px;
-  text-align: center;
+  position: absolute; /* no fixed. lol it doesn't work */
+  bottom: -32px;
+  text-align: center
 }
 
 #presentationMotionsBox {
@@ -98,11 +98,19 @@ text-align: center;
 
 .motionBox {
   display: flex;
+  justify-content: space-evenly;
 }
 
-.countryVotes, .motionAndPieBox {
+/* .countryVotes, .motionAndPieBox {
   display: block;
   margin: 10px;
+} */
+.countryVotes, .motionAndPieBox {
+ 
+  display: flex;
+  margin: 10px;
+  flex-direction: column;
+  align-items: center;
 }
 
 .VCMButtonBlock {
@@ -123,33 +131,40 @@ text-align: center;
     font-size: 24px;
     height: 2em;
 }
+.countryVotesBlock #oneCountry{
+  max-width: 240px;
+}
 
 .countryVotesBlock {
   background: #009edb;
   border-radius: 30px;
   border-color: #009edb;
-  width: 800px;
-  display: ruby-text;
-  column-count: 3;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  height: 25em;
-  padding: 10px;
-  overflow-x: auto;
+  height: 30em;
+  padding: 7px 8px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Four columns */
+  max-height: 30em;
   overflow-y: auto;
+  row-gap: 9px;
+  column-gap: 0px;
+  
+}
+.countryVotesBlock::-webkit-scrollbar {
+  display: none; /* Hide the scrollbar */
 }
 
 .currentMotionWhiteBlock {
   background: white;
-  color:black;
+  color: black;
   border-radius: 30px;
   border-color: white;
   width: 400px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 24px;
-  height: 6em;
+  font-size: 21px;
+  /* height: 6em; */
   margin-bottom: 10px;
+  min-height: 6em;
+  padding: 6px 25px;
 }

@@ -172,6 +172,7 @@ body {
   .timeLabelMins {
     margin:2px;
     font-weight: light;
+    text-align: center;
   }
 
 #diasspeakers{
@@ -221,6 +222,9 @@ body {
   .TimeBlock{
     height: 6em;
     width: 100%;
+  }
+  .Timer{
+    height: 8em !important;
   }
 
   .Timer, .timerBlock2{
@@ -314,7 +318,7 @@ body {
     width: 80%;
   }
   .clearAndCloseButtonBlock{
-    margin-bottom: 15em ;
+    margin-bottom: 11em ;
   }
   .clearAndCloseButtonBlock #button{
     font-size: 10px;
@@ -459,7 +463,7 @@ body {
 
   .MotionSummaryBlock {
     width: 60%;
-    height: 12em;
+    min-height: 12em;
     display: flex;
     background: white;
     border-radius: 30px;
@@ -471,6 +475,7 @@ body {
   }
 .motion.content{
   font-size: 20px;
+  padding: 7px 7px;
 }
 
 
