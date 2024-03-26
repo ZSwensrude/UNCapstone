@@ -34,8 +34,6 @@ const TimerSession = ({ version, time, status, confID }) => {
 
   currentTime = newTime?.getTime()
 
-  console.log("jkryedjkbvrjk", currentTime)
-
   const handleStartClickSession = () => {
     setTimerStatus(confID, 'start'); // Update timer status in the database
     initialTimerStatus.current = 'start'; // Update initial timer status
