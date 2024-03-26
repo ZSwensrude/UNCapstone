@@ -460,7 +460,7 @@ const handleClearAllMotions = () => {
                                 <div className="clearAndCloseButtonBlock">
                                     <CoolButton buttonText={"Clear List"} buttonColor={'#FF9728'} textColor='white' onClick={clearSpkList} />
                                     <CoolButton
-                                        buttonText={"Close Speaker List"}
+                                        buttonText={buttonText}
                                         buttonColor={'#FF9728'}
                                         textColor='white'
                                         onClick={updateSpkerlistactive}
