@@ -369,10 +369,10 @@ export const markAsReadDIAS = async (sessionId) => {
       return "error";
     }
     
-    const diasMessages = conference.DMs.filter(message => message.to === 'Dias');
+    const diasMessages = conference.DMs.filter(message => message.from === "Dias");
     
     diasMessages.forEach(message => {
-      updateDMReadStatus(sessionId, message._id, true);
+      updateDMReadStatus(sessionId, message._id, "true");
     });
     
     //console.log('Successfully marked all messages as read.');

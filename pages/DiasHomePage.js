@@ -147,6 +147,8 @@ const DiasHome = () => {
 const handleDIASreadAll = () => {  
     markAsReadDIAS(user.confID)
 }
+
+    //remove this...? - britt
     const conferenceLocations = [
         {
             "cLocation": "SA-214k",
