@@ -95,17 +95,6 @@ const Presentation = () => {
       {status === 'formal' ?
         (displayMotions && motionsListDias?.find( motion => motion?.active === true) ) ? (
           <div className="motionBox">
-            <div className="countryVotes">
-              <div className="VCMButtonBlock">
-                <div className="VCMButton">Votes</div>
-              </div>
-              <div className="countryVotesBlock">
-                {votesArray?.map((countryName, index) => (
-                  <CountryVotesMotion key={countryName?.countryInfo + index} countryName={countryName} />
-                ))}
-              </div>
-            </div>
-
             <div className="motionAndPieBox">
               <div className="VCMButtonBlock">
                 <div className="VCMButton">Current Motion</div>
@@ -131,6 +120,21 @@ const Presentation = () => {
                 height={250}
               />
             </div>
+
+
+
+            <div className="countryVotes">
+              <div className="VCMButtonBlock">
+                <div className="VCMButton">Votes</div>
+              </div>
+              <div className="countryVotesBlock">
+                {votesArray?.map((countryName, index) => (
+                  <CountryVotesMotion key={countryName?.countryInfo + index} countryName={countryName} />
+                ))}
+              </div>
+            </div>
+
+            
           </div>
         ) : (
           <div className=" presentationBody">
@@ -203,7 +207,4 @@ const Presentation = () => {
   );
 };
 
-/*        {votesArray?.map( (countriesV, index) => (
-  <CountryVotesMotion key={countriesV?.countryInfo + index} CountryVotesMotion={CountryVotesMotion}/>
-  ))} */
 export default Presentation;
