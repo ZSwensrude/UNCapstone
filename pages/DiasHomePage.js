@@ -15,9 +15,8 @@ import NotesToDias from "../components/NotesToDias.js";
 import WorkingGroupsListDIAS from "../components/WorkingGroupsListDIAS.js";
 import { useNavigate } from 'react-router-dom';
 import DiasSpeakersList from '../components/DiasSpeakersList.js';
-
 import flagData from '../flags.json';
-import VoteCountChart from "../components/VoteCountBox.js";
+import VoteCountSummary from "../components/VoteCountSummary.js";
 import LogoutButton from "../components/LogoutButton.js";
 
 
@@ -71,7 +70,7 @@ const DiasHome = () => {
     const [openStatus, setOpenStatus] = useState(false);
     const [confStatus, setConfStatus] = useState("");
     const [motionsListDias, setMotionsListDias] = useState([]);
-    var activeMotion = null;
+    const [activeMotion, setActiveMotion] = useState(null);
     const [delegatesListDias, setDelegatesListDias] = useState([]);
     const [unreadMessages, setUnreadMessages] = useState(false);
     const [dms, setDms] = useState([]);
@@ -80,18 +79,28 @@ const DiasHome = () => {
     // Fetch conference data using useTracker hook
     useTracker(() => {
         const handler = Meteor.subscribe('conference');
-        const data = conferenceCollection.findOne({ sessionID: user.confID }); // make this figure out the conf code from db
-        const allDms = data?.DMs?.filter((dm) => dm.type === 'dias');
-        setDeadlines(data?.deadlines);
-        setConfStatus(data?.status);
-        setMotionsListDias(data?.motions);
-        activeMotion = data?.motions?.find((motion) => motion.active === true);
-        setDelegatesListDias(data?.delegates);
-        setDms(allDms?.sort((a, b) => a.createdAt - b.createdAt));
-        setDisplayMotions(data?.displayMotions);
-        setConferenceData(data); // Update conference data in state
+        const data = conferenceCollection.findOne({ sessionID: user.confID });
+        
+        // Ensure data is not null before accessing its properties
+        if (data) {
+            const allDms = data?.DMs?.filter((dm) => dm.type === 'dias');
+            setDeadlines(data?.deadlines);
+            setConfStatus(data?.status);
+            setMotionsListDias(data?.motions);
+            
+            // Check if motions exist before finding active motion
+            if (data.motions && data.motions.length > 0) {
+                const motion = data.motions.find((motion) => motion.active === true);
+                setActiveMotion(motion); // Update activeMotion state
+                console.log("activeMotion", motion);
+            }
+    
+            setDelegatesListDias(data?.delegates);
+            setDms(allDms?.sort((a, b) => a.createdAt - b.createdAt));
+            setDisplayMotions(data?.displayMotions);
+            setConferenceData(data);
+        }
     }, []);
-
     const handleMotionCheck = () => {
         updateConfMotion(conferenceData._id, !displayMotions);
         setDisplayMotions(!displayMotions);
@@ -535,20 +544,22 @@ const handleClearAllMotions = () => {
 
                         <div className="MotionSummaryBlock">
                             <div className="motion content">
-                                {activeMotion && activeMotion.length > 0 && (
-                                    activeMotion[0].content
+                                {activeMotion && (
+                                    activeMotion?.content
                                 )}
                             </div>
                             <div className="motions voteCount">
-                                {activeMotion && activeMotion.length > 0 && (
-                                    <VoteCountChart votes={activeMotion[0].votes} abstain={activeMotion[0].abstain} />
+                                {console.log("activeMotion", activeMotion)}
+                                {activeMotion  && (
+                                    <VoteCountSummary votes={activeMotion?.votes} abstain={activeMotion?.abstain} />
                                 )}
                             </div>
+
                             <div className="motions totals">
-
+                                {/* Render other content here */}
                             </div>
-
                         </div>
+
 
                         <div className="presentationButtonBlock">
                             <CoolButton onClick={toPresentation} buttonText={"Presentation"} buttonColor={'#00DB89'} textColor='white' />
