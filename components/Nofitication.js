@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Paper, Typography } from "@mui/material";
 import CoolButton from "./CoolButton";
 import './components.css';
-import { updateDMReadStatus, deleteDMFromDB, conferenceCollection } from "../imports/api/conference"; // Update imports
+import { updateDMReadStatus, deleteDMFromDB, conferenceCollection,joinWG  } from "../imports/api/conference"; // Update imports
 
 const Notification = ({ notification, readNotification }) => {
   const getUserFromLocalStorage = () => {
@@ -25,22 +25,18 @@ const Notification = ({ notification, readNotification }) => {
     const DM = conference.DMs.find(dm => dm._id === notification._id);
     if (DM) {
       const WGid = DM.groupId;
+      console.log('Joining working group:', WGid);
+      console.log('DM:', DM);
 
-      if (!conference.workingGroups.some(group => group._id === WGid && group.countries.some(item => item.country === user.country))) {
-        conferenceCollection.update(
-          { _id: conference._id, 'workingGroups._id': WGid },
-          { $push: { 'workingGroups.$.countries': { country: user.country, name: user.countryName, flagPath: user.flagPath } } },
-          (error, result) => {
-            if (error) {
-              console.error('Error updating working group:', error);
-            } else {
-              console.log('Successfully joined the group:', result);
-            }
-          }
-        );
+      const result = joinWG({ sessionId: user.confID, groupId: WGid, user }); // Call the joinWG function
+  
+      if (result === "error") {
+        console.error('Failed to join the group');
+      } else {
+        // Optional: You can add any additional logic here after successfully joining the group
       }
     } else {
-      console.error('DM document not found for notification ID:', notification._id);
+        console.error('DM document not found for notification ID:', notification._id);
     }
   };
 
