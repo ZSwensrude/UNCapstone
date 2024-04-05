@@ -34,7 +34,6 @@ const Header = ( {version, country} ) => {
 
       { version === 'dias' && (
         <>
-          <LogoutButton />
 
           <Paper id='logoback' elevation={0}>
             <img id='un' src={window.location.origin + '/images/UN_emblem_blue.png'} alt='United Nations Logo' />
