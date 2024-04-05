@@ -199,30 +199,6 @@ Accounts.createUser({username: 'Irelandxyz', password: 'xyz', country: 'Ireland'
 
             </div>
 
-            <div className='secondPart'>
-
-                        <span className='presetLoc'>Preset Locations</span>       
-
-                    <div className="locationBoxBlock">
-                        <div className='locationBox'>
-
-                            <div className="locationInputBox">
-                                <input className="locationInput" placeholder="type here..." type="text" />
-                            </div>
-
-                            <div className='addButtonBox'>
-                                <CoolButton buttonText={"Add"} buttonColor={'#FF9728'} textColor='white' />
-                            </div>
-
-
-                            {conferenceLocations.map( (conferenceLocation, index) => (
-                            <PriorLocations key={conferenceLocation.cLocation + index} version={"dias"} conferenceLocation={conferenceLocation}/>
-                            ))}
-
-                        </div>
-                    </div>
-                </div>
-
                     
                     <div className='createConfButtons'>
                         <CoolButton buttonText={"Cancel"} onClick={handleToCloseConference} buttonColor={'#800000'} textColor='white' />
