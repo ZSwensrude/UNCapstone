@@ -232,6 +232,7 @@ const handleDIASreadAll = () => {
 
         // Insert the speaker with the selected country
         insertSpeaker({ country: searchTerm, sessionId: user.confID });
+       // console.log("insert Speaker", insertSpeaker)
     };
 
 
