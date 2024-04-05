@@ -91,11 +91,6 @@ const WorkingGroupsListDIAS = ({ }) => {
   return (
     <>
       <div id='groups'>
-        <span id='groupsTop' elevation={4}>
-          <Typography variant='h4'>
-            Working Groups
-          </Typography>
-        </span>
         <div id='groupsBody' elevation={4}>
 
           <div className="groupHolder">
