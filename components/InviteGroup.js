@@ -34,9 +34,9 @@ const InviteGroup = ({ onInvite, group }) => {
     
       if (conference) {
         const delegatesListDias = conference.delegates || []; // Ensure delegates list is available
-        const filteredCountries = countriesData.countries.filter(countryData => {
+        const filteredCountries = countriesData.countries.filter((countryData) => {
           // Check if the country's name exists in delegatesListDias
-          return delegatesListDias.some(delegate => delegate.country === countryData.country);
+          return delegatesListDias.some(delegate => delegate.country === countryData.country && delegate.country !== user.country);
         });
         setCountries(filteredCountries);
       }
