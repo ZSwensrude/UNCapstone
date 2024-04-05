@@ -24,7 +24,7 @@ const WorkingGroupsListDIAS = ({ }) => {
   const [group, setGroup] = useState({});
 
   const chooseGroup = (newGroup) => {
-    console.log("CHOOSE GROUP");
+    //console.log("CHOOSE GROUP");
     setGroup(newGroup);
     setDialogOpen(true);
   };
@@ -51,12 +51,12 @@ const WorkingGroupsListDIAS = ({ }) => {
   const deleteGroup = () => {
     if (group._id) { // Check if group id exists
       const groupId = group._id;
-      console.log("Deleting group with ID: ", groupId);
+      //console.log("Deleting group with ID: ", groupId);
 
       // Call the deleteWG function from workingGroupCollection
       deleteWG(user.confID, groupId)
         .then((result) => {
-          console.log('Successfully deleted the group:', result);
+          //console.log('Successfully deleted the group:', result);
           // Additional logic after successful deletion
         })
         .catch((error) => {

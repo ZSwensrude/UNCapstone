@@ -37,7 +37,7 @@ export const setTimerTime = async ( conferenceID, time ) => {
       { $set: { 'timer.time': time } }
     )
   } catch (e) {
-    console.log("error setting time: ", e);
+    //console.log("error setting time: ", e);
   }
 }
 
@@ -163,7 +163,6 @@ export const insertSpeaker = async ({ country, sessionId }) => {
     console.error('Error fetching time:', error);
   });
 };
-
 
 
 export const removeSpeaker = async ({ sessionId, _idspeaker }) => {
@@ -475,7 +474,6 @@ export const updateWG = async ({ groupId, name, topic, location }) => {
     return "error";
   }
 };
-
 export const joinWG = ({ sessionId, groupId, user }) => {
   try {
     const conference = conferenceCollection.findOne({ sessionID: sessionId });
@@ -486,34 +484,44 @@ export const joinWG = ({ sessionId, groupId, user }) => {
 
     // Find the index of the working group within the conference's workingGroups array
     const groupIndex = conference.workingGroups.findIndex(group => group._id === groupId);
+    
+    // Check if the working group exists
+    if (groupIndex !== -1) {      
+      // Check if the user's country is already in any working group
+      const userAlreadyInGroup = conference.workingGroups[groupIndex].countries.some(country => country.country === user.country);
 
-    if (groupIndex !== -1) {
-      // If the working group exists, update its fields
-      const updatedGroup = {
-        ...conference.workingGroups[groupIndex],
-        countries: [
-          ...conference.workingGroups[groupIndex].countries,
-          { country: user.country, name: user.countryName, flagPath: user.flagPath }
-        ]
-      };
+      if (!userAlreadyInGroup) {
+        // If the user is not already in a working group, update the working group
+        const updatedGroup = {
+          ...conference.workingGroups[groupIndex],
+          countries: [
+            ...conference.workingGroups[groupIndex].countries,
+            { country: user.country, name: user.countryName, flagPath: user.flagPath }
+          ]
+        };
 
-      const updatedGroups = [...conference.workingGroups];
-      updatedGroups[groupIndex] = updatedGroup;
+        const updatedGroups = [...conference.workingGroups];
+        updatedGroups[groupIndex] = updatedGroup;
 
-      conferenceCollection.update(
-        { _id: conference._id },
-        { $set: { workingGroups: updatedGroups } }
-      );
-      //console.log(`Successfully joined the working group with ID ${groupId}`);
+        conferenceCollection.update(
+          { _id: conference._id },
+          { $set: { workingGroups: updatedGroups } }
+        );
+        //console.log(`Successfully joined the working group with ID ${groupId}`);
+      } else {
+        //console.log('User is already in a working group.');
+        return "error";
+      }
     } else {
-      console.error('Working group not found.');
+      //console.log('Working group not found.');
       return "error";
     }
   } catch (error) {
-    console.error('Error joining working group:', error);
+    //console.log('Error joining working group:', error);
     return "error";
   }
 };
+
 export const removeFromWG = ({ sessionId, groupId, user }) => {
   try {
     const conference = conferenceCollection.findOne({ sessionID: sessionId });
