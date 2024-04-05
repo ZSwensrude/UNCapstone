@@ -43,7 +43,7 @@ const MessageGroup = ({ countries = [], fromname, groupname}) => {
       // Send message to each country in the group
       countries.forEach(country => {
         const properFrom = properFromName();
-        console.log(`Sending message from ${properFrom} to ${country.name}: ${inputValue}`);
+        //console.log(`Sending message from ${properFrom} to ${country.name}: ${inputValue}`);
         insertDM({ 
           sessionId: user.confID,
           type:"group", 

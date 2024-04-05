@@ -1,8 +1,8 @@
 import React from 'react';
 
 const VoteCountSummary = ({ votes ,abstain}) => {
-    console.log("votes", votes);
-    console.log("abstain", abstain);
+    //console.log("votes", votes);
+    //console.log("abstain", abstain);
     // If votes data is not available or empty, show a message
     if (!votes || votes.length === 0) {
         return (

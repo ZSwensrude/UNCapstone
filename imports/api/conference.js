@@ -37,7 +37,7 @@ export const setTimerTime = async ( conferenceID, time ) => {
       { $set: { 'timer.time': time } }
     )
   } catch (e) {
-    console.log("error setting time: ", e);
+    //console.log("error setting time: ", e);
   }
 }
 
@@ -507,17 +507,17 @@ export const joinWG = ({ sessionId, groupId, user }) => {
           { _id: conference._id },
           { $set: { workingGroups: updatedGroups } }
         );
-        console.log(`Successfully joined the working group with ID ${groupId}`);
+        //console.log(`Successfully joined the working group with ID ${groupId}`);
       } else {
-        console.log('User is already in a working group.');
+        //console.log('User is already in a working group.');
         return "error";
       }
     } else {
-      console.log('Working group not found.');
+      //console.log('Working group not found.');
       return "error";
     }
   } catch (error) {
-    console.log('Error joining working group:', error);
+    //console.log('Error joining working group:', error);
     return "error";
   }
 };

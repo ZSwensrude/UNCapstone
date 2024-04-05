@@ -25,8 +25,8 @@ const Notification = ({ notification, readNotification }) => {
     const DM = conference.DMs.find(dm => dm._id === notification._id);
     if (DM) {
       const WGid = DM.groupId;
-      console.log('Joining working group:', WGid);
-      console.log('DM:', DM);
+      //console.log('Joining working group:', WGid);
+      //console.log('DM:', DM);
 
       const result = joinWG({ sessionId: user.confID, groupId: WGid, user }); // Call the joinWG function
   
@@ -58,7 +58,7 @@ const Notification = ({ notification, readNotification }) => {
     setclassname(notification.read === "true" ? "singleNotification" : "unreadNotification");
     setBGColor(notification.type === 'global' ? "#00DB89" : "#FFFFFF");
   }, [notification]);
-    console.log(notification.read === "true" ? "singleNotification" : "unreadNotification");
+    //console.log(notification.read === "true" ? "singleNotification" : "unreadNotification");
 
   return (
     <Paper id={classname} style={{ background: bgColor }} elevation={3} >
