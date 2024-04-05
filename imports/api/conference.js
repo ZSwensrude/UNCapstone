@@ -165,7 +165,6 @@ export const insertSpeaker = async ({ country, sessionId }) => {
 };
 
 
-
 export const removeSpeaker = async ({ sessionId, _idspeaker }) => {
   const conference = conferenceCollection.findOne({ sessionID: sessionId });
   const updatedspeakers = conference.speakers.filter(speaker => speaker._id !== _idspeaker);
