@@ -14,6 +14,7 @@ import bcrypt from 'bcryptjs';
 import auth from "../components/auth";
 import { conferenceCollection, insertConference } from "../imports/api/conference";
 import { useTracker } from 'meteor/react-meteor-data';
+import LogoutButton from "../components/LogoutButton";
 
 // Placeholder for Dias screen
 const Dias = () => {
@@ -199,30 +200,6 @@ Accounts.createUser({username: 'Irelandxyz', password: 'xyz', country: 'Ireland'
 
             </div>
 
-            <div className='secondPart'>
-
-                        <span className='presetLoc'>Preset Locations</span>       
-
-                    <div className="locationBoxBlock">
-                        <div className='locationBox'>
-
-                            <div className="locationInputBox">
-                                <input className="locationInput" placeholder="type here..." type="text" />
-                            </div>
-
-                            <div className='addButtonBox'>
-                                <CoolButton buttonText={"Add"} buttonColor={'#FF9728'} textColor='white' />
-                            </div>
-
-
-                            {conferenceLocations.map( (conferenceLocation, index) => (
-                            <PriorLocations key={conferenceLocation.cLocation + index} version={"dias"} conferenceLocation={conferenceLocation}/>
-                            ))}
-
-                        </div>
-                    </div>
-                </div>
-
                     
                     <div className='createConfButtons'>
                         <CoolButton buttonText={"Cancel"} onClick={handleToCloseConference} buttonColor={'#800000'} textColor='white' />
@@ -233,18 +210,19 @@ Accounts.createUser({username: 'Irelandxyz', password: 'xyz', country: 'Ireland'
         </Dialog>
         
         <Header version={'dias'}/>
-          <h6 className="myConference">My Conferences</h6>
+        <LogoutButton />
+        <h6 className="myConference">My Conferences</h6>
 
-          <div className="confContainer">
+        <div className="confContainer">
 
-          {conferenceData.map( (conference, index) => (
-              <MyConference key={conference.title + index} sessionID={conference.sessionID} title={conference.title} date={conference.date}/>
-            ))}
-              <div className="buttonBlock">
-              <CoolButton buttonText={"New"} onClick={handleClickToOpenConference} buttonColor={'#FF9728'} textColor='white' />
-              </div>
-            
-          </div>
+        {conferenceData.map( (conference, index) => (
+            <MyConference key={conference.title + index} sessionID={conference.sessionID} title={conference.title} date={conference.date}/>
+          ))}
+            <div className="buttonBlock">
+            <CoolButton buttonText={"New"} onClick={handleClickToOpenConference} buttonColor={'#FF9728'} textColor='white' />
+            </div>
+          
+        </div>
     </div>
   );
 }

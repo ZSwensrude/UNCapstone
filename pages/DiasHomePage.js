@@ -273,12 +273,6 @@ const handleDIASreadAll = () => {
     const [motionError, setMotionError] = useState('');
     const [showVotes, setShowVotes] = useState(false);
 
-    //for the show voting screen
-    const handleVoteChange = (event) => {
-        setShowVotes(event.target.checked);
-        //console.log(showVotes)
-    };
-
     const handleAbstainChange = (event) => {
         setAbstain(event.target.checked);
     };
@@ -505,10 +499,6 @@ const handleClearAllMotions = () => {
                             <FormControlLabel
                                 control={<Checkbox checked={abstain} onChange={handleAbstainChange} />}
                                 label="Allow abstain?"
-                            />
-                            <FormControlLabel
-                                control={<Checkbox checked={showVotes} onChange={handleVoteChange} />}
-                                label="Show Votes?"
                             />
                         </div>  
                     </div>
