@@ -256,7 +256,7 @@ const handleDIASreadAll = () => {
     const [buttonText, setButtonText] = useState("");
 
     const updateRollCallActive = () => {
-        if (conferenceData) {s
+        if (conferenceData) {
             const { _id, rollCallOpen } = conferenceData;
             const updatedRollCall = !rollCallOpen;
             updateRollCallStatus(_id, updatedRollCall);
