@@ -92,7 +92,7 @@ const DiasHome = () => {
             if (data.motions && data.motions.length > 0) {
                 const motion = data.motions.find((motion) => motion.active === true);
                 setActiveMotion(motion); // Update activeMotion state
-                console.log("activeMotion", motion);
+                //console.log("activeMotion", motion);
             }
     
             setDelegatesListDias(data?.delegates);
@@ -273,12 +273,6 @@ const handleDIASreadAll = () => {
     const [motionError, setMotionError] = useState('');
     const [showVotes, setShowVotes] = useState(false);
 
-    //for the show voting screen
-    const handleVoteChange = (event) => {
-        setShowVotes(event.target.checked);
-        console.log(showVotes)
-    };
-
     const handleAbstainChange = (event) => {
         setAbstain(event.target.checked);
     };
@@ -324,7 +318,7 @@ const handleClearAllMotions = () => {
     try {
         // Call the clearallMotions function to remove all motions
         clearallMotions(user.confID);
-        console.log('All motions cleared successfully.');
+        //console.log('All motions cleared successfully.');
     } catch (error) {
         console.error('Error clearing all motions:', error);
     }
@@ -506,10 +500,6 @@ const handleClearAllMotions = () => {
                                 control={<Checkbox checked={abstain} onChange={handleAbstainChange} />}
                                 label="Allow abstain?"
                             />
-                            <FormControlLabel
-                                control={<Checkbox checked={showVotes} onChange={handleVoteChange} />}
-                                label="Show Votes?"
-                            />
                         </div>  
                     </div>
 
@@ -550,7 +540,6 @@ const handleClearAllMotions = () => {
                                 )}
                             </div>
                             <div className="motions voteCount">
-                                {console.log("activeMotion", activeMotion)}
                                 {activeMotion  && (
                                     <VoteCountSummary votes={activeMotion?.votes} abstain={activeMotion?.abstain} />
                                 )}

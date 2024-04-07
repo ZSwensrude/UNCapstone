@@ -57,7 +57,7 @@ const TimerSession = ({ version, time, status, confID }) => {
       if (status === 'start') {
         ref.current?.start();
         setTimerStatus(confID, 'running'); // Update timer status in the database
-        console.log("time",time)
+        //console.log("time",time)
       }
       else if (status === 'restart') {
         ref.current?.stop();

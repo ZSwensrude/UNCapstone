@@ -85,17 +85,17 @@ const WorkingGroupsList = ({ openNotification, setOpenNotification, Dias}) => {
   const joinGroup = () => {
     if (group._id) {
       const WGid = group._id;
-      console.log("WGID: ", WGid);
+      //console.log("WGID: ", WGid);
   
       const result = joinWG({ sessionId: user.confID, groupId: WGid, user }); // Call the joinWG function
   
       if (result === "error") {
-        console.error('Failed to join the group');
+        //console.log('Failed to join the group');
       } else {
         // Optional: You can add any additional logic here after successfully joining the group
       }
     } else {
-      console.error('Group id not found');
+      //console.log('Group id not found');
     }
     setGroup({});
   };

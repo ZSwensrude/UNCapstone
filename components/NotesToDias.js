@@ -27,7 +27,7 @@ const NotesToDias = ({ aDiasNote }) => {
 
         const handleClick = () => {    
             if (isRead === "false") { // Check if the note is unread
-                console.log("updated read status");
+                //console.log("updated read status");
                 updateDMReadStatus(user.confID, aDiasNote._id, "true")
                     .then(() => {
                         setIsRead(true); // Update the local state after successful update
