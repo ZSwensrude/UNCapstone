@@ -2,7 +2,7 @@ import React, { useState , useRef } from "react";
 import CoolButton from './CoolButton';
 import Countdown from 'react-countdown';
 
-const TimerSpeaker = React.memo(() => {
+const TimerSpeaker = () => {
 
 const [timeSpeaker, setTimeSpeaker] = useState("");
 let numInSecondsSpeaker = Number(timeSpeaker) * 60000;
@@ -74,6 +74,6 @@ return (
         </div>
 </div>
 );
-});
+};
 
 export default TimerSpeaker;

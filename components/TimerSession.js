@@ -9,30 +9,30 @@ const TimerSession = ({ version, time, status, confID }) => {
   const ref = useRef();
   const initialTimerStatus = useRef(''); // Store initial timer status
 
-  let currentTime = 0;
+  // let currentTime = 0;
 
-  const [newTime, setNewTime] = useState(null);
+  // const [newTime, setNewTime] = useState(null);
 
-  useEffect(() => {
-    const getTime = async () => {
-      try {
-        const response = await fetch('https://worldtimeapi.org/api/timezone/Europe/London');
-        const data = await response.json();
-        const currentDate = new Date(data.datetime);
-        return currentDate; // This value will be wrapped in a promise because the function is async
-      } catch (error) {
-        console.error('Error fetching time:', error);
-      }
-    };
+  // useEffect(() => {
+  //   const getTime = async () => {
+  //     try {
+  //       const response = await fetch('https://worldtimeapi.org/api/timezone/Europe/London');
+  //       const data = await response.json();
+  //       const currentDate = new Date(data.datetime);
+  //       return currentDate; // This value will be wrapped in a promise because the function is async
+  //     } catch (error) {
+  //       console.error('Error fetching time:', error);
+  //     }
+  //   };
 
-    // Call getTime and update state with its result
-    getTime().then(currentDate => {
-      setNewTime(currentDate);
-    });
+  //   // Call getTime and update state with its result
+  //   getTime().then(currentDate => {
+  //     setNewTime(currentDate);
+  //   });
 
-  }, []);
+  // }, []);
 
-  currentTime = newTime?.getTime()
+  // currentTime = newTime?.getTime()
 
   const handleStartClickSession = () => {
     setTimerStatus(confID, 'start'); // Update timer status in the database
@@ -73,7 +73,8 @@ const TimerSession = ({ version, time, status, confID }) => {
   useEffect(() => {
     if (version !== 'Presentation')
       // setTimerTime(confID, timeSession);
-      setTimerTime(confID, currentTime + numInSecondsSession);
+      // setTimerTime(confID, currentTime + numInSecondsSession);
+      setTimerTime(confID, Date.now() + numInSecondsSession);
   }, [timeSession]);
 
   useEffect(() => {
@@ -123,7 +124,8 @@ const TimerSession = ({ version, time, status, confID }) => {
                 <Countdown
                   key={numInSecondsSession}
                   ref={ref}
-                  date={currentTime + numInSecondsSession}
+                  //date={currentTime + numInSecondsSession}
+                  date={Date.now() + numInSecondsSession}
                   renderer={renderer}
                   autoStart={false}
                 />
@@ -147,7 +149,8 @@ const TimerSession = ({ version, time, status, confID }) => {
           <Countdown
             key={numInSecondsSession}
             ref={ref}
-            date={version === 'Presentation' ? time : currentTime + numInSecondsSession}
+            //date={version === 'Presentation' ? time : currentTime + numInSecondsSession}
+            date={version === 'Presentation' ? time : Date.now() + numInSecondsSession}
             renderer={renderer}
             autoStart={false}
           />
